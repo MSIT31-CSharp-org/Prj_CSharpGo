@@ -12,15 +12,18 @@ namespace Prj_CSharpGo.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private WildnessCampingContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger , WildnessCampingContext dbContext)
         {
             _logger = logger;
+            _context = dbContext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var query = _context.Users.Find(1001).UserName;
+            return Content(query);
         }
 
         public IActionResult Privacy()
