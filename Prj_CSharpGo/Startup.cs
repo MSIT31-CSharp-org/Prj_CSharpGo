@@ -26,7 +26,7 @@ namespace Prj_CSharpGo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<WildnessCampingContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("linkToNewsDb")));
+                options.UseSqlServer(Configuration.GetConnectionString("linkToCampingDb")));
 
             services.AddControllersWithViews();
         }
