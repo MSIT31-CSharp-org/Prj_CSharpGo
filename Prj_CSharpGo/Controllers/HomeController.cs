@@ -14,7 +14,7 @@ namespace Prj_CSharpGo.Controllers
         private readonly ILogger<HomeController> _logger;
         private WildnessCampingContext _context;
 
-        //ssssssssssqqqqqqqqqqqqqq
+        //測試喔~~~
         public HomeController(ILogger<HomeController> logger , WildnessCampingContext dbContext)
         {
             _logger = logger;
