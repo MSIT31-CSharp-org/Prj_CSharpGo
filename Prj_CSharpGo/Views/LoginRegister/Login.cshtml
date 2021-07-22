@@ -31,7 +31,7 @@
         </div>
         <div class="agile-field-txt">
             <label><i class="fa fa-unlock-alt" aria-hidden="true"></i> 密碼 </label>
-            <input class="form-control" type="password" id="Password" name="Password" value="" required />
+            <input class="form-control" type="password" id="UserPwd" name="Password" value="" required />
 
             <div class="agile_label">
                 <input id="check3" name="check3" type="checkbox" value="show password" onclick="ShowEnCode()">
@@ -49,7 +49,7 @@
         <!-- script for show password -->
         <script>
             function ShowEnCode() {
-                var x = document.getElementById("myInput");
+                var x = document.getElementById("UserPwd");
                 if (x.type === "password") {
                     x.type = "text";
                 } else {
