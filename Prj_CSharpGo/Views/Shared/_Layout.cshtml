@@ -9,60 +9,100 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 大專題模擬</title>
+    <link rel="apple-touch-icon" href="~/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/02.png">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/templatemo.css">
+    <link rel="stylesheet" href="~/css/custom.css">
 
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/font-awesome.css" >
-    @*<link rel='stylesheet' href="~/css/Login.css"  />*@
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" >
-
-    <title>野性 - @ViewData["Title"]</title>
+    <!-- 字型的樣式 -->
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="~/css/fontawesome.css">
 </head>
-
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i>野性</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-light shadow">
+            <div class="container d-flex justify-content-between align-items-center" style="max-width: 1500px;">
+
+                <a class="navbar-brand text-success logo h1 align-self-center" href="">
+                    露營用品專賣店
+                </a>
+
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">首頁</a>
-                        </li>
-                        @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </li>*@
-                        <li class="nav-item">
-                            @{
-                                if (userName == "Guest")
-                                {
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="LoginRegister" asp-action="Login">登入</a>
-                                }
-                                else
-                                {
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="LoginRegister" asp-action="Logout">登出</a>
-                                }
-                            }
-                        </li>
 
-                        @*EmployeeController*@
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Login">EmployeeController</a>
-                        </li>
+                <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+                     id="templatemo_main_nav">
+                    <div class="flex-fill">
+                        <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                            <li class="nav-item">
+                                @*@Html.ActionLink("Home", "Index", "Home")*@
+                                <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
+                                @*<a class="nav-link" href="recipe.html">Home</a>*@
+                            </li>
+                            <li class="nav-item">
+                                @*@Html.ActionLink("Recipe", "Recipe", "Home")*@
+                                <a class="nav-link" href="@Url.Action("Recipe", "Home")">Recipe</a>
+                                @*<a class="nav-link" href="recipe.html">Recipe</a>*@
+                            </li>
+                            @*<li class="nav-item nav-link">
+                                    <a class="nav-link" href="about.html">About</a>
+                                </li>*@
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" type="button"
+                                   rdata-toggle="dropdown" aria-haspopup="true">
+                                    Shop
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <p class="dropdown-item" href="#">Action</p>
+                                        </li>
+                                    </ul>
+                                </a>
 
-                        @*CampController*@
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Camp" asp-action="Index">CampController</a>
-                        </li>
-
-                    </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Recipe", "Home")">Recipe</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="navbar align-self-center d-flex">
+                        <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                                <div class="input-group-text">
+                                    <i class="fa fa-fw fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="input-group rounded" style="width: auto;margin-left: 100px;">
+                            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                                   aria-describedby="search-addon" />
+                            <span class="input-group-text border-0 " id="search-addon">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </a>
+                        <!-- 購物車 -->
+                        <a class="nav-icon position-relative text-decoration-none" href="#">
+                            <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1" style="margin-left: 40px;"></i>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
+                        </a>
+                        <!-- 會員 -->
+                        <a class="nav-icon position-relative text-decoration-none" href="#" style="margin-left: 20px;">
+                            <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
+                        </a>
+                    </div>
                 </div>
+
             </div>
         </nav>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -70,14 +110,17 @@
         </main>
     </div>
 
-    @*<footer class="border-top footer text-muted">
+
+    <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - Lab_Login_Session - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - 大專題模擬 - <a asp-area="" asp-controller="home" asp-action="privacy">privacy</a>
         </div>
-    </footer>*@
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    </footer>
+    <script src="~/js/jquery-1.11.0.min.js"></script>
+    <script src="~/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/templatemo.js"></script>
+    <script src="~/js/custom.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
