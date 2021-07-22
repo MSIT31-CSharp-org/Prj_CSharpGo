@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
 using Prj_CSharpGo.Models;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,12 @@ namespace Prj_CSharpGo.Controllers
         }
         public IActionResult Detail(int? id)
         {
-            Recipe re = this._context.Recipes.Find(id);
+            Recipe re = _context.Recipes.Find(id);
             return View(re);
         }
         public IActionResult Edit(int? id)
         {
-            Recipe re = this._context.Recipes.Find(id);
+            Recipe re = _context.Recipes.Find(id);
             return View(re);
         }
     }
