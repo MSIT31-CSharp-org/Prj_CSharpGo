@@ -9,15 +9,21 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" >
+    @*<link rel='stylesheet' href="~/css/Login.css"  />*@
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" >
+
+    <title>野性 - @ViewData["Title"]</title>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">露營專業</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i>野性</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,16 +40,13 @@
                             @{
                                 if (userName == "Guest")
                                 {
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">登入</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="LoginRegister" asp-action="Login">登入</a>
                                 }
                                 else
                                 {
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">登出</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="LoginRegister" asp-action="Logout">登出</a>
                                 }
                             }
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="MemberCenter">會員中心</a>
                         </li>
 
                         @*EmployeeController*@
