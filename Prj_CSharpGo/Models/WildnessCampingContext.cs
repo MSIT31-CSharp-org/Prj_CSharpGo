@@ -364,6 +364,10 @@ namespace Prj_CSharpGo.Models
 
                 entity.Property(e => e.RecipeId).HasColumnName("RecipeID");
 
+                entity.Property(e => e.CookingTime)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+
                 entity.Property(e => e.CreateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.Img)
@@ -373,6 +377,10 @@ namespace Prj_CSharpGo.Models
                 entity.Property(e => e.ModifiedTime).HasColumnType("datetime");
 
                 entity.Property(e => e.Preparation).HasMaxLength(200);
+
+                entity.Property(e => e.PreparationTime)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.PublishTime).HasColumnType("datetime");
 
@@ -385,6 +393,10 @@ namespace Prj_CSharpGo.Models
                 entity.Property(e => e.Step).HasMaxLength(500);
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.Yield)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Recipes)
