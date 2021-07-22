@@ -10,17 +10,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - 野性</title>
-    <link rel="apple-touch-icon" href="~/img/apple-icon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="~/img/02.png">
-    <link rel="stylesheet" href="~/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/templatemo.css">
-    <link rel="stylesheet" href="~/css/custom.css">
+    <link rel="apple-touch-icon" href="~/Didi/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Didi/img/02.png">
+    <link rel="stylesheet" href="~/Didi/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Didi/css/templatemo.css">
+    <link rel="stylesheet" href="~/Didi/css/custom.css">
 
     <!-- 字型的樣式 -->
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href="~/css/fontawesome.css">
+    <link rel="stylesheet" href="~/Didi/css/fontawesome.css">
 </head>
 <body>
     <header>
@@ -93,7 +93,7 @@
                             <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
                         </a>
                         <!-- 會員 -->
-                        <a class="nav-icon position-relative text-decoration-none" href="#" style="margin-left: 20px;">
+                        <a class="nav-icon position-relative text-decoration-none" href="@Url.Action("Login", "LoginRegister")" style="margin-left: 20px;">
                             <i class="fa fa-fw fa-user text-dark mr-3"></i>
                             <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
                         </a>
@@ -116,11 +116,11 @@
             &copy; 2021 - 大專題模擬 - <a asp-area="" asp-controller="home" asp-action="privacy">privacy</a>
         </div>*@
     </footer>
-    <script src="~/js/jquery-1.11.0.min.js"></script>
-    <script src="~/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/templatemo.js"></script>
-    <script src="~/js/custom.js"></script>
+    <script src="~/Didi/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Didi/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Didi/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Didi/js/templatemo.js"></script>
+    <script src="~/Didi/js/custom.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
