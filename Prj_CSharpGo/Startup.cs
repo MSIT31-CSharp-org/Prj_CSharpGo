@@ -30,7 +30,6 @@ namespace Prj_CSharpGo
             services.AddDbContext<WildnessCampingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("linkToCampingDb")));
 
-            services.AddSession();
             services.AddControllersWithViews();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -57,6 +56,8 @@ namespace Prj_CSharpGo
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
