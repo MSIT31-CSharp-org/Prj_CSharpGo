@@ -7,10 +7,6 @@ namespace Prj_CSharpGo.Models
 {
     public partial class Camp
     {
-        public Camp()
-        {
-            CampOrders = new HashSet<CampOrder>();
-        }
 
         public int CampId { get; set; }
         public string CampName { get; set; }
