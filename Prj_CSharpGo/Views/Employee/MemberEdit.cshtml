@@ -1,0 +1,119 @@
+﻿@model Prj_CSharpGo.Models.User
+
+@{
+    ViewData["Title"] = "MemberEdit";
+    Layout = "EmployeeLayout";
+}
+
+<h1>會員編輯</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form action="/Employee/MemberEdit/@Model.UserId" method="post">
+
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label class="control-label" for="UserId">會員ID</label>
+                <input class="form-control" type="number" data-val="true" data-val-required="會員ID不可空白" id="UserId" name="UserId" readonly value="@Model.UserId" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="UserId" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="UserAccount">帳號</label>
+                <input class="form-control" type="text" data-val="true" data-val-required="帳號不可空白" id="UserAccount" name="UserAccount" value="@Model.UserAccount" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="UserAccount" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="UserPassword">密碼</label>
+                <input class="form-control" type="text" data-val="true" data-val-required="密碼不可空白" id="UserPassword" name="UserPassword" value="@Model.UserPassword" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="UserPassword" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="UserName">名字</label>
+                <input class="form-control" type="text" id="UserName" name="UserName" value="@Model.UserName" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Birthday">生日</label>
+                <input class="form-control" type="text" id="Birthday" name="Birthday" value="@Model.Birthday" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="Birthday" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Region">地區</label>
+                <input class="form-control" type="text" id="Region" name="Region" value="@Model.Region" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="Region" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Address">地址</label>
+                <input class="form-control" type="text" id="Address" name="Address" value="@Model.Address" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Phone">電話</label>
+                <input class="form-control" type="text" id="Phone" name="Phone" value="@Model.Phone" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="Phone" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Email">Email</label>
+                <input class="form-control" type="text" id="Email" name="Email" value="@Model.Email" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Img">照片</label>
+                <input class="form-control" type="text" id="Img" name="Img" value="@Model.Img" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="Img" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="DiscountCode">優惠碼</label>
+                <input class="form-control" type="text" id="DiscountCode" name="DiscountCode" value="@Model.DiscountCode" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="DiscountCode" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="UpdateDate">修改日期</label>
+                <input class="form-control" type="datetime-local" id="UpdateDate" name="UpdateDate" value="@Model.UpdateDate" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="UpdateDate" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="狀態">狀態</label>
+                <select name="UserStatus" class="form-control">
+                    <option value="">請選擇狀態</option>
+                    @{if (Model.UserStatus == "01")
+                        {
+                            <option value="01" selected>01</option>
+                            <option value="02">02</option>
+                        }
+                        else
+                        {
+                            <option value="01">01</option>
+                            <option value="02" selected>02</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Vip">Vip</label>
+                <select name="Vip" class="form-control">
+                    <option value="">請選擇Vip</option>
+                    @{if (Model.Vip == "01")
+                        {
+                            <option value="01" selected>01</option>
+                            <option value="02">02</option>
+                        }
+                        else
+                        {
+                            <option value="01">01</option>
+                            <option value="02" selected>02</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="確定送出" class="btn btn-primary" />
+                <a href="/Employee/Member" class="btn btn-danger">回到清單</a>
+            </div>
+        </form>
+    </div>
+</div>
