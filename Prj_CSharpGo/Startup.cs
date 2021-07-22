@@ -63,7 +63,7 @@ namespace Prj_CSharpGo
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Camp}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
