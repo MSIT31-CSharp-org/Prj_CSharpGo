@@ -1,0 +1,48 @@
+﻿
+@model List<Prj_CSharpGo.Models.Recipe>
+
+<div class="banner">
+    <div class="container" style="margin-left: 20px;margin-top: 20px;">
+        <!-- container -->
+        <div class="banner-info text-center">
+            <a href="index.html">
+                <img src="~/img/camping.png" alt=""
+                     style="max-width: 900px;max-height:500px;" />
+            </a>
+            <!-- max-width/max-height會照比例調整大小，不超過限制長度-->
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+<!-- 食譜清單 -->
+<section class="best-receipe-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading" style="text-align: center;">
+                    <h3>食譜推薦</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        @{
+            foreach (var item in Model)
+            {
+                <div class="col-12 col-md-4 p-5 mt-3">
+                    <a href="#">
+                        <img src="~/img/@item.Img"
+                             class="rounded-circle img-fluid border">
+                    </a>
+                    <h5 class="text-center mt-3 mb-3">@item.RecipeName</h5>
+                    <p class="text-center"><a class="btn btn-success" href="/Recipe/Detail/@item.RecipeId">Read more</a></p>
+                </div>
+            }
+        }
+    </div>
+</section>
+
