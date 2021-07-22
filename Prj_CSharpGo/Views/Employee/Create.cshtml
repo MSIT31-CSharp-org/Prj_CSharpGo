@@ -1,0 +1,58 @@
+﻿@model Prj_CSharpGo.Models.Employee
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "EmployeeLayout";
+}
+
+<h1>請輸入新增資料</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form action="/Employee/Create" method="post">
+
+            <!-- 防止跨站請求偽造攻擊 -->
+            @Html.AntiForgeryToken()
+
+            <!-- data-val="true" 表示要進行驗證 -->
+            <!-- data-val-required="不可為空白" 欄位空白顯示訊息「不可為空白」 -->
+            <!-- data-valmsg-for 受驗證欄位的 name -->
+            <!-- data-valmsg-replace 必要 -->
+            <div class="form-group">
+                <label class="control-label" for="EmployeeId">帳號</label>
+                <input class="form-control" type="number" data-val="true" data-val-required="帳號不可空白" id="EmployeeId" name="EmployeeId" value="" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeId" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="EmployeeName">名子</label>
+                <input class="form-control" type="text" id="EmployeeName" name="EmployeeName" value="" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeName" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="EmployeePassword">密碼</label>
+                <input class="form-control" type="password" data-val="true" data-val-required="密碼不可空白" id="EmployeePassword" name="EmployeePassword" />
+                <span class="text-danger " data-valmsg-for="EmployeePassword" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="EmployeeEmail">Email</label>
+                <input class="form-control" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="EmployeeEmail" name="EmployeeEmail" value="" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeEmail" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="EmployeeStatus">權限</label>
+                <select name="EmployeeStatus" class="form-control">
+                    <option value="" disabled>請選擇權限</option>
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="確定送出" class="btn btn-primary" />
+                <a href="/Employee" class="btn btn-danger">回到清單</a>
+            </div>
+
+        </form>
+    </div>
+</div>

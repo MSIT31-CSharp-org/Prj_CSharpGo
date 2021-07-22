@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Prj_CSharpGo.Models;
+using Microsoft.AspNetCore.Http;
+
 
 namespace Prj_CSharpGo
 {
@@ -29,6 +31,10 @@ namespace Prj_CSharpGo
                 options.UseSqlServer(Configuration.GetConnectionString("linkToCampingDb")));
 
             services.AddControllersWithViews();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +56,8 @@ namespace Prj_CSharpGo
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

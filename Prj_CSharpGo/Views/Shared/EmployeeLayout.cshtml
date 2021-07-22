@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
+@{
+    string empId = emp.HttpContext.Session.GetString("employeeId") ?? "Guest";
+    string empName = emp.HttpContext.Session.GetString("employeeName") ?? "Guest";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</head>
+<body>
+
+    <div class="row">
+        <div class="col-2">
+            <div class="list-group">
+
+                @{
+                    <a class="list-group-item list-group-item-action" href="/Home/Index">首頁</a>
+
+                    if (empId == "Guest")
+                    {
+                        <a class="list-group-item list-group-item-action" href="/Employee/Login">登入</a>
+                    }
+                    else
+                    {
+                        <a class="list-group-item list-group-item-action">目前登入名字 : @empName</a>
+                        <a class="list-group-item list-group-item-action">目前登入帳號 : @empId</a>
+
+                        <a class="list-group-item list-group-item-action" href="/Employee/Logout">登出</a>
+                        <a class="list-group-item list-group-item-action" href="/Employee/Index">員工資料</a>
+                        <a class="list-group-item list-group-item-action" href="/Employee/Member">會員資料</a>
+                        <a class="list-group-item list-group-item-action" href="/Employee/Order">訂單資料</a>
+                        <a class="list-group-item list-group-item-action" href="/Employee/Product">商品資料</a>
+                        <a class="list-group-item list-group-item-action" href="/Employee/Camp">場地資料</a>
+                    }
+                }
+
+            </div>
+        </div>
+        <div class="col-10">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
