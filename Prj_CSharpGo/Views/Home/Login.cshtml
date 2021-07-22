@@ -1,0 +1,39 @@
+﻿<div class="w3ls-login box box--big">
+    <!-- form starts here -->
+    <form method="post" action="/Login/LoginForm">
+        <div class="agile-field-txt">
+            <label><i class="fa fa-user" aria-hidden="true"></i> 帳號 </label>
+            <input class="form-control" type="text" id="UserName" name="UserName" value="" />
+        </div>
+        <div class="agile-field-txt">
+            <label><i class="fa fa-unlock-alt" aria-hidden="true"></i> 密碼 </label>
+            <input class="form-control" type="password" id="Password" name="Password" value="" required />
+
+            <div class="agile_label">
+                <input id="check3" name="check3" type="checkbox" value="show password" onclick="ShowEnCode()">
+                <label class="check" for="check3">顯示密碼</label>
+            </div>
+
+            <div class="agile-right">
+                <a href="#">忘記密碼?</a>
+            </div>
+        </div>
+        <!-- script for show password -->
+        <script>
+            function ShowEnCode() {
+                var x = document.getElementById("myInput");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
+        </script>
+        <div class="form-group">
+            <input type="submit" value="確定" class="btn btn-outline-primary" /> |
+            <a href="/Home/Index" class="btn btn-outline-info">取消</a>
+        </div>
+
+    </form>
+
+</div>
