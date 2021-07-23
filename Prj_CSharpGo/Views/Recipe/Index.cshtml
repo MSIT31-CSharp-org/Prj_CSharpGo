@@ -1,5 +1,9 @@
 ﻿@model List<Prj_CSharpGo.Models.Recipe>
 
+@{ 
+    ViewData["Title"] = "食譜";
+}
+
 <div class="banner">
     <div class="container" style="margin-left: 20px; margin-top: 20px;">
         <!-- container -->
@@ -26,7 +30,7 @@
             @foreach (var item in Model)
             {
                 <div class="col-12 col-md-4 p-5 mt-3">
-                    <a href="#">
+                    <a href="/Recipe/Detail/@item.RecipeId">
                         <img src="~/Didi/img/@item.Img"
                              class="rounded-circle img-fluid border">
                     </a>
