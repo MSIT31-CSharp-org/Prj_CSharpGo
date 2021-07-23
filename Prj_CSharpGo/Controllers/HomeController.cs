@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Prj_CSharpGo.Models;
 using System;
@@ -23,7 +22,8 @@ namespace Prj_CSharpGo.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var query = _context.Users.Find(1001).UserName;
+            return Content(query);
         }
 
         public IActionResult Privacy()

@@ -1,0 +1,88 @@
+﻿@model List<Prj_CSharpGo.Models.Camp>
+@{
+    ViewData["Title"] = "Camp";
+}
+
+<h1>Camp</h1>
+
+
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="prodcut-primary">營地清單</h2>
+
+        </div>
+    </div>
+    <form asp-controller="Search" asp-action="Camp" method="get">
+        <p>
+            <input type="text" name="SearchString" />
+            <input type="submit" value="搜尋" />
+        </p>
+    </form>
+
+
+    <br />
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        區域編號
+                    </th>
+                    <th>
+                        區域名稱
+                    </th>
+                    <th>
+                        尺寸
+                    </th>
+                    <th>
+                        帳數
+                    </th>
+                    <th>
+                        修改時間
+                    </th>
+                    <th>
+                        平日價格/天
+                    </th>
+                    <th>
+                        假日價格/天
+                    </th>
+                    <th>
+                        人數限制
+                    </th>
+                    <th>
+                        營地描述
+                    </th>
+                    <th>
+                        審核
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td width="30%">@item.CampId</td>
+                        <td width="30%">@item.CampName</td>
+                        <td width="30%">@item.CampSize</td>
+                        <td width="30%">@item.CampQuantity</td>
+                        <td width="30%">@item.WeekdayPrice</td>
+                        <td width="30%">@item.HolidayPrice</td>
+                        <td width="30%">@item.LimitPeople</td>
+                        <td width="30%">@item.Description</td>
+                        <td width="30%">@item.Approval</td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+
+</div>
