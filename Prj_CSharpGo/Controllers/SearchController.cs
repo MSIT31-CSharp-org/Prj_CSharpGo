@@ -18,7 +18,7 @@ namespace Prj_CSharpControllers
             {
                 _context = context;
             }
-            public IActionResult index(string Category, string searchString,string ImgString)
+            public IActionResult Index(string Category, string searchString,string ImgString)
             {
                 var CategoryIdLst = new List<string>()
  ;
