@@ -1,11 +1,20 @@
-﻿
-@model Prj_CSharpGo.Models.Recipe
+﻿@model Prj_CSharpGo.Models.Recipe
 
+@{
+    ViewData["Title"] = Model.RecipeName;
+}
+
+<br />
+
+<input type="button" onclick="history.back()" value="上一頁" />
+
+<br />
+<br />
 <div class="container" style="margin-left: 80px;">
-    <img src="~/img/@Model.Img" />
+    <img src="~/Didi/img/@Model.Img" />
 </div>
 
-<a class="btn btn-success" href="/Recipe/Edit/@Model.RecipeId">Edit</a>
+<a class="btn btn-success" href="/Recipe/Edit/@Model.RecipeId">編輯</a>
 
 <div class="row">
     <div class="col-12 col-md-8">
@@ -39,8 +48,6 @@
     <p>
 
         @Model.Step
-
-
 
     </p>
 </div>
