@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Prj_CSharpGo.Models;
 using System;
@@ -15,7 +14,6 @@ namespace Prj_CSharpGo.Controllers
         private readonly ILogger<HomeController> _logger;
         private WildnessCampingContext _context;
 
-        //測試喔~~~
         public HomeController(ILogger<HomeController> logger , WildnessCampingContext dbContext)
         {
             _logger = logger;
@@ -24,7 +22,8 @@ namespace Prj_CSharpGo.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var query = _context.Users.Find(1001).UserName;
+            return Content(query);
         }
 
         public IActionResult Privacy()
@@ -36,37 +35,6 @@ namespace Prj_CSharpGo.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Login(string userName, string password)
-        {
-            if (string.IsNullOrEmpty(userName))
-            {
-                return View();
-            }
-            // Session 的寫入
-            HttpContext.Session.SetString("userName", userName);
-            return Redirect("/Home/Index");
-        }
-
-        public IActionResult MemberCenter()
-        {
-            string userName = HttpContext.Session.GetString("userName") ?? "Guest";
-            if (userName == "Guest")
-            {
-                return Redirect("/Home/Index");
-            }
-            return View();
-        }
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Remove("userName");
-            return Redirect("/Home/Index");
         }
     }
 }

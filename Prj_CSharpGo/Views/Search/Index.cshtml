@@ -1,0 +1,90 @@
+﻿@model List<Prj_CSharpGo.Models.Product>
+
+@{
+
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="prodcut-primary">商品清單</h2>
+
+        </div>
+    </div>
+    <form asp-controller="Search" asp-action="Index" method="get">
+        <p>
+
+            <input type="text" name="SearchString" />
+            <input type="submit" value="搜尋" />
+        </p>
+    </form>
+
+
+    <br />
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        貨號
+                    </th>
+                    <th>
+                        類別編號
+                    </th>
+                    <th>
+                        商品名稱
+                    </th>
+                    <th>
+                        商品描述
+                    </th>
+                    <th>
+                        規格
+                    </th>
+                    <th>
+                        成本
+                    </th>
+                    <th>
+                        售價
+                    </th>
+                    <th>
+                        庫存量
+                    </th>
+                    <th>
+                        狀態
+                    </th>
+                    <th>
+                        審核
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td width="30%">@item.ProductId</td>
+                        <td width="30%">@item.CategoryId</td>
+                        <td width="30%">@item.ProductName</td>
+                        <td width="30%">@item.ProductDescription</td>
+                        <td width="30%">@item.Specification</td>
+                        <td width="30%">@item.Cost</td>
+                        <td width="30%">@item.UnitPrice</td>
+                        <td width="30%">@item.UnitInStock</td>
+                        <td width="30%">@item.Status</td>
+                        <td width="30%">@item.Approval</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+
+
+</div>
