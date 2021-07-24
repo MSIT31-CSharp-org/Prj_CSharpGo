@@ -1,0 +1,64 @@
+﻿@model Prj_CSharpGo.Models.Product
+
+@{
+    ViewData["Title"] = "ProductCreate";
+    Layout = "EmployeeLayout";
+}
+
+<h1>請輸入新增資料</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form action="/Employee/ProductCreate" method="post">
+
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label class="control-label" for="ProductId">編號</label>
+                <input class="form-control" type="text" data-val="true" data-val-required="編號不可空白" id="ProductId" name="ProductId" value="" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="CategoryId">類別</label>
+                <input class="form-control" type="text" data-val="true" data-val-required="類別不可空白" id="CategoryId" name="CategoryId" value="" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="CategoryId" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="ProductName">名稱</label>
+                <input class="form-control" type="text" data-val="true" data-val-required="名稱不可空白" id="ProductName" name="ProductName" value="" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="ProductName" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="ProductDescription">敘述</label>
+                <input class="form-control" type="text" id="ProductDescription" name="ProductDescription" value="" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="ProductDescription" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Specification">規格</label>
+                <input class="form-control" type="text" id="Specification" name="Specification" value="" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="Specification" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="UnitPrice">單價</label>
+                <input class="form-control" type="text" id="UnitPrice" name="UnitPrice" value="" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="UnitPrice" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="UnitInStock">庫存</label>
+                <input class="form-control" type="text" id="UnitInStock" name="UnitInStock" value="" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="UnitInStock" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Status">停賣</label>
+                <input class="form-control" type="text" id="Status" name="Status" value="" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="Status" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="確定送出" class="btn btn-primary" />
+                <a href="/Employee/ProductCreate" class="btn btn-danger">回到清單</a>
+            </div>
+
+        </form>
+    </div>
+</div>

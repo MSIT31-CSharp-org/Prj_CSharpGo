@@ -1,0 +1,21 @@
+﻿@{
+
+    ViewData["Title"] = "搜尋結果";
+}
+
+<table class="table">
+
+    <tbody>
+        @foreach (var item in Model.Recipes)
+        {
+            <div class="col-12 col-md-4 p-5 mt-3">
+                <a href="/Recipe/Detail/@item.RecipeId">
+                    <img src="~/Didi/img/@item.Img"
+                         class="rounded-circle img-fluid border">
+                </a>
+                <h5 class="text-center mt-3 mb-3">@item.RecipeName</h5>
+                <p class="text-center"><a class="btn btn-success" href="/Recipe/Detail/@item.RecipeId">閱讀更多···</a></p>
+            </div>
+        }
+    </tbody>
+</table>

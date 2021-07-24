@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Prj_CSharpGo.Models.Product>
+
+@{
+    ViewData["Title"] = "Product";
+    Layout = "EmployeeLayout";
+}
+
+<h1>商品資料</h1>
+<div class="search-form">
+    <label> 關鍵字搜索 </label>
+    <input id="search-input" type="text" placeholder="" />
+    <style id="m-search"></style>
+    <a href="/Employee/ProductCreate" class="btn btn-outline-success">新增商品資料</a>
+</div>
+<hr />
+<script>
+    var that = $(this);
+    var mSearch = $("#m-search");
+    $("#search-input").bind("change paste keyup", function () {
+        var value = $(this).val();
+        if (!value) {
+            mSearch.html("");
+            return;
+        };
+        mSearch.html('.wrap:not([data-index*="' + value + '"]) {display: none;}');
+    });
+</script>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                編號
+            </th>
+            <th>
+                類別
+            </th>
+            <th>
+                名稱
+            </th>
+            <th>
+                單價
+            </th>
+            <th>
+                庫存
+            </th>
+            <th>
+                停賣
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="wrap" data-index="@item.ProductId @item.ProductName">
+
+                <td>
+                    @item.ProductId
+                </td>
+                <td>
+                    @item.CategoryId
+                </td>
+                <td>
+                    @item.ProductName
+                </td>
+                <td>
+                    @item.UnitPrice
+                </td>
+                <td>
+                    @item.UnitInStock
+                </td>
+                <td>
+                    @item.Status
+                </td>
+
+                <td>
+                    <a href="/Employee/ProductEdit/@item.ProductId" class="btn btn-outline-primary">編輯資料</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
