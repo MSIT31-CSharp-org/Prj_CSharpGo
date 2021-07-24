@@ -20,7 +20,5 @@ namespace Prj_CSharpGo.Models
         public string PreparationTime { get; set; }
         public string CookingTime { get; set; }
         public string Yield { get; set; }
-
-        public virtual User User { get; set; }
     }
 }

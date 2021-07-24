@@ -28,7 +28,20 @@ namespace Prj_CSharpGo.Controllers
         public IActionResult Edit(int? id)
         {
             Recipe re = this._context.Recipes.Find(id);
+            //return Content(id.ToString());
             return View(re);
+        }
+        [HttpPost]
+        public IActionResult Edit(Recipe reForm)
+        {
+            Recipe re = this._context.Recipes.Find(reForm.RecipeId);
+            return Content(reForm.RecipeId.ToString());
+            //re.RecipeName = reForm.RecipeName;
+            //re.CreateTime = reForm.CreateTime;
+            //re.CreateTime = reForm.CreateTime;
+            //this._context.SaveChanges();
+            //return Redirect("/Recipe/Detail/reForm.RecipeId");
+
         }
     }
 }
