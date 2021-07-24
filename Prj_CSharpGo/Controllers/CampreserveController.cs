@@ -152,7 +152,8 @@ namespace Prj_CSharpGo.Controllers
                         TotalPricesmall = Totalprice,
                         TotalPricebig = Totalprice * Quantity,
                         HolidayPrice = (int)findCamp.HolidayPrice,
-                        WeekdayPrice = (int)findCamp.WeekdayPrice
+                        WeekdayPrice = (int)findCamp.WeekdayPrice,
+                        Daycount = dayCount
 
                     };
                     return RedirectToAction("ComfirmResult", "Campreserve", orderModel);

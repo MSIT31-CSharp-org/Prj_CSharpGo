@@ -24,6 +24,7 @@ namespace Prj_CSharpGo.Models
         public string PayMethod { get; set; }
         public string Approval { get; set; }
         public int? TotalPricebig { get; set; }
+        public int? Daycount { get; set; }
 
         public virtual Camp Camp { get; set; }
         public virtual User User { get; set; }

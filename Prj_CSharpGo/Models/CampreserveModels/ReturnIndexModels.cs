@@ -34,5 +34,6 @@ namespace Prj_CSharpGo.Models.CampreserveModels
         public string PayMethod { get; set; }
         public string Approval { get; set; }
         public int? TotalPricebig { get; set; }
+        public int Daycount { get; set; }
     }
 }
