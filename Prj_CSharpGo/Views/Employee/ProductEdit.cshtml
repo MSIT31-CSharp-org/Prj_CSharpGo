@@ -1,0 +1,82 @@
+﻿@model Prj_CSharpGo.Models.Product
+
+@{
+    ViewData["Title"] = "ProductEdit";
+    Layout = "EmployeeLayout";
+}
+
+<h1>商品編輯</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form action="/Employee/ProductEdit/@Model.ProductId" method="post">
+
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label class="control-label" for="ProductId">編號</label>
+                <input class="form-control" type="text" data-val="true" data-val-required="編號不可空白" id="ProductId" name="ProductId" readonly value="@Model.ProductId" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="CategoryId">類別</label>
+                <input class="form-control" type="text" data-val="true" data-val-required="類別不可空白" id="CategoryId" name="CategoryId" value="@Model.CategoryId" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="CategoryId" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="ProductName">名稱</label>
+                <input class="form-control" type="text" data-val="true" data-val-required="名稱不可空白" id="ProductName" name="ProductName" value="@Model.ProductName" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="ProductName" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="ProductDescription">敘述</label>
+                <input class="form-control" type="text" id="ProductDescription" name="ProductDescription" value="@Model.ProductDescription" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="ProductDescription" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Specification">規格</label>
+                <input class="form-control" type="text" id="Specification" name="Specification" value="@Model.Specification" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="Specification" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="UnitPrice">單價</label>
+                <input class="form-control" type="text" id="UnitPrice" name="UnitPrice" value="@Model.UnitPrice" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="UnitPrice" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="UnitInStock">庫存</label>
+                <input class="form-control" type="text" id="UnitInStock" name="UnitInStock" value="@Model.UnitInStock" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="UnitInStock" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Status">停賣</label>
+                <input class="form-control" type="text" id="Status" name="Status" value="@Model.Status" />
+                <span class="text-danger field-validation-valid" data-valmsg-for="Status" data-valmsg-replace="true"></span>
+            </div>
+
+            @*<div class="form-group">
+                    <label class="control-label" for="停賣">停賣</label>
+                    <select name="UserStatus" class="form-control">
+                        <option value="">是否停賣</option>
+                        @{if (Model.UserStatus == "01")
+                            {
+                                <option value="01" selected>01</option>
+                                <option value="02">02</option>
+                            }
+                            else
+                            {
+                                <option value="01">01</option>
+                                <option value="02" selected>02</option>
+                            }
+                        }
+                    </select>
+                </div>*@
+
+            <div class="form-group">
+                <input type="submit" value="確定送出" class="btn btn-primary" />
+                <a href="/Employee/Product" class="btn btn-danger">回到清單</a>
+            </div>
+        </form>
+    </div>
+</div>

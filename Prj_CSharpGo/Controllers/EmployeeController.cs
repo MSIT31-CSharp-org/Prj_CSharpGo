@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Prj_CSharpGo.Models;
 
+
 namespace Prj_CSharpGo.Controllers
 {
     public class EmployeeController : Controller
@@ -20,6 +21,7 @@ namespace Prj_CSharpGo.Controllers
         // 登入頁面
         public IActionResult Login()
         {
+            
             return View();
         }
 
@@ -202,9 +204,74 @@ namespace Prj_CSharpGo.Controllers
             {
                 _context.Update(order);
                 await _context.SaveChangesAsync();
-                return Redirect("/Employee/Order");
             }
-            return View(order);
+            return Redirect("/Employee/Order");
         }
+
+
+
+        // 商品資料頁面
+        public async Task<IActionResult> Product()
+        {
+            string empSession = HttpContext.Session.GetString("employeeId") ?? "Guest";
+            if (empSession == "Guest")
+            {
+                return Redirect("/Employee/Login");
+            }
+            return View(await _context.Products.ToListAsync());
+        }
+
+        // 訂單編輯頁面
+        public async Task<IActionResult> ProductEdit(string id)
+        {
+            string empSession = HttpContext.Session.GetString("employeeId") ?? "Guest";
+            if (empSession == "Guest")
+            {
+                return Redirect("/Employee/Login");
+            }
+
+            var member = await _context.Products.FindAsync(id);
+            return View(member);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProductEdit([Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status")] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Update(product);
+                await _context.SaveChangesAsync();
+            }
+                return Redirect("/Employee/Product");
+        }
+
+        // 新增商品頁面
+        public IActionResult ProductCreate()
+        {
+            string empSession = HttpContext.Session.GetString("employeeId") ?? "Guest";
+            if (empSession == "Guest")
+            {
+                return Redirect("/Employee/Login");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProductCreate([Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status")] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(product);
+                await _context.SaveChangesAsync();
+                return Redirect("/Employee/Product");
+            }
+            return View(product);
+        }
+
+
+
+
     }
 }
