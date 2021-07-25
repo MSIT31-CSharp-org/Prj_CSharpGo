@@ -21,6 +21,7 @@ namespace Prj_CSharpGo.Models
         public int? LimitPeople { get; set; }
         public string Description { get; set; }
         public string Approval { get; set; }
+        public int? PlusPrice { get; set; }
 
         public virtual ICollection<CampOrder> CampOrders { get; set; }
     }

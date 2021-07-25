@@ -21,7 +21,7 @@ namespace Prj_CSharpGo.Controllers
         // 登入頁面
         public IActionResult Login()
         {
-            
+
             return View();
         }
 
@@ -33,17 +33,25 @@ namespace Prj_CSharpGo.Controllers
             Employee query = await _context.Employees.FirstOrDefaultAsync(m => m.EmployeeId == employee.EmployeeId);
             if (query != null && query.EmployeePassword == employee.EmployeePassword)
             {
+                if (query.EmployeeStatus == null)
+                {
+                    HttpContext.Session.SetString("employeeToastr", "帳號已註銷");
+                    return Redirect("/Employee/Login");
+                }
                 HttpContext.Session.SetString("employeeId", query.EmployeeId.ToString());
                 HttpContext.Session.SetString("employeeName", query.EmployeeName.ToString());
                 HttpContext.Session.SetString("employeeStatus", query.EmployeeStatus.ToString());
+                HttpContext.Session.SetString("employeeToastr", "登入成功");
                 return Redirect("/Employee/Index");
             }
+            HttpContext.Session.SetString("employeeToastr", "帳號或密碼錯誤");
             return Redirect("/Employee/Login");
         }
         // 登出
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("employeeId");
+            HttpContext.Session.SetString("employeeToastr", "登出成功");
             return Redirect("/Employee/Login");
         }
 
@@ -72,12 +80,19 @@ namespace Prj_CSharpGo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeId,EmployeePassword,EmployeeName,EmployeeEmail,EmployeeStatus")] Employee employee)
+        public async Task<IActionResult> Create(Employee employee)
         {
+            if (await _context.Employees.FindAsync(employee.EmployeeId) != null)
+            {
+                HttpContext.Session.SetString("employeeToastr", "帳號已存在");
+                return View();
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("employeeToastr", "新增成功");
                 return Redirect("/Employee/Index");
             }
             return View(employee);
@@ -106,6 +121,7 @@ namespace Prj_CSharpGo.Controllers
                 Employee query = await _context.Employees.FirstOrDefaultAsync(m => m.EmployeeId.ToString() == HttpContext.Session.GetString("employeeId"));
                 HttpContext.Session.Remove("employeeStatus");
                 HttpContext.Session.SetString("employeeStatus", query.EmployeeStatus.ToString());
+                HttpContext.Session.SetString("employeeToastr", "修改成功");
                 return Redirect("/Employee/Index");
             }
             return View(employee);
@@ -130,6 +146,7 @@ namespace Prj_CSharpGo.Controllers
             var employee = await _context.Employees.FindAsync(id);
             _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
+            HttpContext.Session.SetString("employeeToastr", "刪除成功");
             return Redirect("/Employee/Index");
         }
 
@@ -164,6 +181,7 @@ namespace Prj_CSharpGo.Controllers
             {
                 _context.Update(member);
                 await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("employeeToastr", "修改成功");
                 return Redirect("/Employee/Member");
             }
             return View(member);
@@ -204,6 +222,7 @@ namespace Prj_CSharpGo.Controllers
             {
                 _context.Update(order);
                 await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("employeeToastr", "修改成功");
             }
             return Redirect("/Employee/Order");
         }
@@ -242,8 +261,9 @@ namespace Prj_CSharpGo.Controllers
             {
                 _context.Update(product);
                 await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("employeeToastr", "修改成功");
             }
-                return Redirect("/Employee/Product");
+            return Redirect("/Employee/Product");
         }
 
         // 新增商品頁面
@@ -261,10 +281,16 @@ namespace Prj_CSharpGo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProductCreate([Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status")] Product product)
         {
+            if (await _context.Products.FindAsync(product.ProductId) != null)
+            {
+                HttpContext.Session.SetString("employeeToastr", "編號已存在");
+                return View();
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("employeeToastr", "新增商品成功");
                 return Redirect("/Employee/Product");
             }
             return View(product);

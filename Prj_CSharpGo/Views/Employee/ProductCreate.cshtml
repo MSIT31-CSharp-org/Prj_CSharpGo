@@ -1,4 +1,11 @@
-﻿@model Prj_CSharpGo.Models.Product
+﻿@using Microsoft.AspNetCore.Http
+
+@model Prj_CSharpGo.Models.Product
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
+
+@{
+    string empToastr = emp.HttpContext.Session.GetString("employeeToastr") ?? "Guest";
+}
 
 @{
     ViewData["Title"] = "ProductCreate";
@@ -12,49 +19,62 @@
         <form action="/Employee/ProductCreate" method="post">
 
             @Html.AntiForgeryToken()
-            <div class="form-group">
-                <label class="control-label" for="ProductId">編號</label>
-                <input class="form-control" type="text" data-val="true" data-val-required="編號不可空白" id="ProductId" name="ProductId" value="" />
+            <div class="form-group row">
+                <label class="col-sm-3 control-label" for="ProductId">編號</label>
+                <input class="form-control col-sm-9" type="text" data-val="true" data-val-required="不可空白" id="ProductId" name="ProductId" value="" />
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
             </div>
 
-            <div class="form-group">
-                <label class="control-label" for="CategoryId">類別</label>
-                <input class="form-control" type="text" data-val="true" data-val-required="類別不可空白" id="CategoryId" name="CategoryId" value="" />
-                <span class="text-danger field-validation-valid" data-valmsg-for="CategoryId" data-valmsg-replace="true"></span>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="CategoryId">類別</label>
+                <select name="CategoryId" class="form-control col-sm-9">
+                    <option value="A ">帳篷</option>
+                    <option value="B ">寢具</option>
+                    <option value="C ">戶外家具</option>
+                    <option value="D ">廚房用品</option>
+                    <option value="E ">食品</option>
+                </select>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="ProductName">名稱</label>
-                <input class="form-control" type="text" data-val="true" data-val-required="名稱不可空白" id="ProductName" name="ProductName" value="" />
+            <div class="form-group row">
+                <label class="col-sm-3 control-label" for="ProductName">名稱</label>
+                <input class="form-control col-sm-9" type="text" data-val="true" data-val-required="不可空白" id="ProductName" name="ProductName" value="" />
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="ProductName" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="ProductDescription">敘述</label>
-                <input class="form-control" type="text" id="ProductDescription" name="ProductDescription" value="" />
+            <div class="form-group row">
+                <label class="col-sm-3 control-label" for="ProductDescription">敘述</label>
+                <input class="form-control col-sm-9" type="text" id="ProductDescription" name="ProductDescription" value="" />
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="ProductDescription" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="Specification">規格</label>
-                <input class="form-control" type="text" id="Specification" name="Specification" value="" />
+            <div class="form-group row">
+                <label class="col-sm-3 control-label" for="Specification">規格</label>
+                <input class="form-control col-sm-9" type="text" id="Specification" name="Specification" value="" />
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="Specification" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="UnitPrice">單價</label>
-                <input class="form-control" type="text" id="UnitPrice" name="UnitPrice" value="" />
+            <div class="form-group row">
+                <label class="col-sm-3 control-label" for="UnitPrice">單價</label>
+                <input class="form-control col-sm-9" type="text" id="UnitPrice" name="UnitPrice" data-val="true" data-val-required="不可空白" data-val-number="應為數字" value="" />
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="UnitPrice" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="UnitInStock">庫存</label>
-                <input class="form-control" type="text" id="UnitInStock" name="UnitInStock" value="" />
+            <div class="form-group row">
+                <label class="col-sm-3 control-label" for="UnitInStock">庫存</label>
+                <input class="form-control col-sm-9" type="text" id="UnitInStock" name="UnitInStock" data-val="true" data-val-required="不可空白" data-val-number="應為數字" value="" />
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="UnitInStock" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="Status">停賣</label>
-                <input class="form-control" type="text" id="Status" name="Status" value="" />
-                <span class="text-danger field-validation-valid" data-valmsg-for="Status" data-valmsg-replace="true"></span>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="Status">商品狀態</label>
+                <select name="Status" class="form-control col-sm-9">
+                    <option value="01">販賣中</option>
+                    <option value="02">停賣</option>
+                </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group row">
                 <input type="submit" value="確定送出" class="btn btn-primary" />
                 <a href="/Employee/ProductCreate" class="btn btn-danger">回到清單</a>
             </div>
@@ -62,3 +82,33 @@
         </form>
     </div>
 </div>
+
+@if (empToastr != "Guest")
+{
+    <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["error"]("@empToastr");
+        @{emp.HttpContext.Session.Remove("employeeToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+    </script>
+}

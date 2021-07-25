@@ -1,4 +1,11 @@
-﻿@model Prj_CSharpGo.Models.Employee
+﻿@using Microsoft.AspNetCore.Http
+
+@model Prj_CSharpGo.Models.Employee
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
+
+@{
+    string empToastr = emp.HttpContext.Session.GetString("employeeToastr") ?? "Guest";
+}
 
 @{
     ViewData["Title"] = "Create";
@@ -20,7 +27,8 @@
             <!-- data-valmsg-replace 必要 -->
             <div class="form-group">
                 <label class="control-label" for="EmployeeId">帳號</label>
-                <input class="form-control" type="number" data-val="true" data-val-required="帳號不可空白" id="EmployeeId" name="EmployeeId" value="" />
+                <input class="form-control" type="number" data-val="true" data-val-required="不可空白"  data-val-number="帳號應為數字" id="EmployeeId" name="EmployeeId" value="" />
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeId" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group">
@@ -30,24 +38,24 @@
             </div>
             <div class="form-group">
                 <label class="control-label" for="EmployeePassword">密碼</label>
-                <input class="form-control" type="password" data-val="true" data-val-required="密碼不可空白" id="EmployeePassword" name="EmployeePassword" />
+                <input class="form-control" type="password" data-val="true" data-val-required="不可空白" id="EmployeePassword" name="EmployeePassword" />
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger " data-valmsg-for="EmployeePassword" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group">
                 <label class="control-label" for="EmployeeEmail">Email</label>
                 <input class="form-control" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="EmployeeEmail" name="EmployeeEmail" value="" />
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeEmail" data-valmsg-replace="true"></span>
             </div>
-
             <div class="form-group">
-                <label class="control-label" for="EmployeeStatus">權限</label>
+                <label class="control-label" for="EmployeeStatus">職稱</label>
                 <select name="EmployeeStatus" class="form-control">
-                    <option value="" disabled>請選擇權限</option>
-                    <option value="true">True</option>
-                    <option value="false">False</option>
+                    <option value="false">員工</option>
+                    <option value="true">主管</option>
+                    <option value=" ">註銷</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <input type="submit" value="確定送出" class="btn btn-primary" />
                 <a href="/Employee" class="btn btn-danger">回到清單</a>
@@ -56,3 +64,33 @@
         </form>
     </div>
 </div>
+
+@if (empToastr != "Guest")
+{
+    <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["error"]("@empToastr");
+        @{emp.HttpContext.Session.Remove("employeeToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+    </script>
+}

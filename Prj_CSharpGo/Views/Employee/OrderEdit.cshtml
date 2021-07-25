@@ -5,9 +5,9 @@
     Layout = "EmployeeLayout";
 }
 
-<h1>
-    訂單Id : 
-</h1>
+
+    @foreach(var item in Model){ <h1>訂單編號 : @item.OrderId</h1> break; }
+
 
 
 <hr />
@@ -19,7 +19,7 @@
         <thead>
             <tr>
                 <th>
-                    產品Id
+                    產品編號
                 </th>
                 <th>
                     單價
@@ -28,44 +28,36 @@
                     數量
                 </th>
                 <th>
-                    Discount
-                </th>
-                <th>
                     Commets
-                </th>
-                <th>
-                    Approval
                 </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+            <tr>
+                <td>
+                    @item.ProductId
+                </td>
+                @{
                     <td>
-                        @item.ProductId
+                        @(item.UnitPrice * item.Discount)
                     </td>
-                    <td>
-                        @item.UnitPrice
-                    </td>
-                    <td>
-                        @item.Quantity
-                    </td>
-                    <td>
-                        @item.Discount
-                    </td>
-                    <td>
-                        @item.Commets
-                    </td>
-                    <td>
-                        @item.Approval
-                    </td>
-                </tr>
+                }
+
+
+                <td>
+                    @item.Quantity
+                </td>
+                <td>
+                    @item.Commets
+                </td>
+            </tr>
             }
         </tbody>
     </table>
     <div class="form-group">
-        <input type="submit" value="確定送出" class="btn btn-primary" />
+        @*<input type="submit" value="確定送出" class="btn btn-primary" />*@
         <a href="/Employee/Order" class="btn btn-danger">回到清單</a>
     </div>
 </form>

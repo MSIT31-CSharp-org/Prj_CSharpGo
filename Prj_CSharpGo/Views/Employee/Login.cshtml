@@ -1,4 +1,12 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
+
+@{
+    string empToastr = emp.HttpContext.Session.GetString("employeeToastr") ?? "Guest";
+}
+
+@{
     ViewData["Title"] = "Login";
     Layout = "EmployeeLayout";
 }
@@ -12,16 +20,16 @@
             @Html.AntiForgeryToken()
             <div class="form-group">
                 <label class="control-label" for="EmployeeId">帳號</label>
-                <input class="form-control" type="number" data-val="true" data-val-required="帳號不可空白" id="EmployeeId" name="EmployeeId" value="1001" />
+                <input class="form-control" type="number" data-val="true" data-val-required="帳號不可空白" data-val-number="帳號應為數字" id="EmployeeId" name="EmployeeId" value="1001" />
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeId" data-valmsg-replace="true"></span>
             </div>
-
             <div class="form-group">
                 <label class="control-label" for="EmployeePassword">密碼</label>
                 <input class="form-control" type="password" data-val="true" data-val-required="密碼不可空白" id="EmployeePassword" name="EmployeePassword" value="employee1001" />
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger " data-valmsg-for="EmployeePassword" data-valmsg-replace="true"></span>
             </div>
-
             <div class="form-group">
                 <input type="submit" value="確定" class="btn btn-primary" />
                 <a href="/Employee/Login" class="btn btn-danger">取消</a>
@@ -30,3 +38,62 @@
         </form>
     </div>
 </div>
+
+@if (empToastr == "登出成功")
+{
+    <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["success"]("@empToastr");
+        @{emp.HttpContext.Session.Remove("employeeToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+    </script>
+}
+else if (empToastr != "Guest")
+{
+    <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["error"]("@empToastr");
+        @{emp.HttpContext.Session.Remove("employeeToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+    </script>
+}
