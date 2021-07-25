@@ -186,8 +186,8 @@
                         <tbody>
                             <tr>
                                 <th scope="row">@Model.CampName</th>
-                                <td>@Model.StartDay.ToString("yyyyy-MM-dd")</td>
-                                <td>@Model.EndDay.ToString("yyyyy-MM-dd")</td>
+                                <td>@Model.StartDay.ToString("yyyy-MM-dd")</td>
+                                <td>@Model.EndDay.ToString("yyyy-MM-dd")</td>
                                 <td>
                                     @Model.TotalPricesmall 元 <br />
                                     ( @Model.Daycount 晚)
@@ -208,6 +208,31 @@
                         </tbody>
 
                     </table>
+                    @using (Html.BeginForm("ComfirmResult", "Campreserve", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(Model => Model.CampOrderID)
+                        @Html.HiddenFor(Model => Model.UserId)
+                        @Html.HiddenFor(Model => Model.CampId)
+                        @Html.HiddenFor(Model => Model.CampQuantity)
+                        @Html.HiddenFor(Model => Model.StartDay)
+                        @Html.HiddenFor(Model => Model.EndDay)
+                        @Html.HiddenFor(Model => Model.WeekdayPrice)
+                        @Html.HiddenFor(Model => Model.HolidayPrice)
+                        @Html.HiddenFor(Model => Model.HolidayPrice)
+                        @Html.HiddenFor(Model => Model.Peoplenumber)
+                        @Html.HiddenFor(Model => Model.TotalPrice)
+                        @Html.HiddenFor(Model => Model.TotalPricebig)
+
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="/Campreserve/Index" type="button" class="btn btn-secondary">取消</a>
+                            <button type="submit" class="btn btn-success">確認</button>
+
+                        </div>
+
+
+
+                    }
 
                 </div>
             </div>

@@ -144,13 +144,9 @@ namespace Prj_CSharpGo.Models
             {
                 entity.ToTable("CampOrder");
 
-                entity.Property(e => e.CampOrderId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CampOrderID");
+                entity.Property(e => e.CampOrderId).HasColumnName("CampOrderID");
 
-                entity.Property(e => e.Approval)
-                    .HasMaxLength(2)
-                    .IsFixedLength(true);
+                entity.Property(e => e.Approval).HasMaxLength(2);
 
                 entity.Property(e => e.CampId).HasColumnName("CampID");
 
@@ -178,13 +174,13 @@ namespace Prj_CSharpGo.Models
                     .WithMany(p => p.CampOrders)
                     .HasForeignKey(d => d.CampId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CampOrder__CampI__403A8C7D");
+                    .HasConstraintName("FK__CampOrder__CampI__42ACE4D4");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.CampOrders)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CampOrder__UserI__3F466844");
+                    .HasConstraintName("FK__CampOrder__UserI__41B8C09B");
             });
 
             modelBuilder.Entity<CategoriesTypeI>(entity =>

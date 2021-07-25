@@ -85,7 +85,8 @@ namespace Prj_CSharpGo.Controllers
             else
             {
                 var findCamp = returnIndexModels.CampList.Where(s => s.CampId == id).FirstOrDefault();
-                var orderList = _context.CampOrders.Where(s => s.CampId == id && s.StartDay <= startday && s.EndDay <= endday).ToList();
+                var temp = _context.CampOrders.ToList();
+                var orderList = _context.CampOrders.Where(s => s.CampId == id && s.StartDay <= startday && s.EndDay >= endday).ToList();
 
                 DateTime dateTime = startday.Value;
                 int dayCount = 0;
@@ -113,19 +114,51 @@ namespace Prj_CSharpGo.Controllers
                     }
 
                     quantityCount = orderList.Where(s => s.StartDay <= dateTime && dateTime <= s.EndDay).Sum(s => s.CampQuantity).Value;
-                    if (quantityCount > findCamp.CampQuantity)
+                    var quantityCounta = quantityCount + Quantity;
+
+                    if(quantityCounta > findCamp.CampQuantity)
                     {
-                        errorMsg = "已額滿無法預約!";
-                        break;
-                    }
+
+                        if ((findCamp.CampQuantity - quantityCount) == 1)
+                        {
+                            errorMsg = "剩餘1帳可預約!";
+                            break;
+
+                        }
+                        if ((findCamp.CampQuantity - quantityCount) == 2)
+                        {
+                            errorMsg = "剩餘2帳可預約!";
+                            break;
+
+                        }
+                        if ((findCamp.CampQuantity - quantityCount) == 3)
+                        {
+                            errorMsg = "剩餘3帳可預約!";
+                            break;
+                        }
+                        if ((findCamp.CampQuantity - quantityCount) == 4)
+                        {
+                            errorMsg = "剩餘4帳可預約!";
+                            break;
+                        }
+                        else if (quantityCount > findCamp.CampQuantity)
+                        {
+                            errorMsg = "已額滿無法預約!";
+                            break;
+                        }
+                        else if (dateTime == endday)
+                        {
+                            break;
+                        }
+
+                    }             
                     else if (dateTime == endday)
                     {
                         break;
                     }
-
                     dayCount++;
 
-
+                    //平日假日
                     if (holidays.Where(s => s.date == dateTime.ToString("yyyy/M/d")).Any())
                     {
                         HolidayCount += 1;
@@ -144,6 +177,7 @@ namespace Prj_CSharpGo.Controllers
                 {
                     CampreserveOrderModel orderModel = new CampreserveOrderModel()
                     {
+                        UserId = 1,
                         CampId = findCamp.CampId,
                         CampName = findCamp.CampName,
                         CampQuantity = Quantity,
@@ -153,8 +187,9 @@ namespace Prj_CSharpGo.Controllers
                         TotalPricebig = Totalprice * Quantity,
                         HolidayPrice = (int)findCamp.HolidayPrice,
                         WeekdayPrice = (int)findCamp.WeekdayPrice,
-                        Daycount = dayCount
-
+                        Daycount = dayCount,
+                        OrderDay = DateTime.Now,
+                        PeoplePrice = (int)findCamp.PlusPrice,
                     };
                     return RedirectToAction("ComfirmResult", "Campreserve", orderModel);
                 }
@@ -174,6 +209,28 @@ namespace Prj_CSharpGo.Controllers
             return View(orderModel);
         }
 
+        [HttpPost]
+        public IActionResult ComfirmResult(SaveCampreserveOrderModel orderModel)
+        {
+            CampOrder campOrder = new CampOrder()
+            {
+              
+                UserId = orderModel.UserId,
+                CampId = orderModel.CampId,
+                OrderDay = DateTime.Now,
+                CampQuantity = orderModel.CampQuantity,
+                StartDay = orderModel.StartDay,
+                EndDay = orderModel.EndDay,
+                WeekdayPrice = orderModel.WeekdayPrice,
+                HolidayPrice = orderModel.HolidayPrice,
+                Peoplenumber = orderModel.Peoplenumber,
+                TotalPrice =  orderModel.TotalPricebig+orderModel.PeoplePrice * orderModel.Peoplenumber,
+
+            };
+            _context.CampOrders.Add(campOrder);
+            _context.SaveChanges();
+            return Redirect("/Campreserve/Index");
+        }
 
         //取得例假日JSON資料
         private List<HolidayModel> GetHoliday()
