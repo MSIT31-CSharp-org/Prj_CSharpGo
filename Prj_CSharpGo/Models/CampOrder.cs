@@ -17,12 +17,12 @@ namespace Prj_CSharpGo.Models
         public int? WeekdayPrice { get; set; }
         public int? HolidayPrice { get; set; }
         public int? Peoplenumber { get; set; }
+        public int? TotalPrice { get; set; }
         public double? Discount { get; set; }
         public string CampStatus { get; set; }
         public string OrderStatus { get; set; }
         public string PayMethod { get; set; }
         public string Approval { get; set; }
-        public int? TotalPrice { get; set; }
 
         public virtual Camp Camp { get; set; }
         public virtual User User { get; set; }
