@@ -174,13 +174,13 @@ namespace Prj_CSharpGo.Models
                     .WithMany(p => p.CampOrders)
                     .HasForeignKey(d => d.CampId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CampOrder__CampI__42ACE4D4");
+                    .HasConstraintName("FK__CampOrder__CampI__68D28DBC");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.CampOrders)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CampOrder__UserI__41B8C09B");
+                    .HasConstraintName("FK__CampOrder__UserI__67DE6983");
             });
 
             modelBuilder.Entity<CategoriesTypeI>(entity =>
