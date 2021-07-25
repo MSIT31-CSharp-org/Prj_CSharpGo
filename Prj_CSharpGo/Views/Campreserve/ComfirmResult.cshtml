@@ -178,7 +178,7 @@
                                 <th scope="col">退租日期</th>
                                 <th scope="col">小 計</th>
                                 <th scope="col">帳數</th>
-                                <th scope="col">加購人頭數(100元/人)</th>
+                                <th scope="col">加購人頭數</th>
                                 <th scope="col">總金額</th>
                             </tr>
                         </thead>
@@ -196,10 +196,11 @@
                                 <td>
                                     <select class="$form-select-bg-position" name="PlusPrice" id="PlusPrice">
                                         <option value="0">  0</option>
-                                        <option value="100">1</option>
-                                        <option value="200">2</option>
-                                    </select> <br />
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select> * 100 元/人 
                                     <div><div id="pricevalue1"></div></div>
+                                    
                                 </td>
                                 <td id="total_price">
                                     @Model.TotalPricebig
@@ -415,11 +416,14 @@
                 $("#pricevalue1").empty()
                 $("#pricevalue2").empty()
             }
-            var s = $("#PlusPrice").prop("value");
-
-            $("#pricevalue1").append("(共" + s + "元)");
-            $("#pricevalue2").append("(共" + s + "元)");
+            var s = parseInt($("#PlusPrice").prop("value"))*100;
+ 
+            $("#pricevalue1").append("(共  "  +  s  +  "  元)");
+            $("#pricevalue2").append("(共  "  +  s  +  "  元)");
             $('#total_price').text(origin_price + parseInt(s));
+            $("#Peoplenumber").val(s/100)
+
+
         });
 
 
