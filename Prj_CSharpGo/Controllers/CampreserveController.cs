@@ -48,6 +48,8 @@ namespace Prj_CSharpGo.Controllers
 
             return View("Index", returnIndexModels);
         }
+
+        //取得CampQuantity
         public IActionResult GetCampList()
         {
             var campList = _context.Camps.Select(s => new { s.CampName, s.CampId, s.CampQuantity }).ToList();
@@ -63,13 +65,14 @@ namespace Prj_CSharpGo.Controllers
             ViewBag.EndDateMin = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
             ViewBag.EndDateMax = DateTime.Now.AddMonths(3).AddDays(1).ToString("yyyy-MM-dd");
 
-            ReturnIndexModels returnIndexModels = new ReturnIndexModels();
             
+            ReturnIndexModels returnIndexModels = new ReturnIndexModels();        
             int id = Convert.ToInt32(post["CampName"]);
             DateTime? startday = post["StartDay"].ToString()==""?null:Convert.ToDateTime(post["StartDay"]);
             DateTime? endday = post["EndDay"].ToString() == "" ? null : Convert.ToDateTime(post["EndDay"]);
             int Quantity = Convert.ToInt32(post["CampQuantity"]);
             string errorMsg = "";
+            //選擇值
             returnIndexModels.userFilterModel = new CampreserveUserFilterModel()
             {
                 CampId = id,
@@ -77,6 +80,8 @@ namespace Prj_CSharpGo.Controllers
                 EndDate = post["EndDay"],
                 CampQuantity = Quantity
             };
+
+            //租借日期、退租日期和帳數判斷
             returnIndexModels.CampList = _context.Camps.ToList();
             if (endday == null || startday == null)
             {
@@ -194,13 +199,9 @@ namespace Prj_CSharpGo.Controllers
                     return RedirectToAction("ComfirmResult", "Campreserve", orderModel);
                 }
             }
-            //篩選
-   
             
-
             ViewBag.message = errorMsg;
             return View("Index", returnIndexModels);
-
         }
 
 
@@ -208,6 +209,7 @@ namespace Prj_CSharpGo.Controllers
         {
             return View(orderModel);
         }
+
 
         [HttpPost]
         public IActionResult ComfirmResult(SaveCampreserveOrderModel orderModel)
