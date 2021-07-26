@@ -37,7 +37,7 @@
         <h3>01.備料</h3>
     </p>
     <p>
-        @Model.Preparation
+        @Html.Raw(Model.Preparation.Replace(Environment.NewLine, "<br/>"))
     </p>
 </div>
 <!-- Single Preparation Step -->
@@ -47,7 +47,7 @@
     </p>
     <p>
 
-        @Model.Step
+        @Html.Raw(Model.Step.Replace(Environment.NewLine, "<br/>"))
 
     </p>
 </div>

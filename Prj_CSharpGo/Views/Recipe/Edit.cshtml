@@ -3,54 +3,58 @@
     ViewData["Title"] = "Edit";
 }
 
-<!-- Start Contact -->
+@*Start Contact*@
 <div class="container py-5">
     <div class="row py-5">
-        <form class="col-md-9 m-auto" method="post" role="form">
-            <!-- 上傳圖片 JS在最下面-->
-            <input type="file" accept="image/*" onchange="loadFile(event)">
-            <img id="output" style="max-width: 300px;max-height: 400px;" src="~/Didi/img/@Model.Img" />
+        <form class="col-md-9 m-auto" method="post" action="/Recipe/Edit" data-ajax='false' enctype="multipart/form-data">
+            <input type="text" name="RecipeId" value="@Model.RecipeId" hidden>
+            @*<form class="col-md-9 m-auto" method="post" action="/Recipe/Edit" role="form" data-ajax='false'>*@
+            @*上傳圖片 JS在最下面*@
+            <img id="output" style="max-width: 300px;max-height: 400px;" class="form-control mt-1" src="~/img/@Model.Img" />
+            <input type="file" name="Img" accept="image/*" onchange="loadFile(event)">
             <br> <br> <br>
-            <!-- 上傳圖片 -->
+            @*上傳圖片*@
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
                     <label for="inputname">RecipeName</label>
-                    <input type="text" class="form-control mt-1" id="name" name="name" value="@Model.RecipeName">
-                    @*<input type="text" class="form-control mt-1" id="name" name="name" placeholder="Name">*@
+                    <input type="text" class="form-control mt-1" name="RecipeName" value="@Model.RecipeName">
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label for="inputemail">CreateDate</label>
-                    <input type="text" class="form-control mt-1" id="email" name="email" value="@Model.CreateTime">
-                    @*<input type="email" class="form-control mt-1" id="email" name="email" placeholder="CreateDate">*@
+                    <input type="text" class="form-control mt-1" name="CreateTime" value="@Model.CreateTime">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
                     <label for="inputsubject">料理時間Cooking time</label>
-                    <input type="text" class="form-control mt-1" id="subject" name="subject" value="@Model.CookingTime">
+                    <input type="text" class="form-control mt-1" name="CookingTime" value="@Model.CookingTime">
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label for="inputsubject">準備時間時間PreparationTime</label>
-                    <input type="text" class="form-control mt-1" id="subject" name="subject" value="@Model.PreparationTime">
+                    <input type="text" class="form-control mt-1" name="PreparationTime" value="@Model.PreparationTime">
                 </div>
-               
+
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
                     <label for="inputsubject">份量Yield</label>
-                    <input type="text" class="form-control mt-1" id="subject" name="subject" value="@Model.Yield">
+                    <input type="text" class="form-control mt-1" name="Yield" value="@Model.Yield">
                 </div>
+            </div>
+
+            @* 食材清單 *@
+            <div>
+                <label for="inputsubject">食材清單Ingredients List</label>
+                <input type="text" class="form-control mt-1" name="Yield" placeholder="ProductName">
             </div>
 
             <div class="mb-3">
                 <label for="inputmessage">01.備料Preparation</label>
-                <input type="text" class="form-control mt-1" id="subject" name="subject" value="@Model.Preparation">
-               @* <textarea class="form-control mt-1" id="message" name="message" value="@Model.Preparation" rows="8"></textarea>*@
+                <textarea class="form-control mt-1" name="Preparation" rows="8">@Model.Preparation</textarea>
             </div>
             <div class="mb-3">
                 <label for="inputmessage">02.烹煮步驟Step</label>
-                <input type="text" class="form-control mt-1" id="subject" name="subject" value="@Model.Step">
-                @*<textarea class="form-control mt-1" id="message" name="message" value="@Model.Step" rows="8"></textarea>*@
+                <textarea class="form-control mt-1" name="Step" rows="8">@Model.Step</textarea>
             </div>
             <div class="row">
                 <div class="col text-end mt-2">
@@ -60,7 +64,7 @@
         </form>
     </div>
 </div>
-<!-- End Contact -->
+@*End Contact*@
 <script>
     var loadFile = function (event) {
         var output = document.getElementById('output');
