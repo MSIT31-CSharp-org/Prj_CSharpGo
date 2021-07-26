@@ -25,22 +25,5 @@ namespace Prj_CSharpGo.Controllers
 
             return View(campList);
         }
-
-        public IActionResult grass()
-        {
-         
-            return View();
-        }
-
-        public IActionResult wooden()
-        {
-            return View();
-        }
-
-        public IActionResult stone()
-        {
-            return View();
-        }
-
     }
 }
