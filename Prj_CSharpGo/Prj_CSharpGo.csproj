@@ -5,8 +5,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Views\Campreserve\ComfirmResult.cshtml" />
+    <None Include="Views\Campreserve\Index.cshtml" />
+    <None Include="Views\Camp\grass.cshtml" />
+    <None Include="Views\Camp\Index.cshtml" />
+    <None Include="Views\Camp\stone.cshtml" />
+    <None Include="Views\Camp\wooden.cshtml" />
+    <None Include="Views\Employee\Create.cshtml" />
+    <None Include="Views\Employee\Delete.cshtml" />
+    <None Include="Views\Employee\Edit.cshtml" />
+    <None Include="Views\Employee\Index.cshtml" />
+    <None Include="Views\Employee\Login.cshtml" />
+    <None Include="Views\Employee\Member.cshtml" />
+    <None Include="Views\Employee\MemberEdit.cshtml" />
+    <None Include="Views\Employee\Order.cshtml" />
+    <None Include="Views\Employee\OrderEdit.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Login.cshtml" />
+    <None Include="Views\Home\MemberCenter.cshtml" />
     <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\Shared\EmployeeLayout.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
