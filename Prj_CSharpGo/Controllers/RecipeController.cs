@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.IO;
 using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Prj_CSharpGo.Controllers
 {
@@ -43,7 +43,7 @@ namespace Prj_CSharpGo.Controllers
                 string[] subs = Img.FileName.Split('.');
                 String NewImgName = DateTime.Now.ToString("yyyyMMddHHmmss") + "." + subs[1];
                 re.Img = NewImgName;
-                Img.CopyTo(new FileStream("./wwwroot/img/" + NewImgName, FileMode.Create));
+                Img.CopyTo(new FileStream("./wwwroot/Didi/img/" + NewImgName, FileMode.Create));
             }
             re.RecipeName = reForm.RecipeName;
             re.CookingTime = reForm.CookingTime;
