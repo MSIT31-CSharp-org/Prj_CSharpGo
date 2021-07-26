@@ -1,0 +1,358 @@
+﻿@model List<Prj_CSharpGo.Models.Camp>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>露營推廣</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!--  CSS Files -->
+    <link href="~/css/bootstrap-icons.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="~/css/style.css" rel="stylesheet">
+
+
+    <style>
+
+        .margin-top-30 {
+            margin-top: 30px !important;
+        }
+
+        article h2.directions {
+            font-size: 20px;
+            line-height: 35px;
+            color: #626262;
+        }
+
+        .margin-left-100 {
+            margin-left: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ======= Header/Navbar ======= -->
+    <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+        <div class="container">
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a class="navbar-brand text-brand" href="index.html">露營<span class="color-b">推廣</span></a>
+
+            <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+                <ul class="navbar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="index.html">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="about.html">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="/camp/index">營區介紹</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="/campreserve/index">營地預約</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item " href="property-single.html">Property Single</a>
+                            <a class="dropdown-item active" href="blog-single.html">Blog Single</a>
+                            <a class="dropdown-item " href="agents-grid.html">Agents Grid</a>
+                            <a class="dropdown-item " href="agent-single.html">Agent Single</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav><!-- End Header/Navbar -->
+
+    <main id="main">
+
+        <!-- ======= Intro Single ======= -->
+        <section class="intro-single">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-8">
+                        <div class="title-single-box">
+                            <h1 class="title-single">營位資訊</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Book Cover Deisgn
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End Intro Single-->
+        <!-- ======= Blog Single ======= -->
+        <section class="section-about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 position-relative">
+                        <div class="about-img-box">
+                            <img src="~/img/wooden.PNG" alt="" class="img-fluid">
+                        </div>
+                        <div style="height: 150px; width: 500px; background-color: #F2FFF2 " class="sinse-box">
+                            <h3 class="sinse-title">
+                                B區木棧板(景觀露臺)
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="margin-top-30 margin-left-100">
+                        <div class="title-box-d">
+                            <h3 class="title-d">
+                                營位資訊
+                            </h3>
+                        </div>
+
+                        <article>
+                            <h2 class="directions">
+                                本區型態：木棧板草地 營位 <br>
+                                規格： 木棧板3M*6M可使用空間9 公尺 * 6 公尺 <br>
+                                營位數： 5 帳 <br>
+                                <br>
+                                收費標準：<br>
+                                平日營位一帳 1100元<br>
+                                假日營位一帳 1300元<br>
+                                <br>
+                                說明：<br>
+                                ※ 車停營位旁。<br>
+                                ※ 水槽2個、電源電箱6個，建議自備5-10米延長線。<br>
+                                ※ 另與B區公用5個水槽。<br>
+                                ※ 營位由營主現場調配。<br>
+                            </h2>
+                        </article>
+                    </div>
+
+
+                    <div class="col-md-12 margin-top-30">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-7">
+                                <img src="~/img/grassbathroom.PNG" alt="" class="img-fluid">
+                            </div>
+
+                            <div class="col-md-6 col-lg-5 section-md-t5">
+                                <div class="title-box-d">
+                                    <h3 class="title-d">
+                                        衛浴設備
+                                    </h3>
+                                </div>
+
+                                <article>
+                                    <h2 class="directions">
+                                        A、B區共用衛浴廁所<br>
+                                        男生衛浴廁所3間(坐式*1 蹲式*2)、小便斗3座<br>
+                                        女生衛浴廁所3間(坐式*1 蹲式*2)<br>
+                                    </h2>
+                                </article>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <section class="section-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <div class="widget-a">
+                        <div class="w-header-a">
+                            <h3 class="w-title-a text-brand">EstateAgency</h3>
+                        </div>
+                        <div class="w-body-a">
+                            <p class="w-text-a color-text-a">
+                                Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis
+                                sed aute irure.
+                            </p>
+                        </div>
+                        <div class="w-footer-a">
+                            <ul class="list-unstyled">
+                                <li class="color-a">
+                                    <span class="color-text-a">Phone .</span> contact@example.com
+                                </li>
+                                <li class="color-a">
+                                    <span class="color-text-a">Email .</span> +54 356 945234
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4 section-md-t3">
+                    <div class="widget-a">
+                        <div class="w-header-a">
+                            <h3 class="w-title-a text-brand">The Company</h3>
+                        </div>
+                        <div class="w-body-a">
+                            <div class="w-body-a">
+                                <ul class="list-unstyled">
+                                    <li class="item-list-a">
+                                        <i class="bi bi-chevron-right"></i> <a href="#">Site Map</a>
+                                    </li>
+                                    <li class="item-list-a">
+                                        <i class="bi bi-chevron-right"></i> <a href="#">Legal</a>
+                                    </li>
+                                    <li class="item-list-a">
+                                        <i class="bi bi-chevron-right"></i> <a href="#">Agent Admin</a>
+                                    </li>
+                                    <li class="item-list-a">
+                                        <i class="bi bi-chevron-right"></i> <a href="#">Careers</a>
+                                    </li>
+                                    <li class="item-list-a">
+                                        <i class="bi bi-chevron-right"></i> <a href="#">Affiliate</a>
+                                    </li>
+                                    <li class="item-list-a">
+                                        <i class="bi bi-chevron-right"></i> <a href="#">Privacy Policy</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4 section-md-t3">
+                    <div class="widget-a">
+                        <div class="w-header-a">
+                            <h3 class="w-title-a text-brand">International sites</h3>
+                        </div>
+                        <div class="w-body-a">
+                            <ul class="list-unstyled">
+                                <li class="item-list-a">
+                                    <i class="bi bi-chevron-right"></i> <a href="#">Venezuela</a>
+                                </li>
+                                <li class="item-list-a">
+                                    <i class="bi bi-chevron-right"></i> <a href="#">China</a>
+                                </li>
+                                <li class="item-list-a">
+                                    <i class="bi bi-chevron-right"></i> <a href="#">Hong Kong</a>
+                                </li>
+                                <li class="item-list-a">
+                                    <i class="bi bi-chevron-right"></i> <a href="#">Argentina</a>
+                                </li>
+                                <li class="item-list-a">
+                                    <i class="bi bi-chevron-right"></i> <a href="#">Singapore</a>
+                                </li>
+                                <li class="item-list-a">
+                                    <i class="bi bi-chevron-right"></i> <a href="#">Philippines</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="nav-footer">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">About</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">Property</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">Blog</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">Contact</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="socials-a">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="bi bi-facebook" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="bi bi-twitter" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="bi bi-instagram" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="bi bi-linkedin" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="copyright-footer">
+                        <p class="copyright color-text-a">
+                            &copy; Copyright
+                            <span class="color-a">EstateAgency</span> All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="credits">
+                        <!--
+                          All the links in the footer should remain intact.
+                          You can delete the links only if you purchased the pro version.
+                          Licensing information: https://bootstrapmade.com/license/
+                          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
+                        -->
+                        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer><!-- End  Footer -->
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <!-- Template Main JS File -->
+    <script src="~/js/main.js"></script>
+</body>
+</html>
