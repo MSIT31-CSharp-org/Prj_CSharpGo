@@ -3,51 +3,117 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Prj_CSharpGo</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <title>野性  |  @ViewData["Title"]</title>
+    <link rel="apple-touch-icon" href="~/Didi/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Didi/img/02.png">
+    <link rel="stylesheet" href="~/Didi/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Didi/css/templatemo.css">
+    <link rel="stylesheet" href="~/Didi/css/custom.css">
+
+    <!-- 字型的樣式 -->
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="~/Didi/css/fontawesome.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Prj_CSharpGo</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-light shadow">
+            <div class="container d-flex justify-content-between align-items-center" style="max-width: 1500px;">
+
+                <a class="navbar-brand text-success logo h1 align-self-center" href="">
+                    露營用品專賣店
+                </a>
+
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">商品搜尋</a>
-                        </li>
-                        <li class="nav-item">
-                            <input type="search" class="search_key" accesskey="S" name="key" id="key" value="" message="請輸入關鍵字" autocomplete="off">
-                            <a asp-controller="product" asp-action="index" class="btn btn-primary" style="padding:4px">搜尋</a>
 
-                        </li>
-                    </ul>
+                <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+                     id="templatemo_main_nav">
+                    <div class="flex-fill">
+                        <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Home")">露營吧</a>
+                            </li>
+
+                            <!-- 家迪 Recipe -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Recipe")">食譜</a>
+                            </li>
+
+                            <!-- 昱娟 Camp -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Camp")">場地預約</a>
+                            </li>
+
+                            <!-- 文杰 Employee -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Employee")">管理員中心</a>
+                            </li>
+
+                            <!-- 育儒 ShoppingCart -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">露營用品</a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="navbar align-self-center d-flex">
+                        <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="inputMobileSearch" placeholder="">
+                                <div class="input-group-text">
+                                    <i class="fa fa-fw fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sam 搜尋功能 (放大鏡還不能按)  -->
+                        <a class="input-group rounded" style="width: auto;margin-left: 100px; text-decoration:none;">
+                            <input type="search" class="form-control rounded" placeholder="找點什麼吧！" aria-label="Search"
+                                   aria-describedby="search-addon" />
+                            <span class="input-group-text border-0 " id="search-addon">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </a>
+
+                        <!-- 購物車 -->
+                        <a class="nav-icon position-relative text-decoration-none" href="#">
+                            <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1" style="margin-left: 40px;"></i>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">n</span>
+                        </a>
+
+                        <!-- 會員 -->
+                        <a class="nav-icon position-relative text-decoration-none" href="@Url.Action("Login", "LoginRegister")" style="margin-left: 20px;">
+                            <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                            @*<span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">n</span>*@
+                        </a>
+
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
+
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Prj_CSharpGo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/Didi/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Didi/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Didi/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Didi/js/templatemo.js"></script>
+    <script src="~/Didi/js/custom.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

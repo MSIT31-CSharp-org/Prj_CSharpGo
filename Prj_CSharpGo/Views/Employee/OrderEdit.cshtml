@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Prj_CSharpGo.Models.OrderDetail>
+
+@{
+    ViewData["Title"] = "OrderEdit";
+    Layout = "EmployeeLayout";
+}
+
+<h1>
+    訂單Id : 
+</h1>
+
+
+<hr />
+
+<form action="/Employee/OrderEdit/@Model." method="post">
+
+    @Html.AntiForgeryToken()
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    產品Id
+                </th>
+                <th>
+                    單價
+                </th>
+                <th>
+                    數量
+                </th>
+                <th>
+                    Discount
+                </th>
+                <th>
+                    Commets
+                </th>
+                <th>
+                    Approval
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.ProductId
+                    </td>
+                    <td>
+                        @item.UnitPrice
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                    <td>
+                        @item.Discount
+                    </td>
+                    <td>
+                        @item.Commets
+                    </td>
+                    <td>
+                        @item.Approval
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <input type="submit" value="確定送出" class="btn btn-primary" />
+        <a href="/Employee/Order" class="btn btn-danger">回到清單</a>
+    </div>
+</form>

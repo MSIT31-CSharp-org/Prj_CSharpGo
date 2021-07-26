@@ -1,0 +1,131 @@
+﻿@model IEnumerable<Prj_CSharpGo.Models.User>
+
+@{
+    ViewData["Title"] = "Member";
+    Layout = "EmployeeLayout";
+}
+
+<h1>會員資料</h1>
+<hr />
+<div class="search-form">
+    <label> 關鍵字搜索 </label>
+    <input id="search-input" type="text" placeholder="" />
+    <style id="m-search"></style>
+</div>
+<script>
+    var that = $(this);
+    var mSearch = $("#m-search");
+    $("#search-input").bind("change paste keyup", function () {
+        var value = $(this).val();
+        if (!value) {
+            mSearch.html("");
+            return;
+        };
+        mSearch.html('.wrap:not([data-index*="' + value + '"]) {display: none;}');
+    });
+</script>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                會員Id
+            </th>
+            <th>
+                帳號
+            </th>
+            <th>
+                密碼
+            </th>
+            <th>
+                名字
+            </th>
+            <th>
+                生日
+            </th>
+            <th>
+                地區
+            </th>
+            <th>
+                住址
+            </th>
+            <th>
+                電話
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                照片
+            </th>
+            <th>
+                優惠碼
+            </th>
+            <th>
+                修改日期
+            </th>
+            <th>
+                狀態
+            </th>
+            <th>
+                Vip
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="wrap" data-index="@item.UserId @item.UserAccount @item.UserPassword @item.UserName @item.Birthday
+                @item.Region @item.Address @item.Phone @item.Email @item.Img @item.DiscountCode @item.UpdateDate @item.UserStatus
+                @item.Vip">
+
+                <td>
+                    @item.UserId
+                </td>
+                <td>
+                    @item.UserAccount
+                </td>
+                <td>
+                    @item.UserPassword
+                </td>
+                <td>
+                    @item.UserName
+                </td>
+                <td>
+                    @item.Birthday
+                </td>
+                <td>
+                    @item.Region
+                </td>
+                <td>
+                    @item.Address
+                </td>
+                <td>
+                    @item.Phone
+                </td>
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    @item.Img
+                </td>
+                <td>
+                    @item.DiscountCode
+                </td>
+                <td>
+                    @item.UpdateDate
+                </td>
+                <td>
+                    @item.UserStatus
+                </td>
+                <td>
+                    @item.Vip
+                </td>
+
+                <td>
+                    <a href="/Employee/MemberEdit/@item.UserId" class="btn btn-outline-primary">編輯資料</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

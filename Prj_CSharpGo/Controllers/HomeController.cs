@@ -14,7 +14,7 @@ namespace Prj_CSharpGo.Controllers
         private readonly ILogger<HomeController> _logger;
         private WildnessCampingContext _context;
 
-        public HomeController(ILogger<HomeController> logger , WildnessCampingContext dbContext)
+        public HomeController(ILogger<HomeController> logger, WildnessCampingContext dbContext)
         {
             _logger = logger;
             _context = dbContext;
@@ -22,8 +22,7 @@ namespace Prj_CSharpGo.Controllers
 
         public IActionResult Index()
         {
-            var query = _context.Users.Find(1001).UserName;
-            return Content(query);
+            return View();
         }
 
         public IActionResult Privacy()
@@ -36,5 +35,7 @@ namespace Prj_CSharpGo.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        
     }
 }
