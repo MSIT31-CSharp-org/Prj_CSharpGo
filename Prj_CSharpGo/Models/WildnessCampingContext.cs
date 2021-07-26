@@ -35,14 +35,14 @@ namespace Prj_CSharpGo.Models
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("Server=218.161.74.208;Database=WildnessCamping;uid=pudb_edit;pwd=Opland0819");
-//            }
-//        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=218.161.74.208;Database=WildnessCamping;uid=pudb_edit;pwd=Opland0819");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -72,7 +72,7 @@ namespace Prj_CSharpGo.Models
                     .WithMany()
                     .HasForeignKey(d => d.EmployeeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Approval__Employ__276EDEB3");
+                    .HasConstraintName("FK__Approval__Employ__160F4887");
             });
 
             modelBuilder.Entity<Association>(entity =>
@@ -137,20 +137,16 @@ namespace Prj_CSharpGo.Models
                 entity.HasOne(d => d.Camp)
                     .WithMany()
                     .HasForeignKey(d => d.CampId)
-                    .HasConstraintName("FK__CampImg__CampID__3C69FB99");
+                    .HasConstraintName("FK__CampImg__CampID__17036CC0");
             });
 
             modelBuilder.Entity<CampOrder>(entity =>
             {
                 entity.ToTable("CampOrder");
 
-                entity.Property(e => e.CampOrderId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CampOrderID");
+                entity.Property(e => e.CampOrderId).HasColumnName("CampOrderID");
 
-                entity.Property(e => e.Approval)
-                    .HasMaxLength(2)
-                    .IsFixedLength(true);
+                entity.Property(e => e.Approval).HasMaxLength(2);
 
                 entity.Property(e => e.CampId).HasColumnName("CampID");
 
@@ -178,13 +174,13 @@ namespace Prj_CSharpGo.Models
                     .WithMany(p => p.CampOrders)
                     .HasForeignKey(d => d.CampId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CampOrder__CampI__403A8C7D");
+                    .HasConstraintName("FK__CampOrder__CampI__68D28DBC");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.CampOrders)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CampOrder__UserI__3F466844");
+                    .HasConstraintName("FK__CampOrder__UserI__67DE6983");
             });
 
             modelBuilder.Entity<CategoriesTypeI>(entity =>
@@ -195,15 +191,13 @@ namespace Prj_CSharpGo.Models
 
                 entity.Property(e => e.CategoryId)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(2)
                     .HasColumnName("CategoryID")
                     .IsFixedLength(true);
 
-                entity.HasOne(d => d.Category)
-                    .WithMany()
-                    .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Categorie__Categ__2B3F6F97");
+                entity.Property(e => e.CategoryTypeI)
+                    .HasMaxLength(2)
+                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<CategoriesTypeIi>(entity =>
@@ -213,21 +207,16 @@ namespace Prj_CSharpGo.Models
                 entity.ToTable("CategoriesTypeII");
 
                 entity.Property(e => e.CategoryTypeI)
-                    .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(2)
                     .IsFixedLength(true);
 
-                entity.HasOne(d => d.CategoryTypeINavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.CategoryTypeI)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Categorie__Categ__2D27B809");
+                entity.Property(e => e.CategoryTypeIi).HasColumnName("CategoryTypeII");
             });
 
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.Property(e => e.CategoryId)
-                    .HasMaxLength(1)
+                    .HasMaxLength(2)
                     .HasColumnName("CategoryID")
                     .IsFixedLength(true);
 
@@ -324,7 +313,7 @@ namespace Prj_CSharpGo.Models
 
                 entity.Property(e => e.CategoryId)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(2)
                     .HasColumnName("CategoryID")
                     .IsFixedLength(true);
 
@@ -342,7 +331,7 @@ namespace Prj_CSharpGo.Models
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Products__Catego__68487DD7");
+                    .HasConstraintName("FK__Products__Catego__30C33EC3");
             });
 
             modelBuilder.Entity<ProductImg>(entity =>
@@ -362,16 +351,18 @@ namespace Prj_CSharpGo.Models
                     .WithMany()
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ProductIm__Produ__693CA210");
+                    .HasConstraintName("FK__ProductIm__Produ__19DFD96B");
             });
 
             modelBuilder.Entity<Recipe>(entity =>
             {
                 entity.ToTable("Recipe");
 
-                entity.Property(e => e.RecipeId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("RecipeID");
+                entity.Property(e => e.RecipeId).HasColumnName("RecipeID");
+
+                entity.Property(e => e.CookingTime)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.CreateTime).HasColumnType("datetime");
 
@@ -382,6 +373,10 @@ namespace Prj_CSharpGo.Models
                 entity.Property(e => e.ModifiedTime).HasColumnType("datetime");
 
                 entity.Property(e => e.Preparation).HasMaxLength(200);
+
+                entity.Property(e => e.PreparationTime)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.PublishTime).HasColumnType("datetime");
 
@@ -394,6 +389,10 @@ namespace Prj_CSharpGo.Models
                 entity.Property(e => e.Step).HasMaxLength(500);
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.Yield)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Recipes)
@@ -466,7 +465,7 @@ namespace Prj_CSharpGo.Models
                 entity.Property(e => e.Address).HasMaxLength(50);
 
                 entity.Property(e => e.Birthday)
-                    .HasMaxLength(8)
+                    .HasMaxLength(10)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.DiscountCode).HasMaxLength(8);
