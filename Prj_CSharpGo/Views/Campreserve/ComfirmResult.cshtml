@@ -178,7 +178,7 @@
                                 <th scope="col">退租日期</th>
                                 <th scope="col">小 計</th>
                                 <th scope="col">帳數</th>
-                                <th scope="col">加購人頭數(100元/人)</th>
+                                <th scope="col">加購人頭數</th>
                                 <th scope="col">總金額</th>
                             </tr>
                         </thead>
@@ -186,29 +186,54 @@
                         <tbody>
                             <tr>
                                 <th scope="row">@Model.CampName</th>
-                                <td>@Model.StartDay.ToString("yyyyy-MM-dd")</td>
-                                <td>@Model.EndDay.ToString("yyyyy-MM-dd")</td>
+                                <td>@Model.StartDay.ToString("yyyy-MM-dd")</td>
+                                <td>@Model.EndDay.ToString("yyyy-MM-dd")</td>
                                 <td>
                                     @Model.TotalPricesmall 元 <br />
-                                    (<div id="daysvalue"> </div> 晚)
+                                    ( @Model.Daycount 晚)
                                 </td>
                                 <td>@Model.CampQuantity</td>
                                 <td>
                                     <select class="$form-select-bg-position" name="PlusPrice" id="PlusPrice">
                                         <option value="0">  0</option>
-                                        <option value="100">1</option>
-                                        <option value="200">2</option>
-                                    </select> <br />
-                                    <div style="width:50px">(共 <div id="pricevalue1"></div>元)</div>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select> * 100 元/人 
+                                    <div><div id="pricevalue1"></div></div>
+                                    
                                 </td>
-                                <td>@{}
-                                
-                                
-                                @Model.TotalPricebig <div id="pricevalue2"></div></td>
+                                <td id="total_price">
+                                    @Model.TotalPricebig
+                                </td>
                             </tr>
                         </tbody>
 
                     </table>
+                    @using (Html.BeginForm("ComfirmResult", "Campreserve", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(Model => Model.CampOrderID)
+                        @Html.HiddenFor(Model => Model.UserId)
+                        @Html.HiddenFor(Model => Model.CampId)
+                        @Html.HiddenFor(Model => Model.CampQuantity)
+                        @Html.HiddenFor(Model => Model.StartDay)
+                        @Html.HiddenFor(Model => Model.EndDay)
+                        @Html.HiddenFor(Model => Model.WeekdayPrice)
+                        @Html.HiddenFor(Model => Model.HolidayPrice)
+                        @Html.HiddenFor(Model => Model.HolidayPrice)
+                        @Html.HiddenFor(Model => Model.Peoplenumber)
+                        @Html.HiddenFor(Model => Model.TotalPrice)
+                        @Html.HiddenFor(Model => Model.TotalPricebig)
+
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="/Campreserve/Index" type="button" class="btn btn-secondary">取消</a>
+                            <button type="submit" class="btn btn-success">確認</button>
+
+                        </div>
+
+
+
+                    }
 
                 </div>
             </div>
@@ -385,20 +410,21 @@
 
     <script>
 
-
+        var origin_price =@Model.TotalPricebig;
         $("#PlusPrice").change(function () {
             if (PlusPrice != null) {
                 $("#pricevalue1").empty()
                 $("#pricevalue2").empty()
             }
-            var s = $("#PlusPrice").prop("value");
+            var s = parseInt($("#PlusPrice").prop("value"))*100;
+ 
+            $("#pricevalue1").append("(共  "  +  s  +  "  元)");
+            $("#pricevalue2").append("(共  "  +  s  +  "  元)");
+            $('#total_price').text(origin_price + parseInt(s));
+            $("#Peoplenumber").val(s/100)
 
-            $("#pricevalue1").append(s);
-            $("#pricevalue2").append(s);
 
         });
-
-        
 
 
     </script>
