@@ -16,9 +16,9 @@ namespace Prj_CSharpGo.Models
         public DateTime? EndDay { get; set; }
         public int? WeekdayPrice { get; set; }
         public int? HolidayPrice { get; set; }
+        public int? Peoplenumber { get; set; }
         public int? TotalPrice { get; set; }
         public double? Discount { get; set; }
-        public int? PlusPrice { get; set; }
         public string CampStatus { get; set; }
         public string OrderStatus { get; set; }
         public string PayMethod { get; set; }
