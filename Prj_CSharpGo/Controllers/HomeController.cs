@@ -14,7 +14,7 @@ namespace Prj_CSharpGo.Controllers
         private readonly ILogger<HomeController> _logger;
         private WildnessCampingContext _context;
 
-        public HomeController(ILogger<HomeController> logger, WildnessCampingContext dbContext)
+        public HomeController(ILogger<HomeController> logger , WildnessCampingContext dbContext)
         {
             _logger = logger;
             _context = dbContext;
@@ -35,7 +35,5 @@ namespace Prj_CSharpGo.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        
     }
 }

@@ -1,652 +1,357 @@
-﻿@model List<Prj_CSharpGo.Models.Camp>
-@{
-    Layout = null;
+﻿@{
+    ViewData["Title"] = "露營場地";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<main id="main">
 
-    <title>露營推廣</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-
-    <!--  CSS Files -->
-    <link href="~/css/bootstrap-icons.css" rel="stylesheet">
-    <!-- Template Main CSS File -->
-    <link href="~/css/style.css" rel="stylesheet">
-
-    <style>
-
-        .margin-top-60 {
-            margin-top: 60px !important;
-        }
-
-        .online {
-            border-top: 3px solid #fbba2c;
-            background: #f7f7f7;
-            padding: 15px;
-        }
-
-        .classify {
-            width: 49%;
-            display: inline-block;
-            margin: 0;
-            vertical-align: text-top;
-            margin: 0 0 5px 0;
-        }
-
-        .title {
-            text-decoration: none;
-            font: 16px arial,Microsoft YaHei,Microsoft JhengHei;
-            margin: 0px 0 10px 0;
-            color: #989898;
-            width: 28%;
-            float: left;
-        }
-
-
-        .list-inline > li {
-            display: inline-block;
-            padding-right: 5px;
-            padding-left: 5px;
-        }
-
-        .margin-top-20 {
-            margin-top: 20px !important;
-        }
-
-        .content {
-            margin-bottom: 15px;
-            font-size: 20px;
-            line-height: 36px;
-            color: #626262;
-            word-break: break-all;
-        }
-
-        article p, article h2.directions {
-            font-size: 16px;
-            line-height: 28px;
-            color: #626262;
-            margin-bottom: 15px;
-            word-wrap: break-word;
-            overflow: hidden;
-        }
-    </style>
-
-</head>
-
-<body>
-
-    <!-- ======= Header/Navbar ======= -->
-    <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
-        <div class="container">
-            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <a class="navbar-brand text-brand" href="index.html">露營<span class="color-b">推廣</span></a>
-
-            <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
-                <ul class="navbar-nav">
-
-                    <li class="nav-item">
-                        <a class="nav-link " href="index.html">Home</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " href="about.html">About</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " href="/camp/index">營區介紹</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " href="/campreserve/index">營地預約</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item " href="property-single.html">Property Single</a>
-                            <a class="dropdown-item active" href="blog-single.html">Blog Single</a>
-                            <a class="dropdown-item " href="agents-grid.html">Agents Grid</a>
-                            <a class="dropdown-item " href="agent-single.html">Agent Single</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="contact.html">Contact</a>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </nav><!-- End Header/Navbar -->
-
-    <main id="main">
-
-        <!-- ======= Intro Single ======= -->
-        <section class="intro-single">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-lg-8">
-                        <div class="title-single-box">
-                            <h1 class="title-single">營區介紹</h1>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-4">
-                        <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="#">Home</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Book Cover Deisgn
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </section><!-- End Intro Single-->
-        <!-- ======= Blog Single ======= -->
-        <section class="news-single nav-arrow-b">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h3>營區配置圖</h3>
-                        <div class="news-img-box">
-                            <img src="~/assets/img/camp1.jpg" alt="" class="img-fluid">
-                        </div>
-                    </div>
-                    <div>
-                        <br>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">區域名稱</th>
-                                    <th scope="col">尺寸</th>
-                                    <th scope="col">帳數</th>
-                                    <th scope="col">平日</th>
-                                    <th scope="col">假日</th>
-                                    <th scope="col">詳細</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                             @foreach( var item in Model) {
-                                <tr>                                                       
-                                       <th scope="row">@item.CampName</th>
-                                       <td>@item.CampSize</td>
-                                       <td>@item.CampQuantity 帳</td>
-                                       <td>@item.WeekdayPrice</td>
-                                       <td>@item.HolidayPrice</td>
-                                    <td> <button type="button" class="btn btn-success">查看更多</button></td>
-                                </tr>
-                                 }
-                            </tbody>
-                        </table>
-                    </div>
-
-
-                    <div class="online margin-top-60">
-
-                        <div class="content"><h2>營區資訊介紹</h2></div>
-                        <div class="classify">
-                            <div class="title">海拔</div>
-                            <ul class="list-inline">
-                                <li>300m以下</li>
-                            </ul>
-                        </div>
-                        <div class="classify">
-                            <div class="title">營區特色</div>
-                            <ul class="list-inline">
-                                <li>可停露營車</li>
-                                <li>有遊戲設施	</li>
-                                <li> 旅遊基地/景點	</li>
-                        </div>
-
-                        <div class="classify">
-                            <div class="title">衛浴配置</div>
-                            <ul class="list-inline">
-                                <li>分區浴廁</li>
-                            </ul>
-                        </div>
-
-                        <div class="classify">
-                            <div class="title">無線通訊</div>
-                            <ul class="list-inline">
-                                <li>中華電信有訊號</li>
-                                <li>遠傳有訊號	</li>
-                                <li>台哥大有訊號	</li>
-                            </ul>
-                        </div>
-
-                        <div class="classify">
-                            <div class="title">攜帶寵物</div>
-                            <ul class="list-inline">
-                                <li>可攜帶寵物	</li>
-                                <li>需注意清潔  </li>
-                                <li>需加鍊綁著，或放置籠內	</li>
-                            </ul>
-                        </div>
-
-                        <div class="classify">
-                            <div class="title">附屬設施</div>
-                            <ul class="list-inline">
-                                <li>戲水池</li>
-                                <li>玩沙池</li>
-                                <li>飲水機</li>
-                                <li>吹風機</li>
-                                <li>溜滑梯</li>
-                                <li>鞦韆</li>
-                            </ul>
-                        </div>
-
-                        <div class="classify">
-                            <div class="title">附屬服務</div>
-                            <ul class="list-inline">
-                                <li>週邊賞螢</li>
-                            </ul>
-                        </div>
-
-                        <div class="classify">
-                            <div class="title">營業時間</div>
-                            <ul class="list-inline">
-                                <li>平日</li>
-                                <li>假日</li>
-                            </ul>
-                        </div>
-
-                        <div class="classify">
-                            <div class="title">停車方式</div>
-                            <ul class="list-inline">
-                                <li> 車停營位旁</li>
-                            </ul>
-                        </div>
-                    </div>
-
-
-                    <div class="margin-bottom-20 margin-top-20">
-                        <div class="content"><h2>營地須知</h2></div>
-
-                        <article>
-                            <h2 class="directions">
-                                ※ 因配合園區休園至2021年8月底止，無法訂位請見諒。<br>
-                                ※ 平台僅開放部份區域可訂位，如需全區包場請洽營主，謝謝。<br>
-                                <br>
-                                入拔營時間　：<br>
-                                一般平假日入營10:00  拔營 隔日14:00<br>
-                                連續假日入營13:00  拔營 隔日12:00<br>
-                                <br>
-                                平假日定義　：<br>
-                                平日：星期五 (訂金30%)<br>
-                                假日：星期六、連假、年假 (訂金30%)<br>
-                                休園：星期日 ~星期四<br>
-                                <br>
-                                ※ 一般營位僅提供場地使用。<br>
-                                ※ 每營位限搭1睡帳、1客廳帳，附1停車位 (無法加車，如需加車請另外加訂營位)。<br>
-                                ※ 每營位限4人使用，第5人起每人100元清潔費(可加2人，3歲以下免費)。<br>
-                                ※ 露宿車內，需依照營位費計算。<br>
-                                ※ A1草地、VIP景觀區 於4/1起開放訂位<br>
-                                ※ 營帳為特殊大型帳或5 x 8大天幕，有超過原本營位空間者，請訂2個營位，謝謝。<br>
-                                ※ 部份區域可接車露(露營車/車頂/邊帳)，營位費用以每帳計算。<br>
-                                <br>
-                                ※ 訪客：不需收費，車需停放營區外，不負保管責任。（不可過夜，需要在晚上10點前離開)<br>
-                                <br>
-                                熱水供應時間：24小時供應<br>
-                                電力供應時間：24小時供應
-                            </h2>
-                        </article>
-                    </div>
-
-
-                    <!-- <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-                      <div class="post-information">
-                        <ul class="list-inline text-center color-a">
-                          <li class="list-inline-item mr-2">
-                            <strong>Author: </strong>
-                            <span class="color-text-a">Morgan Jimenez</span>
-                          </li>
-                          <li class="list-inline-item mr-2">
-                            <strong>Category: </strong>
-                            <span class="color-text-a">Travel</span>
-                          </li>
-                          <li class="list-inline-item">
-                            <strong>Date: </strong>
-                            <span class="color-text-a">19 Apr. 2017</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="post-content color-text-a">
-                        <p class="post-intro">
-                          Sed porttitor lectus nibh. Lorem ipsum dolor sit amet, consectetur
-                          <strong>adipiscing</strong> elit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                          Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
-                        </p>
-                        <p>
-                          Proin eget tortor risus. Donec sollicitudin molestie malesuada. Cras ultricies ligula sed magna dictum
-                          porta. Pellentesque
-                          in ipsum id orci porta dapibus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
-                          dui. Lorem ipsum dolor sit amet.
-                        </p>
-                        <p>
-                          Pellentesque in ipsum id orci porta dapibus. Curabitur non nulla sit amet nisl tempus convallis quis ac
-                          lectus. Curabitur
-                          non nulla sit amet nisl tempus convallis quis ac lectus. Proin eget tortor risus. Curabitur non
-                          nulla sit amet nisl tempus convallis quis ac lectus. Donec rutrum congue leo eget malesuada.
-                          Quisque velit nisi.
-                        </p>
-                        <blockquote class="blockquote">
-                          <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                          <footer class="blockquote-footer">
-                            <strong>Albert Vargas</strong>
-                            <cite title="Source Title">Author</cite>
-                          </footer>
-                        </blockquote>
-                        <p>
-                          Donec rutrum congue leo eget malesuada. Curabitur aliquet quam id dui posuere blandit. Vivamus suscipit
-                          tortor eget felis
-                          porttitor volutpat. Quisque velit nisi, pretium ut lacinia in, elementum id enim.
-                        </p>
-                      </div>
-                      <div class="post-footer">
-                        <div class="post-share">
-                          <span>Share: </span>
-                          <ul class="list-inline socials">
-                            <li class="list-inline-item">
-                              <a href="#">
-                                <i class="bi bi-facebook" aria-hidden="true"></i>
-                              </a>
-                            </li>
-                            <li class="list-inline-item">
-                              <a href="#">
-                                <i class="bi bi-twitter" aria-hidden="true"></i>
-                              </a>
-                            </li>
-                            <li class="list-inline-item">
-                              <a href="#">
-                                <i class="bi bi-instagram" aria-hidden="true"></i>
-                              </a>
-                            </li>
-                            <li class="list-inline-item">
-                              <a href="#">
-                                <i class="bi bi-linkedin" aria-hidden="true"></i>
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div> -->
-                    <!-- <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
-                      <div class="title-box-d">
-                        <h3 class="title-d">Comments (4)</h3>
-                      </div>
-                      <div class="box-comments">
-                        <ul class="list-comments">
-                          <li>
-                            <div class="comment-avatar">
-                              <img src="assets/img/author-2.jpg" alt="">
-                            </div>
-                            <div class="comment-details">
-                              <h4 class="comment-author">Emma Stone</h4>
-                              <span>18 Sep 2017</span>
-                              <p class="comment-description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                                ipsam temporibus maiores
-                                quae natus libero optio, at qui beatae ducimus placeat debitis voluptates amet corporis.
-                              </p>
-                              <a href="3">Reply</a>
-                            </div>
-                          </li>
-                          <li class="comment-children">
-                            <div class="comment-avatar">
-                              <img src="assets/img/author-1.jpg" alt="">
-                            </div>
-                            <div class="comment-details">
-                              <h4 class="comment-author">Oliver Colmenares</h4>
-                              <span>18 Sep 2017</span>
-                              <p class="comment-description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                                ipsam temporibus maiores
-                                quae.
-                              </p>
-                              <a href="3">Reply</a>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="comment-avatar">
-                              <img src="assets/img/author-2.jpg" alt="">
-                            </div>
-                            <div class="comment-details">
-                              <h4 class="comment-author">Emma Stone</h4>
-                              <span>18 Sep 2017</span>
-                              <p class="comment-description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                                ipsam temporibus maiores
-                                quae natus libero optio.
-                              </p>
-                              <a href="3">Reply</a>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="form-comments">
-                        <div class="title-box-d">
-                          <h3 class="title-d"> Leave a Reply</h3>
-                        </div>
-                        <form class="form-a">
-                          <div class="row">
-                            <div class="col-md-6 mb-3">
-                              <div class="form-group">
-                                <label for="inputName">Enter name</label>
-                                <input type="text" class="form-control form-control-lg form-control-a" id="inputName" placeholder="Name *" required>
-                              </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                              <div class="form-group">
-                                <label for="inputEmail1">Enter email</label>
-                                <input type="email" class="form-control form-control-lg form-control-a" id="inputEmail1" placeholder="Email *" required>
-                              </div>
-                            </div>
-                            <div class="col-md-12 mb-3">
-                              <div class="form-group">
-                                <label for="inputUrl">Enter website</label>
-                                <input type="url" class="form-control form-control-lg form-control-a" id="inputUrl" placeholder="Website">
-                              </div>
-                            </div>
-                            <div class="col-md-12 mb-3">
-                              <div class="form-group">
-                                <label for="textMessage">Enter message</label>
-                                <textarea id="textMessage" class="form-control" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
-                              </div>
-                            </div>
-                            <div class="col-md-12">
-                              <button type="submit" class="btn btn-a">Send Message</button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div> -->
-
-
-                </div>
-            </div>
-        </section><!-- End Blog Single-->
-
-    </main><!-- End #main -->
-    <!-- ======= Footer ======= -->
-    <section class="section-footer">
+    <!-- ======= Intro Single ======= -->
+    <section class="intro-single">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-4">
-                    <div class="widget-a">
-                        <div class="w-header-a">
-                            <h3 class="w-title-a text-brand">EstateAgency</h3>
-                        </div>
-                        <div class="w-body-a">
-                            <p class="w-text-a color-text-a">
-                                Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis
-                                sed aute irure.
-                            </p>
-                        </div>
-                        <div class="w-footer-a">
-                            <ul class="list-unstyled">
-                                <li class="color-a">
-                                    <span class="color-text-a">Phone .</span> contact@example.com
-                                </li>
-                                <li class="color-a">
-                                    <span class="color-text-a">Email .</span> +54 356 945234
-                                </li>
-                            </ul>
-                        </div>
+                <div class="col-md-12 col-lg-8">
+                    <div class="title-single-box">
+                        <h1 class="title-single">營區介紹</h1>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4 section-md-t3">
-                    <div class="widget-a">
-                        <div class="w-header-a">
-                            <h3 class="w-title-a text-brand">The Company</h3>
-                        </div>
-                        <div class="w-body-a">
-                            <div class="w-body-a">
-                                <ul class="list-unstyled">
-                                    <li class="item-list-a">
-                                        <i class="bi bi-chevron-right"></i> <a href="#">Site Map</a>
-                                    </li>
-                                    <li class="item-list-a">
-                                        <i class="bi bi-chevron-right"></i> <a href="#">Legal</a>
-                                    </li>
-                                    <li class="item-list-a">
-                                        <i class="bi bi-chevron-right"></i> <a href="#">Agent Admin</a>
-                                    </li>
-                                    <li class="item-list-a">
-                                        <i class="bi bi-chevron-right"></i> <a href="#">Careers</a>
-                                    </li>
-                                    <li class="item-list-a">
-                                        <i class="bi bi-chevron-right"></i> <a href="#">Affiliate</a>
-                                    </li>
-                                    <li class="item-list-a">
-                                        <i class="bi bi-chevron-right"></i> <a href="#">Privacy Policy</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-4 section-md-t3">
-                    <div class="widget-a">
-                        <div class="w-header-a">
-                            <h3 class="w-title-a text-brand">International sites</h3>
-                        </div>
-                        <div class="w-body-a">
-                            <ul class="list-unstyled">
-                                <li class="item-list-a">
-                                    <i class="bi bi-chevron-right"></i> <a href="#">Venezuela</a>
-                                </li>
-                                <li class="item-list-a">
-                                    <i class="bi bi-chevron-right"></i> <a href="#">China</a>
-                                </li>
-                                <li class="item-list-a">
-                                    <i class="bi bi-chevron-right"></i> <a href="#">Hong Kong</a>
-                                </li>
-                                <li class="item-list-a">
-                                    <i class="bi bi-chevron-right"></i> <a href="#">Argentina</a>
-                                </li>
-                                <li class="item-list-a">
-                                    <i class="bi bi-chevron-right"></i> <a href="#">Singapore</a>
-                                </li>
-                                <li class="item-list-a">
-                                    <i class="bi bi-chevron-right"></i> <a href="#">Philippines</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <nav class="nav-footer">
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
+                <div class="col-md-12 col-lg-4">
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
                                 <a href="#">Home</a>
                             </li>
-                            <li class="list-inline-item">
-                                <a href="#">About</a>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Book Cover Deisgn
                             </li>
-                            <li class="list-inline-item">
-                                <a href="#">Property</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">Blog</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">Contact</a>
-                            </li>
-                        </ul>
+                        </ol>
                     </nav>
-                    <div class="socials-a">
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="bi bi-facebook" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="bi bi-twitter" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="bi bi-instagram" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="bi bi-linkedin" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="copyright-footer">
-                        <p class="copyright color-text-a">
-                            &copy; Copyright
-                            <span class="color-a">EstateAgency</span> All Rights Reserved.
-                        </p>
-                    </div>
-                    <div class="credits">
-                        <!--
-                          All the links in the footer should remain intact.
-                          You can delete the links only if you purchased the pro version.
-                          Licensing information: https://bootstrapmade.com/license/
-                          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
-                        -->
-                        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                    </div>
                 </div>
             </div>
         </div>
-    </footer><!-- End  Footer -->
+    </section><!-- End Intro Single-->
+    <!-- ======= Blog Single ======= -->
+    <section class="news-single nav-arrow-b">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>營區配置圖</h3>
+                    <div class="news-img-box">
+                        <img src="~/assets/img/camp1.jpg" alt="" class="img-fluid">
+                    </div>
+                </div>
+                <div>
+                    <br>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">區域名稱</th>
+                                <th scope="col">尺寸</th>
+                                <th scope="col">帳數</th>
+                                <th scope="col">平日</th>
+                                <th scope="col">假日</th>
+                                <th scope="col">詳細</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@item.CampName</th>
+                                    <td>@item.CampSize</td>
+                                    <td>@item.CampQuantity 帳</td>
+                                    <td>@item.WeekdayPrice</td>
+                                    <td>@item.HolidayPrice</td>
+                                    <td> <button type="button" class="btn btn-success">查看更多</button></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
 
-    <div id="preloader"></div>
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    @*<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>*@
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <!-- Template Main JS File -->
-    <script src="~/js/main.js"></script>
-</body>
-</html>
+
+                <div class="online margin-top-60">
+
+                    <div class="content"><h2>營區資訊介紹</h2></div>
+                    <div class="classify">
+                        <div class="title">海拔</div>
+                        <ul class="list-inline">
+                            <li>300m以下</li>
+                        </ul>
+                    </div>
+                    <div class="classify">
+                        <div class="title">營區特色</div>
+                        <ul class="list-inline">
+                            <li>可停露營車</li>
+                            <li>有遊戲設施	</li>
+                            <li> 旅遊基地/景點	</li>
+                        </ul>
+                    </div>
+
+                    <div class="classify">
+                        <div class="title">衛浴配置</div>
+                        <ul class="list-inline">
+                            <li>分區浴廁</li>
+                        </ul>
+                    </div>
+
+                    <div class="classify">
+                        <div class="title">無線通訊</div>
+                        <ul class="list-inline">
+                            <li>中華電信有訊號</li>
+                            <li>遠傳有訊號	</li>
+                            <li>台哥大有訊號	</li>
+                        </ul>
+                    </div>
+
+                    <div class="classify">
+                        <div class="title">攜帶寵物</div>
+                        <ul class="list-inline">
+                            <li>可攜帶寵物	</li>
+                            <li>需注意清潔  </li>
+                            <li>需加鍊綁著，或放置籠內	</li>
+                        </ul>
+                    </div>
+
+                    <div class="classify">
+                        <div class="title">附屬設施</div>
+                        <ul class="list-inline">
+                            <li>戲水池</li>
+                            <li>玩沙池</li>
+                            <li>飲水機</li>
+                            <li>吹風機</li>
+                            <li>溜滑梯</li>
+                            <li>鞦韆</li>
+                        </ul>
+                    </div>
+
+                    <div class="classify">
+                        <div class="title">附屬服務</div>
+                        <ul class="list-inline">
+                            <li>週邊賞螢</li>
+                        </ul>
+                    </div>
+
+                    <div class="classify">
+                        <div class="title">營業時間</div>
+                        <ul class="list-inline">
+                            <li>平日</li>
+                            <li>假日</li>
+                        </ul>
+                    </div>
+
+                    <div class="classify">
+                        <div class="title">停車方式</div>
+                        <ul class="list-inline">
+                            <li> 車停營位旁</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="margin-bottom-20 margin-top-20">
+                    <div class="content"><h2>營地須知</h2></div>
+
+                    <article>
+                        <h2 class="directions">
+                            ※ 因配合園區休園至2021年8月底止，無法訂位請見諒。<br>
+                            ※ 平台僅開放部份區域可訂位，如需全區包場請洽營主，謝謝。<br>
+                            <br>
+                            入拔營時間　：<br>
+                            一般平假日入營10:00  拔營 隔日14:00<br>
+                            連續假日入營13:00  拔營 隔日12:00<br>
+                            <br>
+                            平假日定義　：<br>
+                            平日：星期五 (訂金30%)<br>
+                            假日：星期六、連假、年假 (訂金30%)<br>
+                            休園：星期日 ~星期四<br>
+                            <br>
+                            ※ 一般營位僅提供場地使用。<br>
+                            ※ 每營位限搭1睡帳、1客廳帳，附1停車位 (無法加車，如需加車請另外加訂營位)。<br>
+                            ※ 每營位限4人使用，第5人起每人100元清潔費(可加2人，3歲以下免費)。<br>
+                            ※ 露宿車內，需依照營位費計算。<br>
+                            ※ A1草地、VIP景觀區 於4/1起開放訂位<br>
+                            ※ 營帳為特殊大型帳或5 x 8大天幕，有超過原本營位空間者，請訂2個營位，謝謝。<br>
+                            ※ 部份區域可接車露(露營車/車頂/邊帳)，營位費用以每帳計算。<br>
+                            <br>
+                            ※ 訪客：不需收費，車需停放營區外，不負保管責任。（不可過夜，需要在晚上10點前離開)<br>
+                            <br>
+                            熱水供應時間：24小時供應<br>
+                            電力供應時間：24小時供應
+                        </h2>
+                    </article>
+                </div>
+
+
+                <!-- <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                  <div class="post-information">
+                    <ul class="list-inline text-center color-a">
+                      <li class="list-inline-item mr-2">
+                        <strong>Author: </strong>
+                        <span class="color-text-a">Morgan Jimenez</span>
+                      </li>
+                      <li class="list-inline-item mr-2">
+                        <strong>Category: </strong>
+                        <span class="color-text-a">Travel</span>
+                      </li>
+                      <li class="list-inline-item">
+                        <strong>Date: </strong>
+                        <span class="color-text-a">19 Apr. 2017</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="post-content color-text-a">
+                    <p class="post-intro">
+                      Sed porttitor lectus nibh. Lorem ipsum dolor sit amet, consectetur
+                      <strong>adipiscing</strong> elit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
+                      Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+                    </p>
+                    <p>
+                      Proin eget tortor risus. Donec sollicitudin molestie malesuada. Cras ultricies ligula sed magna dictum
+                      porta. Pellentesque
+                      in ipsum id orci porta dapibus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
+                      dui. Lorem ipsum dolor sit amet.
+                    </p>
+                    <p>
+                      Pellentesque in ipsum id orci porta dapibus. Curabitur non nulla sit amet nisl tempus convallis quis ac
+                      lectus. Curabitur
+                      non nulla sit amet nisl tempus convallis quis ac lectus. Proin eget tortor risus. Curabitur non
+                      nulla sit amet nisl tempus convallis quis ac lectus. Donec rutrum congue leo eget malesuada.
+                      Quisque velit nisi.
+                    </p>
+                    <blockquote class="blockquote">
+                      <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                      <footer class="blockquote-footer">
+                        <strong>Albert Vargas</strong>
+                        <cite title="Source Title">Author</cite>
+                      </footer>
+                    </blockquote>
+                    <p>
+                      Donec rutrum congue leo eget malesuada. Curabitur aliquet quam id dui posuere blandit. Vivamus suscipit
+                      tortor eget felis
+                      porttitor volutpat. Quisque velit nisi, pretium ut lacinia in, elementum id enim.
+                    </p>
+                  </div>
+                  <div class="post-footer">
+                    <div class="post-share">
+                      <span>Share: </span>
+                      <ul class="list-inline socials">
+                        <li class="list-inline-item">
+                          <a href="#">
+                            <i class="bi bi-facebook" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a href="#">
+                            <i class="bi bi-twitter" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a href="#">
+                            <i class="bi bi-instagram" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a href="#">
+                            <i class="bi bi-linkedin" aria-hidden="true"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div> -->
+                <!-- <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+                  <div class="title-box-d">
+                    <h3 class="title-d">Comments (4)</h3>
+                  </div>
+                  <div class="box-comments">
+                    <ul class="list-comments">
+                      <li>
+                        <div class="comment-avatar">
+                          <img src="assets/img/author-2.jpg" alt="">
+                        </div>
+                        <div class="comment-details">
+                          <h4 class="comment-author">Emma Stone</h4>
+                          <span>18 Sep 2017</span>
+                          <p class="comment-description">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
+                            ipsam temporibus maiores
+                            quae natus libero optio, at qui beatae ducimus placeat debitis voluptates amet corporis.
+                          </p>
+                          <a href="3">Reply</a>
+                        </div>
+                      </li>
+                      <li class="comment-children">
+                        <div class="comment-avatar">
+                          <img src="assets/img/author-1.jpg" alt="">
+                        </div>
+                        <div class="comment-details">
+                          <h4 class="comment-author">Oliver Colmenares</h4>
+                          <span>18 Sep 2017</span>
+                          <p class="comment-description">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
+                            ipsam temporibus maiores
+                            quae.
+                          </p>
+                          <a href="3">Reply</a>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="comment-avatar">
+                          <img src="assets/img/author-2.jpg" alt="">
+                        </div>
+                        <div class="comment-details">
+                          <h4 class="comment-author">Emma Stone</h4>
+                          <span>18 Sep 2017</span>
+                          <p class="comment-description">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
+                            ipsam temporibus maiores
+                            quae natus libero optio.
+                          </p>
+                          <a href="3">Reply</a>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="form-comments">
+                    <div class="title-box-d">
+                      <h3 class="title-d"> Leave a Reply</h3>
+                    </div>
+                    <form class="form-a">
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <div class="form-group">
+                            <label for="inputName">Enter name</label>
+                            <input type="text" class="form-control form-control-lg form-control-a" id="inputName" placeholder="Name *" required>
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <div class="form-group">
+                            <label for="inputEmail1">Enter email</label>
+                            <input type="email" class="form-control form-control-lg form-control-a" id="inputEmail1" placeholder="Email *" required>
+                          </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                          <div class="form-group">
+                            <label for="inputUrl">Enter website</label>
+                            <input type="url" class="form-control form-control-lg form-control-a" id="inputUrl" placeholder="Website">
+                          </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                          <div class="form-group">
+                            <label for="textMessage">Enter message</label>
+                            <textarea id="textMessage" class="form-control" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <button type="submit" class="btn btn-a">Send Message</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div> -->
+
+
+            </div>
+        </div>
+    </section><!-- End Blog Single-->
+
+</main><!-- End #main -->
