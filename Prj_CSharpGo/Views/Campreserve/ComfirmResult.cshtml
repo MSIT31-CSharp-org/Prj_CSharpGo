@@ -1,7 +1,7 @@
 ﻿@model Prj_CSharpGo.Models.CampreserveModels.CampreserveOrderModel;
 
 @{
-    ViewData["Title"] = "露營場地";
+    ViewData["Title"] = "營地預約訂單";
 }
 
 <main id="main">
@@ -97,7 +97,7 @@
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="/Campreserve/Index" type="button" class="btn btn-secondary">取消</a>
-                        <button type="submit" class="btn btn-success">確認</button>
+                        <button type="submit" class="btn btn-success" id="comform">確認</button>
 
                     </div>
 
@@ -136,6 +136,9 @@
 
         });
 
+        $("#comform").click(function () {
+            alert('@Html.Raw(ViewBag.messagea)');
+         });
 
 </script>
 
