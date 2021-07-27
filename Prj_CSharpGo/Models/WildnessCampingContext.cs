@@ -111,6 +111,10 @@ namespace Prj_CSharpGo.Models
                     .ValueGeneratedNever()
                     .HasColumnName("CampID");
 
+                entity.Property(e => e.Ahref)
+                    .HasMaxLength(20)
+                    .HasColumnName("ahref");
+
                 entity.Property(e => e.Approval)
                     .HasMaxLength(2)
                     .IsFixedLength(true);

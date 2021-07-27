@@ -182,7 +182,7 @@ namespace Prj_CSharpGo.Controllers
                 {
                     CampreserveOrderModel orderModel = new CampreserveOrderModel()
                     {
-                        UserId = 1,
+                        UserId = 1001,
                         CampId = findCamp.CampId,
                         CampName = findCamp.CampName,
                         CampQuantity = Quantity,
