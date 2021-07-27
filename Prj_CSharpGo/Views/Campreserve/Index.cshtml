@@ -253,25 +253,15 @@
                                 </div>
                             </div>
 
-                            <div>
+                            <div id="CampNametwo">
 
-                                @*@foreach (var item in Model.CampList)
-                                {
-                                    if (Model.userFilterModel != null && Model.userFilterModel.CampId == item.CampId)
-                                    {
+                                @foreach (var item in Model.CampList)
+                                {                                               
                                         <h4>@item.CampName</h4>
-                                    }
-                                    else
-                                    {
-                                        <h4>@item.CampName</h4> 
-
-                                        @Model.CampList.
-                                    }
-                                }*@
-                                
-                                <div class="about-img-box margin-top-20">
-                                    <img src="~/img/grass.PNG" alt="" class="img-fluid">
-                                </div>
+                                        <div class="about-img-box margin-top-20" id="Img">
+                                            <img src="~/img/@item.Img" alt="" class="img-fluid">
+                                        </div>                                
+                                }
 
 
                             </div>
@@ -514,6 +504,7 @@
                     for (i = 1; i <= v.campQuantity; i++) {
                         $("#CampQuantity").append($("<option></option>").attr("value", i).text(i));
                     }
+                   
 
                     return;
                 }
