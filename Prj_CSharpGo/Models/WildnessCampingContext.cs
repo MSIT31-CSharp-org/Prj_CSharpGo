@@ -126,6 +126,8 @@ namespace Prj_CSharpGo.Models
                 entity.Property(e => e.CampSize).HasMaxLength(20);
 
                 entity.Property(e => e.Description).HasMaxLength(100);
+
+                entity.Property(e => e.Img).HasMaxLength(10);
             });
 
             modelBuilder.Entity<CampImg>(entity =>

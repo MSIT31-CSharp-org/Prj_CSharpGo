@@ -20,7 +20,7 @@
 
             @Html.AntiForgeryToken()
             <div class="form-group row">
-                <label class="col-sm-3 control-label" for="ProductId">編號</label>
+                <label class="col-sm-3 col-form-label" for="ProductId">編號</label>
                 <input class="form-control col-sm-9" type="text" data-val="true" data-val-required="不可空白" id="ProductId" name="ProductId" value="" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="ProductId" data-valmsg-replace="true"></span>
@@ -37,31 +37,31 @@
                 </select>
             </div>
             <div class="form-group row">
-                <label class="col-sm-3 control-label" for="ProductName">名稱</label>
+                <label class="col-sm-3 col-form-label" for="ProductName">名稱</label>
                 <input class="form-control col-sm-9" type="text" data-val="true" data-val-required="不可空白" id="ProductName" name="ProductName" value="" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="ProductName" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group row">
-                <label class="col-sm-3 control-label" for="ProductDescription">敘述</label>
+                <label class="col-sm-3 col-form-label" for="ProductDescription">敘述</label>
                 <input class="form-control col-sm-9" type="text" id="ProductDescription" name="ProductDescription" value="" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="ProductDescription" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group row">
-                <label class="col-sm-3 control-label" for="Specification">規格</label>
+                <label class="col-sm-3 col-form-label" for="Specification">規格</label>
                 <input class="form-control col-sm-9" type="text" id="Specification" name="Specification" value="" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="Specification" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group row">
-                <label class="col-sm-3 control-label" for="UnitPrice">單價</label>
+                <label class="col-sm-3 col-form-label" for="UnitPrice">單價</label>
                 <input class="form-control col-sm-9" type="text" id="UnitPrice" name="UnitPrice" data-val="true" data-val-required="不可空白" data-val-number="應為數字" value="" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="UnitPrice" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group row">
-                <label class="col-sm-3 control-label" for="UnitInStock">庫存</label>
+                <label class="col-sm-3 col-form-label" for="UnitInStock">庫存</label>
                 <input class="form-control col-sm-9" type="text" id="UnitInStock" name="UnitInStock" data-val="true" data-val-required="不可空白" data-val-number="應為數字" value="" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="UnitInStock" data-valmsg-replace="true"></span>
@@ -74,7 +74,7 @@
                 </select>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group">
                 <input type="submit" value="確定送出" class="btn btn-primary" />
                 <a href="/Employee/ProductCreate" class="btn btn-danger">回到清單</a>
             </div>

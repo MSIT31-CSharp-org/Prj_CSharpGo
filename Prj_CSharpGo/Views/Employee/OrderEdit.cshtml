@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Prj_CSharpGo.Models.OrderDetail>
+﻿@model Prj_CSharpGo.Models.ViewModels.EmployeeOrder
 
 @{
     ViewData["Title"] = "OrderEdit";
@@ -6,13 +6,13 @@
 }
 
 
-    @foreach(var item in Model){ <h1>訂單編號 : @item.OrderId</h1> break; }
+<h1>訂單編號 : @Model._order.OrderId</h1>
 
 
 
 <hr />
 
-<form action="/Employee/OrderEdit/@Model." method="post">
+<form action="/Employee/OrderEdit/@Model._order.OrderId" method="post">
 
     @Html.AntiForgeryToken()
     <table class="table">
@@ -20,6 +20,9 @@
             <tr>
                 <th>
                     產品編號
+                </th>
+                <th>
+                    商品名稱
                 </th>
                 <th>
                     單價
@@ -33,17 +36,19 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.OrderDetails)
             {
             <tr>
                 <td>
                     @item.ProductId
                 </td>
-                @{
-                    <td>
-                        @(item.UnitPrice * item.Discount)
-                    </td>
-                }
+                <td>
+                    @Model.Products.FirstOrDefault(x=>x.ProductId== item.ProductId).ProductName
+                </td>
+                <td>
+                    @item.UnitPrice
+                </td>
+
 
 
                 <td>
