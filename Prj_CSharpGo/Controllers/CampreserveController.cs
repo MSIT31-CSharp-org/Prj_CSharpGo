@@ -52,7 +52,7 @@ namespace Prj_CSharpGo.Controllers
         //取得CampQuantity
         public IActionResult GetCampList()
         {
-            var campList = _context.Camps.Select(s => new { s.CampName, s.CampId, s.CampQuantity, s.Img}).ToList();
+            var campList = _context.Camps.Select(s => new { s.CampName, s.CampId, s.CampQuantity, s.Ahref}).ToList();
             return Json(campList);
         }
 
