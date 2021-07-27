@@ -1,7 +1,7 @@
 ﻿@model Prj_CSharpGo.Models.CampreserveModels.ReturnIndexModels;
 
 @{
-    ViewData["Title"] = "露營場地";
+    ViewData["Title"] = "營地預約";
 }
 
 
@@ -37,8 +37,8 @@
                 <div class="row">
                     <div>
                         <!-- <div class="title-box-d">
-                            <h3 class="title-d">Search Property</h3>
-                        </div> -->
+        <h3 class="title-d">Search Property</h3>
+    </div> -->
                         <div class="col-sm-12">
                             <h3>營地預約注意事項</h3>
                         </div>
@@ -121,6 +121,12 @@
                                 </div>
                             </div>
 
+                            <h4 id="campnamea">A區草地</h4>
+                            <div class="about-img-box margin-top-20">
+                                <img src="~/img/grass.PNG" alt="" class="img-fluid" id="imgpicture">
+                            </div>
+
+
                         }
                     </div>
 
@@ -196,29 +202,44 @@
 
                 if (v.campId == $("#CampName").val()) {
                     $("#CampQuantity option").remove();
+                    //$("#campnamea").empty();
+
                     for (i = 1; i <= v.campQuantity; i++) {
                         $("#CampQuantity").append($("<option></option>").attr("value", i).text(i));
                     }
+                    $("#campnamea").text(v.campName);
+                    $("#imgpicture").attr("src", "/img/"+v.img);
+                   /* var s = $("#CampName :selected").text();
+                    $("#campnamea").append(s);
 
+                    if (s == "A區草地")
+                    {
+                        $("#imgpicture").attr("src","/img/grass.PNG");
 
-                    return;
+                    } else if (s == "B區木棧板(景觀露臺)")
+                    {
+                        $("#imgpicture").attr("src","/img/wooden.PNG");
+
+                    } else if (s == "C區碎石")
+                    {
+                        $("#imgpicture").attr("src","/img/stone.PNG");
+                    }*/                            
+                      return;
                 }
             });
         });
 
-        $("#PlusPrice").change(function () {
-            if ( PlusPrice != null) {
-                $("#pricevalue1").empty()
-                $("#pricevalue2").empty()
-            }
-            var s = $("#PlusPrice").prop("value");
+        //$("#PlusPrice").change(function () {
+        //    if ( PlusPrice != null) {
+        //        $("#pricevalue1").empty()
+        //        $("#pricevalue2").empty()
+        //    }
+        //    var s = $("#PlusPrice").prop("value");
 
-            $("#pricevalue1").append(s);
-            $("#pricevalue2").append(s);
+        //    $("#pricevalue1").append(s);
+        //    $("#pricevalue2").append(s);
 
-
-
-        });
+        //});
 
 
 

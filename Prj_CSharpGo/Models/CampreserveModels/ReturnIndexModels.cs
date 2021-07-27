@@ -9,6 +9,7 @@ namespace Prj_CSharpGo.Models.CampreserveModels
     {
    
         public CampreserveUserFilterModel userFilterModel { get; set; }
+
         public List<Camp> CampList { get; set; }
     }
     public class CampreserveUserFilterModel
@@ -17,6 +18,9 @@ namespace Prj_CSharpGo.Models.CampreserveModels
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public int CampQuantity { get; set; }
+        public string CampName { get; set; }
+        public string Img { get; set; }
+
     }
     public class CampreserveOrderModel
     {
@@ -40,6 +44,7 @@ namespace Prj_CSharpGo.Models.CampreserveModels
         public int TotalPrice { get; set; }
         public int Peoplenumber { get; set; }
         public int PeoplePrice { get; set; }
+        public string Img { get; set; }
     }
     public class SaveCampreserveOrderModel: CampreserveOrderModel
     {
