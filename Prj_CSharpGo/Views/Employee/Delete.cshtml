@@ -1,0 +1,53 @@
+﻿@model Prj_CSharpGo.Models.Employee
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "EmployeeLayout";
+}
+
+<h1>是否刪除選擇的帳號</h1>
+<hr />
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            名子
+        </dt>
+        <dd class="col-sm-10">
+            @Model.EmployeeName
+        </dd>
+        <dt class="col-sm-2">
+            帳號
+        </dt>
+        <dd class="col-sm-10">
+            @Model.EmployeeId
+        </dd>
+        <dt class="col-sm-2">
+            密碼
+        </dt>
+        <dd class="col-sm-10">
+            @Model.EmployeePassword
+        </dd>
+        <dt class="col-sm-2">
+            Email
+        </dt>
+        <dd class="col-sm-10">
+            @Model.EmployeeEmail
+        </dd>
+        <dt class="col-sm-2">
+            權限
+        </dt>
+        <dd class="col-sm-10">
+            @Model.EmployeeStatus
+        </dd>
+    </dl>
+
+    <form action="/Employee/Delete/@Model.EmployeeId" method="post">
+
+        @Html.AntiForgeryToken()
+        <input type="hidden" id="EmployeeId" name="EmployeeId" value="@Model.EmployeeId" />
+        <input type="submit" value="確定刪除" class="btn btn-primary" /> 
+        <a href="/Employee" class="btn btn-danger">回到清單</a>
+
+    </form>
+</div>

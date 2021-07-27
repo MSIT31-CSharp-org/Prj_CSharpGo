@@ -1,0 +1,152 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@model IEnumerable<Prj_CSharpGo.Models.Employee>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
+
+@{
+    string empId = emp.HttpContext.Session.GetString("employeeId") ?? "Guest";
+    string empStatus = emp.HttpContext.Session.GetString("employeeStatus") ?? "Guest";
+    string empToastr = emp.HttpContext.Session.GetString("employeeToastr") ?? "Guest";
+}
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "EmployeeLayout";
+}
+
+<h1>員工資料</h1>
+<hr />
+@if (empStatus == "True")
+{
+    <div class="search-form">
+        <label> 關鍵字搜索 </label>
+        <input id="search-input" type="text" placeholder="" />
+        <style id="m-search"></style>
+        <a href="/Employee/Create" class="btn btn-outline-success">新增員工帳號</a>
+    </div>
+    <script>
+        var that = $(this);
+        var mSearch = $("#m-search");
+        $("#search-input").bind("change paste keyup", function () {
+            var value = $(this).val();
+            if (!value) {
+                mSearch.html("");
+                return;
+            };
+            mSearch.html('.wrap:not([data-index*="' + value + '"]) {display: none;}');
+        });
+    </script>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                帳號
+            </th>
+            <th>
+                名字
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                職稱
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @*判斷是否有權限*@
+        @if (empStatus == "True")
+        {
+            @foreach (var item in Model)
+            {
+                <tr class="wrap" data-index="@item.EmployeeName @item.EmployeeId @item.EmployeeEmail @item.EmployeeStatus">
+                    <td>
+                        @item.EmployeeId
+                    </td>
+                    <td>
+                        @item.EmployeeName
+                    </td>
+                    <td>
+                        @item.EmployeeEmail
+                    </td>
+
+                    @if (item.EmployeeStatus == false)
+                    {
+                        <td>員工</td>
+                    }
+                    else if (item.EmployeeStatus == true)
+                    {
+                        <td>主管</td>
+                    }
+                    else
+                    {
+                        <td>註銷</td>
+                    }
+
+                    <td class="text-xl-right">
+                        <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-outline-primary" id="toastrsuccess">編輯資料</a>
+                        <a href="/Employee/Delete/@item.EmployeeId" class="btn btn-outline-info">刪除帳號</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                if (item.EmployeeId.ToString() == empId)
+                {
+                    <tr class="wrap" data-index="@item.EmployeeName @item.EmployeeId @item.EmployeeEmail @item.EmployeeStatus">
+                        <td>
+                            @item.EmployeeId
+                        </td>
+                        <td>
+                            @item.EmployeeName
+                        </td>
+                        <td>
+                            @item.EmployeeEmail
+                        </td>
+                        <td>
+                            員工
+                        </td>
+                        <td class="text-xl-right">
+                            <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-outline-primary">編輯資料</a>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+@if (empToastr != "Guest")
+{
+    <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["success"]("@empToastr");
+        @{emp.HttpContext.Session.Remove("employeeToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+    </script>
+}

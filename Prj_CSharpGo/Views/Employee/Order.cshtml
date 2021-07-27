@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Prj_CSharpGo.Models.Order>
+
+@{
+    ViewData["Title"] = "Order";
+    Layout = "EmployeeLayout";
+}
+
+<h1>會員資料</h1>
+<hr />
+<div class="search-form">
+    <label> 關鍵字搜索 </label>
+    <input id="search-input" type="text" placeholder="" />
+    <style id="m-search"></style>
+</div>
+<script>
+    var that = $(this);
+    var mSearch = $("#m-search");
+    $("#search-input").bind("change paste keyup", function () {
+        var value = $(this).val();
+        if (!value) {
+            mSearch.html("");
+            return;
+        };
+        mSearch.html('.wrap:not([data-index*="' + value + '"]) {display: none;}');
+    });
+</script>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                訂單編號
+            </th>
+            <th>
+                會員編號
+            </th>
+            <th>
+                訂單總額
+            </th>
+            <th>
+                訂單建立時間
+            </th>
+            <th>
+                訂單狀態
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="wrap" data-index="@item.OrderId @item.UserId @item.TotalPrice @item.PayMethod @item.OrderDate @item.Approval">
+
+                <td>
+                    @item.OrderId
+                </td>
+                <td>
+                    @item.UserId
+
+                </td>
+                <td>
+                    @item.TotalPrice
+                </td>
+                <td>
+                    @item.OrderDate
+                </td>
+                <td>
+                    @item.Approval
+                </td>
+                <td class="text-xl-right">
+                    <a href="/Employee/OrderEdit/@item.OrderId" class="btn btn-outline-primary">編輯資料</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

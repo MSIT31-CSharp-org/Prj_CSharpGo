@@ -1,0 +1,123 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@model Prj_CSharpGo.Models.Employee
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
+
+@{
+    string empId = emp.HttpContext.Session.GetString("employeeId") ?? "Guest";
+    string empStatus = emp.HttpContext.Session.GetString("employeeStatus") ?? "Guest";
+    string empToastr = emp.HttpContext.Session.GetString("employeeToastr") ?? "Guest";
+}
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "EmployeeLayout";
+}
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<script src="~/js/toastr.min.js"></script>
+
+<h1>員工編輯</h1>
+<h4>
+    請輸入修改資料
+</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form action="/Employee/Edit/@Model.EmployeeId" method="post">
+
+            @Html.AntiForgeryToken()
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="EmployeeId">帳號</label>
+                <input class="form-control-plaintext col-sm-9" type="number" data-val="true" data-val-required="不可空白" data-val-number="帳號應為數字" id="EmployeeId" name="EmployeeId" readonly value="@Model.EmployeeId" />
+                <label class="col-sm-3 col-form-label"></label>
+                <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeId" data-valmsg-replace="true"></span>
+            </div>
+
+            @if (empId == @Model.EmployeeId.ToString())
+            {
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="EmployeeName">名字</label>
+                    <input class="form-control col-sm-9" type="text" id="EmployeeName" name="EmployeeName" value="@Model.EmployeeName" />
+                    <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeName" data-valmsg-replace="true"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="EmployeePassword">密碼</label>
+                    <input class="form-control col-sm-9" type="text" data-val="true" data-val-required="不可空白" id="EmployeePassword" name="EmployeePassword" value="@Model.EmployeePassword" />
+                    <label class="col-sm-3 col-form-label"></label>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="EmployeePassword" data-valmsg-replace="true"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="EmployeeEmail">Email</label>
+                    <input class="form-control col-sm-9" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="EmployeeEmail" name="EmployeeEmail" value="@Model.EmployeeEmail" />
+                    <label class="col-sm-3 col-form-label"></label>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeEmail" data-valmsg-replace="true"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="EmployeeName">名字</label>
+                    <input class="form-control-plaintext col-sm-9" type="text" id="EmployeeName" name="EmployeeName" readonly value="@Model.EmployeeName" />
+                    <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeName" data-valmsg-replace="true"></span>
+                </div>
+
+                <div class="form-group row d-none">
+                    <label class="col-sm-3 col-form-label" for="EmployeePassword">密碼</label>
+                    <input class="form-control-plaintext col-sm-9" type="text" data-val="true" data-val-required="密碼不可空白" id="EmployeePassword" name="EmployeePassword" readonly value="@Model.EmployeePassword" />
+                    <span class="text-danger field-validation-valid" data-valmsg-for="EmployeePassword" data-valmsg-replace="true"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="EmployeeEmail">Email</label>
+                    <input class="form-control-plaintext col-sm-9" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="EmployeeEmail" name="EmployeeEmail" readonly value="@Model.EmployeeEmail" />
+                    <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeEmail" data-valmsg-replace="true"></span>
+                </div>
+            }
+
+
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="EmployeeStatus">職稱</label>
+                <select name="EmployeeStatus" class="form-control col-sm-9">
+                    @{
+                        if (empStatus == "True")
+                        {
+                            if (Model.EmployeeStatus == true)
+                            {
+                                <option value="true" selected>主管</option>
+                                <option value="false">員工</option>
+                                <option value=" ">註銷</option>
+                            }
+                            else if (Model.EmployeeStatus == false)
+                            {
+                                <option value="true">主管</option>
+                                <option value="false" selected>員工</option>
+                                <option value=" ">註銷</option>
+                            }
+                            else
+                            {
+                                <option value="true">主管</option>
+                                <option value="false">員工</option>
+                                <option value=" " selected>註銷</option>
+                            }
+                        }
+                        else
+                        {
+                            <option value="false" selected>員工</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="確定送出" class="btn btn-primary" />
+                <a href="/Employee" class="btn btn-danger">回到清單</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+

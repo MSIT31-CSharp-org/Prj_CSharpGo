@@ -1,0 +1,243 @@
+﻿@model Prj_CSharpGo.Models.CampreserveModels.ReturnIndexModels;
+
+
+@{
+    ViewData["Title"] = "露營場地";
+}
+
+
+<main id="main">
+
+    <!-- ======= Intro Single ======= -->
+    <section class="intro-single">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-8">
+                    <div class="title-single-box">
+                        <h1 class="title-single">營地預約</h1>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Book Cover Deisgn
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Intro Single-->
+    <!-- ======= Blog Single ======= -->
+    <section class="news-single nav-arrow-b">
+        <div class="container">
+            <div class="row">
+                <div>
+                    <!-- <div class="title-box-d">
+                        <h3 class="title-d">Search Property</h3>
+                    </div> -->
+                    <div class="col-sm-12">
+                        <h3>營地預約注意事項</h3>
+                    </div>
+                    <div>
+                        ※ 一般營位僅提供場地使用。<br>
+                        ※ 每營位限搭1睡帳、1客廳帳，附1停車位 (無法加車，如需加車請另外加訂營位)。<br>
+                        ※ 每營位限4人使用，第5人起每人100元清潔費(可加2人，3歲以下免費)。<br>
+                        ※ 露宿車內，需依照營位費計算。<br>
+                    </div>
+                    <br>
+                    @using (Html.BeginForm("Index", "Campreserve", FormMethod.Post))
+                    {
+                        <div class="row">
+
+                            <div class="col-md-12 mb-2">
+                                <div class="form-group">
+                                    <label class="pb-2" for="Type">區域選擇</label>
+
+                                    <select class="form-control form-select" id="CampName" name="CampName">
+
+                                        @foreach (var item in Model.CampList)
+                                        {
+                                            if (Model.userFilterModel != null && Model.userFilterModel.CampId == item.CampId)
+                                            {
+                                                <option value="@item.CampId" selected>@item.CampName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.CampId">@item.CampName</option>
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <div class="form-group mt-3">
+                                    <label class="pb-2" for="Type">租借日期</label>
+                                    <input type="date" class="form-control" id="StartDay" name="StartDay" value="@(Model.userFilterModel==null?"":Model.userFilterModel.StartDate)" min="@ViewBag.startDateMin" max="@ViewBag.startDateMax">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <div class="form-group mt-3">
+                                    <label class="pb-2" for="city">退訂日期</label>
+                                    <input type="date" class="form-control" id="EndDay" name="EndDay" value="@(Model.userFilterModel==null?"":Model.userFilterModel.EndDate)" min="@ViewBag.EndDateMin" max="@ViewBag.EndDateMax">
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-6 mb-2">
+                                <div class="form-group mt-3">
+                                    <label class="pb-2" for="bedrooms">帳數</label>
+                                    <select class="form-control form-select form-control-a" id="CampQuantity" name="CampQuantity">
+                                        @if (Model.CampList.Count != 0)
+                                        {
+                                            for (int i = 1; i <= Model.CampList[0].CampQuantity; i++)
+                                            {
+                                                if (Model.userFilterModel != null && Model.userFilterModel.CampQuantity == i)
+                                                {
+                                                    <option value="@i" selected>@i</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button id="getButton" type="submit" class="btn btn-b">預約</button>
+                                @*<button type="button" class="btn btn-b">查看</button>*@
+                            </div>
+                        </div>
+                    }
+                </div>
+
+
+                <div class="margin-bottom-20 margin-top-20">
+                    <div class="content"><h2>營地須知</h2></div>
+
+                    <article>
+                        <h2 class="directions">
+                            ※ 因配合園區休園至2021年8月底止，無法訂位請見諒。<br>
+                            ※ 平台僅開放部份區域可訂位，如需全區包場請洽營主，謝謝。<br>
+                            <br>
+                            入拔營時間　：<br>
+                            一般平假日入營10:00  拔營 隔日14:00<br>
+                            連續假日入營13:00  拔營 隔日12:00<br>
+                            <br>
+                            平假日定義　：<br>
+                            平日：星期五 (訂金30%)<br>
+                            假日：星期六、連假、年假 (訂金30%)<br>
+                            休園：星期日 ~星期四<br>
+                            <br>
+                            ※ 一般營位僅提供場地使用。<br>
+                            ※ 每營位限搭1睡帳、1客廳帳，附1停車位 (無法加車，如需加車請另外加訂營位)。<br>
+                            ※ 每營位限4人使用，第5人起每人100元清潔費(可加2人，3歲以下免費)。<br>
+                            ※ 露宿車內，需依照營位費計算。<br>
+                            ※ A1草地、VIP景觀區 於4/1起開放訂位<br>
+                            ※ 營帳為特殊大型帳或5 x 8大天幕，有超過原本營位空間者，請訂2個營位，謝謝。<br>
+                            ※ 部份區域可接車露(露營車/車頂/邊帳)，營位費用以每帳計算。<br>
+                            <br>
+                            ※ 訪客：不需收費，車需停放營區外，不負保管責任。（不可過夜，需要在晚上10點前離開)<br>
+                            <br>
+                            熱水供應時間：24小時供應<br>
+                            電力供應時間：24小時供應
+                        </h2>
+                    </article>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </section><!-- End Blog Single-->
+
+</main><!-- End #main -->
+<!-- Template Main JS File -->
+@*<script src="~/js/main.js"></script>*@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+
+
+<script>
+
+        var temp = [];
+
+        // Assuming you have referenced jQuery
+        $(function () {
+            $.getJSON('@Url.Action("GetCampList", "Campreserve")', function (response) {
+                temp = response;
+            });
+
+            if ('@ViewBag.message' != '') {
+                alert('@Html.Raw(ViewBag.message)');
+            }
+
+        });
+
+        $("#CampName").change(function () {
+            $.each(temp, function (c, v) {
+
+                if (v.campId == $("#CampName").val()) {
+                    $("#CampQuantity option").remove();
+                    for (i = 1; i <= v.campQuantity; i++) {
+                        $("#CampQuantity").append($("<option></option>").attr("value", i).text(i));
+                    }
+                    return;
+                }
+            });
+        });
+
+        $("#PlusPrice").change(function () {
+            if ( PlusPrice != null) {
+                $("#pricevalue1").empty()
+                $("#pricevalue2").empty()
+            }
+            var s = $("#PlusPrice").prop("value");
+
+            $("#pricevalue1").append(s);
+            $("#pricevalue2").append(s);
+
+
+
+        });
+
+
+
+
+</script>
+
+
+@*@if (Model.orderModel != null && Model.orderModel.CampQuantity != 0 && ViewBag.message == null)
+    {
+
+
+       <script>
+            //呼叫modal
+            $(document).ready(function () {
+
+                $("#myModal").modal('show');
+
+
+        })
+
+        </script>
+    }*@
+
+
+
+
