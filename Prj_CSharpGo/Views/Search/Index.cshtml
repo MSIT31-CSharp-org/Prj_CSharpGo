@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Prj_CSharpGo.Models.Product>
+﻿@model Prj_CSharpGo.Models.SearchAllViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -7,48 +7,88 @@
 
 <h1>Index</h1>
 
+<div class="container">
+    <div class="row col-md-4 col-lg-4">
 
-<div class="product-row">
-    <!-- 商品列表 -->
-    <div class="col-md-12">
-        <section class="products-content">
-
-
-            @{ foreach (var item in Model)
-                {
+        <div class="product-row">
+            <!-- 商品列表 -->
+            <div class="col-md-12">
+                <section class="products-content">
 
 
-                    <div class="row" style="padding: 15px 0;">
+                    @{ foreach (var item in Model.Products)
+                        {
 
 
-                        <div class="col-lg-3 col-md-4 col-xs-6">
-                            <div class="product-col">
-                                <div class="image">
+                            <div class="row" style="padding: 15px 0;">
 
-                                    <a href="/products/m-1324" title="@item.ProductName"><img src="" alt="product" class="img-responsive"></a>
-                                </div>
-                                <div class="caption">
-                                    <h4><a href="/products/m-1324">@item.ProductName</a></h4>
-                                    <div class="description">
 
+                                <div class="col-lg-3 col-md-4 col-xs-6">
+                                    <div class="product-col">
+                                        <div class="image">
+
+                                            <a href="/products/m-1324" title="@item.ProductName"><img src="" alt="product" class="img-responsive"></a>
+                                        </div>
+                                        <div class="caption">
+                                            <h4><a href="/products/m-1324">@item.ProductName</a></h4>
+                                            <div class="description">
+
+                                            </div>
+                                            <div class="price">
+
+                                                <ins>"NT"+@item.UnitPrice</ins>
+                                            </div>
+
+                                        </div>
                                     </div>
-                                    <div class="price">
-
-                                        <ins>"NT"+@item.UnitPrice</ins>
-                                    </div>
-
                                 </div>
+
                             </div>
-                        </div>
+                        }
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
 
-                    </div>
-                }
-            }
-        </section>
+
+    <div class="row col-md-4 col-lg-4">
+        <div class="product-row">
+            <!-- 食譜列表 -->
+            <div class="col-md-12">
+                <section class="products-content">
+
+
+                    @{ foreach (var item in Model.Recipes)
+                        {
+
+
+                            <div class="row" style="padding: 15px 0;">
+
+                                <div class="col-lg-3 col-md-4 col-xs-6">
+                                    <div class="product-col">
+                                        <div class="image">
+
+                                            <a href="/products/m-1324" title="@item.RecipeId"><img src="" alt="product" class="img-responsive"></a>
+                                        </div>
+                                        <div class="caption">
+                                            <h4><a href="/products/m-1324">@item.RecipeName</a></h4>
+                                            <div class="description">
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                    }
+                </section>
+            </div>
+        </div>
     </div>
 </div>
-
-
 
 
 @*<table class="table">
