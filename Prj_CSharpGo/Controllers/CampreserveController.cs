@@ -207,6 +207,10 @@ namespace Prj_CSharpGo.Controllers
 
         public IActionResult ComfirmResult(CampreserveOrderModel orderModel)
         {
+            var order = orderModel.CampId;
+            var Camp = _context.Camps.Find(order).Img;
+            ViewBag.Img = Camp;
+
             ViewBag.messagea = "已完成預約!";
             return View(orderModel);
         }
