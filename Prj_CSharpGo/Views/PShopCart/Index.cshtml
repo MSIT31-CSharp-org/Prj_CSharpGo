@@ -1,0 +1,126 @@
+﻿@model List<Prj_CSharpGo.Models.ShoppingCart>
+
+
+@*
+@{
+
+
+    foreach (var item in Model)
+    {
+        //購物車版面架構
+        <div class="col-12">
+            <h1 class="tit3">@item.ProductId</h1>
+            <a class="btn btn-success" href="/">確定訂單</a>
+        </div>
+
+        }
+  }
+*@
+    @{
+        ViewData["Title"] = "露營用品";
+    }
+
+    <main id="main">
+
+        <!-- ======= Intro Single ======= -->
+        <section class="intro-single">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-8">
+                        <div class="title-single-box">
+                            <h1 class="title-single">購物車</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Book Cover Deisgn
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End Intro Single-->
+        <!-- ======= Blog Single ======= -->
+        <section class="news-single nav-arrow-b">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3>購物車清單</h3>
+                    </div>
+                    <br>
+
+
+                    <table class="table">
+                        <thead>
+                            <tr class="table-warning">
+                                <th scope="col">貨號</th>
+                                <th scope="col">商品名稱</th>
+                                <th scope="col"></th>
+                                <th scope="col">小 計</th>
+                                <th scope="col">總金額</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <th scope="row">/th>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    元 <br />
+                                    (  晚)
+                                </td>
+                                <td></td>
+                                <td>
+                                    <select class="$form-select-bg-position" name="PlusPrice" id="PlusPrice">
+                                        <option value="0">  0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select> * 100 元/人
+                                    <div><div id="pricevalue1"></div></div>
+
+                                </td>
+                                <td id="total_price">
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/Campreserve/Index" type="button" class="btn btn-secondary">取消</a>
+                        <button type="submit" class="btn btn-success">確認</button>
+
+                    </div>
+
+
+
+                    }
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <!-- Template Main JS File -->
+    @*<script src="~/js/main.js"></script>*@
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+
+
+    <script>
+
+
+    </script>
+
+
