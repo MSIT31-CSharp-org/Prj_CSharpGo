@@ -1,0 +1,96 @@
+﻿@model List<Prj_CSharpGo.Models.Recipe>
+    @{
+        ViewData["Title"] = "Recipe";
+    }
+
+
+
+
+    <h1>Recipe  </h1>
+
+
+    <div class="container p-3">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="prodcut-primary">食譜清單</h2>
+
+            </div>
+        </div>
+        <form asp-controller="Search" asp-action="Recipe" method="get">
+            <p>
+                <input type="text" name="SearchString" />
+                <input type="submit" value="搜尋" />
+            </p>
+        </form>
+
+
+        <br />
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            食譜ID
+                        </th>
+                        <th>
+                            會員編號
+                        </th>
+                        <th>
+                            食譜名稱
+                        </th>
+                        <th>
+                            創建時間
+                        </th>
+                        <th>
+                            修改時間
+                        </th>
+                        <th>
+                            發佈時間
+                        </th>
+                        <th>
+                            備料
+                        </th>
+                        <th>
+                            步驟
+                        </th>
+                        <th>
+                            展示圖
+                        </th>
+                        <th>
+                            狀態
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td >@item.RecipeId</td>
+                            <td >@item.UserId</td>
+                            <td >@item.RecipeName</td>
+                            <td >@item.CreateTime</td>
+                            <td >@item.ModifiedTime</td>
+                            <td >@item.PublishTime</td>
+                            <td >@item.Preparation</td>
+                            <td >@item.Step</td>
+                            <td >@item.Img</td>
+                            <td >@item.Status</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        }
+
+
+    </div>
+
+
+
+
+
+

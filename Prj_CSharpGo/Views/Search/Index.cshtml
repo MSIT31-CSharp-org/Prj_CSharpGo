@@ -1,0 +1,2353 @@
+﻿
+@page
+@model Prj_CSharpGo.Models.Product;
+@using X.PagedList;
+@model IEnumerable<>;
+
+@using X.PagedList;IEnumerable<Prj_CSharpGo.Models.Product>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>Index</h1>
+
+    <form>
+        <p>
+            <select asp-for="Category" asp-items="Model.Categories">
+                <option value="">All</option>
+            </select>
+            商品名稱
+            <input type="text" name="SearchString">
+            <input type="submit" value="查詢" />
+        </p>
+    </form>
+    <div class="product-row">
+        <!-- 商品列表 -->
+        <div class="col-md-12">
+            <section class="products-content">
+
+
+
+
+
+                <div class="row" style="padding: 15px 0;">
+
+
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 經典白色2人帳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 經典白色2人帳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$6800</ins>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 經典白色六角300帳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 經典白色六角300帳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$8800</ins>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 經典白色八角帳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 經典白色八角帳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$16500</ins>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Landbreeze 2 寢室帳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Landbreeze 2 寢室帳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$17900</ins>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Landbreeze 4 寢室帳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Landbreeze 4 寢室帳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$21000</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Landbreeze 6 寢室帳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Landbreeze 6 寢室帳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$28000</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="氣候達人網屋/400"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">氣候達人網屋/400</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$22600</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="氣候達人CORE 網屋Ⅱ"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">氣候達人CORE 網屋Ⅱ</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$26999</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Lounge 客廳帳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Lounge 客廳帳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$28000</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="紗網客廳帳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">紗網客廳帳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$23900</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="加長型客廳帳Pro."><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">加長型客廳帳Pro.</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$51000</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 經典白色六角天幕"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 經典白色六角天幕</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$4800</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="六角蝶形天幕帳 Pro."><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">六角蝶形天幕帳 Pro.</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$11900</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="LS多功能天幕-L"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">LS多功能天幕-L</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$25250</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="多功能紗網天幕"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">多功能紗網天幕</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$11900</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Ydun 5.5 專用內掛帳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Ydun 5.5 專用內掛帳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$9080</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Alfheim 12.6 專用內掛帳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Alfheim 12.6 專用內掛帳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$9000</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Utgard 13.2 專用內掛帳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Utgard 13.2 專用內掛帳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$8080</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Penta 內置紗網帳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Penta 內置紗網帳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$4780</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Utgard 13.2 專用底布"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Utgard 13.2 專用底布</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$14580</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Alfheim 12.6 專用底布"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Alfheim 12.6 專用底布</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$14080</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="拱形隧道帳 地墊地布組"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">拱形隧道帳 地墊地布組</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$6510</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="LB 客廳帳 -頂布灰色"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">LB 客廳帳 -頂布灰色</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$3200</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Land Lock 別墅帳 內帳地墊"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Land Lock 別墅帳 內帳地墊</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$8800</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 原木營柱240cm"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 原木營柱240cm</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1850</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 鋁製營柱240cm-黑"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 鋁製營柱240cm-黑</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2100</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 鍛造營槌"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 鍛造營槌</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1280</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="鍛造強化鋼營釘-20"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">鍛造強化鋼營釘-20</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$120</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="鍛造強化鋼營釘 -30"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">鍛造強化鋼營釘 -30</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$160</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="鍛造強化鋼營釘 -40"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">鍛造強化鋼營釘 -40</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$320</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 營繩綠20m"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 營繩綠20m</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$380</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 日本製不鏽鋼營燈掛勾"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 日本製不鏽鋼營燈掛勾</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$680</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 驅蚊桶蠟燭"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 驅蚊桶蠟燭</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$420</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="鋁製營繩調節片/10入組"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">鋁製營繩調節片/10入組</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$310</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="三角營繩調節片/10入組"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">三角營繩調節片/10入組</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$620</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="營繩-2.5mm/15米"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">營繩-2.5mm/15米</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$460</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="營繩-5mm/20米"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">營繩-5mm/20米</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$690</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="BLACK Nature style 桌椅架 香魚"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">BLACK Nature style 桌椅架 香魚</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1800</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="BLACK Nature picnic table _ 日青"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">BLACK Nature picnic table _ 日青</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$3600</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="BLACK Nature 木折桌 - 弓藏"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">BLACK Nature 木折桌 - 弓藏</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$6300</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 原木六角內桌"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 原木六角內桌</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$6800</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 原木收納地桌"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 原木收納地桌</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1250</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 輕便小桌"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 輕便小桌</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$480</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 鋁製小桌"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 鋁製小桌</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1480</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 鋁製桌子90 x 60cm(復古黃)"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 鋁製桌子90 x 60cm(復古黃)</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2750</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="輕薄摺疊椅/淺灰"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">輕薄摺疊椅/淺灰</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1980</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="輕薄摺疊椅/綠橄欖"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">輕薄摺疊椅/綠橄欖</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1980</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="輕薄摺疊椅 (紅）"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">輕薄摺疊椅 (紅）</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1980</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 經典可調二X架"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 經典可調二X架</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1680</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 經典可調三X架"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 經典可調三X架</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2080</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 經典可調四X架"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 經典可調四X架</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2580</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 民族風單人椅墊藍"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 民族風單人椅墊藍</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$420</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 單人椅舒適椅墊"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 單人椅舒適椅墊</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1250</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 黑鹿木製迷你椅"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 黑鹿木製迷你椅</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2500</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="不鏽鋼層架"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">不鏽鋼層架</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$9800</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="快速收納架"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">快速收納架</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$18680</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 瓦斯氣氛燈"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 瓦斯氣氛燈</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1500</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS 復古LED油燈(黑)"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS 復古LED油燈(黑)</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$900</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="CS LED營釘燈"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">CS LED營釘燈</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$690</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="PZ瓦斯燈"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">PZ瓦斯燈</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1620</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="盧美爾瓦斯燭燈"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">盧美爾瓦斯燭燈</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1800</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Iwatani岩谷 4.1卡式爐(附收納盒)"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Iwatani岩谷 4.1卡式爐(附收納盒)</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2600</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Iwatani岩谷 3.3薄型卡式爐"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Iwatani岩谷 3.3薄型卡式爐</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2000</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="Iwatani岩谷 3.3防風卡式爐(附收納盒)"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">Iwatani岩谷 3.3防風卡式爐(附收納盒)</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2644</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="安定爐"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">安定爐</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$3200</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="HOME&CAMP 卡式瓦斯爐"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">HOME&CAMP 卡式瓦斯爐</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$3280</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="平板單口爐"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">平板單口爐</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$3220</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="SP 不鏽鋼鍋具組 -L五件組"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">SP 不鏽鋼鍋具組 -L五件組</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$5660</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="SP 不鏽鋼鍋具組 -M四件組"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">SP 不鏽鋼鍋具組 -M四件組</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$4200</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="土鍋膳"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">土鍋膳</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$4710</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="鍋具餐具組-M"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">鍋具餐具組-M</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$4100</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="不鏽鋼套鍋組-2M"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">不鏽鋼套鍋組-2M</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$5060</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="鍋具餐具組-XL"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">鍋具餐具組-XL</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$6300</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="一單位砧板(雙色)"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">一單位砧板(雙色)</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1400</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="料理器具組"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">料理器具組</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2980</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="戶外砧板/刀組M"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">戶外砧板/刀組M</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1320</ins>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="戶外砧板/刀組L"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">戶外砧板/刀組L</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1890</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="營地量匙"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">營地量匙</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$550</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="營地咖啡師 手沖壺"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">營地咖啡師 手沖壺</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$3980</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="真空啤酒杯24盎司"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">真空啤酒杯24盎司</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1750</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="營火熱水壺"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">營火熱水壺</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$3630</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="UNIFLAME 不鏽鋼咖啡壺"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">UNIFLAME 不鏽鋼咖啡壺</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1890</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="UNIFLAME 日式扁水壺900ML"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">UNIFLAME 日式扁水壺900ML壺</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1580</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="UNIFLAME日式水壺1.5L"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">UNIFLAME日式水壺1.5L</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1755</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="折疊烤箱"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">折疊烤箱</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2980</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="不鏽鋼煙燻桶"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">不鏽鋼煙燻桶</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2560</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="章魚燒烤盤"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">章魚燒烤盤</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1200</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="耐熱皮手套"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">耐熱皮手套</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1830</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="焚火台 -專業工具組"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">焚火台 -專業工具組</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$3440</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="不鏽鋼煙燻盒"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">不鏽鋼煙燻盒</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$3630</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="火蜘蛛"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">火蜘蛛</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$6980</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="酷蜘蛛烤肉箱"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">酷蜘蛛烤肉箱</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$3900</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="焚火台"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">焚火台</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$3200</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="不鏽鋼焚火台"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">不鏽鋼焚火台</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$6500</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="焚火台-S本體(R)"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">焚火台-S本體(R)</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2900</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="焚火台-M本體(R)"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">焚火台-M本體(R)</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$4450</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="焚火台-L本體(R)"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">焚火台-L本體(R)</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$5250</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="戶外烤爐"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">戶外烤爐</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$10850</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="SP 鈦金屬叉匙組"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">SP 鈦金屬叉匙組</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$880</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="SP 鈦金屬多功能匙叉"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">SP 鈦金屬多功能匙叉</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$300</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="和武器組合筷-方形M"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">和武器組合筷-方形M</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1380</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="和武器組合筷-方形L"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">和武器組合筷-方形L</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1380</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="UNIFLAME FD矽膠摺疊湯匙綠"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">UNIFLAME FD矽膠摺疊湯匙綠</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$420</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="UNIFLAME 鈦折疊湯匙"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">UNIFLAME 鈦折疊湯匙</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$300</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="土鍋膳碗盤四件組"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">土鍋膳碗盤四件組</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1810</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="SP 不鏽鋼餐盤組-4人四件組"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">SP 不鏽鋼餐盤組-4人四件組</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$5660</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="不繡鋼登山杯 摺疊把"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">不繡鋼登山杯 摺疊把</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1130</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="四人餐具組"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">四人餐具組</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1900</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="不鏽鋼雙層杯-250ML"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">不鏽鋼雙層杯-250ML</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$500</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="不鏽鋼雙層杯-400ML"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">不鏽鋼雙層杯-400ML</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$330</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="15L EXCURSION海洋藍冰箱"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">15L EXCURSION海洋藍冰箱</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1100</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="15L EXCURSION海洋藍冰箱"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">15L EXCURSION海洋藍冰箱</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1100</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="15L EXCURSION美利紅冰箱"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">15L EXCURSION美利紅冰箱</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1100</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="28L EXCURSION海洋藍冰箱"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">28L EXCURSION海洋藍冰箱</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1600</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="28L EXCURSION美利紅冰箱"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">28L EXCURSION美利紅冰箱</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$1600</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="軟式保冰袋 - 11L"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">軟式保冰袋 - 11L</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$2560</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="軟式保冰袋 - 18L"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">軟式保冰袋 - 18L</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$3170</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6">
+                        <div class="product-col">
+                            <div class="image">
+
+                                <a href="/products/m-1324" title="軟式保冰袋 - 38L"><img src="" alt="product" class="img-responsive"></a>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="/products/m-1324">軟式保冰袋 - 38L</a></h4>
+                                <div class="description">
+
+                                </div>
+                                <div class="price">
+
+                                    <ins>NT$4970</ins>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+
+            </section>
+        </div>
+    </div>
+    <a asp-action="./Index"
+       asp-route-product="@Model.Products"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageIndex="@(Model.Products.PageNumber - 1)"
+       asp-route-searchString="@ViewData["SearchString"]"
+       class="btn btn-default @prevDisabled">
+        上一頁
+    </a>
+
+    <a asp-action="./Index"
+       asp-route-product="@Model.Products"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageIndex="@(Model.Products.PageNumber + 1)"
+       asp-route-searchString="@ViewData["SearchString"]"
+       class="btn btn-default @nextDisabled">
+        下一頁
+    </a>
+
+    @*<table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.UnitPrice)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitPrice)
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>*@

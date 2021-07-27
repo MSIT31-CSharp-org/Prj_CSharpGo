@@ -22,8 +22,8 @@ namespace Prj_CSharpGo.Controllers
 
         public IActionResult Index()
         {
-            var query = _context.Users.Find(1001).UserName;
-            return Content(query);
+           // var query = _context.Users.Find(1001).UserName;
+            return View();
         }
 
         public IActionResult Privacy()

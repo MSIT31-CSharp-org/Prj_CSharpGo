@@ -22,7 +22,12 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">商品搜尋</a>
+                        </li>
+                        <li class="nav-item">
+                            <input type="search" class="search_key" accesskey="S" name="key" id="key" value="" message="請輸入關鍵字" autocomplete="off">
+                            <a asp-controller="product" asp-action="index" class="btn btn-primary" style="padding:4px">搜尋</a>
+
                         </li>
                     </ul>
                 </div>
