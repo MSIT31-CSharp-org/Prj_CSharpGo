@@ -1,13 +1,37 @@
-﻿<div class="w3ls-login box box--big">
+﻿<head>
+    <link rel='stylesheet' href="~/css/Login.css" />
+</head>
+
+
+<div class="clear-loading spinner">
+    <span>
+        <!-- loading Modal -->
+        <div id="loader">
+            <div class="loader">
+                <div class="hexagon-container">
+                    <div class="hexagon hex_1"></div>
+                    <div class="hexagon hex_2"></div>
+                    <div class="hexagon hex_3"></div>
+                    <div class="hexagon hex_4"></div>
+                    <div class="hexagon hex_5"></div>
+                    <div class="hexagon hex_6"></div>
+                    <div class="hexagon hex_7"></div>
+                </div>
+            </div>
+        </div>
+    </span>
+</div>
+
+<div class="w3ls-login box box--big">
     <!-- form starts here -->
-    <form method="post" action="/Login/LoginForm">
+    <form method="post" action="/Login">
         <div class="agile-field-txt">
             <label><i class="fa fa-user" aria-hidden="true"></i> 帳號 </label>
             <input class="form-control" type="text" id="UserName" name="UserName" value="" />
         </div>
         <div class="agile-field-txt">
             <label><i class="fa fa-unlock-alt" aria-hidden="true"></i> 密碼 </label>
-            <input class="form-control" type="password" id="Password" name="Password" value="" required />
+            <input class="form-control" type="password" id="UserPwd" name="Password" value="" required />
 
             <div class="agile_label">
                 <input id="check3" name="check3" type="checkbox" value="show password" onclick="ShowEnCode()">
@@ -18,10 +42,14 @@
                 <a href="#">忘記密碼?</a>
             </div>
         </div>
+
+
+        <input type="submit" value="登入">
+
         <!-- script for show password -->
         <script>
             function ShowEnCode() {
-                var x = document.getElementById("myInput");
+                var x = document.getElementById("UserPwd");
                 if (x.type === "password") {
                     x.type = "text";
                 } else {
@@ -29,11 +57,6 @@
                 }
             }
         </script>
-        <div class="form-group">
-            <input type="submit" value="確定" class="btn btn-outline-primary" /> |
-            <a href="/Home/Index" class="btn btn-outline-info">取消</a>
-        </div>
 
     </form>
-
 </div>

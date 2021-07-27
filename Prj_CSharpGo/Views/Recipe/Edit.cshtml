@@ -1,0 +1,76 @@
+﻿@model Prj_CSharpGo.Models.Recipe
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@*Start Contact*@
+<div class="container py-5">
+    <div class="row py-5">
+        <form class="col-md-9 m-auto" method="post" action="/Recipe/Edit" data-ajax='false' enctype="multipart/form-data">
+            <input type="text" name="RecipeId" value="@Model.RecipeId" hidden>
+            @*<form class="col-md-9 m-auto" method="post" action="/Recipe/Edit" role="form" data-ajax='false'>*@
+            @*上傳圖片 JS在最下面*@
+            <img id="output" style="max-width: 300px;max-height: 400px;" class="form-control mt-1" src="~/Didi/img/@Model.Img" />
+            <input type="file" name="Img" accept="image/*" onchange="loadFile(event)">
+            <br> <br> <br>
+            @*上傳圖片*@
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                    <label for="inputname">RecipeName</label>
+                    <input type="text" class="form-control mt-1" name="RecipeName" value="@Model.RecipeName">
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="inputemail">CreateDate</label>
+                    <input type="text" class="form-control mt-1" name="CreateTime" value="@Model.CreateTime">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                    <label for="inputsubject">料理時間Cooking time</label>
+                    <input type="text" class="form-control mt-1" name="CookingTime" value="@Model.CookingTime">
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="inputsubject">準備時間時間PreparationTime</label>
+                    <input type="text" class="form-control mt-1" name="PreparationTime" value="@Model.PreparationTime">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                    <label for="inputsubject">份量Yield</label>
+                    <input type="text" class="form-control mt-1" name="Yield" value="@Model.Yield">
+                </div>
+            </div>
+
+            @* 食材清單 *@
+            <div>
+                <label for="inputsubject">食材清單Ingredients List</label>
+                <input type="text" class="form-control mt-1" name="Yield" placeholder="ProductName">
+            </div>
+
+            <div class="mb-3">
+                <label for="inputmessage">01.備料Preparation</label>
+                <textarea class="form-control mt-1" name="Preparation" rows="8">@Model.Preparation</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="inputmessage">02.烹煮步驟Step</label>
+                <textarea class="form-control mt-1" name="Step" rows="8">@Model.Step</textarea>
+            </div>
+            <div class="row">
+                <div class="col text-end mt-2">
+                    <button type="submit" class="btn btn-success btn-lg px-3">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@*End Contact*@
+<script>
+    var loadFile = function (event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+</script>

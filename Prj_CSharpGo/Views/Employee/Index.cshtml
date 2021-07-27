@@ -2,9 +2,11 @@
 
 @model IEnumerable<Prj_CSharpGo.Models.Employee>
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
+
 @{
     string empId = emp.HttpContext.Session.GetString("employeeId") ?? "Guest";
     string empStatus = emp.HttpContext.Session.GetString("employeeStatus") ?? "Guest";
+    string empToastr = emp.HttpContext.Session.GetString("employeeToastr") ?? "Guest";
 }
 
 @{
@@ -40,19 +42,16 @@
     <thead>
         <tr>
             <th>
-                名字
-            </th>
-            <th>
                 帳號
             </th>
             <th>
-                密碼
+                名字
             </th>
             <th>
                 Email
             </th>
             <th>
-                權限
+                職稱
             </th>
         </tr>
     </thead>
@@ -62,24 +61,32 @@
         {
             @foreach (var item in Model)
             {
-                <tr class="wrap" data-index="@item.EmployeeName @item.EmployeeId @item.EmployeePassword @item.EmployeeEmail @item.EmployeeStatus">
-                    <td>
-                        @item.EmployeeName
-                    </td>
+                <tr class="wrap" data-index="@item.EmployeeName @item.EmployeeId @item.EmployeeEmail @item.EmployeeStatus">
                     <td>
                         @item.EmployeeId
                     </td>
                     <td>
-                        @item.EmployeePassword
+                        @item.EmployeeName
                     </td>
                     <td>
                         @item.EmployeeEmail
                     </td>
-                    <td>
-                        @item.EmployeeStatus
-                    </td>
-                    <td>
-                        <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-outline-primary">編輯資料</a> |
+
+                    @if (item.EmployeeStatus == false)
+                    {
+                        <td>員工</td>
+                    }
+                    else if (item.EmployeeStatus == true)
+                    {
+                        <td>主管</td>
+                    }
+                    else
+                    {
+                        <td>註銷</td>
+                    }
+
+                    <td class="text-xl-right">
+                        <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-outline-primary" id="toastrsuccess">編輯資料</a>
                         <a href="/Employee/Delete/@item.EmployeeId" class="btn btn-outline-info">刪除帳號</a>
                     </td>
                 </tr>
@@ -91,23 +98,20 @@
             {
                 if (item.EmployeeId.ToString() == empId)
                 {
-                    <tr class="wrap" data-index="@item.EmployeeName @item.EmployeeId @item.EmployeePassword @item.EmployeeEmail @item.EmployeeStatus">
-                        <td>
-                            @item.EmployeeName
-                        </td>
+                    <tr class="wrap" data-index="@item.EmployeeName @item.EmployeeId @item.EmployeeEmail @item.EmployeeStatus">
                         <td>
                             @item.EmployeeId
                         </td>
                         <td>
-                            @item.EmployeePassword
+                            @item.EmployeeName
                         </td>
                         <td>
                             @item.EmployeeEmail
                         </td>
                         <td>
-                            @item.EmployeeStatus
+                            員工
                         </td>
-                        <td>
+                        <td class="text-xl-right">
                             <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-outline-primary">編輯資料</a>
                         </td>
                     </tr>
@@ -116,3 +120,33 @@
         }
     </tbody>
 </table>
+
+@if (empToastr != "Guest")
+{
+    <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["success"]("@empToastr");
+        @{emp.HttpContext.Session.Remove("employeeToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+    </script>
+}

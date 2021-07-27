@@ -1,18 +1,116 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Views\Campreserve\GetJsonFromFile.cshtml" />
+    <None Include="Views\Campreserve\Index.cshtml" />
+    <None Include="Views\CampSearch\Index.cshtml" />
+    <None Include="Views\Camp\Index.cshtml" />
+    <None Include="Views\Employee\Create.cshtml" />
+    <None Include="Views\Employee\Delete.cshtml" />
+    <None Include="Views\Employee\Edit.cshtml" />
+    <None Include="Views\Employee\Index.cshtml" />
+    <None Include="Views\Employee\Login.cshtml" />
+    <None Include="Views\Employee\Member.cshtml" />
+    <None Include="Views\Employee\MemberEdit.cshtml" />
+    <None Include="Views\Employee\Order.cshtml" />
+    <None Include="Views\Employee\OrderEdit.cshtml" />
+    <None Include="Views\Employee\Product.cshtml" />
+    <None Include="Views\Employee\ProductCreate.cshtml" />
+    <None Include="Views\Employee\ProductEdit.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\RecipeSearch\Index.cshtml" />
+    <None Include="Views\Recipe\Detail.cshtml" />
+    <None Include="Views\Recipe\Edit.cshtml" />
+    <None Include="Views\Recipe\Index.cshtml" />
+    <None Include="Views\Search\Index.cshtml" />
+    <None Include="Views\Shared\EmployeeLayout.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
     <None Include="Views\_ViewImports.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
+    <None Include="wwwroot\assets\vendor\bootstrap-icons\fonts\bootstrap-icons.woff2" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-grid.rtl.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-grid.rtl.min.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-reboot.rtl.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-utilities.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-utilities.min.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-utilities.rtl.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap.rtl.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap.rtl.min.css.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\assets\vendor\bootstrap\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\js\bootstrap.esm.js" />
+    <None Include="wwwroot\assets\vendor\bootstrap\js\bootstrap.esm.js.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\js\bootstrap.esm.min.js" />
+    <None Include="wwwroot\assets\vendor\bootstrap\js\bootstrap.esm.min.js.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\assets\vendor\bootstrap\js\bootstrap.js.map" />
+    <None Include="wwwroot\assets\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\vendor\bootstrap\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\css\fonts\bootstrap-icons.woff2" />
+    <None Include="wwwroot\Didi\img\about-hero.svg" />
+    <None Include="wwwroot\Didi\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\Didi\js\custom.js" />
+    <None Include="wwwroot\Didi\js\jquery-1.11.0.min.js" />
+    <None Include="wwwroot\Didi\js\jquery-migrate-1.2.1.min.js" />
+    <None Include="wwwroot\Didi\js\site.js" />
+    <None Include="wwwroot\Didi\js\slick.min.js" />
+    <None Include="wwwroot\Didi\js\templatemo.js" />
+    <None Include="wwwroot\Didi\js\templatemo.min.js" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\Didi\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\Didi\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\Didi\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\Didi\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\Didi\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\Didi\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\Didi\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\Didi\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\Didi\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\Didi\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\Didi\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\Didi\lib\jquery\dist\jquery.min.map" />
+    <None Include="wwwroot\Didi\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\Didi\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\Didi\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\Didi\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\Didi\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\Didi\webfonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\Didi\webfonts\slick.svg" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\forms\contact.php" />
+    <None Include="wwwroot\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\js\main.js" />
     <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\js\swiper-bundle.min.js" />
+    <None Include="wwwroot\js\validate.js" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
@@ -47,6 +145,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="toastr" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +153,29 @@
     <Folder Include="wwwroot\assets\vendor\js\" />
     <Folder Include="wwwroot\assets\vendor\php-email-form\" />
     <Folder Include="wwwroot\assets\vendor\swiper\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Search\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Search\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Search\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Search\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Search\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
