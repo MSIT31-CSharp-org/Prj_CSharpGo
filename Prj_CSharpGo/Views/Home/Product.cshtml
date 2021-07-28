@@ -7,7 +7,7 @@
 <h1>商品資料</h1>
 <hr />
 
-<table class="table">
+<table class="table" style="margin-top:80px">
     <thead>
         <tr>
             <th>
@@ -21,6 +21,9 @@
             </th>
             <th>
                 庫存
+            </th>
+            <th>
+                圖片
             </th>
         </tr>
     </thead>
@@ -44,12 +47,19 @@
                 </td>
 
             }
+
+        <td>
+
+            @*目前只有一個商品且只有一張圖*@
+            商品圖片路徑 =>
+            @foreach (var item in Model.productImgs)
+            {
+                @item.Img
+            }
+
+        </td>
+
         </tr>
-        @*目前只有一個商品且只有一張圖*@
-        商品圖片路徑 => 
-        @foreach (var item in Model.productImgs)
-        {
-            @item.Img
-        }
+       
     </tbody>
 </table>
