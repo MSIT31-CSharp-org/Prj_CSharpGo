@@ -1,7 +1,7 @@
 ﻿@model Prj_CSharpGo.Models.CampreserveModels.CampreserveOrderModel;
 
 @{
-    ViewData["Title"] = "露營場地";
+    ViewData["Title"] = "營地預約訂單";
 }
 
 <main id="main">
@@ -43,6 +43,7 @@
                 <table class="table">
                     <thead>
                         <tr class="table-warning">
+                            <th scope="col">圖片</th>
                             <th scope="col">區域名稱</th>
                             <th scope="col">租借日期</th>
                             <th scope="col">退租日期</th>
@@ -55,6 +56,7 @@
 
                     <tbody>
                         <tr>
+                            <th><img src="~/img/@ViewBag.Img" width="100" ></th>
                             <th scope="row">@Model.CampName</th>
                             <td>@Model.StartDay.ToString("yyyy-MM-dd")</td>
                             <td>@Model.EndDay.ToString("yyyy-MM-dd")</td>
@@ -97,7 +99,7 @@
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="/Campreserve/Index" type="button" class="btn btn-secondary">取消</a>
-                        <button type="submit" class="btn btn-success">確認</button>
+                        <button type="submit" class="btn btn-success" id="comform">確認</button>
 
                     </div>
 
@@ -136,6 +138,9 @@
 
         });
 
+        $("#comform").click(function () {
+            alert('@Html.Raw(ViewBag.messagea)');
+         });
 
 </script>
 
