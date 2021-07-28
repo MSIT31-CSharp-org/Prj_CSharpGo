@@ -81,10 +81,16 @@
                 <td>
                     @item.UpdateDate
                 </td>
-                @if (item.UserStatus == "01")
+                @if (item.UserStatus == "NR")
                 {
                     <td>
                         正常
+                    </td>
+                }
+                else if (item.UserStatus == "SP")
+                {
+                    <td>
+                        停權
                     </td>
                 }
                 else
