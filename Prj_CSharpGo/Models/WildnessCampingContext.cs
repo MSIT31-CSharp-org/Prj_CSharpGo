@@ -143,7 +143,7 @@ namespace Prj_CSharpGo.Models
                 entity.HasOne(d => d.Camp)
                     .WithMany()
                     .HasForeignKey(d => d.CampId)
-                    .HasConstraintName("FK__CampImg__CampID__17036CC0");
+                    .HasConstraintName("FK__CampImg__CampID__0A338187");
             });
 
             modelBuilder.Entity<CampOrder>(entity =>
@@ -180,13 +180,13 @@ namespace Prj_CSharpGo.Models
                     .WithMany(p => p.CampOrders)
                     .HasForeignKey(d => d.CampId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CampOrder__CampI__68D28DBC");
+                    .HasConstraintName("FK__CampOrder__CampI__0B27A5C0");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.CampOrders)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CampOrder__UserI__67DE6983");
+                    .HasConstraintName("FK__CampOrder__UserI__0C1BC9F9");
             });
 
             modelBuilder.Entity<CategoriesTypeI>(entity =>
