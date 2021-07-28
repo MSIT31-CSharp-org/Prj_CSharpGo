@@ -38,7 +38,7 @@
     <img src="~/Didi/img/@Model.Img" style="max-width: 300px;max-height: 400px;" />
 </div>
 
-<a class="btn btn-success" href="/Recipe/Edit/@Model.RecipeId">Edit</a>
+<a class="btn btn-success" href="/Recipe/Edit/@Model.RecipeId" style="margin-left:30px; margin-top:10px;">Edit</a>
 @Html.ActionLink(" delete", "delete", new { id = Model.RecipeId }, new { @class = "btn btn-success" })
 
 <!-- Receipe Content Area -->
