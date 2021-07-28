@@ -5,18 +5,24 @@ using System.Threading.Tasks;
 
 namespace Prj_CSharpGo.Models.ShopCartViewModels
 {
-    public class PShopCartViewMolds
-    {
-        public Order order { get; set; }
 
-        public IEnumerable<Product> Product { get; set; }
-
-        public IEnumerable<User> User { get; set; }
-        public IEnumerable<ShoppingCart> ShoppingCart { get; set; }
-
-        public int? SMTotal { get; set; }
-
-        public int? BigTotal { get; set; }
+    public class returnshCartIndexVM
+    { 
+        public List<Product> Products { get; set; }
+        public List<User> Users { get; set; }
+        public List<ShoppingCart> ShoppingCarts { get; set; }
 
     }
+
+
+
+    //public class ShowAllshCart {
+
+    //    public Order order { get; set; }
+
+    //    public int? SMTotal { get; set; }
+
+    //    public int? BigTotal { get; set; }
+    //    }
+    
 }

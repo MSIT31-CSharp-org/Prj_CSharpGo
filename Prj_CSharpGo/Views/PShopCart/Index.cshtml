@@ -1,4 +1,4 @@
-﻿@model Prj_CSharpGo.Models.ShopCartViewModels.PShopCartViewMolds
+﻿@model Prj_CSharpGo.Models.ShopCartViewModels.returnshCartIndexVM
 @*
     @model List<Prj_CSharpGo.Models.ShopCartViewModels.PShopCartViewMolds>
 
@@ -30,7 +30,7 @@
     }
 *@
 @{
-        ViewData["Title"] = "露營用品";
+    ViewData["Title"] = "露營用品";
 }
 
 <main id="main">
@@ -81,64 +81,85 @@
                     </thead>
 
                     <tbody>
+                        
+                        @foreach (var item in Model.ShoppingCarts)
+                        {
+                            <tr>
+                                <th scope="row">@item.ProductId</th>
+                                <td>@item.Product</td>  <!--.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName-->
+                                <td>>@item.Quantity</td>
+                                <td>
+                                    <select class="$form-select-bg-position" name="PlusPrice" id="PlusPrice">
+                                        <option value="0">  0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">5</option>
+                                    </select>
+                                    <div><div id="pricevalue1"></div></div>
 
-                        @foreach (var item in Model.ShoppingCart)
-                      {
-                        <tr>
-                            <th scope="row">@item.ProductId</th>
-                            <td>@Model.Product.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName</td>
-                            <td>>@item.Quantity</td>
-                            <td>
-                                <select class="$form-select-bg-position" name="PlusPrice" id="PlusPrice">
-                                    <option value="0">  0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">5</option>
-                                </select>
-                                <div><div id="pricevalue1"></div></div>
+                                </td>
 
-                            </td>
-                            @*
-                    <td>
-                        @Model.Product.FirstOrDefault(x => x.ProductId == item.ProductId).SMTotal 元
-                    </td>
-                    <td id="total_price">
-                        @item.BigTotal
-                    </td>
-                            *@
-                        </tr>
-                      }
 
-                    </tbody>
+                                @*
+                                    <td>
+                                        @Model.Product.FirstOrDefault(x => x.ProductId == item.ProductId).SMTotal 元
+                                    </td>
+                                    <td id="total_price">
+                                        @item.BigTotal
+                                    </td>
+                                *@
+                            </tr>
+                        }
 
-                </table>
+                        @foreach (var item in Model.Products)
+                        {
+                            <tr>
+                                <th scope="row">@item.ProductId</th>
+                                <td>@item.ProductName</td>  <!--.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName-->
+                                <td>>@item.UnitPrice</td>
+                                <td>
+                                    <select class="$form-select-bg-position" name="PlusPrice" id="PlusPrice">
+                                        <option value="0">  0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">5</option>
+                                    </select>
+                                    <div><div id="pricevalue1"></div></div>
 
-                @using (Html.BeginForm("ComfirmResult", "Campreserve", FormMethod.Post))
-                {
+                                </td>
+                               </tr>
+                                }
+                        </tbody>
 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <a href="/Campreserve/Index" type="button" class="btn btn-secondary">再逛逛</a>
-                    <button type="submit" class="btn btn-success">去買單~</button>
+                    </table>
+
+                    @using (Html.BeginForm("ComfirmResult", "Campreserve", FormMethod.Post))
+                    {
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="/Campreserve/Index" type="button" class="btn btn-secondary">再逛逛</a>
+                            <button type="submit" class="btn btn-success">去買單~</button>
+
+                        </div>
+
+                    }
 
                 </div>
-
-                }
-
             </div>
-        </div>
-    </section>
+        </section>
 
-</main><!-- End #main -->
-<!-- ======= Footer ======= -->
-<!-- Template Main JS File -->
-@*<script src="~/js/main.js"></script>*@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous"></script>
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <!-- Template Main JS File -->
+    @*<script src="~/js/main.js"></script>*@
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
 
 
-<script>
+    <script>
     @* var origin_price =@iteml.BigTotal;
     $("#PlusPrice").change(function () {
         if (PlusPrice != null) {
@@ -156,6 +177,6 @@
     });
     *@
 
-</script>
+    </script>
 
 

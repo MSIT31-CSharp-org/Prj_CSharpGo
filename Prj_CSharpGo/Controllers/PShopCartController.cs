@@ -7,7 +7,7 @@ using Prj_CSharpGo.Models;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 using Prj_CSharpGo.Models.ShopCartViewModels;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace Prj_CSharpGo.Controllers
 {
@@ -24,12 +24,27 @@ namespace Prj_CSharpGo.Controllers
 
 
         //從購物車資料庫抓出所有東西
-        public IActionResult Index()//從商品庫抓出所有商品
+        public async Task<IActionResult> IndexAsync()//從商品庫抓出所有商品
         {
-            List<ShoppingCart> ShopProductsList = _context.ShoppingCarts.ToList();
+            //List<ShoppingCart> ShopProductsList = _context.ShoppingCarts.ToList();
 
-            return View(ShopProductsList);
-        }
+            //return View(ShopProductsList);
+
+            var products = from p in _context.Products
+                           select p;
+
+            var shoppingCart = from c in _context.ShoppingCarts
+                        select c;
+
+
+            var allshCartVM = new returnshCartIndexVM()
+            {
+                Products = await products.ToListAsync(),
+                ShoppingCarts = await shoppingCart.ToListAsync()
+            };
+
+            return View(allshCartVM);
+    }
 
         //在購物車頁面點那個商品的圖片會回到商品詳細介紹那一頁
         // public IActionResult Detail(int? ProductId)

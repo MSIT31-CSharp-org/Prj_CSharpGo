@@ -15,5 +15,10 @@ namespace Prj_CSharpGo.Models
         public string Approval { get; set; }
 
         public virtual User User { get; set; }
+
+        public static implicit operator Order(List<Order> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
