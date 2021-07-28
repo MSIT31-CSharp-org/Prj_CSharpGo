@@ -1,4 +1,7 @@
-﻿@model Prj_CSharpGo.Models.Recipe
+﻿@using Prj_CSharpGo.Models.ViewModels
+
+@model RecipeProduct
+
 @{
     ViewData["Title"] = "Edit";
 }
@@ -7,54 +10,60 @@
 <div class="container py-5">
     <div class="row py-5">
         <form class="col-md-9 m-auto" method="post" action="/Recipe/Edit" data-ajax='false' enctype="multipart/form-data">
-            <input type="text" name="RecipeId" value="@Model.RecipeId" hidden>
+            <input type="text" name="RecipeId" value="@Model.Recipe.RecipeId" hidden>
             @*<form class="col-md-9 m-auto" method="post" action="/Recipe/Edit" role="form" data-ajax='false'>*@
             @*上傳圖片 JS在最下面*@
-            <img id="output" style="max-width: 300px;max-height: 400px;" class="form-control mt-1" src="~/Didi/img/@Model.Img" />
+            <img id="output" style="max-width: 300px;max-height: 400px;" class="form-control mt-1" src="~/Didi/img/@Model.Recipe.Img" />
             <input type="file" name="Img" accept="image/*" onchange="loadFile(event)">
             <br> <br> <br>
             @*上傳圖片*@
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
                     <label for="inputname">RecipeName</label>
-                    <input type="text" class="form-control mt-1" name="RecipeName" value="@Model.RecipeName">
+                    <input type="text" class="form-control mt-1" name="RecipeName" value="@Model.Recipe.RecipeName">
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label for="inputemail">CreateDate</label>
-                    <input type="text" class="form-control mt-1" name="CreateTime" value="@Model.CreateTime">
+                    <input type="text" class="form-control mt-1" name="CreateTime" value="@Model.Recipe.CreateTime">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
                     <label for="inputsubject">料理時間Cooking time</label>
-                    <input type="text" class="form-control mt-1" name="CookingTime" value="@Model.CookingTime">
+                    <input type="text" class="form-control mt-1" name="CookingTime" value="@Model.Recipe.CookingTime">
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label for="inputsubject">準備時間時間PreparationTime</label>
-                    <input type="text" class="form-control mt-1" name="PreparationTime" value="@Model.PreparationTime">
+                    <input type="text" class="form-control mt-1" name="PreparationTime" value="@Model.Recipe.PreparationTime">
                 </div>
 
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
                     <label for="inputsubject">份量Yield</label>
-                    <input type="text" class="form-control mt-1" name="Yield" value="@Model.Yield">
+                    <input type="text" class="form-control mt-1" name="Yield" value="@Model.Recipe.Yield">
                 </div>
             </div>
 
-            @* 食材清單 *@
+            @*食材清單*@
             <div>
-                <label for="inputsubject">食材清單Ingredients List</label>
-                <input type="text" class="form-control mt-1" name="Yield" placeholder="ProductName">
+                <select id="select">
+                    <option value="0">食材選擇1</option>
+                    @{ foreach (var item in Model.Products)
+                        {
+                            <option value="@item.ProductId">@item.ProductName</option>
+                        }
+                    }
+                </select>
             </div>
 
             <div class="mb-3">
                 <label for="inputmessage">01.備料Preparation</label>
-                <textarea class="form-control mt-1" name="Preparation" rows="8">@Model.Preparation</textarea>
+                <textarea class="form-control mt-1" name="Preparation" rows="8">@Model.Recipe.Preparation</textarea>
             </div>
             <div class="mb-3">
                 <label for="inputmessage">02.烹煮步驟Step</label>
-                <textarea class="form-control mt-1" name="Step" rows="8">@Model.Step</textarea>
+                <textarea class="form-control mt-1" name="Step" rows="8">@Model.Recipe.Step</textarea>
             </div>
             <div class="row">
                 <div class="col text-end mt-2">
