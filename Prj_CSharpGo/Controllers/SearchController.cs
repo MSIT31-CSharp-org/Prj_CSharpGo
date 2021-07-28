@@ -1,26 +1,24 @@
-﻿
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-
-using Prj_CSharpGo.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Prj_CSharpGo.Models;
 
 namespace Prj_CSharpControllers
     {
         public class SearchController : Controller
         {
-        private readonly ILogger<SearchController> _logger;
+        //private readonly ILogger<SearchController> _logger;
         private WildnessCampingContext _context;
 
-        public SearchController(ILogger<SearchController> logger, WildnessCampingContext dbContext)
+        public SearchController(WildnessCampingContext dbContext)
         {
-            _logger = logger;
+            //_logger = logger;
             _context = dbContext;
         }
 
@@ -53,9 +51,9 @@ namespace Prj_CSharpControllers
             {
                 // Recipe 食譜
                 recipes = recipes.Where(s => s.RecipeName.Contains(searchString));
-                //  Product 產品
+                // Product 產品
                 products = products.Where(s => s.ProductName.Contains(searchString));
-                //  Camp 營地
+                // Camp 營地
                 camps = camps.Where(s => s.CampName.Contains(searchString));
             }
 

@@ -1,5 +1,4 @@
 ﻿@model Prj_CSharpGo.Models.Recipe
-
 <!-- Receipe Post Search -->
 <div class="receipe-post-search mb-80" style="margin-left: 80px;margin-bottom:60px;margin-top:60px;">
     <div class="container">
@@ -40,6 +39,7 @@
 </div>
 
 <a class="btn btn-success" href="/Recipe/Edit/@Model.RecipeId">Edit</a>
+@Html.ActionLink(" delete", "delete", new { id = Model.RecipeId }, new { @class = "btn btn-success" })
 
 <!-- Receipe Content Area -->
 <div class="receipe-content-area">

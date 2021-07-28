@@ -37,16 +37,36 @@
         <dt class="col-sm-2">
             權限
         </dt>
-        <dd class="col-sm-10">
-            @Model.EmployeeStatus
-        </dd>
+        @{
+
+            if (Model.EmployeeStatus == true)
+            {
+                <dd class="col-sm-10">
+                    主管
+                </dd>
+            }
+            else if (Model.EmployeeStatus == false)
+            {
+                <dd class="col-sm-10">
+                    員工
+                </dd>
+            }
+            else
+            {
+                <dd class="col-sm-10">
+                    註銷
+                </dd>
+            }
+        }
+
+
     </dl>
 
     <form action="/Employee/Delete/@Model.EmployeeId" method="post">
 
         @Html.AntiForgeryToken()
         <input type="hidden" id="EmployeeId" name="EmployeeId" value="@Model.EmployeeId" />
-        <input type="submit" value="確定刪除" class="btn btn-primary" /> 
+        <input type="submit" value="確定刪除" class="btn btn-primary" />
         <a href="/Employee" class="btn btn-danger">回到清單</a>
 
     </form>

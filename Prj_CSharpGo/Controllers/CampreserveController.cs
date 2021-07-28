@@ -52,7 +52,7 @@ namespace Prj_CSharpGo.Controllers
         //取得CampQuantity
         public IActionResult GetCampList()
         {
-            var campList = _context.Camps.Select(s => new { s.CampName, s.CampId, s.CampQuantity }).ToList();
+            var campList = _context.Camps.Select(s => new { s.CampName, s.CampId, s.CampQuantity, s.Img}).ToList();
             return Json(campList);
         }
 
@@ -207,6 +207,11 @@ namespace Prj_CSharpGo.Controllers
 
         public IActionResult ComfirmResult(CampreserveOrderModel orderModel)
         {
+            var order = orderModel.CampId;
+            var Camp = _context.Camps.Find(order).Img;
+            ViewBag.Img = Camp;
+
+            ViewBag.messagea = "已完成預約!";
             return View(orderModel);
         }
 

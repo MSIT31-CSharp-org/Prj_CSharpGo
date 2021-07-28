@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Prj_CSharpGo.Models;
+using Prj_CSharpGo.Models.ViewModels;
 
 
 namespace Prj_CSharpGo.Controllers
@@ -207,11 +208,15 @@ namespace Prj_CSharpGo.Controllers
                 return Redirect("/Employee/Login");
             }
 
-            var query = from o in _context.OrderDetails
-                        where o.OrderId == id
-                        select o;
-
-            return View(await query.ToListAsync());
+            EmployeeOrder emporder = new EmployeeOrder()
+            {
+                _order = await _context.Orders.FindAsync(id),
+                OrderDetails = from o in _context.OrderDetails
+                               where o.OrderId == id
+                               select o,
+                Products = await _context.Products.ToListAsync()
+            };
+            return View(emporder);
         }
 
         [HttpPost]
@@ -240,7 +245,7 @@ namespace Prj_CSharpGo.Controllers
             return View(await _context.Products.ToListAsync());
         }
 
-        // 訂單編輯頁面
+        // 商品編輯頁面
         public async Task<IActionResult> ProductEdit(string id)
         {
             string empSession = HttpContext.Session.GetString("employeeId") ?? "Guest";
