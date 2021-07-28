@@ -84,15 +84,23 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="UserStatus">帳號狀態</label>
                 <select name="UserStatus" class="form-control col-sm-9">
-                    @{if (Model.UserStatus == "01")
+                    @{if (Model.UserStatus == "NR")
                         {
-                            <option value="01" selected>正常</option>
-                            <option value="02">註銷</option>
+                            <option value="NR" selected>正常</option>
+                            <option value="SP">停權</option>
+                            <option value="WL">註銷</option>
+                        }
+                        else if (Model.UserStatus == "SP")
+                        {
+                            <option value="NR">正常</option>
+                            <option value="SP" selected>停權</option>
+                            <option value="WL">註銷</option>
                         }
                         else
                         {
-                            <option value="01">正常</option>
-                            <option value="02" selected>註銷</option>
+                            <option value="NR">正常</option>
+                            <option value="SP">停權</option>
+                            <option value="WL" selected>註銷</option>
                         }
                     }
                 </select>
