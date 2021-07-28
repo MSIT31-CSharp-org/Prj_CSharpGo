@@ -98,8 +98,6 @@ namespace Prj_CSharpGo.Controllers
 
         public IActionResult Delete(int? id)
         {
-            //Recipe re = this._context.Recipes.Find(id);
-            //return Content(id.ToString());
             var de = _context.Recipes.Find(id);
             _context.Recipes.Remove(de);
             this._context.SaveChanges();
