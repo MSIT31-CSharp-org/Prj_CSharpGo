@@ -66,7 +66,7 @@ namespace Prj_CSharpGo.Controllers
         {
             RecipeProduct all = new RecipeProduct()
             {
-                Products = this._context.Products.ToList()
+                Products = this._context.Products.Where(x => x.CategoryId == "E ")
             };
             return View(all);
         }
