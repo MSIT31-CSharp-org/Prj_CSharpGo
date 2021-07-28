@@ -23,6 +23,7 @@ namespace Prj_CSharpGo.Models
         public string Approval { get; set; }
         public int? PlusPrice { get; set; }
         public string Ahref { get; set; }
+        public string Img { get; set; }
 
         public virtual ICollection<CampOrder> CampOrders { get; set; }
     }
