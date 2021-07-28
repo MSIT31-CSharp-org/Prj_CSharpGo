@@ -51,9 +51,9 @@ namespace Prj_CSharpControllers
             {
                 // Recipe 食譜
                 recipes = recipes.Where(s => s.RecipeName.Contains(searchString));
-                //  Product 產品
+                // Product 產品
                 products = products.Where(s => s.ProductName.Contains(searchString));
-                //  Camp 營地
+                // Camp 營地
                 camps = camps.Where(s => s.CampName.Contains(searchString));
             }
 
