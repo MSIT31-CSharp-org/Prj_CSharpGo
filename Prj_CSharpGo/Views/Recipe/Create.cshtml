@@ -1,4 +1,7 @@
-﻿
+﻿@using Prj_CSharpGo.Models.ViewModels
+
+@model RecipeProduct
+
 @{
     ViewData["Title"] = "Create";
 }
@@ -40,6 +43,30 @@
                 </div>
             </div>
 
+            <a id="ass_add">ADD</a>
+            <a id="ass_del">Del</a>
+            <div id="ass_area">
+                <div class="row">
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="inputsubject">FOOD_Description</label>
+                        <input type="text" class="form-control mt-1" name="Description" placeholder="Description">
+                    </div>
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="inputsubject">Product</label>
+                        <select>
+                            <option value="0">食材選擇</option>
+                            @{ foreach (var item in Model.Products)
+                                {
+                                    <option value="@item.ProductId">@item.ProductName </option>
+                                }
+                            }
+                        </select>
+                        <input type="text" class="form-control mt-1" name="ProductID[]" placeholder="ProductID">
+                    </div>
+                </div>
+            </div>
+
+
             <div class="mb-3">
                 <label for="inputmessage">01.備料Preparation</label>
                 <textarea class="form-control mt-1" name="Preparation" placeholder="Preparation" rows="8"></textarea>
@@ -56,6 +83,11 @@
         </form>
     </div>
 </div>
+
+
+
+
+
 @*End Contact*@
 <script>
     var loadFile = function (event) {
