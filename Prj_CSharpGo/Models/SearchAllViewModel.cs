@@ -29,27 +29,5 @@ namespace Prj_CSharpGo.Models
         public SelectList CGenres { get; set; }
         public string CampGenre { get; set; }
 
-
-        //private Hashtable _AllGenre;
-
-        //public Hashtable AllGenre
-        //{
-        //    get { return this._AllGenre; }
-        //}
-
-        //private void Init(List<Recipe> recipe, List<Product> product, List<Camp> camp)      // 功能 : 轉接
-        //{
-        //    this._AllGenre = new Hashtable();
-        //    // ======================
-        //    this.Products = product;
-        //    this.Recipes = recipe;
-        //    this.Camps = camp;
-        //}
-
-        //public All(List<Recipe> recipe, List<Product> product, List<Camp> camp)
-        //{
-        //    get { return this.Init(recipe)}
-        //    set;
-        //}
     }
 }
