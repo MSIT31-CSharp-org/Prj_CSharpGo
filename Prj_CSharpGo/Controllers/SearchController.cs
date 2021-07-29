@@ -1,26 +1,24 @@
-﻿
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-
-using Prj_CSharpGo.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Prj_CSharpGo.Models;
 
 namespace Prj_CSharpControllers
-{
-    public class SearchController : Controller
     {
+        public class SearchController : Controller
+        {
         private readonly ILogger<SearchController> _logger;
         private WildnessCampingContext _context;
 
-        public SearchController(ILogger<SearchController> logger, WildnessCampingContext dbContext)
+        public SearchController(WildnessCampingContext dbContext)
         {
-            _logger = logger;
+            //_logger = logger;
             _context = dbContext;
         }
 

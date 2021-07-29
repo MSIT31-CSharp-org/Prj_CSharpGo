@@ -1,0 +1,55 @@
+﻿@model Prj_CSharpGo.Models.ViewModels.ProductHome
+
+@{
+    ViewData["Title"] = "商品";
+}
+
+<h1>商品資料</h1>
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                編號
+            </th>
+            <th>
+                名稱
+            </th>
+            <th>
+                單價
+            </th>
+            <th>
+                庫存
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr class="wrap">
+            @foreach (var item in Model.products)
+            {
+
+                <td>
+                    @item.ProductId
+                </td>
+                <td>
+                    @item.ProductName
+                </td>
+                <td>
+                    @item.UnitPrice
+                </td>
+                <td>
+                    @item.UnitInStock
+                </td>
+
+            }
+        </tr>
+        @*目前只有一個商品且只有一張圖*@
+        商品圖片路徑 => 
+        @foreach (var item in Model.productImgs)
+        {
+            @item.Img
+        }
+    </tbody>
+</table>

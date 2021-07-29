@@ -1,5 +1,4 @@
 ﻿@model Prj_CSharpGo.Models.Recipe
-
 <!-- Receipe Post Search -->
 <div class="receipe-post-search mb-80" style="margin-left: 80px;margin-bottom:60px;margin-top:60px;">
     <div class="container">
@@ -39,7 +38,8 @@
     <img src="~/Didi/img/@Model.Img" style="max-width: 300px;max-height: 400px;" />
 </div>
 
-<a class="btn btn-success" href="/Recipe/Edit/@Model.RecipeId">Edit</a>
+<a class="btn btn-success" href="/Recipe/Edit/@Model.RecipeId" style="margin-left:30px; margin-top:10px;">Edit</a>
+@Html.ActionLink(" delete", "delete", new { id = Model.RecipeId }, new { @class = "btn btn-success" })
 
 <!-- Receipe Content Area -->
 <div class="receipe-content-area">

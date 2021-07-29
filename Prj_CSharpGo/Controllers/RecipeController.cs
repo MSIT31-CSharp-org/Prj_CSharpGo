@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Prj_CSharpGo.Models.ViewModels;
 
 namespace Prj_CSharpGo.Controllers
 {
@@ -28,10 +29,17 @@ namespace Prj_CSharpGo.Controllers
             Recipe re = _context.Recipes.Find(id);
             return View(re);
         }
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            Recipe re = _context.Recipes.Find(id);
-            return View(re);
+            RecipeProduct all = new RecipeProduct()
+            {
+                Recipe = this._context.Recipes.Find(id),
+                Associations = from o in _context.Associations
+                               where o.RecipeId == id
+                               select o,
+                Products = this._context.Products.Where(x => x.CategoryId == "E ")
+            };
+            return View(all);
         }
         [HttpPost]
         public IActionResult Edit(Recipe reForm, IFormFile Img)
@@ -54,10 +62,13 @@ namespace Prj_CSharpGo.Controllers
         }
 
 
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            Recipe newRecipe = new Recipe();
-            return View(newRecipe);
+            RecipeProduct all = new RecipeProduct()
+            {
+                Products = this._context.Products.Where(x => x.CategoryId == "E ")
+            };
+            return View(all);
         }
         [HttpPost]
         public IActionResult Create(Recipe newRecipe)
@@ -66,6 +77,31 @@ namespace Prj_CSharpGo.Controllers
             _context.Add(newRecipe);
             _context.SaveChanges();
             return Redirect("/Recipe/Recipe");
+        }
+
+        [HttpPost]
+        public IActionResult Create(Recipe newRecipe, IFormFile Img)
+        {
+            // 上傳圖片檔案
+            if (Img != null)
+            {
+                string[] subs = Img.FileName.Split('.');
+                String NewImgName = DateTime.Now.ToString("yyyyMMddHHmmss") + "." + subs[1];
+                Img.CopyTo(new FileStream("./wwwroot/img/" + NewImgName, FileMode.Create));
+                newRecipe.Img = NewImgName;
+            }
+            newRecipe.UserId = 2;
+            _context.Add(newRecipe);
+            _context.SaveChanges();
+            return Redirect("/Recipe/Recipe");
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            var de = _context.Recipes.Find(id);
+            _context.Recipes.Remove(de);
+            this._context.SaveChanges();
+            return RedirectToAction("Recipe");
         }
     }
 }
