@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Prj_CSharpGo.Models;
 using Microsoft.AspNetCore.Http;
-
+using Prj_CSharpGo.Hubs;
 
 namespace Prj_CSharpGo
 {
@@ -35,6 +35,9 @@ namespace Prj_CSharpGo
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddSession();
+
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +67,7 @@ namespace Prj_CSharpGo
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                    endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }
