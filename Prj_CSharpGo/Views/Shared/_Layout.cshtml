@@ -80,12 +80,12 @@
 
             <!-- Sam 搜尋功能 (放大鏡還不能按)  -->
             @*<a class="input-group rounded" style="width: auto;margin-left: 100px; text-decoration:none;">
-                    <input type="search" class="form-control rounded" placeholder="找點什麼吧！" aria-label="Search"
-                           aria-describedby="search-addon" />
-                    <span class="input-group-text border-0 " id="search-addon">
-                        <i class="fas fa-search"></i>
-                    </span>
-                </a>*@
+            <input type="search" class="form-control rounded" placeholder="找點什麼吧！" aria-label="Search"
+                   aria-describedby="search-addon" />
+            <span class="input-group-text border-0 " id="search-addon">
+                <i class="fas fa-search"></i>
+            </span>
+        </a>*@
 
             <!-- Sam 搜尋功能 (可搜尋版本)  -->
             <form asp-controller="Search" asp-action="Index" method="get">
@@ -101,10 +101,13 @@
             </a>
 
             <!-- 會員 -->
-            <a class="nav-icon position-relative text-decoration-none" href="@Url.Action("Login", "LoginRegister")" style="margin-left: 20px;">
-                <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                @*<span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">n</span>*@
-            </a>
+            <!--<a class="nav-icon position-relative text-decoration-none" href="@Url.Action("Login", "LoginRegister")" style="margin-left: 20px;">
+        <i class="fa fa-fw fa-user text-dark mr-3"></i>-->
+            @*<span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">n</span>*@
+            <!--</a>-->
+            
+            <!-- Identity 註冊/登入模組部分 -->
+            <partial name="_LoginPartial" />
         </div>
 
     </nav><!-- End Header/Navbar -->

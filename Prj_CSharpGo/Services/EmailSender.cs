@@ -4,9 +4,9 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
 
-namespace idV1.Services
+namespace Prj_CSharpGo.Services
 {
-    public class EmailSender:IEmailSender
+    public class EmailSender : IEmailSender
     {
         public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)
         {
@@ -25,6 +25,7 @@ namespace idV1.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
+                // EmailAddress 之後的 Email 自行更改為發信郵件地址
                 From = new EmailAddress("atb000.0101@gmail.com", Options.SendGridUser),
                 Subject = subject,
                 PlainTextContent = message,
