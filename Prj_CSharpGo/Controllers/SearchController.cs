@@ -13,7 +13,7 @@ namespace Prj_CSharpControllers
     {
         public class SearchController : Controller
         {
-        private readonly ILogger<SearchController> _logger;
+        //private readonly ILogger<SearchController> _logger;
         private WildnessCampingContext _context;
 
         public SearchController(WildnessCampingContext dbContext)
