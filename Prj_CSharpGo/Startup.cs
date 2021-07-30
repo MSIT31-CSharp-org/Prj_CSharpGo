@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Prj_CSharpGo.Models;
 using Microsoft.AspNetCore.Http;
-
+using idV1.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Prj_CSharpGo
 {
@@ -35,6 +36,14 @@ namespace Prj_CSharpGo
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddSession();
+
+            // requires
+            // using Microsoft.AspNetCore.Identity.UI.Services;
+            // using WebPWrecover.Services;
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
