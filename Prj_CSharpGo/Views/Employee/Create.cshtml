@@ -8,11 +8,14 @@
 }
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "新增帳號";
     Layout = "EmployeeLayout";
 }
 
-<h1>請輸入新增資料</h1>
+<h1>員工新增</h1>
+<h4>
+    請輸入新增資料
+</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -25,36 +28,38 @@
             <!-- data-val-required="不可為空白" 欄位空白顯示訊息「不可為空白」 -->
             <!-- data-valmsg-for 受驗證欄位的 name -->
             <!-- data-valmsg-replace 必要 -->
-            <div class="form-group">
-                <label class="control-label" for="EmployeeId">帳號</label>
-                <input class="form-control" type="number" data-val="true" data-val-required="不可空白"  data-val-number="帳號應為數字" id="EmployeeId" name="EmployeeId" value="" />
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="EmployeeId">編號</label>
+                <input class="form-control col-sm-9" type="number" data-val="true" data-val-required="不可空白" data-val-number="帳號應為數字" id="EmployeeId" name="EmployeeId" value="" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeId" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="EmployeeName">名子</label>
-                <input class="form-control" type="text" id="EmployeeName" name="EmployeeName" value="" />
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="EmployeeName">名字</label>
+                <input class="form-control col-sm-9" type="text" id="EmployeeName" name="EmployeeName" value="" />
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeName" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="EmployeePassword">密碼</label>
-                <input class="form-control" type="password" data-val="true" data-val-required="不可空白" id="EmployeePassword" name="EmployeePassword" />
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="EmployeePassword">密碼</label>
+                <input class="form-control col-sm-9" type="password" data-val="true" data-val-required="不可空白" id="EmployeePassword" name="EmployeePassword" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger " data-valmsg-for="EmployeePassword" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="EmployeeEmail">Email</label>
-                <input class="form-control" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="EmployeeEmail" name="EmployeeEmail" value="" />
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="EmployeeEmail">Email</label>
+                <input class="form-control col-sm-9" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="EmployeeEmail" name="EmployeeEmail" value="" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeEmail" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="EmployeeStatus">職稱</label>
-                <select name="EmployeeStatus" class="form-control">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="EmployeeStatus">職稱</label>
+                <select name="EmployeeStatus" class="form-control col-sm-9">
                     <option value="false">員工</option>
                     <option value="true">主管</option>
                     <option value=" ">註銷</option>
                 </select>
+                <label class="col-sm-3 col-form-label"></label>
             </div>
             <div class="form-group">
                 <input type="submit" value="確定送出" class="btn btn-primary" />

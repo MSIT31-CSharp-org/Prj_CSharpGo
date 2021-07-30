@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using X.PagedList;
 @using X.PagedList.Mvc.Core
-@using X.PagedList.Mvc.Core.Fluent
 @using X.PagedList.Web.Common
 
 @model IEnumerable<Prj_CSharpGo.Models.Employee>
@@ -14,7 +13,7 @@
 }
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "員工資料";
     Layout = "EmployeeLayout";
 }
 
@@ -22,12 +21,18 @@
 <hr />
 @if (empStatus == "True")
 {
-    <div class="search-form">
-        <label> 關鍵字搜索 </label>
-        <input id="search-input" type="text" placeholder="" />
-        <style id="m-search"></style>
+
+    <div>
         <a href="/Employee/Create" class="btn btn-outline-success">新增員工帳號</a>
     </div>
+    <br />
+
+    <div class="search-form">
+        <label> 編號 或 E-mail搜索 </label>
+        <input id="search-input" type="text" placeholder="" />
+        <style id="m-search"></style>
+    </div>
+
     <script>
         var that = $(this);
         var mSearch = $("#m-search");
@@ -46,7 +51,7 @@
     <thead>
         <tr>
             <th>
-                帳號
+                編號
             </th>
             <th>
                 名字
@@ -65,7 +70,8 @@
         {
             @foreach (var item in Model)
             {
-                <tr class="wrap" data-index="@item.EmployeeName @item.EmployeeId @item.EmployeeEmail @item.EmployeeStatus">
+                <tr class="wrap" data-index="@item.EmployeeId @item.EmployeeEmail ">
+
                     <td>
                         @item.EmployeeId
                     </td>
@@ -90,7 +96,6 @@
                     }
 
                     <td class="text-xl-right">
-
                         <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-info btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="fas fa-info-circle"></i>
@@ -104,7 +109,6 @@
                             </span>
                             <span class="text">刪除帳號</span>
                         </a>
-
                     </td>
                 </tr>
             }
@@ -115,7 +119,7 @@
             {
                 if (item.EmployeeId.ToString() == empId)
                 {
-                    <tr class="wrap" data-index="@item.EmployeeName @item.EmployeeId @item.EmployeeEmail @item.EmployeeStatus">
+                    <tr class="wrap" data-index="@item.EmployeeId @item.EmployeeEmail">
                         <td>
                             @item.EmployeeId
                         </td>
