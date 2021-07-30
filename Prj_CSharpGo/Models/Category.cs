@@ -17,10 +17,5 @@ namespace Prj_CSharpGo.Models
         public string Description { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
-
-        public static implicit operator Category(string v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
