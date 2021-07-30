@@ -64,6 +64,8 @@ namespace Prj_CSharpGo
 
             app.UseRouting();
 
+            //to be added
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSession();
@@ -73,6 +75,8 @@ namespace Prj_CSharpGo
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                //to be added
+                endpoints.MapRazorPages();
             });
         }
     }
