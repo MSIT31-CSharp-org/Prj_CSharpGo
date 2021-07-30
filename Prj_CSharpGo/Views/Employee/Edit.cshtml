@@ -10,7 +10,7 @@
 }
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "編輯";
     Layout = "EmployeeLayout";
 }
 
@@ -28,7 +28,7 @@
 
             @Html.AntiForgeryToken()
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="EmployeeId">帳號</label>
+                <label class="col-sm-3 col-form-label" for="EmployeeId">編號</label>
                 <input class="form-control-plaintext col-sm-9" type="number" data-val="true" data-val-required="不可空白" data-val-number="帳號應為數字" id="EmployeeId" name="EmployeeId" readonly value="@Model.EmployeeId" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeId" data-valmsg-replace="true"></span>
@@ -39,6 +39,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label" for="EmployeeName">名字</label>
                     <input class="form-control col-sm-9" type="text" id="EmployeeName" name="EmployeeName" value="@Model.EmployeeName" />
+                    <label class="col-sm-3 col-form-label"></label>
                     <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeName" data-valmsg-replace="true"></span>
                 </div>
 
@@ -61,23 +62,24 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label" for="EmployeeName">名字</label>
                     <input class="form-control-plaintext col-sm-9" type="text" id="EmployeeName" name="EmployeeName" readonly value="@Model.EmployeeName" />
+                    <label class="col-sm-3 col-form-label"></label>
                     <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeName" data-valmsg-replace="true"></span>
                 </div>
 
                 <div class="form-group row d-none">
                     <label class="col-sm-3 col-form-label" for="EmployeePassword">密碼</label>
                     <input class="form-control-plaintext col-sm-9" type="text" data-val="true" data-val-required="密碼不可空白" id="EmployeePassword" name="EmployeePassword" readonly value="@Model.EmployeePassword" />
+                    <label class="col-sm-3 col-form-label"></label>
                     <span class="text-danger field-validation-valid" data-valmsg-for="EmployeePassword" data-valmsg-replace="true"></span>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label" for="EmployeeEmail">Email</label>
                     <input class="form-control-plaintext col-sm-9" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="EmployeeEmail" name="EmployeeEmail" readonly value="@Model.EmployeeEmail" />
+                    <label class="col-sm-3 col-form-label"></label>
                     <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeEmail" data-valmsg-replace="true"></span>
                 </div>
             }
-
-
 
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="EmployeeStatus">職稱</label>
@@ -110,6 +112,7 @@
                         }
                     }
                 </select>
+                <label class="col-sm-3 col-form-label"></label>
             </div>
 
             <div class="form-group">

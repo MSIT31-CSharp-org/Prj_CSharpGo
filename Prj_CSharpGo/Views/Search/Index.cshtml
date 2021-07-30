@@ -6,121 +6,86 @@
 
 
 <h1>Index</h1>
-
-<div class="container">
-    <div class="row col-md-4 col-lg-4">
-
-        <div class="product-row">
-            <!-- 商品列表 -->
-            <div class="col-md-12">
-                <section class="products-content">
-
-
-                    @{ foreach (var item in Model.Products)
-                        {
-
-
-                            <div class="row" style="padding: 15px 0;">
-
-
-                                <div class="col-lg-3 col-md-4 col-xs-6">
-                                    <div class="product-col">
-                                        <div class="image">
-
-                                            <a href="/products/m-1324" title="@item.ProductName"><img src="" alt="product" class="img-responsive"></a>
-                                        </div>
-                                        <div class="caption">
-                                            <h4><a href="/products/m-1324">@item.ProductName</a></h4>
-                                            <div class="description">
-
-                                            </div>
-                                            <div class="price">
-
-                                                <ins>"NT"+@item.UnitPrice</ins>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        }
-                    }
-                </section>
-            </div>
+<form asp-controller="Search" asp-action="Index">
+    <p>
+        關鍵字<input type="text" name="SearchString" />
+        <input type="submit" value="search" />
+    </p>
+</form>
+<<!-- index -->
+<div id="sb-site">
+    <div class="site_path">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/"><span class="sr-only">首頁</span><i class="fa fa-home" aria-hidden="true"></i></a>
+                </li>
+                <li class="active">搜尋商品</li>
+            </ol>
         </div>
     </div>
 
 
-    <div class="row col-md-4 col-lg-4">
-        <div class="product-row">
-            <!-- 食譜列表 -->
-            <div class="col-md-12">
-                <section class="products-content">
-
-
-                    @{ foreach (var item in Model.Recipes)
-                        {
-
-
-                            <div class="row" style="padding: 15px 0;">
-
-                                <div class="col-lg-3 col-md-4 col-xs-6">
-                                    <div class="product-col">
-                                        <div class="image">
-
-                                            <a href="/products/m-1324" title="@item.RecipeId"><img src="" alt="product" class="img-responsive"></a>
-                                        </div>
-                                        <div class="caption">
-                                            <h4><a href="/products/m-1324">@item.RecipeName</a></h4>
-                                            <div class="description">
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
+    <div class="products-warp" id="products-search">
+        <section class="container">
+            <section class="products-content">
+                <section class="row">
+                    <section class="col-md-12">
+                        <div class="result-quantity">
+                            <div class="row">
+                                <div class="col-md-6"><h3 class="text-primary">搜尋關鍵字「<span class="color-danger"> </span>」</h3></div>
+                                <!-- <div class="col-md-6 text-right"><p>總共有 <strong class="color-danger">9</strong> 項搜尋結果</p></div> -->
                             </div>
-                        }
-                    }
+                        </div>
+
+                        <section class="product-row">
+                            <!-- 商品列表 -->
+                            <section class="col-md-12">
+                                <section class="products-content">
+
+                                    <div class="row" style="padding: 15px 0;">
+
+                                        @foreach (var item in Model.Products)
+                                        {
+                                            <div class="col-lg-3 col-md-4 col-xs-6">
+                                                <div class="product-col">
+                                                    <div class="image">
+
+                                                        <a href="/products/m-1324" title="@item.ProductName"><img src="" alt="product" class="img-responsive"></a>
+                                                    </div>
+                                                    <div class="caption">
+                                                        <h4><a href="/products/m-1324">@item.ProductName</a></h4>
+                                                        <div class="description">
+
+                                                        </div>
+                                                        <div class="price">
+
+                                                            <ins>NT$@item.UnitPrice</ins>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </section>
+                            </section>
+                        </section>
+
+
+
+
+
+                    </section>
                 </section>
-            </div>
-        </div>
+            </section>
+        </section>
     </div>
+
+
+
+
+
 </div>
-
-
-@*<table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductName)
-                </th>
-
-
-                <th>
-                    @Html.DisplayNameFor(model => model.UnitPrice)
-                </th>
-
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductName)
-                    </td>
-
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UnitPrice)
-                    </td>
-
-
-                </tr>
-            }
-        </tbody>
-    </table>*@

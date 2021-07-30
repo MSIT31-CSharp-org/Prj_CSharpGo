@@ -1,0 +1,30 @@
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+@model IEnumerable<Prj_CSharpGo.Models.Employee>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
+
+@foreach (var item in Model) {
+
+<tr>
+    <th>
+        @item.EmployeeId
+    </th>
+    <th>
+        @item.EmployeeName
+    </th>
+    <th>
+       @item.EmployeeEmail
+    </th>
+    <th>
+       @item.EmployeePassword
+    </th>
+</tr>
+}
+
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Test", new { page = page }))
