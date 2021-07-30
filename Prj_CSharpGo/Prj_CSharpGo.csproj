@@ -27,7 +27,6 @@
     <None Include="Views\Recipe\Detail.cshtml" />
     <None Include="Views\Recipe\Edit.cshtml" />
     <None Include="Views\Recipe\Index.cshtml" />
-    <None Include="Views\Search\Index.cshtml" />
     <None Include="Views\Shared\EmployeeLayout.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
@@ -157,29 +156,6 @@
     <Folder Include="wwwroot\assets\vendor\js\" />
     <Folder Include="wwwroot\assets\vendor\php-email-form\" />
     <Folder Include="wwwroot\assets\vendor\swiper\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Views\Search\Create.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\Search\Delete.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\Search\Details.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\Search\Edit.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\Search\Index.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
   </ItemGroup>
 
 </Project>

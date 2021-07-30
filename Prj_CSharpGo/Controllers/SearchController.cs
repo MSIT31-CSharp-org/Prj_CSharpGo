@@ -10,9 +10,9 @@ using Microsoft.Extensions.Logging;
 using Prj_CSharpGo.Models;
 
 namespace Prj_CSharpControllers
+{
+    public class SearchController : Controller
     {
-        public class SearchController : Controller
-        {
         //private readonly ILogger<SearchController> _logger;
         private WildnessCampingContext _context;
 
@@ -89,8 +89,5 @@ namespace Prj_CSharpControllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
-
     }
-    }
+}
