@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Prj_CSharpGo.Models;
 using Prj_CSharpGo.Models.ViewModels;
+using X.PagedList;
 
 
 namespace Prj_CSharpGo.Controllers

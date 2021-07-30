@@ -61,35 +61,48 @@
         {
             @foreach (var item in Model)
             {
-                <tr class="wrap" data-index="@item.EmployeeName @item.EmployeeId @item.EmployeeEmail @item.EmployeeStatus">
-                    <td>
-                        @item.EmployeeId
-                    </td>
-                    <td>
-                        @item.EmployeeName
-                    </td>
-                    <td>
-                        @item.EmployeeEmail
-                    </td>
+        <tr class="wrap card mb-4 py-3 border-bottom-success" data-index="@item.EmployeeName @item.EmployeeId @item.EmployeeEmail @item.EmployeeStatus">
+            <td>
+                @item.EmployeeId
+            </td>
+            <td>
+                @item.EmployeeName
+            </td>
+            <td>
+                @item.EmployeeEmail
+            </td>
 
-                    @if (item.EmployeeStatus == false)
-                    {
-                        <td>員工</td>
-                    }
-                    else if (item.EmployeeStatus == true)
-                    {
-                        <td>主管</td>
-                    }
-                    else
-                    {
-                        <td>註銷</td>
-                    }
+            @if (item.EmployeeStatus == false)
+            {
+                <td>員工</td>
+            }
+            else if (item.EmployeeStatus == true)
+            {
+                <td>主管</td>
+            }
+            else
+            {
+                <td>註銷</td>
+            }
 
-                    <td class="text-xl-right">
-                        <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-outline-primary" id="toastrsuccess">編輯資料</a>
-                        <a href="/Employee/Delete/@item.EmployeeId" class="btn btn-outline-info">刪除帳號</a>
-                    </td>
-                </tr>
+            <td class="text-xl-right">
+
+                <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-info btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                    <span class="text">詳細資料</span>
+                </a>
+
+                <a href="/Employee/Delete/@item.EmployeeId" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                    <span class="text">刪除帳號</span>
+                </a>
+
+            </td>
+        </tr>
             }
         }
         else
@@ -111,8 +124,14 @@
                         <td>
                             員工
                         </td>
+
                         <td class="text-xl-right">
-                            <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-outline-primary">編輯資料</a>
+                            <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-info btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
+                                <span class="text">編輯資料</span>
+                            </a>
                         </td>
                     </tr>
                 }
