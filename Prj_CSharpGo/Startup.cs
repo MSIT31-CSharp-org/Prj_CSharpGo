@@ -32,13 +32,16 @@ namespace Prj_CSharpGo
             services.AddDbContext<WildnessCampingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("linkToCampingDb")));
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSession();
+            services.AddSignalR();
             services.AddControllersWithViews();
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            services.AddSession();
-
-            services.AddSignalR();
+            // requires
+            // using Microsoft.AspNetCore.Identity.UI.Services;
+            // using WebPWrecover.Services;
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
         }
 
