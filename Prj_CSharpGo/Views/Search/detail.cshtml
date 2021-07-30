@@ -1,0 +1,48 @@
+﻿@model Prj_CSharpGo.Models.Product
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h1>Detail</h1>
+<div>
+    <div>
+
+        <div class="swiper-slide swiper-slide-active" style="overflow: hidden; width: 103px;">
+            <img src=" @Model<img src=" ~ /img/@Mode.ProductImg.Img">" class="img-responsive">
+
+            <img src="" onerror="this.style.display=none&quot;none&quot;" id="photo" width="100%" height="100%" class="mb10" style="width:90%">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+
+        <h4><small>@Model.ProductId</small><br>@Model.ProductName</h4>
+
+
+        <div class="large">【 此商品一律，現貨/預購 約4-10天 】</div>
+
+        <<span class="text-danger lead">NT.@Model.UnitPrice</span>
+    </div>
+
+    <div class="spacer20"></div>
+
+   
+
+    <label>商品數量</label>
+    <div>
+        <select data-btn-type="quantity" class="form-control"><option value="">請選擇數量</option></select>
+    </div>
+    <div class="spacer20"></div>
+    <div>
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" data-btn-type="buy_now" class="btn btn-gray btn-block">立即購買</button>
+            </div>
+            <div class="col-md-6">
+                <div class="spacer10 visible-xs visible-sm"></div>
+                <button type="button" data-btn-type="add_cart" class="btn btn-gray btn-block">加入購物車</button>
+            </div>
+        </div>
+    </div>
+
+</div>

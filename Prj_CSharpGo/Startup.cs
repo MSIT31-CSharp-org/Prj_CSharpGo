@@ -13,6 +13,7 @@ using Prj_CSharpGo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Prj_CSharpGo.Services;
+using Prj_CSharpGo.Hubs;
 
 namespace Prj_CSharpGo
 {
@@ -37,13 +38,8 @@ namespace Prj_CSharpGo
 
             services.AddSession();
 
-            // requires
-            // using Microsoft.AspNetCore.Identity.UI.Services;
-            // using WebPWrecover.Services;
-            services.AddTransient<IEmailSender, EmailSender>();
-            services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.AddSignalR();
 
-            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

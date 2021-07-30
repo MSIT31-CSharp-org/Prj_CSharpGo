@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Prj_CSharpGo.Models;
 using Prj_CSharpGo.Models.ViewModels;
-
+using X.PagedList;
+using System.IO;
+using OfficeOpenXml;
 
 namespace Prj_CSharpGo.Controllers
 {
@@ -18,6 +20,26 @@ namespace Prj_CSharpGo.Controllers
         public EmployeeController(WildnessCampingContext context)
         {
             _context = context;
+        }
+
+        //分頁用
+        private int pageSize = 8;
+        
+
+        public IActionResult Test()
+        {
+            var data = _context.Users.ToList();
+            var stream = new MemoryStream();
+            using (var xlpackage = new ExcelPackage(stream))
+            {
+                var sheet = xlpackage.Workbook.Worksheets.Add("Loai");
+                sheet.Cells.LoadFromCollection(data, true);
+                xlpackage.Save();
+            }
+            stream.Position = 0;
+
+            var fileName = $"Loai_{DateTime.Now.ToString("yyyy/MM/dd/hh/mm/ss")}.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",fileName);
         }
         // 登入頁面
         public IActionResult Login()
@@ -57,7 +79,7 @@ namespace Prj_CSharpGo.Controllers
         }
 
         // 員工資料頁面
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int Page = 1)
         {
             // 登入驗證
             string empSession = HttpContext.Session.GetString("employeeId") ?? "Guest";
@@ -65,7 +87,8 @@ namespace Prj_CSharpGo.Controllers
             {
                 return Redirect("/Employee/Login");
             }
-            return View(await _context.Employees.ToListAsync());
+            return View(await _context.Employees.OrderBy(p => p.EmployeeId).ToPagedListAsync(Page, pageSize));
+            //return View(await _context.Employees.ToListAsync());
         }
 
         // 新增帳號頁面
