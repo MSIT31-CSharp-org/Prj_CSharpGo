@@ -1,4 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
+@using X.PagedList;
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
 
 @model IEnumerable<Prj_CSharpGo.Models.Employee>
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
@@ -10,7 +13,7 @@
 }
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "員工資料";
     Layout = "EmployeeLayout";
 }
 
@@ -18,12 +21,18 @@
 <hr />
 @if (empStatus == "True")
 {
-    <div class="search-form">
-        <label> 關鍵字搜索 </label>
-        <input id="search-input" type="text" placeholder="" />
-        <style id="m-search"></style>
+
+    <div>
         <a href="/Employee/Create" class="btn btn-outline-success">新增員工帳號</a>
     </div>
+    <br />
+
+    <div class="search-form">
+        <label> 編號 或 E-mail搜索 </label>
+        <input id="search-input" type="text" placeholder="" />
+        <style id="m-search"></style>
+    </div>
+
     <script>
         var that = $(this);
         var mSearch = $("#m-search");
@@ -42,7 +51,7 @@
     <thead>
         <tr>
             <th>
-                帳號
+                編號
             </th>
             <th>
                 名字
@@ -61,7 +70,8 @@
         {
             @foreach (var item in Model)
             {
-                <tr class="wrap" data-index="@item.EmployeeName @item.EmployeeId @item.EmployeeEmail @item.EmployeeStatus">
+                <tr class="wrap" data-index="@item.EmployeeId @item.EmployeeEmail ">
+
                     <td>
                         @item.EmployeeId
                     </td>
@@ -86,8 +96,19 @@
                     }
 
                     <td class="text-xl-right">
-                        <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-outline-primary" id="toastrsuccess">編輯資料</a>
-                        <a href="/Employee/Delete/@item.EmployeeId" class="btn btn-outline-info">刪除帳號</a>
+                        <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-info btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-info-circle"></i>
+                            </span>
+                            <span class="text">詳細資料</span>
+                        </a>
+
+                        <a href="/Employee/Delete/@item.EmployeeId" class="btn btn-danger btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span class="text">刪除帳號</span>
+                        </a>
                     </td>
                 </tr>
             }
@@ -98,7 +119,7 @@
             {
                 if (item.EmployeeId.ToString() == empId)
                 {
-                    <tr class="wrap" data-index="@item.EmployeeName @item.EmployeeId @item.EmployeeEmail @item.EmployeeStatus">
+                    <tr class="wrap" data-index="@item.EmployeeId @item.EmployeeEmail">
                         <td>
                             @item.EmployeeId
                         </td>
@@ -111,8 +132,14 @@
                         <td>
                             員工
                         </td>
+
                         <td class="text-xl-right">
-                            <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-outline-primary">編輯資料</a>
+                            <a href="/Employee/Edit/@item.EmployeeId" class="btn btn-info btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
+                                <span class="text">編輯資料</span>
+                            </a>
                         </td>
                     </tr>
                 }
@@ -120,6 +147,27 @@
         }
     </tbody>
 </table>
+
+@Html.PagedListPager(
+    (IPagedList)Model,
+    page => Url.Action("Index", new { page = page }),
+    PagedListRenderOptions
+        .EnableUnobtrusiveAjaxReplacing(
+            new PagedListRenderOptions()
+            {
+                UlElementClasses = new[] { "pagination" },
+                LiElementClasses = new[] { "page-item" },
+                PageClasses = new[] { "page-link" },
+                LinkToPreviousPageFormat = "«",
+                LinkToNextPageFormat = "»",
+                DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+                DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                MaximumPageNumbersToDisplay = 14
+            },
+            new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "Target", OnSuccess = "Success" })
+)
 
 @if (empToastr != "Guest")
 {

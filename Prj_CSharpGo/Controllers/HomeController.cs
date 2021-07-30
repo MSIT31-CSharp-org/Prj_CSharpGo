@@ -55,6 +55,15 @@ namespace Prj_CSharpGo.Controllers
             };
             return View(productHome);
         }
+
+        public IActionResult Talk(string productid)
+        {
+
+
+            return View();
+        }
+
+
         //內建 無視掉
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
