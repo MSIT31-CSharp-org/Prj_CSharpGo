@@ -23,7 +23,15 @@ namespace Prj_CSharpGo.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            ProductHome productHome = new ProductHome
+            {
+                products = _context.Products.ToList(),
+                productImgs = _context.ProductImgs.ToList(),
+                categories = _context.Categories.ToList(),
+                categoriesTypeIs = _context.CategoriesTypeIs.ToList(),
+                categoriesTypeIis = _context.CategoriesTypeIis.ToList()
+            };
+            return View(productHome);
         }
 
         // 正常來說會收到一段string productid 但是目前頁面還沒處理好 我就直接給 productid = "Aa10CL007"
