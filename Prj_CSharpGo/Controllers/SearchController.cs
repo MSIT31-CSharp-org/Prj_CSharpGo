@@ -13,7 +13,7 @@ namespace Prj_CSharpControllers
     {
         public class SearchController : Controller
         {
-        //private readonly ILogger<SearchController> _logger;
+        private readonly ILogger<SearchController> _logger;
         private WildnessCampingContext _context;
 
         public SearchController(WildnessCampingContext dbContext)
@@ -78,7 +78,11 @@ namespace Prj_CSharpControllers
             return View(allGenreVM);
 
         }
-
+        public IActionResult Detail(int? id)
+        {
+           Product pr = _context.Products.Find(id);
+            return View(pr);
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -93,4 +97,4 @@ namespace Prj_CSharpControllers
 
 
     }
-    }
+}
