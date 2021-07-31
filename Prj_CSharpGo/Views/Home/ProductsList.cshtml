@@ -58,20 +58,7 @@
             <div class="col-lg-3" style="width: 300px">
                 <h1 class="h2 pb-4">商品分類</h1>
                 <ul class="list-unstyled templatemo-accordion">
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            全部
-                            <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                        <ul class="collapse show list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">帳篷</a></li>
-                            <li><a class="text-decoration-none" href="#">寢具</a></li>
-                            <li><a class="text-decoration-none" href="#">戶外家具</a></li>
-                            <li><a class="text-decoration-none" href="#">帳篷周邊</a></li>
-                            <li><a class="text-decoration-none" href="#">食品</a></li>
-
-                        </ul>
-                    </li>
+                   
                     <li class="pb-3">
                         <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
                             帳篷
@@ -178,16 +165,39 @@
                     {
                         <div class="col-md-4">
                             <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="~/Bassets/img/shop_01.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <ul class="list-unstyled">
-                                            <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                            <li><a class="btn btn-success text-white mt-2" href="/home/product"><i class="far fa-eye"></i></a></li>
-                                            <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
-                                        </ul>
+
+                                @if (Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId) != null)
+                                {
+
+                                    <div class="card rounded-0">
+                                        <img class="card-img rounded-0 img-fluid" style="width:302.8px;height:302.8px" src="/img/ProductsImg/@Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId).Img">
+                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                            <ul class="list-unstyled">
+                                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                                <li><a class="btn btn-success text-white mt-2" href="/home/product"><i class="far fa-eye"></i></a></li>
+                                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
+
+                                }
+                                else
+                                {
+                                    <div class="card rounded-0">
+                                        無照片
+                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                            <ul class="list-unstyled">
+                                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                                <li><a class="btn btn-success text-white mt-2" href="/home/product"><i class="far fa-eye"></i></a></li>
+                                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                }
+
+
+
+
                                 <div class="card-body">
                                     <a href="shop-single.html" class="h3 text-decoration-none">@item.ProductName</a>
                                     <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
@@ -206,11 +216,11 @@
                                         }
                                         else if (item.CategoryId == "D ")
                                         {
-                                             <li>廚房用品</li>
+                                            <li>廚房用品</li>
                                         }
                                         else
                                         {
-                                              <li>食品</li>
+                                            <li>食品</li>
                                         }
 
                                         <li class="pt-2">

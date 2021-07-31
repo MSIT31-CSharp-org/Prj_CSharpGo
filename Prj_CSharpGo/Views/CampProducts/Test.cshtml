@@ -1,0 +1,112 @@
+﻿@model Prj_CSharpGo.Models.ViewModels.ProductHome
+
+@{
+    ViewData["Title"] = "首頁";
+}
+
+<h1>商品資料</h1>
+<hr />
+
+@*讓jane能到某商品頁面的按鈕*@
+<div style="margin-top:60px">
+    <a href="/Home/Product" class="btn btn-danger">前往某項商品 Jane</a>
+</div>
+
+<div style="margin-top:30px">
+    <a href="/Home/Productslist" class="btn btn-danger">前往商品清單 Jane</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                圖片
+            </th>
+            <th>
+                編號
+            </th>
+            <th>
+                類別
+            </th>
+            <th>
+                名稱
+            </th>
+            <th>
+                單價
+            </th>
+            <th>
+                庫存
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.products)
+        {
+            //因為目前不是所有商品都有圖片，所以需要判斷是否為NULL
+            <tr class="wrap">
+                @if (Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId) != null)
+                {
+                    <td>
+                        @Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId).Img
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        資料庫為空
+                    </td>
+                }
+
+                <td>
+                    @item.ProductId
+                </td>
+
+
+
+
+                @*因為資料庫類別是用A~E分類別，目前就不改資料庫了，直接用"A "~"E "去分*@
+                @if (item.CategoryId == "A ")
+                {
+                    <td>
+                        帳篷
+                    </td>
+                }
+                else if (item.CategoryId == "B ")
+                {
+                    <td>
+                        寢具
+                    </td>
+                }
+                else if (item.CategoryId == "C ")
+                {
+                    <td>
+                        戶外家具
+                    </td>
+                }
+                else if (item.CategoryId == "D ")
+                {
+                    <td>
+                        廚房用品
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        食品
+                    </td>
+                }
+
+                <td>
+                    @item.ProductName
+                </td>
+                <td>
+                    @item.UnitPrice
+                </td>
+                <td>
+                    @item.UnitInStock
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
