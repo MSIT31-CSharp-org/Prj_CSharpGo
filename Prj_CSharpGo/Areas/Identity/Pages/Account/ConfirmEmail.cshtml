@@ -1,7 +1,16 @@
 ﻿@page
 @model ConfirmEmailModel
 @{
-    ViewData["Title"] = "Confirm email";
+    ViewData["Title"] = "";
 }
+<center>
+    <h1>
+        恭喜！您已完成會員註冊流程
+<p></p>
+        <a class="btn btn-outline-primary col-md-2 col-lg-2 col-2" id="login" asp-area="Identity" asp-page="/Account/Login">
+            會員登入
+        </a>
+    </h1>
+</center>
 
-<h1>@ViewData["Title"]</h1>
+

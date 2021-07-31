@@ -51,12 +51,18 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "記住密碼")]
             public bool RememberMe { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            // 將已經登錄的用戶從登錄或註冊頁面重定向回主頁
+            if (User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("/Home");
+            }
+            // ========================================
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -85,7 +91,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
+                    _logger.LogInformation("已登入");
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -99,7 +105,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "很抱歉！此組帳號可能尚未建立");
                     return Page();
                 }
             }

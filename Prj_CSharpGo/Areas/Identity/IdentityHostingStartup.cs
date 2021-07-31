@@ -19,7 +19,11 @@ namespace Prj_CSharpGo.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("IdentityForContextConnection")));
 
-                services.AddDefaultIdentity<identityForUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddDefaultIdentity<identityForUser>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = true;
+                    options.Password.RequireUppercase = false;
+                })
                     .AddEntityFrameworkStores<IdentityForContext>();
             });
         }

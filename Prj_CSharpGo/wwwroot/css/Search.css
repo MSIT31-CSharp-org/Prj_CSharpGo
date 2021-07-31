@@ -1,0 +1,104 @@
+﻿@import url('http://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+.search {
+    position: relative;
+    width: 3vw;
+    height: 60px;
+    background: #fff;
+    transition: 0.5s;
+    overflow: hidden;
+    /*    border-radius: 30px;
+    box-shadow: 0 0 0 2px #2573ef;*/
+}
+
+    .search.active {
+        width: 250px;
+    }
+
+    .search .icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 60px;
+        height: 60px;
+        background: #fff;
+        border-radius: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        cursor: pointer;
+    }
+
+        .search .icon::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border: 3px solid #000000;
+            border-radius: 50%;
+            transform: translate(-4px, -4px);
+        }
+
+        .search .icon::after {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 12px;
+            background: #000000;
+            border-radius: 35%;
+            transform: translate(6px, 6px) rotate(315deg);
+        }
+
+    .search .input {
+        position: relative;
+        width: 300px;
+        height: 60px;
+        left: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .search .input input {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: navajowhite;
+            font-size: 16px;
+            padding: 0 0 0 0;
+        }
+
+
+.clear {
+    position: absolute;
+    top: 40%;
+    transform: translate(-50%);
+    width: 15px;
+    height: 15px;
+    right: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .clear::before {
+        position: absolute;
+        content: '';
+        width: 1px;
+        height: 15px;
+        background: #999;
+        transform: rotate(45deg);
+    }
+
+    .clear::after {
+        position: absolute;
+        content: '';
+        width: 1px;
+        height: 15px;
+        background: #999;
+        transform: rotate(315deg);
+    }
