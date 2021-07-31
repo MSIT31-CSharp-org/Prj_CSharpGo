@@ -12,5 +12,7 @@ namespace Prj_CSharpGo.Models.ViewModels
         public IEnumerable<Category> categories { get; set; }
         public IEnumerable<CategoriesTypeI> categoriesTypeIs { get; set; }
         public IEnumerable<CategoriesTypeIi> categoriesTypeIis { get; set; }
+
+        
     }
 }
