@@ -34,6 +34,11 @@ namespace Prj_CSharpGo.Controllers
             return View(productHome);
         }
 
+        public IActionResult ProductCate()
+        {
+            return View();
+        }
+
         // 正常來說會收到一段string productid 但是目前頁面還沒處理好 我就直接給 productid = "Aa10CL007"
         public IActionResult Product(string productid)
         {
