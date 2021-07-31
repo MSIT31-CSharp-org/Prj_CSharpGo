@@ -70,14 +70,6 @@ namespace Prj_CSharpGo.Controllers
             };
             return View(all);
         }
-        [HttpPost]
-        public IActionResult Create(Recipe newRecipe)
-        {
-            newRecipe.UserId = 2;
-            _context.Add(newRecipe);
-            _context.SaveChanges();
-            return Redirect("/Recipe/Recipe");
-        }
 
         [HttpPost]
         public IActionResult Create(Recipe newRecipe, IFormFile Img)
