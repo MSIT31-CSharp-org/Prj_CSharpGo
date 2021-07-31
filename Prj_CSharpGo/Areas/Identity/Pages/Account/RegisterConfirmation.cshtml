@@ -1,0 +1,19 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "電子郵件確認";
+}
+
+<h1>@ViewData["Title"]</h1>
+@{
+    if (@Model.DisplayConfirmAccountLink)
+    {
+        <h2>
+            請至您登記的電子郵件確認是否收到會員註冊驗證信
+        </h2>
+    }
+    else
+    {
+
+    }
+}

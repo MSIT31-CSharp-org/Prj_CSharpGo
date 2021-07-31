@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Prj_CSharpGo.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Prj_CSharpGo.Services;
 using Prj_CSharpGo.Hubs;
 
 namespace Prj_CSharpGo
@@ -30,13 +32,16 @@ namespace Prj_CSharpGo
             services.AddDbContext<WildnessCampingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("linkToCampingDb")));
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSession();
+            services.AddSignalR();
             services.AddControllersWithViews();
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            services.AddSession();
-
-            services.AddSignalR();
+            // requires
+            // using Microsoft.AspNetCore.Identity.UI.Services;
+            // using WebPWrecover.Services;
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
         }
 
@@ -58,6 +63,8 @@ namespace Prj_CSharpGo
 
             app.UseRouting();
 
+            //to be added
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSession();
@@ -67,7 +74,8 @@ namespace Prj_CSharpGo
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                    endpoints.MapHub<ChatHub>("/chatHub");
+                //to be added
+                endpoints.MapRazorPages();
             });
         }
     }

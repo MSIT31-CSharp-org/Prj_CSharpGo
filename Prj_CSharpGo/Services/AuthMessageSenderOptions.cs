@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace idV1.Services
+namespace Prj_CSharpGo.Services
 {
     public class AuthMessageSenderOptions
     {
