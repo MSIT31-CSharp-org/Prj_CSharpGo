@@ -43,7 +43,7 @@
                 @if (Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId) != null)
                 {
                     <td>
-                        @Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId).Img
+                        <img src="~/img/ProductsImg/@Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId).Img" width="200"/>
                     </td>
                 }
                 else
