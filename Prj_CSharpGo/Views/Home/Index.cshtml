@@ -4,10 +4,15 @@
     ViewData["Title"] = "首頁";
 }
 
-<h1>商品資料</h1>
-<hr />
+<link rel="stylesheet" href="~/Didi/css/HomeIndex.css">
 
-@*讓jane能到某商品頁面的按鈕*@
+
+
+<br />
+<br />
+<br />
+<br />
+
 <div style="margin-top:60px">
     <a href="/Home/Product" class="btn btn-danger">前往某項商品 Jane</a>
 </div>
@@ -16,97 +21,194 @@
     <a href="/Home/Productslist" class="btn btn-danger">前往商品清單 Jane</a>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                圖片
-            </th>
-            <th>
-                編號
-            </th>
-            <th>
-                類別
-            </th>
-            <th>
-                名稱
-            </th>
-            <th>
-                單價
-            </th>
-            <th>
-                庫存
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.products)
+<!-- Start Banner Hero -->
+<div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="~/Didi/img/camping.png"
+                             style="width: 600px;height: 400px;" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="~/Didi/img/camping.png"
+                             style="width: 600px;height: 400px;" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="~/Didi/img/pasta_mainpic.png"
+                             style="width: 600px;height: 400px;" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* 往前往後鍵 *@
+    @*<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>*@
+    @* 往前往後鍵 *@
+</div>
+<!-- End Banner Hero -->
+
+
+<section class="features-icons bg-light text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                    <div class="features-icons-icon d-flex"><i class="bi-window m-auto text-primary"></i></div>
+                    <h3>關於本站</h3>
+                    <p class="lead mb-0">網站簡單的介紹</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                    <div class="features-icons-icon d-flex"><i class="bi-layers m-auto text-primary"></i></div>
+                    <h3>Bootstrap 5 Ready</h3>
+                    <p class="lead mb-0">Featuring the latest build of the new Bootstrap 5 framework!</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                    <div class="features-icons-icon d-flex"><i class="bi-terminal m-auto text-primary"></i></div>
+                    <h3>Easy to Use</h3>
+                    <p class="lead mb-0">Ready to use with your own content, or customize the source files!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Image Showcases-->
+<section class="showcase">
+    <div class="container-fluid p-0">
+        <div class="row g-0 ">
+            @*<div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('/Didi/img/camping.png')"></div>*@
+            <div class="col-lg-6 order-lg-2 text-white showcase-img dh"><img class="picSize" src="~/Didi/img/camping.png" /></div>
+            <div class="col-lg-6 order-lg-1 my-auto showcase-text dh">
+                <h2>關於我們</h2>
+                <p class="lead mb-0">介紹本網站</p>
+            </div>
+        </div>
+        <div class="row g-0">
+            <div class="col-lg-6 text-white showcase-img dh"><img class="picSize" src="~/Didi/img/camping.png" /></div>
+            <div class="col-lg-6 my-auto showcase-text dh">
+                <h2>適合您的商品</h2>
+                <p class="lead mb-0">推薦顧客</p>
+            </div>
+        </div>
+        <div class="row g-0">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img dh"><img class="picSize" src="~/Didi/img/camping.png" /></div>
+            <div class="col-lg-6 order-lg-1 my-auto showcase-text dh">
+                <h2>最棒的營地</h2>
+                <p class="lead mb-0">介紹營地</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@* 精選商品 *@
+<section class="new-product-area section-padding30">
+    <div class="container">
+        <!-- Section tittle -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="section-tittle mb-70">
+                    <h2>New Arrivals</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                <div class="single-new-pro mb-30 text-center">
+                    <div class="product-img">
+                        <img src="assets/img/gallery/new_product1.png" alt="">
+                    </div>
+                    <div class="product-caption">
+                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
+                        <span>$ 45,743</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                <div class="single-new-pro mb-30 text-center">
+                    <div class="product-img">
+                        <img src="assets/img/gallery/new_product2.png" alt="">
+                    </div>
+                    <div class="product-caption">
+                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
+                        <span>$ 45,743</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                <div class="single-new-pro mb-30 text-center">
+                    <div class="product-img">
+                        <img src="assets/img/gallery/new_product3.png" alt="">
+                    </div>
+                    <div class="product-caption">
+                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
+                        <span>$ 45,743</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="section-heading" style="text-align: center;">
+            <h3>本站分類</h3>
+        </div>
+    </div>
+</div>
+<!-- 商品放置欄 -->
+<div class="container py-5">
+    <div class="row">
+
+        @foreach (var item in Model.categories)
         {
-            //因為目前不是所有商品都有圖片，所以需要判斷是否為NULL
-            <tr class="wrap">
-                @if (Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId) != null)
-                {
-                    <td>
-                        @Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId).Img
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        資料庫為空
-                    </td>
-                }
-
-                <td>
-                    @item.ProductId
-                </td>
-
-
-
-
-                @*因為資料庫類別是用A~E分類別，目前就不改資料庫了，直接用"A "~"E "去分*@
-                @if (item.CategoryId == "A ")
-                {
-                    <td>
-                        帳篷
-                    </td>
-                }
-                else if (item.CategoryId == "B ")
-                {
-                    <td>
-                        寢具
-                    </td>
-                }
-                else if (item.CategoryId == "C ")
-                {
-                    <td>
-                        戶外家具
-                    </td>
-                }
-                else if (item.CategoryId == "D ")
-                {
-                    <td>
-                        廚房用品
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        食品
-                    </td>
-                }
-
-                <td>
-                    @item.ProductName
-                </td>
-                <td>
-                    @item.UnitPrice
-                </td>
-                <td>
-                    @item.UnitInStock
-                </td>
-
-            </tr>
+            <div class="col-12 col-md-4 p-5 mt-3">
+                <a href="#"><img src="~/Didi/img/02.png" class="rounded-circle img-fluid border"></a>
+                <h5 class="text-center mt-3 mb-3">@item.CategoryName</h5>
+                @* 連結到產品大分類 *@
+                <p class="text-center"><a href="/Home/ProductCate" class="btn btn-danger">GO</a></p>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
+
+
+<!-- Start Script -->
+<script src="assets/js/jquery-1.11.0.min.js"></script>
+<script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/templatemo.js"></script>
+<script src="assets/js/custom.js"></script>
+<!-- End Script -->
