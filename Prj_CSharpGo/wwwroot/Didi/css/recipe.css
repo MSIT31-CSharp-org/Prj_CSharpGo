@@ -258,3 +258,11 @@
   .receipe-slider:hover .owl-prev, .receipe-slider:hover .owl-next {
     opacity: 1;
     visibility: visible; }
+
+.img_1 {
+	width: 100%;
+	height: 250px;
+	object-fit: cover;
+	/*   object-fit: contain; */
+	/*   object-fit: fill; */
+}
