@@ -9,5 +9,6 @@ namespace Prj_CSharpGo.Models
     {
         public string CategoryId { get; set; }
         public string CategoryTypeI { get; set; }
+        public string TypeIname { get; set; }
     }
 }
