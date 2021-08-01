@@ -17,6 +17,7 @@ namespace Prj_CSharpGo.Models
         public short? UnitInStock { get; set; }
         public string Status { get; set; }
         public string Approval { get; set; }
+        public string CategoryType { get; set; }
 
         public virtual Category Category { get; set; }
     }

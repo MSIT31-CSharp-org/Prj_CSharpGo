@@ -306,6 +306,10 @@ namespace Prj_CSharpGo.Models
                 entity.Property(e => e.CategoryTypeI)
                     .HasMaxLength(2)
                     .IsFixedLength(true);
+
+                entity.Property(e => e.TypeIname)
+                    .HasMaxLength(20)
+                    .HasColumnName("TypeIName");
             });
 
             modelBuilder.Entity<CategoriesTypeIi>(entity =>
@@ -423,6 +427,10 @@ namespace Prj_CSharpGo.Models
                     .IsRequired()
                     .HasMaxLength(2)
                     .HasColumnName("CategoryID")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.CategoryType)
+                    .HasMaxLength(2)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.ProductDescription).HasMaxLength(200);
