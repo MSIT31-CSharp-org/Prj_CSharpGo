@@ -30,7 +30,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+            _logger.LogInformation("使用者已登出");
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);
