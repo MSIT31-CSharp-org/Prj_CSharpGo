@@ -21,18 +21,19 @@ namespace Prj_CSharpGo.Controllers
             _context = dbContext;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string categoryid="")
         {
-            ProductHome productHome = new ProductHome
-            {
-                products = _context.Products.ToList(),
-                productImgs = _context.ProductImgs.ToList(),
-                categories = _context.Categories.ToList(),
-                categoriesTypeIs = _context.CategoriesTypeIs.ToList(),
-                categoriesTypeIis = _context.CategoriesTypeIis.ToList()
-            };
-            return View(productHome);
+            ProductHome productHome = new ProductHome();
+
+            productHome.products = categoryid==""? _context.Products.ToList():_context.Products.Where(s => s.CategoryId == categoryid).ToList();
+            string[] productIdArr =  productHome.products.Select(s => s.ProductId).ToArray();
+            productHome.productImgs = _context.ProductImgs.Where(s => productIdArr.Contains(s.ProductId)).ToList();
+            productHome.categories = _context.Categories.ToList();//.Where(s => s.CategoryName == name);
+
+            return View("Index", productHome);
         }
+
+    
 
         // 正常來說會收到一段string productid 但是目前頁面還沒處理好 我就直接給 productid = "Aa10CL007"
         public IActionResult ProductDetail(string productid, string categoryid)
