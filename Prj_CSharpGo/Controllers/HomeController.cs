@@ -64,7 +64,7 @@ namespace Prj_CSharpGo.Controllers
             return View(productHome);
         }
 
-        public IActionResult ProductsList()
+        public IActionResult ProductsList(string? CategoryId, string? CategoryTypeId)
         {
             
             ProductHome productHome = new ProductHome
@@ -75,6 +75,18 @@ namespace Prj_CSharpGo.Controllers
                 categoriesTypeIs = _context.CategoriesTypeIs.ToList(),
                 categoriesTypeIis = _context.CategoriesTypeIis.ToList()
             };
+            Console.WriteLine("CategoryId:" + CategoryId);
+            Console.WriteLine("CategoryTypeId:" + CategoryTypeId);
+
+            if (CategoryId != null && CategoryId != "0")
+            {
+                productHome.products = _context.Products.Where(x => x.CategoryId == CategoryId);
+            }
+
+            if (CategoryTypeId != null && CategoryTypeId != "0")
+            {
+                productHome.products = _context.Products.Where(x => x.CategoryId == CategoryId);
+            }
             return View(productHome);
         }
 

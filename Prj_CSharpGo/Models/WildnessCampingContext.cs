@@ -42,14 +42,14 @@ namespace Prj_CSharpGo.Models
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=218.161.74.208;Database=WildnessCamping;uid=pudb_edit;pwd=Opland0819");
-            }
-        }
+//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//                optionsBuilder.UseSqlServer("Server=218.161.74.208;Database=WildnessCamping;uid=pudb_edit;pwd=Opland0819");
+//            }
+//        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -306,6 +306,10 @@ namespace Prj_CSharpGo.Models
                 entity.Property(e => e.CategoryTypeI)
                     .HasMaxLength(2)
                     .IsFixedLength(true);
+
+                entity.Property(e => e.TypeIname)
+                    .HasMaxLength(20)
+                    .HasColumnName("TypeIName");
             });
 
             modelBuilder.Entity<CategoriesTypeIi>(entity =>
@@ -423,6 +427,10 @@ namespace Prj_CSharpGo.Models
                     .IsRequired()
                     .HasMaxLength(2)
                     .HasColumnName("CategoryID")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.CategoryType)
+                    .HasMaxLength(2)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.ProductDescription).HasMaxLength(200);
