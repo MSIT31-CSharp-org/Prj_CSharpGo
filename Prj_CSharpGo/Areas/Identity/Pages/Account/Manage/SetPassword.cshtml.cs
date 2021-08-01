@@ -6,24 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using Prj_CSharpGo.Areas.Identity.Data;
+
 namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
 {
-    public class ChangePasswordModel : PageModel
+    public class SetPasswordModel : PageModel
     {
         private readonly UserManager<identityForUser> _userManager;
         private readonly SignInManager<identityForUser> _signInManager;
-        private readonly ILogger<ChangePasswordModel> _logger;
 
-        public ChangePasswordModel(
+        public SetPasswordModel(
             UserManager<identityForUser> userManager,
-            SignInManager<identityForUser> signInManager,
-            ILogger<ChangePasswordModel> logger)
+            SignInManager<identityForUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
         }
 
         [BindProperty]
@@ -34,21 +31,15 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required(ErrorMessage = "必要欄位")]
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "請輸入舊密碼")]
-            //[Compare("Password", ErrorMessage = "與舊密碼不一致")]
-            public string OldPassword { get; set; }
-
-            [Required(ErrorMessage = "必要欄位")]
-            [StringLength(100, ErrorMessage = "密碼請輸入至少{1}位英數字", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "新密碼")]
+            [Display(Name = "New password")]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "確認新密碼")]
-            [Compare("NewPassword", ErrorMessage = "新密碼前後不一致")]
+            [Display(Name = "Confirm new password")]
+            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -61,9 +52,10 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
             }
 
             var hasPassword = await _userManager.HasPasswordAsync(user);
-            if (!hasPassword)
+
+            if (hasPassword)
             {
-                return RedirectToPage("./SetPassword");
+                return RedirectToPage("./ChangePassword");
             }
 
             return Page();
@@ -82,10 +74,10 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
-            if (!changePasswordResult.Succeeded)
+            var addPasswordResult = await _userManager.AddPasswordAsync(user, Input.NewPassword);
+            if (!addPasswordResult.Succeeded)
             {
-                foreach (var error in changePasswordResult.Errors)
+                foreach (var error in addPasswordResult.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
@@ -93,8 +85,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            _logger.LogInformation("使用者已成功變更密碼");
-            StatusMessage = "已成功變更密碼";
+            StatusMessage = "Your password has been set.";
 
             return RedirectToPage();
         }

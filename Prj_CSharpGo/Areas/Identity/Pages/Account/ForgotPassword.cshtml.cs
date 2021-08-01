@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Prj_CSharpGo.Areas.Identity.Data;
+using System.Web;
 
 namespace Prj_CSharpGo.Areas.Identity.Pages.Account
 {
@@ -51,7 +52,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Page(
+               var callbackUrl = Url.Page(
                     "/Account/ResetPassword",
                     pageHandler: null,
                     values: new { area = "Identity", code },
@@ -59,8 +60,8 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "重設密碼",
+                    $"<h1><a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>點擊此處鏈結以重設密碼</a></h1>");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

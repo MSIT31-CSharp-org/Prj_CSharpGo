@@ -1,12 +1,12 @@
 ﻿@inject SignInManager<identityForUser> SignInManager
-@{
-    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
-}
+@*@{
+        var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    }*@
 <ul class="nav nav-pills flex-column">
     <li class="nav-item btn"><a class="btn-outline-primary nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">會員檔案</a></li>
     <hr />
-    <li class="nav-item btn"><a class="btn-outline-primary nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">電子郵件</a></li>
-    <hr />
+    @*<li class="nav-item btn"><a class="btn-outline-primary nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">電子郵件</a></li>
+    <hr />*@
     <li class="nav-item btn"><a class="btn-outline-primary nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">密碼設置</a></li>
     @*@if (hasExternalLogins)
         {

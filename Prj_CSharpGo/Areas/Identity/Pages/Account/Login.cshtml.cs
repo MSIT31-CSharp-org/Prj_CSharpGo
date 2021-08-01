@@ -22,7 +22,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
         private readonly SignInManager<identityForUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<identityForUser> signInManager, 
+        public LoginModel(SignInManager<identityForUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<identityForUser> userManager)
         {
@@ -48,7 +48,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required(ErrorMessage = "請輸入正確密碼")]
-            [DataType(DataType.Password)]
+            [DataType(DataType.Password)]   
             public string Password { get; set; }
 
             [Display(Name = "記住密碼")]
@@ -83,7 +83,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        
+
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout

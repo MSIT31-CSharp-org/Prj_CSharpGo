@@ -56,9 +56,9 @@
         </div>
 
         <!--記住密碼-->
-        <div class="form-group row d-flex justify-content-center">
+        <div class="form-group row justify-content-center d-inline-block d-flex">
             <div class="col-8">
-                <div class="custom-control custom-checkbox custom-control-inline">
+                <div class="d-inline d-flex justify-content-start custom-control custom-checkbox custom-control-inline">
                     <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" asp-for="Input.RememberMe">
                     <label for="checkbox_0" class="custom-control-label" asp-for="Input.RememberMe">
                         @Html.DisplayNameFor(m => m.Input.RememberMe)
@@ -66,6 +66,28 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-group row justify-content-center d-inline-block d-flex">
+            <div class="col-8">
+                <div class="d-inline d-flex justify-content-start">
+                    <a asp-page="./ForgotPassword" style="text-decoration:none;">
+                        <i class="fas fa-question-circle"></i>
+                        <label style="cursor:pointer;">
+                            忘記密碼
+                        </label>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+
+
+        @*<a id="forgot-password" asp-page="./ForgotPassword">
+            忘記密碼
+        </a>*@
+
+
+
 
         <!--登入按鈕-->
         <div class="form-group row d-flex justify-content-center">

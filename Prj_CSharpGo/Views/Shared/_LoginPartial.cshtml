@@ -7,7 +7,7 @@
 <ul class="navbar-nav align-self-center d-flex justify-content-end position-relative text-decoration-none justify-content-center align-content-center">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item align-self-center d-flex justify-content-end position-relative text-decoration-none justify-content-center align-content-center">
+        <li class="nav-item">
             <a id="manage" class="nav-link text-dark nav-icon position-relative text-decoration-none" asp-area="Identity" asp-page="/Account/Manage/Index">
                 <i class="fa fa-fw fa-user text-dark mr-3"></i>
             </a>
@@ -22,10 +22,10 @@
     }
     else
     {
-        <li class="nav-item align-self-center d-flex justify-content-end position-relative text-decoration-none justify-content-center align-content-center">
+        <li class="nav-item">
             <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-user-plus"></i>註冊</a>
         </li>
-        <li class="nav-item align-self-center d-flex justify-content-end position-relative text-decoration-none justify-content-center align-content-center">
+        <li class="nav-item">
             <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt"></i>登入</a>
         </li>
     }

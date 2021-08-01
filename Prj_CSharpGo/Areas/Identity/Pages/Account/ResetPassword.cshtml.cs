@@ -28,18 +28,18 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "請輸入Email")]
+            [EmailAddress(ErrorMessage = "請輸入正確Email格式(例如. xxx@example.com)")]
+            //[Display(Name = "請輸入帳號(Email格式)")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "請輸入密碼")]
+            [StringLength(100, ErrorMessage = "密碼請輸入至少{2}位英數字", MinimumLength = 6)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "前後密碼不一致")]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }
