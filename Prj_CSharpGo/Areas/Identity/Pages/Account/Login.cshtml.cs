@@ -43,11 +43,11 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "請輸入Email")]
+            [EmailAddress(ErrorMessage = "請輸入正確Email格式(例如. xxx@example.com)")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "請輸入正確密碼")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 

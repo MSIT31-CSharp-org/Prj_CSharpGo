@@ -32,6 +32,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
 
         public string Username { get; set; }
 
+        [Display(Name = "目前的電子郵件")]
         public string Email { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
@@ -46,7 +47,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "新的電子郵件")]
             public string NewEmail { get; set; }
         }
 
@@ -102,14 +103,14 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
                     protocol: Request.Scheme);
                 await _emailSender.SendEmailAsync(
                     Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "請至電子信箱確認",
+                    $"<h1><a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>點擊此處鏈結完成電子郵件驗證</a></h1>");
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                StatusMessage = "已寄出驗證信至您變更後的電子信箱，請至該電子信箱確認";
                 return RedirectToPage();
             }
 
-            StatusMessage = "Your email is unchanged.";
+            StatusMessage = "很抱歉，您的Email未變更";
             return RedirectToPage();
         }
 
@@ -139,9 +140,9 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
             await _emailSender.SendEmailAsync(
                 email,
                 "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                $"<h1><a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>點擊此處鏈結完成電子郵件驗證</a></h1>");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "已寄出驗證信，請至電子信箱確認";
             return RedirectToPage();
         }
     }

@@ -102,13 +102,16 @@
 
 
             <!-- 購物車 -->
-            <a class="nav-icon position-relative text-decoration-none" href="@Url.Action("Index", "PShopCart")">
-                <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1" style="margin-left: 40px;"></i>
+            <a class="align-self-center nav-icon position-relative text-decoration-none" href="@Url.Action("Index", "PShopCart")">
+                <i class="d-flex fas fa-cart-arrow-down text-dark mr-1" style="margin-left: 40px;font-size:1.1vw;justify-content:center;align-content:center;margin:0;"></i>
                 <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
             </a>
 
-            <!-- 會員 Identity 註冊/登入模組 -->
-            <partial name="_LoginPartial" />
+
+                <!-- 會員 Identity 註冊/登入模組 -->
+                <partial name="_LoginPartial" />
+
+
 
         </div>
     </nav><!-- End Header/Navbar -->
