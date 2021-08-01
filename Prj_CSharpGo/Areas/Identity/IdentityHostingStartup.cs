@@ -22,7 +22,6 @@ namespace Prj_CSharpGo.Areas.Identity
                 services.AddDefaultIdentity<identityForUser>(options =>
                 {
                     options.SignIn.RequireConfirmedAccount = true;
-                    options.Password.RequireUppercase = false;
                 })
                     .AddEntityFrameworkStores<IdentityForContext>();
             });

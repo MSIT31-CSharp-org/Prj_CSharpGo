@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Prj_CSharpGo.Services;
 using Prj_CSharpGo.Hubs;
+using Microsoft.AspNetCore.Identity;
+using Prj_CSharpGo.Areas.Identity.Data;
+using Prj_CSharpGo.Areas.Identity.Pages.Account;
 
 namespace Prj_CSharpGo
 {
@@ -43,6 +46,14 @@ namespace Prj_CSharpGo
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
+            //創建自定義密碼策略 https://www.yogihosting.com/aspnet-core-identity-username-email-password-policy/
+            services.Configure<IdentityOptions>(opts => {
+                opts.Password.RequiredLength = 6;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = true;
+                opts.Password.RequireUppercase = true;
+                opts.Password.RequireDigit = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

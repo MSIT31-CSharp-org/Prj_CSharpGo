@@ -37,6 +37,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
             [Required(ErrorMessage = "必要欄位")]
             [DataType(DataType.Password)]
             [Display(Name = "請輸入舊密碼")]
+            //[Compare("Password", ErrorMessage = "與舊密碼不一致")]
             public string OldPassword { get; set; }
 
             [Required(ErrorMessage = "必要欄位")]
@@ -47,7 +48,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
 
             [DataType(DataType.Password)]
             [Display(Name = "確認新密碼")]
-            [Compare("NewPassword", ErrorMessage = "前後密碼不一致")]
+            [Compare("NewPassword", ErrorMessage = "新密碼前後不一致")]
             public string ConfirmPassword { get; set; }
         }
 

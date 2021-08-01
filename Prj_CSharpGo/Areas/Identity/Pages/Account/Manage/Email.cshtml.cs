@@ -30,6 +30,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
             _emailSender = emailSender;
         }
 
+        [Display(Name = "帳號")]
         public string Username { get; set; }
 
         [Display(Name = "目前的電子郵件")]

@@ -48,7 +48,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required(ErrorMessage = "請輸入正確密碼")]
-            [DataType(DataType.Password)]
+            [DataType(DataType.Password)]   
             public string Password { get; set; }
 
             [Display(Name = "記住密碼")]
