@@ -43,7 +43,7 @@ namespace Prj_CSharpGo.Models.CampreserveModels
         public int UserId { get; set; }
         public int TotalPrice { get; set; }
         public int Peoplenumber { get; set; }
-        public int PeoplePrice { get; set; }
+        public int PlusPrice { get; set; }
         public string Img { get; set; }
     }
     public class SaveCampreserveOrderModel: CampreserveOrderModel
