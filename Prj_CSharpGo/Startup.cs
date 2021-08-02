@@ -85,6 +85,10 @@ namespace Prj_CSharpGo
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                //Home控制器的ProductList需要使用，用在頁面上的搜尋
+                endpoints.MapControllerRoute(
+                    name: "CampProducts",
+                    pattern: "{controller=Home}/{action=Index}/{CategoryId?}/{CategoryTypeId?}");
                 //to be added
                 endpoints.MapRazorPages();
             });

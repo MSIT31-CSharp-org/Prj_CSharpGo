@@ -56,7 +56,7 @@
 
                     <tbody>
                         <tr>
-                            <th><img src="~/img/@ViewBag.Img" width="100" ></th>
+                            <th><img src="~/img/@ViewBag.Img" width="100"></th>
                             <th scope="row">@Model.CampName</th>
                             <td>@Model.StartDay.ToString("yyyy-MM-dd")</td>
                             <td>@Model.EndDay.ToString("yyyy-MM-dd")</td>
@@ -94,6 +94,7 @@
                     @Html.HiddenFor(Model => Model.HolidayPrice)
                     @Html.HiddenFor(Model => Model.Peoplenumber)
                     @Html.HiddenFor(Model => Model.TotalPrice)
+                    @Html.HiddenFor(Model => Model.PlusPrice)
                     @Html.HiddenFor(Model => Model.TotalPricebig)
 
 
