@@ -18,24 +18,22 @@
 
 <body>
 
-    <div class="form-group row d-flex justify-content-start">
-        <div class="row d-flex justify-content-start d-inline col-8 d-inline">
-            <h4  class="col-2 align-content-center">會員檔案</h4>
-            <!--送出表單-->
-            <button id="update-profile-button" type="submit" class="btn btn-outline-primary col-2 align-content-center">全部確認</button>
-        </div>
-    </div>
-
-    <hr />
-
-    <partial name="_StatusMessage" model="Model.StatusMessage" />
-
     <div class="row">
         <div class="col-md-6">
-
             <form id="profile-form" method="post">
-                @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+                <div class="form-group row d-flex justify-content-start">
+                    <div class="row d-flex justify-content-start d-inline col-8 d-inline">
+                        <h4 class="col-2 align-content-center">會員檔案</h4>
+                        <!--送出表單-->
+                        <button id="update-profile-button" type="submit" class="btn btn-outline-primary col-2 align-content-center">全部確認</button>
+                    </div>
+                </div>
 
+                <hr />
+
+                <partial name="_StatusMessage" model="Model.StatusMessage" />
+
+                @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
 
                 <!--使用者帳號-->
                 <div class="form-group row d-flex justify-content-start">
@@ -65,75 +63,74 @@
                                 </div>
                             </div>
                             <input asp-for="Input.PhoneNumber" class="form-control" />
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
 
 
+                @*
+                    <!-- ======================= Email 模組 ============================ -->
+                    <h4>管理電子郵件</h4>
+                    <hr />
 
-                <!-- ======================= Email 模組 ============================ -->
-                <h4>管理電子郵件</h4>
-                <hr />
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
 
-                <div class="form-group">
-                    <label asp-for="Email"></label>
-
-                    @if (Model.IsEmailConfirmed)
-                    {
-                        <!--已驗證電子郵件-->
-                        <div class="form-group row d-flex justify-content-start">
-                            <div class="col-8">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-envelope col-1"></i>
+                        @if (Model.IsEmailConfirmed)
+                        {
+                            <!--已驗證電子郵件-->
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="col-8">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-envelope col-1"></i>
+                                            </div>
+                                        </div>
+                                        <input asp-for="Email" class="form-control" disabled />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
                                         </div>
                                     </div>
-                                    <input asp-for="Email" class="form-control" disabled />
-                                    <div class="input-group-append">
-                                        <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
-                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <!--寄送電郵驗證信-->
-                        <div class="form-group row d-flex justify-content-start">
-                            <div class="col-8">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-phone col-1"></i>
+                        }
+                        else
+                        {
+                            <!--寄送電郵驗證信-->
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="col-8">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-phone col-1"></i>
+                                            </div>
                                         </div>
+                                        <input asp-for="Email" class="form-control" disabled />
+                                        <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">寄送驗證信</button>
                                     </div>
-                                    <input asp-for="Email" class="form-control" disabled />
-                                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">寄送驗證信</button>
                                 </div>
                             </div>
-                        </div>
-                    }
-                </div>
+                        }
+                    </div>
 
 
-                <!--變更電子郵件-->
-                <div class="form-group row d-flex justify-content-start">
-                    <div class="col-8">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <i class="fas fa-phone col-1"></i>
+                    <!--變更電子郵件-->
+                    <div class="form-group row d-flex justify-content-start">
+                        <div class="col-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-phone col-1"></i>
+                                    </div>
                                 </div>
+                                <input asp-for="Input1.NewEmail" class="form-control" />
+                                <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-outline-primary">變更Email</button>
                             </div>
-                            <input asp-for="Input1.NewEmail" class="form-control" />
-                            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-outline-primary">變更Email</button>
                         </div>
                     </div>
-                </div>
-
-
+                *@
 
 
             </form>
