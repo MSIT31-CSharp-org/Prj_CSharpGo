@@ -50,26 +50,49 @@ namespace Prj_CSharpGo.Controllers
         // 正常來說會收到一段string productid 但是目前頁面還沒處理好 我就直接給 productid = "Aa10CL007"
         public IActionResult ProductDetail(string productid, string categoryid = "", string categorytype = "")
         {
+            ProductHome productHome = new ProductHome();
 
-            productid = "Aa10CL007";
-            categoryid = "A";
-
-            // 新創個類別 類別在~/Model/ViewModels/ProductHome.cs 修改類別的話Jane DiDI要討論一下 建議是從下面{}取得的值修改就好
-            ProductHome productHome = new ProductHome
+            if (categoryid == "" && categorytype == "")
             {
-                products = from o in _context.Products
-                           where o.ProductId == productid
-                           select o,
-                productImgs = from o in _context.ProductImgs
-                              where o.ProductId == productid
-                              select o,
-                categories = from o in _context.Categories
-                             where o.CategoryId == categoryid
-                             select o,
-                categoriesTypeIs = _context.CategoriesTypeIs.ToList(),
-                categoriesTypeIis = _context.CategoriesTypeIis.ToList()
-            };
-            return View(productHome);
+                productHome.products = _context.Products.Where(s => s.ProductId == productid).ToList();
+            }
+            else if (categorytype == "")
+            {
+                productHome.products = _context.Products.Where(s => s.CategoryId == categoryid && s.ProductId== productid).ToList();
+            }
+            else if (categoryid != "" && categorytype != "")
+            {
+                productHome.products = _context.Products.Where(s => s.CategoryId == categoryid && s.CategoryType == categorytype && s.ProductId == productid).ToList();
+            }
+            //productHome.products = categoryid==""? _context.Products.ToList():_context.Products.Where(s => s.CategoryId == categoryid).ToList();
+            string[] productIdArr = productHome.products.Select(s => s.ProductId).ToArray();
+            productHome.productImgs = _context.ProductImgs.Where(s => productIdArr.Contains(s.ProductId)).ToList();
+            productHome.categories = _context.Categories.ToList();//.Where(s => s.CategoryName == name);
+            productHome.categoriesTypeIs = _context.CategoriesTypeIs.ToList();
+
+
+
+
+
+            //productid = "Aa10CL007";
+            //categoryid = "A";
+
+            //// 新創個類別 類別在~/Model/ViewModels/ProductHome.cs 修改類別的話Jane DiDI要討論一下 建議是從下面{}取得的值修改就好
+            //ProductHome productHome = new ProductHome
+            //{
+            //    products = from o in _context.Products
+            //               where o.ProductId == productid
+            //               select o,
+            //    productImgs = from o in _context.ProductImgs
+            //                  where o.ProductId == productid
+            //                  select o,
+            //    categories = from o in _context.Categories
+            //                 where o.CategoryId == categoryid
+            //                 select o,
+            //    categoriesTypeIs = _context.CategoriesTypeIs.ToList(),
+            //    categoriesTypeIis = _context.CategoriesTypeIis.ToList()
+            //};
+            return View("ProductDetail",productHome);
         }
 
         public IActionResult Test()

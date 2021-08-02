@@ -81,72 +81,6 @@
                             </li>
                         }
 
-
-
-
-                        @*<li class="pb-3">
-                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                        帳篷
-                        <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
-                    </a>
-                    <ul class="collapse show list-unstyled pl-3">
-                        <li><a class="text-decoration-none" href="#">寢帳</a></li>
-                        <li><a class="text-decoration-none" href="#">客廳</a></li>
-                        <li><a class="text-decoration-none" href="#">天幕</a></li>
-                        <li><a class="text-decoration-none" href="#">廚房用品</a></li>
-                        <li><a class="text-decoration-none" href="#">廚房用品</a></li>
-                    </ul>
-                </li>
-                <li class="pb-3">
-                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                        寢具
-                        <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                    </a>
-                    <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                        <li><a class="text-decoration-none" href="#">睡墊/充氣床/行軍床</a></li>
-                        <li><a class="text-decoration-none" href="#">睡袋/枕頭/毛毯</a></li>
-                        <li><a class="text-decoration-none" href="#">配件</a></li>
-                    </ul>
-                </li>
-                <li class="pb-3">
-                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                        戶外家具
-                        <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                    </a>
-                    <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                        <li><a class="text-decoration-none" href="#">桌子</a></li>
-                        <li><a class="text-decoration-none" href="#">椅子</a></li>
-                        <li><a class="text-decoration-none" href="#">置物架</a></li>
-                        <li><a class="text-decoration-none" href="#">燈具</a></li>
-                    </ul>
-                </li>
-                <li class="pb-3">
-                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                        廚房用品
-                        <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                    </a>
-                    <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                        <li><a class="text-decoration-none" href="#">爐具</a></li>
-                        <li><a class="text-decoration-none" href="#">炊煮用品</a></li>
-                        <li><a class="text-decoration-none" href="#">燒烤用品</a></li>
-                        <li><a class="text-decoration-none" href="#">餐具用具</a></li>
-                        <li><a class="text-decoration-none" href="#">保冷設備</a></li>
-                    </ul>
-                </li>
-
-                <li class="pb-3">
-                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                        食品
-                        <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                    </a>
-                    <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                        <li><a class="text-decoration-none" href="#"></a></li>
-                        <li><a class="text-decoration-none" href="#"></a></li>
-                        <li><a class="text-decoration-none" href="#"></a></li>
-
-                    </ul>
-                </li>*@
-
                     </ul>
                 </div>
 
@@ -191,14 +125,14 @@
                     </div>
 
 
-                    @*@foreach (var item in Model.products)
+                    @foreach (var item in Model.productImgs)
                     {
-                    }*@
+                   
 
                         <div class="card mb-3" style="margin-top: 5px; width: 500px">
-                            <img class="card-img img-fluid" src="~/Aassets/img/product_single_10.jpg" alt="Card image cap" id="product-detail">  @*src="/img/ProductsImg/@Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId).Img" alt="Card image cap" id="product-detail">*@
+                            <img class="card-img img-fluid" src="~/img/ProductsImg/@item.Img" alt="Card image cap" id="product-detail">  @*src="/img/ProductsImg/@Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId).Img" alt="Card image cap" id="product-detail">*@
                         </div>
-                    
+                    }
 
                     <div class="row" style="width: 520px">
                         <!--Start Controls-->
@@ -220,17 +154,17 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="~/Aassets/img/product_single_01.jpg" alt="Product Image 1">
+                                                <img class="card-img img-fluid" src="~/img/ProductsImg/Aa10SP006.jpg" alt="Product Image 1">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="~/Aassets/img/product_single_02.jpg" alt="Product Image 2">
+                                                <img class="card-img img-fluid" src="~/img/ProductsImg/Aa20CL007.jpg" alt="Product Image 2">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="~/Aassets/img/product_single_03.jpg" alt="Product Image 3">
+                                                <img class="card-img img-fluid" src="~/img/ProductsImg/Aa20CL008.jpg" alt="Product Image 3">
                                             </a>
                                         </div>
                                     </div>
@@ -241,17 +175,17 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="~/Aassets/img/product_single_04.jpg" alt="Product Image 4">
+                                                <img class="card-img img-fluid" src="~/img/ProductsImg/Aa20SP009.jpg" alt="Product Image 4">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="~/Aassets/img/product_single_05.jpg" alt="Product Image 5">
+                                                <img class="card-img img-fluid" src="~/img/ProductsImg/Aa20SP010.jpg" alt="Product Image 5">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="~/Aassets/img/product_single_06.jpg" alt="Product Image 6">
+                                                <img class="card-img img-fluid" src="~/img/ProductsImg/Aa20SP011.jpg" alt="Product Image 6">
                                             </a>
                                         </div>
                                     </div>
@@ -262,17 +196,17 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="~/Aassets/img/product_single_07.jpg" alt="Product Image 7">
+                                                <img class="card-img img-fluid" src="~/img/ProductsImg/Aa30CS012.jpeg" alt="Product Image 7">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="~/Aassets/img/product_single_08.jpg" alt="Product Image 8">
+                                                <img class="card-img img-fluid" src="~/img/ProductsImg//Aa30SP013.jpg" alt="Product Image 8">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="~/Aassets/img/product_single_09.jpg" alt="Product Image 9">
+                                                <img class="card-img img-fluid" src="~/img/ProductsImg/Aa30SP014.jpg" alt="Product Image 9">
                                             </a>
                                         </div>
                                     </div>
@@ -328,7 +262,16 @@
                                     <li class="list-inline-item">
                                         <h6>類別 :</h6>
                                     </li>
-                                    @if (item.CategoryId == "A ")
+                                    
+                                    <li>@Model.categories.Where(s => s.CategoryId == item.CategoryId).FirstOrDefault().CategoryName</li>
+                                    <li>@Model.categoriesTypeIs.Where(s => s.CategoryTypeI == item.CategoryType).FirstOrDefault().TypeIname</li>
+
+
+
+                                     @*<li class="list-inline-item">
+                                      @Model.categories.Where(s => s.CategoryId == item.CategoryId).FirstOrDefault().CategoryName
+                                    </li>*@
+                                    @*@if (item.CategoryId == "A ")
                                     {
                                         <li class="list-inline-item">
                                             <p class="text-muted"><strong>帳篷</strong></p>
@@ -357,7 +300,7 @@
                                         <li class="list-inline-item">
                                             <p class="text-muted"><strong>食品</strong></p>
                                         </li>
-                                    }
+                                    }*@
 
                                     <li class="list-inline-item">
                                         <h6>商品編號 :</h6>
@@ -380,7 +323,7 @@
                             <li>Excepteur sint</li>
                         </ul>*@
 
-                                <form action="" method="GET">
+                                <form action="/PShopCartController/shoppingcart" method="post">
                                     <input type="hidden" name="product-title" value="Activewear">
                                     <div class="row">
 
@@ -431,7 +374,7 @@
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
-                            <img class="card-img rounded-0 img-fluid" src="~/Aassets/img/shop_08.jpg">
+                            <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Aa10CS001.jpeg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
                                     <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
@@ -583,7 +526,7 @@
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
-                            <img class="card-img rounded-0 img-fluid" src="~/Aassets/img/shop_08.jpg">
+                            <img class="card-img rounded-0 img-fluid" src="~/img/Aa10CS001.jpeg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
                                     <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>

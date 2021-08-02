@@ -126,7 +126,7 @@
                                         <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                             <ul class="list-unstyled">
                                                 <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                                <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail/@item.ProductId"><i class="far fa-eye"></i></a></li>
+                                                <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=@item.ProductId"><i class="far fa-eye"></i></a></li>
                                                 <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                             </ul>
                                         </div>
@@ -147,16 +147,13 @@
                                     </div>
                                 }
 
-
-
-
                                 <div class="card-body">
                                     <a href="shop-single.html" class="h3 text-decoration-none">@item.ProductName</a>
                                     <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
 
                                         <li>@Model.categories.Where(s => s.CategoryId == item.CategoryId).FirstOrDefault().CategoryName</li>
                                         <li>@Model.categoriesTypeIs.Where(s => s.CategoryTypeI == item.CategoryType).FirstOrDefault().TypeIname</li>
-                                        
+
                                         <li class="pt-2">
                                             <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
                                             <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
