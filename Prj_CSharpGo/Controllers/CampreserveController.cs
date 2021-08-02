@@ -194,7 +194,7 @@ namespace Prj_CSharpGo.Controllers
                         WeekdayPrice = (int)findCamp.WeekdayPrice,
                         Daycount = dayCount,
                         OrderDay = DateTime.Now,
-                        PeoplePrice = (int)findCamp.PlusPrice,
+                        PlusPrice = (int)findCamp.PlusPrice,
                     };
                     return RedirectToAction("ComfirmResult", "Campreserve", orderModel);
                 }
@@ -231,7 +231,7 @@ namespace Prj_CSharpGo.Controllers
                 WeekdayPrice = orderModel.WeekdayPrice,
                 HolidayPrice = orderModel.HolidayPrice,
                 Peoplenumber = orderModel.Peoplenumber,
-                TotalPrice =  orderModel.TotalPricebig+orderModel.PeoplePrice * orderModel.Peoplenumber,
+                TotalPrice =  orderModel.TotalPricebig+ orderModel.PlusPrice * orderModel.Peoplenumber,
 
             };
             _context.CampOrders.Add(campOrder);
