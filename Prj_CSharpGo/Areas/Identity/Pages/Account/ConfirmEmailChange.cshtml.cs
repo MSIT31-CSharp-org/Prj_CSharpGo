@@ -24,6 +24,8 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
             _signInManager = signInManager;
         }
 
+        public string Username { get; set; }
+
         [TempData]
         public string StatusMessage { get; set; }
 
@@ -58,7 +60,8 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "感謝您的耐心陪伴，現在可進行下一步";
+            var userName = await _userManager.GetUserAsync(User);
+            StatusMessage = $"{userName}，您的電子郵件已變更";
             // 直接從郵件連結轉導向至會員中心頁面
             return Redirect("/identity/Account/Manage/Index");
         }

@@ -6,11 +6,13 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Prj_CSharpGo.Areas.Identity.Data;
+using Prj_CSharpGo.Models;
 
 namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
 {
@@ -19,15 +21,18 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<identityForUser> _userManager;
         private readonly SignInManager<identityForUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private WildnessCampingContext _context;
 
         public IndexModel(
             UserManager<identityForUser> userManager,
             SignInManager<identityForUser> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            WildnessCampingContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [Display(Name = "帳號")]
@@ -94,7 +99,9 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+
+                //return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToAction("/identity/Account/Login");
             }
 
             await LoadAsync(user);
@@ -106,7 +113,8 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                //return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToAction("/identity/Account/Login");
             }
 
             if (!ModelState.IsValid)
@@ -129,76 +137,6 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "您的會員檔案已變更";
-            return RedirectToPage();
-        }
-
-        public async Task<IActionResult> OnPostChangeEmailAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                await LoadAsync(user);
-                return Page();
-            }
-
-            var email = await _userManager.GetEmailAsync(user);
-            if (Input1.NewEmail != email)
-            {
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input1.NewEmail);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Page(
-                    "/Account/ConfirmEmailChange",
-                    pageHandler: null,
-                    values: new { userId = userId, email = Input1.NewEmail, code = code },
-                    protocol: Request.Scheme);
-                await _emailSender.SendEmailAsync(
-                    Input1.NewEmail,
-                    "請至電子信箱確認",
-                    $"<h1><a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>點擊此處鏈結完成電子郵件驗證</a></h1>");
-
-                StatusMessage = "已寄出驗證信至您變更後的電子信箱，請至該電子信箱確認";
-                return RedirectToPage();
-            }
-
-            StatusMessage = "很抱歉，您的Email未變更";
-            return RedirectToPage();
-        }
-
-        public async Task<IActionResult> OnPostSendVerificationEmailAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                await LoadAsync(user);
-                return Page();
-            }
-
-            var userId = await _userManager.GetUserIdAsync(user);
-            var email = await _userManager.GetEmailAsync(user);
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            var callbackUrl = Url.Page(
-                "/Account/ConfirmEmail",
-                pageHandler: null,
-                values: new { area = "Identity", userId = userId, code = code },
-                protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                email,
-                "Confirm your email",
-                $"<h1><a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>點擊此處鏈結完成電子郵件驗證</a></h1>");
-
-            StatusMessage = "已寄出驗證信，請至電子信箱確認";
             return RedirectToPage();
         }
     }
