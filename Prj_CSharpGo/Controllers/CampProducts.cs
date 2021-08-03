@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace Prj_CSharpGo.Controllers
 {
@@ -20,6 +21,10 @@ namespace Prj_CSharpGo.Controllers
             _logger = logger;
             _context = dbContext;
         }
+
+
+        //分頁用
+        private int pageSize = 8;
 
         public IActionResult Index(string categoryid="",string categorytype="")
         {
@@ -43,6 +48,8 @@ namespace Prj_CSharpGo.Controllers
             productHome.categoriesTypeIs =  _context.CategoriesTypeIs.ToList();
 
             return View("Index", productHome);
+
+            //return View("Index", productHome);
         }
 
     
