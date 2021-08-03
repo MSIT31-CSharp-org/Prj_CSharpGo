@@ -1,7 +1,11 @@
 ﻿body {
     font-family: 'Roboto', sans-serif;
     color: #555555;
+    margin:0;
+    padding:0;
 }
+
+
 
 /*======================= 註冊登入頁使用 =======================*/
 /*for tab control*/

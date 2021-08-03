@@ -46,18 +46,9 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
         [BindProperty]
         public InputModel Input { get; set; }
 
-        [BindProperty]
-        public InputModelV1 Input1 { get; set; }
+
 
         public class InputModel
-        {
-            [Phone]
-            [Display(Name = "電話號碼")]
-            public string PhoneNumber { get; set; }
-
-        }
-
-        public class InputModelV1
         {
             [Required]
             [EmailAddress]
@@ -72,16 +63,11 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
 
             Username = userName;
 
-            Input = new InputModel
-            {
-                PhoneNumber = phoneNumber
-            };
-
             // Email
 
             Email = email;
 
-            Input1 = new InputModelV1
+            Input = new InputModel
             {
                 NewEmail = email,
             };
@@ -104,13 +90,13 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPostChangeEmailAsync()
         {
             // 判斷要變更的Email是否已存在，表示有其他使用者已經註冊使用
-            var Existuser = await _userManager.FindByEmailAsync(Input1.NewEmail);
+            var Existuser = await _userManager.FindByEmailAsync(Input.NewEmail);
             // 判斷要變更的Email和舊的Email(同帳號)是否相同
             var oldemail = await _userManager.GetUserAsync(User);
-
+            // 如果欲變更的Email已存在
             if (Existuser != null)
             {
-
+                // 如果欲變更的Email已存在 && 如果欲變更的Email和舊Email(帳號)相同
                 if (Existuser != null && Existuser == oldemail)
                 {
                     StatusMessage = "電子郵件未變動！";
@@ -136,18 +122,18 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
             }
 
             var email = await _userManager.GetEmailAsync(user);
-            if (Input1.NewEmail != email)
+            if (Input.NewEmail != email)
             {
                 var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input1.NewEmail);
+                var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input.NewEmail);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 var callbackUrl = Url.Page(
                     "/Account/ConfirmEmailChange",
                     pageHandler: null,
-                    values: new { userId = userId, email = Input1.NewEmail, code = code },
+                    values: new { userId = userId, email = Input.NewEmail, code = code },
                     protocol: Request.Scheme);
                 await _emailSender.SendEmailAsync(
-                    Input1.NewEmail,
+                    Input.NewEmail,
                     "請至電子信箱確認",
                     $"<h1><a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>點擊此處鏈結完成電子郵件驗證</a></h1>");
 
