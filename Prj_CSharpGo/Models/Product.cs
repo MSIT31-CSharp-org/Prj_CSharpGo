@@ -18,7 +18,7 @@ namespace Prj_CSharpGo.Models
         public string Status { get; set; }
         public string Approval { get; set; }
         public string CategoryType { get; set; }
-      
-    public virtual Category Category { get; set; }
+
+        public virtual Category Category { get; set; }
     }
 }

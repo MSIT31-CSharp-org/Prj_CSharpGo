@@ -42,33 +42,41 @@
                     <input type="text" class="form-control mt-1" name="Yield" placeholder="Model.Yield">
                 </div>
             </div>
-
-
             @*食材清單*@
-            <a id="ass_add">ADD</a>
-            <a id="ass_del">Del</a>
             <div id="ass_area">
-                <div class="row">
+                <div class="row" id="row_0">
                     <div class="form-group col-md-6 mb-3">
                         <label for="inputsubject">FOOD_Description</label>
-                        <input type="text" class="form-control mt-1" name="Description" placeholder="Description">
+                        <div class="row">
+                            <div class="col-md-2" style="float:left">
+                                <button id="ass_add" type="button" class="bi bi-plus form-control mt-1"></button>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mt-1" name="Description[0].Value" placeholder="Description">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group col-md-6 mb-3">
                         <label for="inputsubject">Product</label>
-                        <select>
-                            <option value="0">食材選擇</option>
-                            @{ foreach (var item in Model.Products)
-                                {
-                                    <option value="@item.ProductId">@item.ProductName </option>
-                                }
-                            }
-                        </select>
-                        <input type="text" class="form-control mt-1" name="ProductID[]" placeholder="ProductID">
+                        <div class="=row">
+                            <div class="col-md-8">
+                                <select class="form-control mt-1" style="float: left;">
+                                    <option value="0">食材選擇</option>
+                                    @{ foreach (var item in Model.Products)
+                                        {
+                                            <option value="@item.ProductId">@item.ProductName </option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-2" style="float: left;margin-left:5px;">
+                                @*<button type="button" class="form-control mt-1 col-md-2" onclick="del_row(this)" data-id="' + row_num + '">Del</button>*@
+                                <button type="button" class="form-control mt-1" onclick="del_row(this)" data-id="' + row_num + '">Del</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-
             <div class="mb-3">
                 <label for="inputmessage">01.備料Preparation</label>
                 <textarea class="form-control mt-1" name="Preparation" placeholder="Preparation" rows="8"></textarea>
@@ -86,18 +94,65 @@
     </div>
 </div>
 
-
-
-
-
 @*End Contact*@
-<script>
-    var loadFile = function (event) {
-        var output = document.getElementById('output');
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.onload = function () {
-            URL.revokeObjectURL(output.src) // free memory
+@* select option，給js使用新增項目 *@
+<select id="porduct_select_area" hidden>
+    <option value="0">食材選擇</option>
+    @{
+        foreach (var item in Model.Products)
+        {
+            <option value="@item.ProductId">@item.ProductName </option>
         }
-    };
-</script>
+    }
+</select>
+@*End Contact*@
+
+
+
+@section Scripts {
+    <script>
+        var loadFile = function (event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+
+
+        // ASS_ADD
+        $('#ass_add').on('click', function () {
+            console.log('114');
+            // 計算現在有多少row
+            var row_num = $('#ass_area').children('.row').length;
+            var html = "";
+            var option_html = $("#porduct_select_area").html();
+
+            html += '<div class="row" id="row_' + row_num + '">';
+            html += '<input type="text" class="form-control mt-1" name="Description[' + row_num + '].Key" value="' + row_num + '" hidden>';
+            html += '<input type="text" class="form-control mt-1" name="ProductID[' + row_num + '].Key" value="' + row_num + '" hidden>';
+            html += '<div class="form-group col-md-6 mb-3" >';
+            html += '<label for= "inputsubject" > FOOD_Description</label >';
+            html += '<input type = "text" class="form-control mt-1" name = "Description[' + row_num + '].Value" placeholder = "Description" >';
+            html += '</div>';
+            html += '<div class="form-group col-md-6 mb-3" >';
+            html += '<label for= "inputsubject" > Product</label >';
+            html += '<div class="row">';
+            html += '<div class="col-md-8"><select class="form-control mt-1 style="float: left;"" name = "ProductID[' + row_num + '].Value" >';
+            html += option_html;
+            html += '</select> ';
+            html += '</div>';
+            html += '<div class="col-md-2" style=" float: left;margin-left:5px;"><button type="button"class="form-control mt-1" onclick="del_row(this)" data-id="' + row_num + '">Del</button></div>';
+            html += '</div>';
+            html += '</div>';
+            console.log(html);
+            $('#ass_area').append(html);
+        });
+
+        function del_row(obj) {
+            var row_num = $(obj).data('id');
+            $("#row_" + row_num).remove();
+        }
+    </script>
+}
 

@@ -46,7 +46,7 @@ namespace Prj_CSharpGo
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
-            //創建自定義密碼策略 https://www.yogihosting.com/aspnet-core-identity-username-email-password-policy/
+            // 創建自定義密碼策略 https://www.yogihosting.com/aspnet-core-identity-username-email-password-policy/
             services.Configure<IdentityOptions>(opts => {
                 opts.Password.RequiredLength = 6;
                 opts.Password.RequireNonAlphanumeric = false;
@@ -54,6 +54,9 @@ namespace Prj_CSharpGo
                 opts.Password.RequireUppercase = true;
                 opts.Password.RequireDigit = true;
             });
+            // 所有資料保護權杖的超時期限變更為3小時
+            services.Configure<DataProtectionTokenProviderOptions>(o =>
+                o.TokenLifespan = TimeSpan.FromHours(3));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,6 +88,10 @@ namespace Prj_CSharpGo
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                //Home控制器的ProductList需要使用，用在頁面上的搜尋
+                endpoints.MapControllerRoute(
+                    name: "CampProducts",
+                    pattern: "{controller=Home}/{action=Index}/{CategoryId?}/{CategoryTypeId?}");
                 //to be added
                 endpoints.MapRazorPages();
             });

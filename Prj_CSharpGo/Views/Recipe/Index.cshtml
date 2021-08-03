@@ -1,62 +1,78 @@
 ﻿@model List<Prj_CSharpGo.Models.Recipe>
 
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Didi/css/recipe.css">
+</head>
 
+<body>
 
-<div class="banner">
-    <div class="container" style="margin-left: 20px;margin-top: 20px;">
-        <!-- container -->
-        <div class="banner-info text-center">
-            <a href="index.html">
-                <img src="~/Didi/img/camping.png" alt=""
-                     style="max-width: 900px;max-height:500px;" />
-            </a>
-            <!-- max-width/max-height會照比例調整大小，不超過限制長度-->
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="banner">
+                <div class="container" style="margin-left: 20px;margin-top: 20px;">
+                    <!-- container -->
+                    <div class="banner-info text-center">
+                        <a href="index.html">
+                            <img src="~/Didi/img/camping.png" alt=""
+                                 style="max-width: 900px;max-height:500px;" />
+                        </a>
+                        <!-- max-width/max-height會照比例調整大小，不超過限制長度-->
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <!-- 食譜清單 -->
+            <section class="best-receipe-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @*<div class="section-heading">*@
+                            <a style="text-align: center; float: right"><h3>食譜推薦</h3></a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a class="btn btn-success bi bi-plus" style="float:right" href="/Recipe/Create"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    @{
+                        foreach (var item in Model)
+                        {
+                            <div class="col-12 col-md-4 p-5 mt-3">
+                                <div style="margin:auto; width:350px;height:250px">
+                                    @if (item.Img == null)
+                                    {
+                                        <img src="~/Didi/img/camping.png"
+                                             class="rounded-circle img-fluid border img_1">
+                                    }
+                                    else
+                                    {<img src="~/Didi/img/@item.Img"
+                                          class="rounded-circle img-fluid border img_1">}
+                                </div>
+                                <div>
+                                    <h5 class="text-center mt-3 mb-3">@item.RecipeName</h5>
+                                </div>
+                                <div>
+                                    <p class="text-center"><a class="btn btn-success" href="/Recipe/Detail/@item.RecipeId">Read more</a></p>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
+            </section>
+
         </div>
     </div>
-</div>
-<br>
-<br>
-<br>
-<!-- 食譜清單 -->
-<section class="best-receipe-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 mb-3">
-            @*<div class="section-heading">*@
-                    <a  style="text-align: center; float: right"><h3>食譜推薦</h3></a>
-                </div>
-            <div class="col-md-6 mb-3">
-                <a class="btn btn-success bi bi-plus" style="float:right" href="/Recipe/Create"></a>
-            </div>
-            </div>
-    </div>
 
-    <div class="row">
-        @{
-            foreach (var item in Model)
-            {
-                <div class="col-12 col-md-4 p-5 mt-3">
-                        <div style="margin:auto; width:350px;height:250px">
-                            @if (item.Img == null)
-                            {
-                                <img src="~/Didi/img/camping.png"
-                                        class="rounded-circle img-fluid border img_1" >
-                            }
-                            else
-                            {<img src="~/Didi/img/@item.Img"
-                                        class="rounded-circle img-fluid border img_1">}
-                        </div>
-                        <div>
-                            <h5 class="text-center mt-3 mb-3">@item.RecipeName</h5>
-                        </div>
-                        <div>
-                            <p class="text-center"><a class="btn btn-success" href="/Recipe/Detail/@item.RecipeId">Read more</a></p>
-                        </div>
-                </div>
-            }
-        }
-    </div>
 
-</section>
+</body>
+</html>

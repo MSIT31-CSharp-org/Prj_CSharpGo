@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Prj_CSharpGo.Models;
 using Prj_CSharpGo.Models.ViewModels;
@@ -23,6 +24,7 @@ namespace Prj_CSharpGo.Controllers
 
         public IActionResult Index()
         {
+
             ProductHome productHome = new ProductHome
             {
                 products = _context.Products.ToList(),
@@ -31,6 +33,16 @@ namespace Prj_CSharpGo.Controllers
                 categoriesTypeIs = _context.CategoriesTypeIs.ToList(),
                 categoriesTypeIis = _context.CategoriesTypeIis.ToList()
             };
+
+            // 寫入Session 
+            //string userSession = HttpContext.Session.GetString("userName") ?? "Guest";
+            //if (userSession == "Guest")
+            //{
+            //    return View(productHome);
+            //}
+            //HttpContext.Session.SetString("userToastr", "已登入");
+
+            
             return View(productHome);
         }
 
@@ -64,7 +76,7 @@ namespace Prj_CSharpGo.Controllers
             return View(productHome);
         }
 
-        public IActionResult ProductsList()
+        public IActionResult ProductsList(string? CategoryId, string? CategoryTypeId)
         {
             
             ProductHome productHome = new ProductHome
@@ -75,6 +87,22 @@ namespace Prj_CSharpGo.Controllers
                 categoriesTypeIs = _context.CategoriesTypeIs.ToList(),
                 categoriesTypeIis = _context.CategoriesTypeIis.ToList()
             };
+            Console.WriteLine("CategoryId:" + CategoryId);
+            Console.WriteLine("CategoryTypeId:" + CategoryTypeId);
+
+            if (CategoryId != null && CategoryId != "0")
+            {
+                productHome.products = _context.Products.Where(x => x.CategoryId == CategoryId);
+            }
+
+            if (CategoryTypeId != null && CategoryTypeId != "0")
+            {
+                productHome.products = _context.Products.Where(x => x.CategoryId == CategoryId);
+            }
+            if(CategoryId !=null && CategoryTypeId != null)
+            {
+                productHome.products = _context.Products.Where(x => x.CategoryType == CategoryTypeId);
+            }
             return View(productHome);
         }
 

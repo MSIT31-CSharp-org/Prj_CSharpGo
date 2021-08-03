@@ -112,34 +112,4 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
             return Page();
         }
     }
-
-    //為 ASP.NET Core Identity 編寫自定義驗證器
-    //public interface IPasswordValidator<TUser> where TUser : class
-    //{
-    //    Task<IdentityResult> ValidateAsync(UserManager<TUser> manager, TUser user, string password);
-    //}
-    //public class UsernameAsPasswordValidator<TUser> : IPasswordValidator<TUser>
-    //where TUser : IdentityUser
-    //{
-    //    public Task<IdentityResult> ValidateAsync(UserManager<TUser> manager, TUser user, string password)
-    //    {
-    //        if (string.Equals(user.UserName, password, StringComparison.OrdinalIgnoreCase))
-    //        {
-    //            return Task.FromResult(IdentityResult.Failed(new IdentityError
-    //            {
-    //                Code = "UsernameAsPassword",
-    //                Description = "You cannot use your username as your password"
-    //            }));
-    //        }
-    //        return Task.FromResult(IdentityResult.Success);
-    //    }
-    //}
-
-    //public class UsernameAsPasswordValidator : IPasswordValidator<ApplicationUser>
-    //{
-    //    public Task<IdentityResult> ValidateAsync(UserManager<ApplicationUser> manager, ApplicationUser user, string password)
-    //    {
-    //        // as before
-    //    }
-    //}
 }
