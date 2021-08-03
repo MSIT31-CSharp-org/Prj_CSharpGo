@@ -1,4 +1,11 @@
-﻿@model Prj_CSharpGo.Models.ViewModels.ProductHome
+﻿@using Microsoft.AspNetCore.Http
+@using X.PagedList;
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+
+
+
+@model Prj_CSharpGo.Models.ViewModels.ProductHome
 
 @{
     ViewData["Title"] = "商品";
@@ -69,11 +76,11 @@
                             <ul class="collapse show list-unstyled pl-3">
                                 @foreach (var itema in Model.categoriesTypeIs)
                                 {
-                                if (item.CategoryId == itema.CategoryId) 
-                                    { 
-                                    <li><a class="text-decoration-none" href="/CampProducts/Index?categoryid=@item.CategoryId&categorytype=@itema.CategoryTypeI">@itema.TypeIname</a></li>
+                                    if (item.CategoryId == itema.CategoryId)
+                                    {
+                                        <li><a class="text-decoration-none" href="/CampProducts/Index?categoryid=@item.CategoryId&categorytype=@itema.CategoryTypeI">@itema.TypeIname</a></li>
                                     }
-                                   
+
                                 }
                             </ul>
                         </li>
@@ -285,6 +292,10 @@
             </div>
         </div>
     </section>
+
+   
+
+
     <!--End Brands-->
     <!-- Start Script -->
     <script src="~/Bassets/js/jquery-1.11.0.min.js"></script>
