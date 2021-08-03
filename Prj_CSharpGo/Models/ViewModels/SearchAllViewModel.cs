@@ -32,7 +32,19 @@ namespace Prj_CSharpGo.Models
         // 營地 Camp
         public string CampGenre { get; set; }
 
+        public IEnumerable<Product> products { get; set; }
+        public IEnumerable<ProductImg> productImgs { get; set; }
+        public IEnumerable<Recipe> recipes { get; set; }
+        public IEnumerable<RecipeImg> recipeImgs { get; set; }
+        public IEnumerable<Camp> camps { get; set; }
+        public IEnumerable<CampImg> campImgs { get; set; }
+        public IEnumerable<Category> categories { get; set; }
+        public IEnumerable<CategoriesTypeI> categoriesTypeIs { get; set; }
+        public IEnumerable<CategoriesTypeIi> categoriesTypeIis { get; set; }
 
+
+
+      
         public class SearchOwnProduct
         {
             public IEnumerable<Product> products { get; set; }

@@ -93,10 +93,12 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+
+        //原本接收資料的OnPostAsync
+        public async Task<IActionResult> OnPostAsync(AspNetUser authuser, string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-
+            return Content(authuser.UserName ?? "AAA");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
@@ -107,11 +109,13 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
 
                 //User query = await _context.Users.FirstOrDefaultAsync(m => m.UserId == users.UserId);
 
-                //AspNetUser authquery = await _context.AspNetUsers.FirstOrDefaultAsync(a => a.Email == authuser.UserName);
+
+                AspNetUser authquery = await _context.AspNetUsers.FirstOrDefaultAsync(a => a.Email == authuser.UserName);
+
                 if (result.Succeeded)
                 {
-                    //HttpContext.Session.SetString("email", authquery.Email.ToString());
-                    //HttpContext.Session.SetString("userName", authquery.UserName.ToString());
+                    HttpContext.Session.SetString("email", authquery.Email.ToString());
+                    HttpContext.Session.SetString("userName", authquery.UserName.ToString());
                     HttpContext.Session.SetString("userToastr", "已登入");
                     _logger.LogInformation("已登入");
                     return LocalRedirect(returnUrl);
@@ -142,29 +146,30 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
             return Page();
         }
 
+
         //額外做一個handler 存取 Session
-        public async Task<IActionResult> OnPostLoginAsync(User users,AspNetUser authuser)
-        {
-            if (ModelState.IsValid)
-            {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                AspNetUser query = await _context.AspNetUsers.FirstOrDefaultAsync(m => m.UserName == users.Email);
+        //public async Task<IActionResult> OnPostLoginAsync(User users,AspNetUser authuser)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // This doesn't count login failures towards account lockout
+        //        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+        //        var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        //        AspNetUser query = await _context.AspNetUsers.FirstOrDefaultAsync(m => m.UserName == users.Email);
 
-                if (result.Succeeded)
-                {
-                    HttpContext.Session.SetString("userId", query.Id.ToString());
-                    HttpContext.Session.SetString("userName", query.UserName.ToString());
-                    //HttpContext.Session.SetString("userStatus", query.UserStatus.ToString());
-                    HttpContext.Session.SetString("userToastr", "登入成功");
+        //        if (result.Succeeded)
+        //        {
+        //            HttpContext.Session.SetString("userId", query.Id.ToString());
+        //            HttpContext.Session.SetString("userName", query.UserName.ToString());
+        //            //HttpContext.Session.SetString("userStatus", query.UserStatus.ToString());
+        //            HttpContext.Session.SetString("userToastr", "登入成功");
 
-                    _logger.LogInformation("已登入");
-                    return RedirectToPage("/Index");
-                }
-            }
-            HttpContext.Session.SetString("userToastr", "帳號或密碼錯誤");
-            return Redirect("/identity/Account/Login");
-        }
+        //            _logger.LogInformation("已登入");
+        //            return RedirectToPage("/Index");
+        //        }
+        //    }
+        //    HttpContext.Session.SetString("userToastr", "帳號或密碼錯誤");
+        //    return Redirect("/identity/Account/Login");
+        //}
     }
 }
