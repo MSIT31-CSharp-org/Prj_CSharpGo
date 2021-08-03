@@ -49,7 +49,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
         {
             if (code == null)
             {
-                return BadRequest("A code must be supplied for password reset.");
+                return BadRequest("因未帶入許可證無法進入重設密碼通道");
             }
             else
             {

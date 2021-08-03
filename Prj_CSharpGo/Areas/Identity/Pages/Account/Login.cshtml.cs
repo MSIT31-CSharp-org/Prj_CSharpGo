@@ -128,7 +128,7 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account
                 if (result.IsNotAllowed)
                 {
 
-                    return RedirectToPage("/Login");
+                    return RedirectToPage("./Login");
                 }
                 else
                 {
