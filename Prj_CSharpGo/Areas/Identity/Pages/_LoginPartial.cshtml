@@ -23,10 +23,11 @@
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-user-plus"></i>註冊</a>
+            <a class="nav-link text-dark d-inline" id="register" asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-user-plus"></i>註冊</a>
+            @*<span class="text-dark d-inline justify-content-center align-content-center align-self-center">|</span>*@
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt"></i>登入</a>
+            <a class="nav-link text-dark d-inline" id="login" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt"></i>登入</a>
         </li>
     }
 </ul>
