@@ -26,5 +26,8 @@ namespace Prj_CSharpGo.Models.ShopCartViewModels
 
     }
 
-
+    public class SaveSCtoOrderModel : ShoppingCart
+    {
+        
+    }
 }

@@ -1,5 +1,11 @@
-﻿@model Prj_CSharpGo.Models.ShopCartViewModels.returnshCartIndexVM
+﻿@using Microsoft.AspNetCore.Http
 
+@model Prj_CSharpGo.Models.ShopCartViewModels.returnshCartIndexVM
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
+@{
+        string userid = user.HttpContext.Session.GetString("Userid") ?? "Guest";
+ }
 
 @{
     ViewData["Title"] = "購物車";
@@ -60,69 +66,68 @@
                                 string temp2 = "getUUP" + i;
                                 string temp3 = "pricevalue" + i;
                                 string temp4 = "before" + i;
-                        <tr>
-                            <th scope="row">@item.ProductId</th>
-                            <td>@item.ProductName</td>  <!--.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName-->
-                            <td id="SHOUP" name="SHOUP">$@item.UnitPrice 元</td>
+                                <tr>
+                                    <th scope="row">@item.ProductId</th>
+                                    <td>@item.ProductName</td>  <!--.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName-->
+                                    <td id="SHOUP" name="SHOUP">@item.UnitPrice 元</td>
 
-                            <input type="hidden" name="getUUP" id="@temp2" value="@item.UnitPrice" />
-
-
-                            <td>
-                                @*會員手動調整商品數量方1    應該要推進購物車資料庫裡的數量*@
-                                <select class="$form-select-bg-position " name="PQuantity" id="@temp1">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                </select>
-                            </td>
-                            @*各項單品小記(隨會員更改浮動相乘@Model.SMTotal)<td id="totalSM_price"> // <div id="totalSMprice"></div>item.UnitPrice*@
-                            <td>
-                                <div id="@temp3">@item.UnitPrice 元</div>
-                            </td>
-                            <input type="hidden" id="@temp4" value="" />
+                                    <input type="hidden" name="getUUP" id="@temp2" value="@item.UnitPrice" />
 
 
-                            <td>
-                                @{ Totall += @item.UnitPrice;}
-                                @*總金額(小紀相加@Model.BigTotal)><td>@Model.PuserFilterModel.SMTotal</td> <div id="">@item.UnitPrice @item.Quantity</div>*@
+                                    <td>
+                                        @*會員手動調整商品數量    應該要推進購物車資料庫裡的數量*@
+                                        <select class="$form-select-bg-position " name="PQuantity" id="@temp1">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </td>
+                                    @*各項單品小計(隨會員更改浮動相乘)@Model.PuserFilterModel.SMTotal*@
+                                    <td>
+                                        <div id="@temp3">@item.UnitPrice 元</div>
+                                    </td>
 
-                            </td>
+                                    <input type="hidden" id="@temp4" value="" />
 
-                        </tr>
+
+                                    <td>
+                                        @*總金額(小計相加)@Model.PuserFilterModel.BigTotal =   @<tr id="Total">@Totall 元</tr> *@
+                                        @{ Totall += @item.UnitPrice;}
+
+                                    </td>
+
+                                </tr>
                                 i++;
-
+                                <tr id="Total">@Totall 元</tr>
                             }
-                            <tr id="Total">@Totall 元</tr>
+                            
                         }
                     </tbody>
 
                 </table>
-
-                @using (Html.BeginForm("SHOPQ", "PuserFilterModel", FormMethod.Post))//指定提交傳回控制器方式
+                @*把這頁的資料傳進資料庫ShoppingCartUserFilterModel的PuserFilterModel*@
+                @*把這頁的資料傳進控制器PShopCartController的Index*@
+                @using (Html.BeginForm("OrderIndex", "PShopCartController", FormMethod.Post))//指定提交傳回控制器方式
                 {
 
                     @Html.HiddenFor(Model => Model.PuserFilterModel.UserId)
                     @Html.HiddenFor(Model => Model.PuserFilterModel.ProductId)
                     @Html.HiddenFor(Model => Model.PuserFilterModel.ProductName)
-                    @Html.HiddenFor(Model => Model.PuserFilterModel.Quantity)
                     @Html.HiddenFor(Model => Model.PuserFilterModel.UnitPrice)
+                    @Html.HiddenFor(Model => Model.PuserFilterModel.Quantity)
                     @Html.HiddenFor(Model => Model.PuserFilterModel.SMTotal)
-                    @Html.HiddenFor(Model => Model.PuserFilterModel.BigTotal)
+                    //@Html.HiddenFor(Model => Model.PuserFilterModel.BigTotal)
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="/Home/Index" type="button" class="btn btn-secondary">再逛逛</a>
-                        <a href="/Home/Product" type="submit" class="btn btn-success">去買單</a>
+                        <a href="/Home/Product" type="button" class="btn btn-secondary">再逛逛</a>
+                        <a href="/PShopCart/OrderIndex" type="submit" class="btn btn-success">去買單</a>
 
                     </div>
-
                 }
             </div>
         </div>
     </section>
-
-
 </main><!-- End #main -->
 <!-- ======= Footer ======= -->
 <!-- Template Main JS File -->
@@ -138,243 +143,26 @@
 {
     <script>
         @{var UUP = "getUUP" + j.ToString(); }//抓這個購物車裡 特定商品的價格
-        @{var TTemp = "price" + j.ToString(); }
-        @{ var Temp3 = "pricevalue" + j.ToString();}
-
+        @{var TTemp = "price" + j.ToString(); }//會員可以選擇的商品數量
+        @{ var Temp3 = "pricevalue" + j.ToString();}//這是確定下訂數量
         $("#@TTemp").change(function () {
                 if (@TTemp != null) {
-                $("#@Temp3").empty()
+                  $("#@Temp3").empty()
                 }
-                //S是確定下訂數量  要傳回去購物車的資料庫
+                //S是小計  要傳回去購物車的資料庫
                 var s = parseInt($("#@TTemp").prop("value")) * parseInt($("#@UUP").prop("value"));
-            $("#@Temp3").append("$" + s + "  元");
+            $("#@Temp3").append(  s + "  元");
 
+            @*$.ajax({
+                type: "post",
+                url: "/PShopCart/Index/" +"@item.ProductId" +"@TTemp",
+                contentType: "application/json",
+                data: JSON.stringify()
+            })
+                .then(function (e) {
 
-       
+                })*@
 
             });
-
     </script>
 }
-
-
-
-
-
-
-@*會員手動調整商品數量 方2
-            <select class="form-control form-select form-control-a" id="PQuantity" name="PQuantity">
-              @if (Model.PQuantityList.Count != 0)
-               {
-                   for (int i = 1; i <= Model.PQuantityList[0].Quantity; i++)
-                       {
-                         if (Model.PuserFilterModel != null && Model.PuserFilterModel.Quantity == i)
-                           {
-                                <option value="@i" selected>@i</option>
-                            }
-                        else
-                           {
-                                 <option value="@i">@i</option>
-                            }
-                       }
-                  }
-             </select>
-
-
-
-
-            @model Prj_CSharpGo.Models.CampreserveModels.ReturnIndexModels;
-
-        @{
-            ViewData["Title"] = "營地預約";
-        }
-
-
-            <main id="main">
-
-                <!-- ======= Intro Single ======= -->
-                <section class="intro-single">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12 col-lg-8">
-                                <div class="title-single-box">
-                                    <h1 class="title-single">營地預約</h1>
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-lg-4">
-                                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item">
-                                            <a href="#">Home</a>
-                                        </li>
-                                        <li class="breadcrumb-item active" aria-current="page">
-                                            Book Cover Deisgn
-                                        </li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </section><!-- End Intro Single-->
-                <!-- ======= Blog Single ======= -->
-                <section class="news-single nav-arrow-b">
-                    <div class="container">
-                        <div class="row">
-                            <div>
-                                <!-- <div class="title-box-d">
-                <h3 class="title-d">Search Property</h3>
-            </div> -->
-                                <div class="col-sm-12">
-                                    <h3>營地預約注意事項</h3>
-                                </div>
-                                <div>
-                                    ※ 一般營位僅提供場地使用。<br>
-                                    ※ 每營位限搭1睡帳、1客廳帳，附1停車位 (無法加車，如需加車請另外加訂營位)。<br>
-                                    ※ 每營位限4人使用，第5人起每人100元清潔費(可加2人，3歲以下免費)。<br>
-                                    ※ 露宿車內，需依照營位費計算。<br>
-                                </div>
-                                <br>
-                                @using (Html.BeginForm("Index", "Campreserve", FormMethod.Post))
-                                {
-                                    <div class="row">
-
-                                        <div class="col-md-12 mb-2">
-                                            <div class="form-group">
-                                                <label class="pb-2" for="Type">區域選擇</label>
-
-                                                <select class="form-control form-select" id="CampName" name="CampName">
-
-                                                    @foreach (var item in Model.CampList)
-                                                    {
-                                                        if (Model.userFilterModel != null && Model.userFilterModel.CampId == item.CampId)
-                                                        {
-                                                            <option value="@item.CampId" selected>@item.CampName</option>
-                                                        }
-                                                        else
-                                                        {
-                                                            <option value="@item.CampId">@item.CampName</option>
-                                                        }
-                                                    }
-
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 mb-2">
-                                            <div class="form-group mt-3">
-                                                <label class="pb-2" for="Type">租借日期</label>
-                                                <input type="date" class="form-control" id="StartDay" name="StartDay" value="@(Model.userFilterModel==null?"":Model.userFilterModel.StartDate)" min="@ViewBag.startDateMin" max="@ViewBag.startDateMax">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 mb-2">
-                                            <div class="form-group mt-3">
-                                                <label class="pb-2" for="city">退訂日期</label>
-                                                <input type="date" class="form-control" id="EndDay" name="EndDay" value="@(Model.userFilterModel==null?"":Model.userFilterModel.EndDate)" min="@ViewBag.EndDateMin" max="@ViewBag.EndDateMax">
-                                            </div>
-                                        </div>
-
-
-
-                                        class="col-md-6 mb-2">
-                                            <div class="form-group mt-3">
-                                                <label class="pb-2" for="bedrooms">帳數</label>
-                                                <select class="form-control form-select form-control-a" id="CampQuantity" name="CampQuantity">
-                                                    @if (Model.CampList.Count != 0)
-                                                    {
-                                                        for (int i = 1; i <= Model.CampList[0].CampQuantity; i++)
-                                                        {
-                                                            if (Model.userFilterModel != null && Model.userFilterModel.CampQuantity == i)
-                                                            {
-                                                                <option value="@i" selected>@i</option>
-                                                            }
-                                                            else
-                                                            {
-                                                                <option value="@i">@i</option>
-                                                            }
-
-                                                        }
-                                                    }
-                                                </select>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <button id="getButton" type="submit" class="btn btn-b">預約</button>
-                                            @*<button type="button" class="btn btn-b">查看</button>
-                                    </div>
-
-
-    <h4 id="campnamea">A區草地</h4>
-    <div class="about-img-box margin-top-20">
-        <img src="~/img/grass.PNG" alt="" class="img-fluid" id="imgpicture">
-    </div>
-
-
-                            }
-                        </div>
-
-
-    <div class="margin-bottom-20 margin-top-20">
-        <div class="content"><h2>營地須知</h2></div>
-
-        <article>
-            <h2 class="directions">
-                ※ 因配合園區休園至2021年8月底止，無法訂位請見諒。<br>
-
-            </h2>
-        </article>
-    </div>
-
-
-
-
-                    </div>
-                </div>
-            </section><!-- End Blog Single-->
-        </main><!-- End #main -->
-    <!-- Template Main JS File -->
-    @*<script src="~/js/main.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"></script>
-
-
-    <script>
-
-            var temp = [];
-
-            // Assuming you have referenced jQuery
-            $(function () {
-                $.getJSON('@Url.Action("GetCampList", "Campreserve")', function (response) {
-                    temp = response;
-                });
-
-                if ('@ViewBag.message' != '') {
-                    alert('@Html.Raw(ViewBag.message)');
-                }
-
-            });
-
-            $("#CampName").change(function () {
-                $.each(temp, function (c, v) {
-
-                    if (v.campId == $("#CampName").val()) {
-                        $("#CampQuantity option").remove();
-
-
-                        for (i = 1; i <= v.campQuantity; i++) {
-                            $("#CampQuantity").append($("<option></option>").attr("value", i).text(i));
-                        }
-                        $("#campnamea").text(v.campName);
-                        $("#imgpicture").attr("src", "/img/"+v.img);
-
-                          return;
-                    }
-                });
-            });
-
-    </script>
-
-*@
