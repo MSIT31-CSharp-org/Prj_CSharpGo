@@ -1,5 +1,37 @@
-﻿@model Prj_CSharpGo.Models.Product
+﻿@model Prj_CSharpGo.Models.Recipe
 <!-- Receipe Post Search -->
+<div class="receipe-post-search mb-80" style="margin-left: 80px;margin-bottom:60px;margin-top:60px;">
+    <div class="container">
+        <form action="#" method="post">
+            <div class="row">
+                <div class="col-12 col-lg-3">
+                    <select name="select1" id="select1">
+                        <option value="1">All Receipies Categories</option>
+                        <option value="1">All Receipies Categories 2</option>
+                        <option value="1">All Receipies Categories 3</option>
+                        <option value="1">All Receipies Categories 4</option>
+                        <option value="1">All Receipies Categories 5</option>
+                    </select>
+                </div>
+                <div class="col-12 col-lg-3">
+                    <select name="select1" id="select2">
+                        <option value="1">All Receipies Categories</option>
+                        <option value="1">All Receipies Categories 2</option>
+                        <option value="1">All Receipies Categories 3</option>
+                        <option value="1">All Receipies Categories 4</option>
+                        <option value="1">All Receipies Categories 5</option>
+                    </select>
+                </div>
+                <div class="col-12 col-lg-3">
+                    <input type="search" name="search" placeholder="Search Receipies">
+                </div>
+                <div class="col-12 col-lg-3 text-right">
+                    <button type="submit" class="btn delicious-btn">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 <!-- Receipe Slider -->
 <div class="container" style="text-align: center;">
@@ -10,7 +42,7 @@
 <div class="receipe-content-area">
     <div class="container">
         <div class="row" style="margin-top:50px;">
-            <div class="col-12 col-md-8" style="padding-left: 170px">
+            <div class="col-12 col-md-8" style="padding-left: 200px">
                 <span>@Model.PublishTime</span>
                 <h2>@Model.RecipeName</h2>
                 <div class="receipe-duration">
@@ -37,25 +69,15 @@
                 @Html.ActionLink("", "delete", new { id = Model.RecipeId }, new { @class = "btn btn-success bi bi-trash" })
             </div>
         </div>
-        <div class="single-preparation-step" style="padding-left: 160px">
-            <div class="row">
-                <div class="col-md-6">
-                    <p>
-                        <h3>01.備料</h3>
-                    </p>
-                    @Html.Raw(Model.Preparation.Replace(Environment.NewLine, "<br/>"))
-                    <p>
-                        <h3>02.烹煮步驟</h3>
-                    </p>
-                    @Html.Raw(Model.Step.Replace(Environment.NewLine, "<br/>"))
-                </div>
-                <div class="col-md-4">
-                    <div style="float:right;">
-                        123
-                    </div>
-                </div>
-            </div>
-     
+        <div class="single-preparation-step" style="padding-left: 200px">
+            <p>
+                <h3>01.備料</h3>
+            </p>
+            @Html.Raw(Model.Preparation.Replace(Environment.NewLine, "<br/>"))
+            <p>
+                <h3>02.烹煮步驟</h3>
+            </p>
+            @Html.Raw(Model.Step.Replace(Environment.NewLine, "<br/>"))
         </div>
     </div>
 </div>
