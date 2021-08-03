@@ -17,7 +17,6 @@ namespace Prj_CSharpGo.Models
         public IEnumerable<Recipe> Recipes { get; set; }
         public IEnumerable<Product> Products { get; set; }
         public IEnumerable<Camp> Camps { get; set; }
-        public IEnumerable<ProductImg> productImgs { get; set; }
 
 
         public SelectList RGenres { get; set; }
