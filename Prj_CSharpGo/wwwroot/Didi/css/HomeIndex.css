@@ -11587,17 +11587,28 @@ footer.footer {
 /*自己寫的*/
 
 .picSize {
-    max-width: 90%;
-    max-height: 100%;
+    max-width: 650px;
+    max-height: 650px;
     object-fit: cover;
-    margin-top:5%;
-    margin-left:5%;
+/*    margin-top:20%;
+    margin-left:20%; 
+    margin-right:20%;*/
 }
 
 .dh:hover {
     transform: rotateX(5deg);
     /*background-color: black;*/
-    transform: scale(1.4)
+    transform: scale(1.2)
+}
+
+.posL {
+    margin-top:5%;
+    margin-left:5%;
+}
+
+.posR {
+    margin-top: 5%;
+   
 }
 
 .carousel-control-prev-icon,

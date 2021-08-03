@@ -87,6 +87,10 @@ namespace Prj_CSharpGo.Controllers
             {
                 productHome.products = _context.Products.Where(x => x.CategoryId == CategoryId);
             }
+            if(CategoryId !=null && CategoryTypeId != null)
+            {
+                productHome.products = _context.Products.Where(x => x.CategoryType == CategoryTypeId);
+            }
             return View(productHome);
         }
 
