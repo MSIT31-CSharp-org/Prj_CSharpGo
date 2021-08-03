@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
-@model Prj_CSharpGo.Models.POrderViewModel.POrderAllModel
+@model Prj_CSharpGo.Models.ShopCartViewModels.POrderAllModel
 
 
 @{
@@ -47,8 +47,8 @@
                             <th scope="col">訂單編號</th>
                             <th scope="col">會員編號</th>
                             <th scope="col">訂單日期</th>
-                            @*<th scope="col">商品編號</th>*@
-                            @*<th scope="col">商品名稱</th>*@
+                            <th scope="col">商品編號</th>
+                            <th scope="col">商品名稱</th>
                             <th scope="col">總金額</th>
                             <th scope="col">付款方式</th>
                         </tr>
@@ -58,8 +58,8 @@
                             <th scope="row">@Model.OrderId</th>
                             <td>@Model.UserId</td>
                             <td>@Model.OrderDate</td>
-                            @* <td>@Model.ProductId</td>*@
-                            @*<td>@Model.ProductName</td>*@
+                             <td>@Model.ProductId</td>
+                            <td>@Model.ProductName</td>
                             <td> $@Model.TotalPrice 元</td>
                             <td> @Model.PayMethod</td>
                         </tr>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Prj_CSharpGo.Models.POrderViewModel
+namespace Prj_CSharpGo.Models.ShopCartViewModels
 {
     public class POrderAllModel
     {

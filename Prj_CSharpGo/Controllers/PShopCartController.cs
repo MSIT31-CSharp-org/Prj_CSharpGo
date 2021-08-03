@@ -9,18 +9,20 @@ using Microsoft.Extensions.Logging;
 using Prj_CSharpGo.Models.ShopCartViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
-using Prj_CSharpGo.Models.POrderViewModel;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Prj_CSharpGo.Controllers
 {
     public class PShopCartController : Controller
     {
-        private readonly ILogger<CampreserveController> _logger;
+        private readonly ILogger<PShopCartController> _logger;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly WildnessCampingContext _context;
-        public PShopCartController(WildnessCampingContext context, ILogger<CampreserveController> logger)
+        public PShopCartController(WildnessCampingContext context, ILogger<PShopCartController> logger, Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
             _logger = logger;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         //以下是購物車相關------------------------------------------------------------------------------------
@@ -28,8 +30,8 @@ namespace Prj_CSharpGo.Controllers
         public IActionResult AddCart(ShoppingCart ShoppingCarts)//檢視：無-接收商品頁面的資料 要傳進購物車資料庫PShopCartViewMolds中的ShoppingCarts的動作
 
         {
-            ShoppingCart PTOSCOrder = new ShoppingCart()
-            {
+            ShoppingCart PTOSCOrder = new ShoppingCart() { 
+                ShCartID = ShoppingCarts.ShCartID,
                 UserId = ShoppingCarts.UserId,
                 ProductId = ShoppingCarts.ProductId,
                 Quantity = ShoppingCarts.Quantity,
@@ -37,6 +39,8 @@ namespace Prj_CSharpGo.Controllers
                 Status = ShoppingCarts.Status,
                 ProductName = ShoppingCarts.ProductName,
             };
+            _context.ShoppingCarts.Add(PTOSCOrder);
+            _context.SaveChanges();         
             return Redirect("/PShopCart/Index");//接收的直要呈現在VIEW的檢視頁面/PShopCart/Index
         }
         public IActionResult Index()//檢視：購物車訂單頁面-一開始推進去購物車資料的動作  從購物車資料庫裡抓資料                                
@@ -101,24 +105,23 @@ namespace Prj_CSharpGo.Controllers
             _context.SaveChanges();
             return Redirect("/PShopCart/OrderIndex");
         }
-        public IActionResult OrderIndex(IFormCollection post)//檢視：確定的訂單頁面-購物車要將清單推進訂單資料庫與頁面的動作 
-        {
-          
-            int UId = Convert.ToInt32(post["UserId"]);
-            int ProductId = Convert.ToInt32(post["ProductId"]);
-            string ProductName = post["ProductName"];
-            int UnitPrice = Convert.ToInt32(post["UnitPrice"]);
-            int Quantity = Convert.ToInt32(post["Quantity"]);
-            int SMTotal  = Convert.ToInt32(post["UnitPrice"])* Convert.ToInt32(post["Quantity"]);
-            POrderAllModel POrderAllModel = new POrderAllModel(UId, ProductId, ProductName, UnitPrice, Quantity, SMTotal);                      
-            return View("OrderIndex", POrderAllModel);//推進資料庫POrderAllModel  給訂單頁面OrderIndex用
-        }
+        // public IActionResult OrderIndex(IFormCollection post)//檢視：確定的訂單頁面-購物車要將清單推進訂單資料庫與頁面的動作 
+        //{
+
+        //int UId = Convert.ToInt32(post["UserId"]);
+        // int ProductId = Convert.ToInt32(post["ProductId"]);
+        // string ProductName = post["ProductName"];
+        // int UnitPrice = Convert.ToInt32(post["UnitPrice"]);
+        // int Quantity = Convert.ToInt32(post["Quantity"]);
+        // int SMTotal  = Convert.ToInt32(post["UnitPrice"])* Convert.ToInt32(post["Quantity"]);
+        // POrderAllModel POrderAllModel = new POrderAllModel(UId, ProductId, ProductName, UnitPrice, Quantity, SMTotal);                      
+        // return View("OrderIndex", POrderAllModel);//推進資料庫POrderAllModel  給訂單頁面OrderIndex用
+        //}
         //public IActionResult OrderIndex(PShopCartController orderModel)
         //{
-           // ViewBag.messagea = "已完成訂單";
-            //return View(orderModel);
-       // }
-        
+        // ViewBag.messagea = "已完成訂單";
+        //return View(orderModel);
+        // }
 
         //推進去訂單的動作
 

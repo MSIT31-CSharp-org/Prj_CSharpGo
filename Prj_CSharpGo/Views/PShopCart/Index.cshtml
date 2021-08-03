@@ -121,7 +121,7 @@
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="/Home/Product" type="button" class="btn btn-secondary">再逛逛</a>
-                        <a href="/PShopCart/OrderIndex" type="submit" class="btn btn-success">去買單</a>
+                        <a href="/PShopCart/OrderIndex" type="submit" class="btn btn-success"id="comform">去買單</a>
 
                     </div>
                 }
@@ -166,3 +166,10 @@
             });
     </script>
 }
+
+<script>
+        $("#comform").click(function () {
+            alert('@Html.Raw(ViewBag.messagea)');
+         });
+
+</script>

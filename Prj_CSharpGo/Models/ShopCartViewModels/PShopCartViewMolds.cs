@@ -7,15 +7,19 @@ namespace Prj_CSharpGo.Models.ShopCartViewModels
 {
 
     public class returnshCartIndexVM
-    { 
+    {
         public List<Product> Products { get; set; }
         public List<User> Users { get; set; }
         public List<ShoppingCart> ShoppingCarts { get; set; }
         public ShoppingCartUserFilterModel PuserFilterModel { get; set; }
+
+        
+        
     }
 
     public class ShoppingCartUserFilterModel
     {
+       
         public int UserId { get; set; }
         public string ProductId { get; set; }
         public string ProductName { get; set; }
@@ -28,6 +32,8 @@ namespace Prj_CSharpGo.Models.ShopCartViewModels
 
     public class SaveSCtoOrderModel : ShoppingCart
     {
-        
+
     }
 }
+    
+    
