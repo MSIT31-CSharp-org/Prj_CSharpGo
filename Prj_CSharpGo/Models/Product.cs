@@ -7,6 +7,12 @@ namespace Prj_CSharpGo.Models
 {
     public partial class Product
     {
+        public Product()
+        {
+            Associations = new HashSet<Association>();
+            ShoppingCarts = new HashSet<ShoppingCart>();
+        }
+
         public string ProductId { get; set; }
         public string CategoryId { get; set; }
         public string ProductName { get; set; }
@@ -18,7 +24,9 @@ namespace Prj_CSharpGo.Models
         public string Status { get; set; }
         public string Approval { get; set; }
         public string CategoryType { get; set; }
-      
-    public virtual Category Category { get; set; }
+
+        public virtual Category Category { get; set; }
+        public virtual ICollection<Association> Associations { get; set; }
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

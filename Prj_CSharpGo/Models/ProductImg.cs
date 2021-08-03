@@ -11,6 +11,5 @@ namespace Prj_CSharpGo.Models
         public string Img { get; set; }
 
         public virtual Product Product { get; set; }
-       
     }
 }

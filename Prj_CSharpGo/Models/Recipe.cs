@@ -7,6 +7,11 @@ namespace Prj_CSharpGo.Models
 {
     public partial class Recipe
     {
+        public Recipe()
+        {
+            Associations = new HashSet<Association>();
+        }
+
         public int RecipeId { get; set; }
         public int UserId { get; set; }
         public string RecipeName { get; set; }
@@ -22,5 +27,6 @@ namespace Prj_CSharpGo.Models
         public string Yield { get; set; }
 
         public virtual User User { get; set; }
+        public virtual ICollection<Association> Associations { get; set; }
     }
 }
