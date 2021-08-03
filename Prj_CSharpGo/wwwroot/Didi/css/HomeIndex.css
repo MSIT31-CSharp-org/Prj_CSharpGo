@@ -11608,7 +11608,7 @@ footer.footer {
 
 .posR {
     margin-top: 5%;
-   
+    margin-right:5%
 }
 
 .carousel-control-prev-icon,
@@ -11633,3 +11633,11 @@ footer.footer {
         font-size: 55px;
         color: red;
     }
+
+.img_1 {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    /*   object-fit: contain; */
+    /*   object-fit: fill; */
+}
