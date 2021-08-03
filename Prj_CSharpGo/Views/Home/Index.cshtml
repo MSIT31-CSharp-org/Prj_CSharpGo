@@ -72,11 +72,11 @@
         @* 往前往後鍵 *@
     </div>
     <!-- End Banner Hero -->
-    </div>
+</div>
 
 
 
-    @*<section class="features-icons bg-light text-center">
+@*<section class="features-icons bg-light text-center">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
@@ -103,18 +103,29 @@
             </div>
         </div>
     </section>*@
-    <!-- Image Showcases-->
+<!-- Image Showcases-->
 <br />
+@*<div class="card-container">
+    <div class="card card1">
+        <a href="#" class="back"><img src="~/Didi/img/20210728144455.png" /></a>
+        <a href="#" class="font"><img src="~/Didi/img/camping.png" /></a>
+    </div>
+  </div>*@
+
     <section class="showcase">
         <div class="container-fluid p-0">
             <div class="row g-0 ">
-                @*<div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('/Didi/img/camping.png')"></div>*@
                 <div class="col-lg-6 order-lg-2 text-white showcase-img dh posR" style="background-color:gray;">
                     <img class="picSize" style=" float: right;" src="~/Didi/img/camping.png" />
                 </div>
-                <div class="col-lg-4 order-lg-1 my-auto showcase-text dh posL" style="background-color:pink;">
-                    <h2>關於我們</h2>
-                    <p class="lead mb-0">介紹本網站</p>
+                <div class="col-lg-4 order-lg-1 my-auto showcase-text posL">
+                    <div class="card_1 font" >
+                        <div class="font" style="width: 500px; height: 400px; background-color: white; border-style: dashed;">
+                            <h2>關於我們</h2>
+                            <p class="lead mb-0 card-back">介紹本網站</p>
+                        </div>
+                        <div class="back" ><img src="~/Didi/img/camping.png"style="width: 500px; height: 400px;"/></div>
+                    </div>
                 </div>
             </div>
             <div class="row g-0">
@@ -219,18 +230,18 @@
             <div class="row">
                 @foreach (var item in Model.categories)
                 {
-                <div class="col-12 col-md-4 p-5 mt-3" >
-                    <div style="margin:auto; width:350px;height:250px">
-                        <a href="#"><img src="~/img/ProductsImg/@item.Description" class="rounded-circle img-fluid border img_1"></a>
+                    <div class="col-12 col-md-4 p-5 mt-3">
+                        <div style="margin:auto; width:350px;height:250px">
+                            <a href="#"><img src="~/img/ProductsImg/@item.Description" class="rounded-circle img-fluid border img_1"></a>
+                        </div>
+                        <div>
+                            <h5 class="text-center mt-3 mb-3">@item.CategoryName</h5>
+                        </div>
+                        <div>
+                            @* 連結到產品大分類 *@
+                            <p class="text-center"><a href="/Home/ProductCate" class="btn btn-danger">GO</a></p>
+                        </div>
                     </div>
-                    <div>
-                        <h5 class="text-center mt-3 mb-3">@item.CategoryName</h5>
-                    </div>
-                    <div>
-                        @* 連結到產品大分類 *@
-                        <p class="text-center"><a href="/Home/ProductCate" class="btn btn-danger">GO</a></p>
-                    </div>
-                </div>
 
 
                 }
