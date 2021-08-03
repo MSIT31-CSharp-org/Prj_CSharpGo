@@ -32,6 +32,7 @@ namespace Prj_CSharpGo.Models
         public virtual DbSet<CategoriesTypeI> CategoriesTypeIs { get; set; }
         public virtual DbSet<CategoriesTypeIi> CategoriesTypeIis { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Demo> Demos { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
@@ -106,7 +107,7 @@ namespace Prj_CSharpGo.Models
 
             modelBuilder.Entity<AspNetUser>(entity =>
             {
-                entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
+                entity.HasIndex(e => e.Email, "EmailIndex");
 
                 entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
                     .IsUnique()
@@ -179,9 +180,13 @@ namespace Prj_CSharpGo.Models
 
             modelBuilder.Entity<Association>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Sequence);
 
                 entity.ToTable("Association");
+
+                entity.HasIndex(e => e.RecipeId, "IX_Association");
+
+                entity.HasIndex(e => e.ProductId, "IX_Association_2");
 
                 entity.Property(e => e.Description).HasMaxLength(200);
 
@@ -193,13 +198,13 @@ namespace Prj_CSharpGo.Models
                 entity.Property(e => e.RecipeId).HasColumnName("RecipeID");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.Associations)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Associati__Produ__48CFD27E");
 
                 entity.HasOne(d => d.Recipe)
-                    .WithMany()
+                    .WithMany(p => p.Associations)
                     .HasForeignKey(d => d.RecipeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Associati__Recip__47DBAE45");
@@ -337,6 +342,37 @@ namespace Prj_CSharpGo.Models
                     .HasMaxLength(20);
 
                 entity.Property(e => e.Description).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<Demo>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Demo");
+
+                entity.Property(e => e.C)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("c")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Nc)
+                    .HasMaxLength(10)
+                    .HasColumnName("nc")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Nv)
+                    .HasMaxLength(10)
+                    .HasColumnName("nv");
+
+                entity.Property(e => e.V)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("v");
             });
 
             modelBuilder.Entity<Employee>(entity =>
@@ -546,9 +582,11 @@ namespace Prj_CSharpGo.Models
 
             modelBuilder.Entity<ShoppingCart>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.ShCartId);
 
                 entity.ToTable("ShoppingCart");
+
+                entity.Property(e => e.ShCartId).HasColumnName("ShCartID");
 
                 entity.Property(e => e.ProductId)
                     .IsRequired()
@@ -564,13 +602,13 @@ namespace Prj_CSharpGo.Models
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.ShoppingCarts)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__ShoppingC__Produ__32E0915F");
 
                 entity.HasOne(d => d.User)
-                    .WithMany()
+                    .WithMany(p => p.ShoppingCarts)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__ShoppingC__UserI__31EC6D26");
@@ -578,6 +616,8 @@ namespace Prj_CSharpGo.Models
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasIndex(e => e.Email, "Email");
+
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.Address).HasMaxLength(50);
