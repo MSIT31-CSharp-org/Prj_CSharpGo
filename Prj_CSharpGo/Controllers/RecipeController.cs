@@ -45,6 +45,7 @@ namespace Prj_CSharpGo.Controllers
         public IActionResult Edit(Recipe reForm, IFormFile Img)
         {
             Recipe re = this._context.Recipes.Find(reForm.RecipeId);
+            List<Association> ass = _context.Associations.Where(x =>x.RecipeId==reForm.RecipeId).ToList();
             // 上傳檔案
             if (Img != null)
             {

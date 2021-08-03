@@ -48,10 +48,10 @@
             </div>
 
             @*食材清單*@
-     
-            <div>
                 <div id="ass_area">
                     <div class="row" id="row_0">
+                        <input type="text" class="form-control mt-1" name="Description['0'].Key" value="0" hidden>
+                        <input type="text" class="form-control mt-1" name="ProductID['0'].Key" value="0" hidden>
                         <div class="form-group col-md-6 mb-3">
                             <label for="inputsubject">FOOD_Description</label>
                             <div class="row">
@@ -77,16 +77,12 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2" style="float: left;margin-left:5px;">
-                                    @*<button type="button" class="form-control mt-1 col-md-2" onclick="del_row(this)" data-id="' + row_num + '">Del</button>*@
-                                    <button type="button"class="form-control mt-1" onclick="del_row(this)" data-id="' + row_num + '">Del</button>
+                                    <button type="button" class="form-control mt-1" onclick="del_row(this)" data-id="0">Del</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-
             <div class="mb-3">
                 <label for="inputmessage">01.備料Preparation</label>
                 <textarea class="form-control mt-1" name="Preparation" rows="8">@Model.Recipe.Preparation</textarea>
