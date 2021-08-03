@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -51,8 +52,6 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
         [BindProperty]
         public InputModel Input { get; set; }
 
-        [BindProperty]
-        public InputModelV1 Input1 { get; set; }
 
         public class InputModel
         {
@@ -62,13 +61,6 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
 
         }
 
-        public class InputModelV1
-        {
-            [Required]
-            [EmailAddress]
-            [Display(Name = "新的電子郵件")]
-            public string NewEmail { get; set; }
-        }
         private async Task LoadAsync(identityForUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
@@ -82,20 +74,18 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
                 PhoneNumber = phoneNumber
             };
 
-            // Email
-
-            Email = email;
-
-            Input1 = new InputModelV1
-            {
-                NewEmail = email,
-            };
-
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
+            // 登入驗證 Session
+            //string userSession = HttpContext.Session.GetString("userName") ?? "Guest";
+            //if (userSession == "Guest")
+            //{
+            //    return Redirect("./Index");
+            //}
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -103,7 +93,6 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
                 //return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 return RedirectToAction("/identity/Account/Login");
             }
-
             await LoadAsync(user);
             return Page();
         }
@@ -134,9 +123,17 @@ namespace Prj_CSharpGo.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
-
+            else if (Input.PhoneNumber == phoneNumber || Input.PhoneNumber == null)
+            {
+                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                if (setPhoneResult.Succeeded)
+                {
+                    StatusMessage = "您未變更任何資料";
+                    return RedirectToPage();
+                }
+            }
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "您的會員檔案已變更";
+            StatusMessage = $"已更新您的電話號碼";
             return RedirectToPage();
         }
     }

@@ -1,14 +1,19 @@
 ﻿@page
+@using Microsoft.AspNetCore.Http
 @model IndexModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
+
 @{
     ViewData["Title"] = "會員檔案";
     ViewData["ActivePage"] = ManageNavPages.Index;
+
+    string userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
+    string userStatus = user.HttpContext.Session.GetString("userStatus") ?? "Guest";
+    string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <link href="~/css/LoginRegister.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -23,17 +28,17 @@
             <form id="profile-form" method="post">
                 <div class="form-group row d-flex justify-content-start">
                     <div class="row d-flex justify-content-start d-inline col-8 d-inline">
-                        <h4 class="col-2 align-content-center">會員檔案</h4>
+                        <h4 class="col-5 align-content-center">會員檔案</h4>
                         <!--送出表單-->
-                        <button id="update-profile-button" type="submit" class="btn btn-outline-primary col-2 align-content-center">全部確認</button>
+                        <button id="update-profile-button" type="submit" class="btn btn-outline-primary col-5 align-content-center">全部確認</button>
                     </div>
                 </div>
 
                 <hr />
 
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <partial name="_StatusMessage" model="Model.StatusMessage" />
 
-                @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
 
                 <!--使用者帳號-->
                 <div class="form-group row d-flex justify-content-start">
@@ -69,8 +74,11 @@
                 </div>
 
 
-                @*
+                @*Email 模組*@
+                <!--
+                    @*
                     <!-- ======================= Email 模組 ============================ -->
+
                     <h4>管理電子郵件</h4>
                     <hr />
 
@@ -131,7 +139,7 @@
                         </div>
                     </div>
                 *@
-
+                -->
 
             </form>
         </div>
@@ -141,5 +149,35 @@
         <partial name="_ValidationScriptsPartial" />
     }
 
+
+    @if (userToastr != "Guest")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["success"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
 </body>
 </html>
