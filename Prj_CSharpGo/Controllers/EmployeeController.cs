@@ -24,7 +24,7 @@ namespace Prj_CSharpGo.Controllers
 
         //分頁用
         private int pageSize = 8;
-        
+
 
         public IActionResult Test()
         {
@@ -39,7 +39,7 @@ namespace Prj_CSharpGo.Controllers
             stream.Position = 0;
 
             var fileName = $"Loai_{DateTime.Now.ToString("yyyy/MM/dd/hh/mm/ss")}.xlsx";
-            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",fileName);
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
         // 登入頁面
         public IActionResult Login()
@@ -53,7 +53,7 @@ namespace Prj_CSharpGo.Controllers
         public async Task<IActionResult> Login(Employee employee)
         {
             // 驗證帳密
-            Employee query = await _context.Employees.FirstOrDefaultAsync(m => m.EmployeeId == employee.EmployeeId);
+            Employee query = await _context.Employees.FirstOrDefaultAsync(m => m.EmployeeEmail == employee.EmployeeEmail);
             if (query != null && query.EmployeePassword == employee.EmployeePassword)
             {
                 if (query.EmployeeStatus == null)
@@ -130,8 +130,15 @@ namespace Prj_CSharpGo.Controllers
             {
                 return Redirect("/Employee/Login");
             }
-            var employee = await _context.Employees.FindAsync(id);
-            return View(employee);
+
+            var empId = _context.Employees.FirstOrDefault(m => m.EmployeeId == id);
+            if (empId == null)
+            {
+                return NotFound();
+            }
+
+            Employee employee = await _context.Employees.FindAsync(id);
+            return View("Edit", employee);
         }
 
         [HttpPost]
@@ -159,6 +166,13 @@ namespace Prj_CSharpGo.Controllers
             {
                 return Redirect("/Employee/Login");
             }
+
+            var empId = _context.Employees.FirstOrDefault(m => m.EmployeeId == id);
+            if (empId == null)
+            {
+                return NotFound();
+            }
+
             var employee = await _context.Employees.FirstOrDefaultAsync(m => m.EmployeeId == id);
             return View(employee);
         }
@@ -193,6 +207,13 @@ namespace Prj_CSharpGo.Controllers
             {
                 return Redirect("/Employee/Login");
             }
+
+            var UsersId = _context.Users.FirstOrDefault(m => m.UserId == id);
+            if (UsersId == null)
+            {
+                return NotFound();
+            }
+
             var member = await _context.Users.FindAsync(id);
             return View(member);
         }
@@ -219,6 +240,8 @@ namespace Prj_CSharpGo.Controllers
             {
                 return Redirect("/Employee/Login");
             }
+
+
             return View(await _context.Orders.ToListAsync());
         }
 
@@ -229,6 +252,12 @@ namespace Prj_CSharpGo.Controllers
             if (empSession == "Guest")
             {
                 return Redirect("/Employee/Login");
+            }
+
+            var OrderId = _context.OrderDetails.FirstOrDefault(m => m.OrderId == id);
+            if (OrderId == null)
+            {
+                return NotFound();
             }
 
             EmployeeOrder emporder = new EmployeeOrder()
@@ -275,6 +304,12 @@ namespace Prj_CSharpGo.Controllers
             if (empSession == "Guest")
             {
                 return Redirect("/Employee/Login");
+            }
+
+            var ProductsId = _context.Products.FirstOrDefault(m => m.ProductId == id);
+            if (ProductsId == null)
+            {
+                return NotFound();
             }
 
             var member = await _context.Products.FindAsync(id);
