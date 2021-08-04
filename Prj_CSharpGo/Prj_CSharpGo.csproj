@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\**" />
+    <Content Remove="Areas\**" />
+    <EmbeddedResource Remove="Areas\**" />
+    <None Remove="Areas\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Auth\Create.cshtml" />
+    <None Include="Views\Auth\Details.cshtml" />
+    <None Include="Views\Auth\Edit.cshtml" />
+    <None Include="Views\Auth\Index.cshtml" />
     <None Include="Views\Campreserve\GetJsonFromFile.cshtml" />
     <None Include="Views\Campreserve\Index.cshtml" />
     <None Include="Views\CampSearch\Index.cshtml" />

@@ -58,12 +58,12 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr class="wrap" data-index="@item.UserAccount @item.Email">
+        <tr class="wrap" data-index="@@item.Email">
             <td>
                 @item.UserId
             </td>
             <td>
-                @item.UserAccount
+                @item.Email
             </td>
             <td>
                 @item.UserName
@@ -71,9 +71,7 @@
             <td>
                 @item.Phone
             </td>
-            <td>
-                @item.Email
-            </td>
+
             @if (item.UserStatus == "NR")
             {
                 <td>
