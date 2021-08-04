@@ -12,6 +12,7 @@ namespace Prj_CSharpGo.Models
             CampOrders = new HashSet<CampOrder>();
             Orders = new HashSet<Order>();
             Recipes = new HashSet<Recipe>();
+            ShoppingCarts = new HashSet<ShoppingCart>();
         }
 
         public int UserId { get; set; }
@@ -32,5 +33,6 @@ namespace Prj_CSharpGo.Models
         public virtual ICollection<CampOrder> CampOrders { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Recipe> Recipes { get; set; }
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

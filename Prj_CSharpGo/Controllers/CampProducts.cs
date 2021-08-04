@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace Prj_CSharpGo.Controllers
 {
@@ -21,7 +22,11 @@ namespace Prj_CSharpGo.Controllers
             _context = dbContext;
         }
 
-        public IActionResult Index(string categoryid="",string categorytype="")
+
+        //分頁用
+        private int pageSize = 8;
+
+        public IActionResult Index(string categoryid="",string categorytype="",int Page=1)
         {
             ProductHome productHome = new ProductHome();
 
@@ -42,7 +47,11 @@ namespace Prj_CSharpGo.Controllers
             productHome.categories = _context.Categories.ToList();//.Where(s => s.CategoryName == name);
             productHome.categoriesTypeIs =  _context.CategoriesTypeIs.ToList();
 
+            //productHome.products = _context.Products.OrderBy(o => o.ProductId).ToPagedList(Page, pageSize);
+
             return View("Index", productHome);
+
+            //return View("Index", productHome);
         }
 
     

@@ -4662,42 +4662,42 @@ textarea.form-control-lg {
         color: #fff;
     }
 
-.card {
+.card_1 {
     position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
     background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
+    /*background-clip: border-box;*/
+    /*border: 1px solid rgba(0, 0, 0, 0.125);*/
+    /*border-radius: 0.25rem;*/
 }
 
-    .card > hr {
+    .card_1 > hr {
         margin-right: 0;
         margin-left: 0;
     }
 
-    .card > .list-group {
+    .card_1 > .list-group {
         border-top: inherit;
         border-bottom: inherit;
     }
 
-        .card > .list-group:first-child {
+        .card_1 > .list-group:first-child {
             border-top-width: 0;
             border-top-left-radius: calc(0.25rem - 1px);
             border-top-right-radius: calc(0.25rem - 1px);
         }
 
-        .card > .list-group:last-child {
+        .card_1 > .list-group:last-child {
             border-bottom-width: 0;
             border-bottom-right-radius: calc(0.25rem - 1px);
             border-bottom-left-radius: calc(0.25rem - 1px);
         }
 
-        .card > .card-header + .list-group,
-        .card > .list-group + .card-footer {
+        .card_1 > .card-header + .list-group,
+        .card_1 > .list-group + .card-footer {
             border-top: 0;
         }
 
@@ -11598,7 +11598,7 @@ footer.footer {
 .dh:hover {
     transform: rotateX(5deg);
     /*background-color: black;*/
-    transform: scale(1.2)
+    transform: scale(1.2);
 }
 
 .posL {
@@ -11641,3 +11641,45 @@ footer.footer {
     /*   object-fit: contain; */
     /*   object-fit: fill; */
 }
+
+.card-container {
+            position: relative;
+            width: 1100px;
+            margin: 0 auto;
+        }
+
+        .card_1 {
+            margin-right: 15px;
+            width: 200px;
+            height: 380px;
+            float: left;
+        }
+
+        .card_1 .font,
+        .card_1 .back {
+            position: absolute;
+            transition: transform 0.4s;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+
+        .card_1 .font {
+            transform: rotateY(0deg);
+        }
+
+        .card_1 .back {
+            transform: rotateY(-180deg);
+        }
+
+        .card_1:hover .font {
+            transform: rotateY(180deg);
+        }
+
+        .card_1:hover .back {
+            transform: rotateY(0deg);
+        }
+
+        .card2,
+        .card4 {
+            margin-top: 20px;
+        }
