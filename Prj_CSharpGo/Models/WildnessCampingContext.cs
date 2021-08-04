@@ -275,9 +275,7 @@ namespace Prj_CSharpGo.Models
 
             modelBuilder.Entity<Employee>(entity =>
             {
-                entity.Property(e => e.EmployeeId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("EmployeeID");
+                entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
                 entity.Property(e => e.EmployeeEmail).HasMaxLength(50);
 
