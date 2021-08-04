@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
-@model Prj_CSharpGo.Models.User
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
+@model Prj_CSharpGo.Models.User
+
 @{
     ViewData["Title"] = "登入";
     Layout = "~/Views/Shared/Auth/_AuthLayout.cshtml";
@@ -33,7 +34,7 @@
                             <i class="fas fa-envelope col-1"></i>
                         </div>
                     </div>
-                    <input type="text" asp-for="Email" class="form-control" placeholder="Email" />
+                    <input type="text" asp-for="Email" name="Email" class="form-control" placeholder="Email" />
                 </div>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
@@ -57,15 +58,15 @@
 
         <!--記住密碼-->
         @*<div class="form-group row justify-content-center d-inline-block d-flex">
-            <div class="col-8">
-                <div class="d-inline d-flex justify-content-start custom-control custom-checkbox custom-control-inline">
-                    <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" asp-for="RememberMe">
-                    <label for="checkbox_0" class="custom-control-label" asp-for="RememberMe">
-                        @Html.DisplayNameFor(m => m.RememberMe)
-                    </label>
+                <div class="col-8">
+                    <div class="d-inline d-flex justify-content-start custom-control custom-checkbox custom-control-inline">
+                        <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" asp-for="RememberMe">
+                        <label for="checkbox_0" class="custom-control-label" asp-for="RememberMe">
+                            @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
         <div class="form-group row justify-content-center d-inline-block d-flex">
             <div class="col-8">

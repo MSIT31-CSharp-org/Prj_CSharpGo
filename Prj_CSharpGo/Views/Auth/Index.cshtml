@@ -1,14 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Http
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
 
+@*@model IEnumerable<Prj_CSharpGo.Models.User>*@
 @model Prj_CSharpGo.Models.User
 
 @{
     ViewData["Title"] = "會員檔案";
-    Layout = "~/Views/Shared/Auth/_MemberCenterLayout.cshtml";
+    @*Layout = "~/Views/Shared/Layout.cshtml";*@
 
     string userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
-    string userStatus = user.HttpContext.Session.GetString("userStatus") ?? "Guest";
+    @*string userStatus = user.HttpContext.Session.GetString("userStatus") ?? "Guest";*@
     string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
 }
 
@@ -17,6 +18,7 @@
 <html lang="en">
 <head>
 
+    <link rel="stylesheet" href="~/css/LoginRegister.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -25,53 +27,70 @@
 
 <body>
 
-    <div class="row">
-        <div class="col-md-6">
-            <form action="/Auth/MemberEdit" method="post">
-                <div class="form-group row d-flex justify-content-start">
-                    <div class="row d-flex justify-content-start d-inline col-8 d-inline">
-                        <h4 class="col-5 align-content-center">會員檔案</h4>
-                        <!--送出表單-->
-                        <button  type="submit" class="btn btn-outline-primary col-5 align-content-center">確認修改</button>
-                    </div>
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1 col-md-1">
+                <!--<partial name="_ManageNav" />-->
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item btn"><a class="btn-outline-primary nav-link" id="profile" href="/Auth/Index">會員檔案</a></li>
+                    @*<hr />
+                    <li class="nav-item btn"><a class="btn-outline-primary nav-link" id="change-password" href="/Auth/ChangePassword">密碼設置</a></li>*@
+                </ul>
+            </div>
+            <div class="col-1 col-md-1"></div>
 
-                <hr />
-
-
-                <!--使用者帳號-->
-                <div class="form-group row d-flex justify-content-start">
-                    <div class="col-8">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <i class="fas fa-address-card col-1"></i>
+            <div class="col-10 col-md-10">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form action="/Auth/MemberEdit" method="post">
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="row d-flex justify-content-start d-inline col-8 d-inline">
+                                    <h4 class="col-5 align-content-center">會員檔案</h4>
+                                    <!--送出表單-->
+                                    <button type="submit" class="btn btn-outline-primary col-5 align-content-center">確認修改</button>
                                 </div>
                             </div>
-                            <input asp-for="Email" class="form-control" disabled />
-                            <div class="input-group-append">
-                                <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                            <hr />
 
 
-                <!--電話號碼-->
-                <div class="form-group row d-flex justify-content-start">
-                    <div class="col-8">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <i class="fas fa-phone col-1"></i>
+                            <!--使用者帳號-->
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="col-8">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-address-card col-1"></i>
+                                            </div>
+                                        </div>
+                                        <input asp-for="Email" class="form-control" disabled />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <input asp-for="Phone" class="form-control" />
-                            <span asp-validation-for="Phone" class="text-danger"></span>
-                        </div>
+
+
+                            <!--電話號碼-->
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="col-8">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-phone col-1"></i>
+                                            </div>
+                                        </div>
+                                        <input asp-for="Phone" class="form-control" />
+                                        <span asp-validation-for="Phone" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </form>
+            </div>
+
         </div>
     </div>
 
