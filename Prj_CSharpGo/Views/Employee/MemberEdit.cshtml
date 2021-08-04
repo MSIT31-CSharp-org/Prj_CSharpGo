@@ -18,14 +18,18 @@
             @Html.AntiForgeryToken()
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="UserId">會員編號</label>
-                <input class="form-control-plaintext col-sm-9" type="number" data-val="true" data-val-required="不可空白" id="UserId" name="UserId" readonly value="@Model.UserId" />
+                <div class="col-sm-9">
+                    <input class="form-control-plaintext" type="number" id="UserId" name="UserId" readonly value="@Model.UserId" />
+                </div>
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="UserId" data-valmsg-replace="true"></span>
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="Email">帳號 / Email</label>
-                <input class="form-control-plaintext col-sm-9" type="text" id="Email" name="Email" readonly value="@Model.Email" />
+                <label class="col-sm-3 col-form-label" for="Email">帳號 Email</label>
+                <div class="col-sm-9">
+                    <input class="form-control-plaintext" type="text" id="Email" name="Email" readonly value="@Model.Email" />
+                </div>
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
             </div>
@@ -36,72 +40,95 @@
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="UserPassword" data-valmsg-replace="true"></span>
             </div>
+
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="UserName">名字</label>
-                <input class="form-control-plaintext col-sm-9" type="text" id="UserName" name="UserName" readonly value="@Model.UserName" />
+                <div class="col-sm-9">
+                    <input class="form-control-plaintext" type="text" id="UserName" name="UserName" readonly value="@Model.UserName" />
+                </div>
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
             </div>
+
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="Birthday">生日</label>
-                <input class="form-control-plaintext col-sm-9" type="text" id="Birthday" name="Birthday" readonly value="@Model.Birthday" />
+                <div class="col-sm-9">
+                    <input class="form-control-plaintext" type="text" id="Birthday" name="Birthday" readonly value="@Model.Birthday" />
+                </div>
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="Birthday" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="Region">地區</label>
-                <input class="form-control-plaintext col-sm-9" type="text" id="Region" name="Region" readonly value="@Model.Region" />
+                <div class="col-sm-9">
+                    <input class="form-control-plaintext" type="text" id="Region" name="Region" readonly value="@Model.Region" />
+                </div>
+                <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="Region" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="Address">地址</label>
-                <input class="form-control-plaintext col-sm-9" type="text" id="Address" name="Address" readonly value="@Model.Address" />
-                <span class="text-danger field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
-            </div>
+                <div class="col-sm-9">
+                    <input class="form-control-plaintext" type="text" id="Address" name="Address" readonly value="@Model.Address" />
+                </div>
+                    <label class="col-sm-3 col-form-label"></label>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+                </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="Phone">電話</label>
-                <input class="form-control-plaintext col-sm-9" type="text" id="Phone" name="Phone" readonly value="@Model.Phone" />
-                <span class="text-danger field-validation-valid" data-valmsg-for="Phone" data-valmsg-replace="true"></span>
-            </div>
-            <div class="form-group row">
+                <div class="col-sm-9">
+                    <input class="form-control-plaintext" type="text" id="Phone" name="Phone" readonly value="@Model.Phone" />
+                </div>
+                    <label class="col-sm-3 col-form-label"></label>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="Phone" data-valmsg-replace="true"></span>
+                </div>
+            <div class="form-group row d-none">
                 <label class="col-sm-3 col-form-label" for="Img">照片</label>
                 <input class="form-control-plaintext col-sm-9" type="text" id="Img" name="Img" readonly value="@Model.Img" />
                 <span class="text-danger field-validation-valid" data-valmsg-for="Img" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group row">
+            <div class="form-group row d-none">
                 <label class="col-sm-3 col-form-label" for="DiscountCode">優惠碼</label>
                 <input class="form-control-plaintext col-sm-9" type="text" id="DiscountCode" name="DiscountCode" readonly value="@Model.DiscountCode" />
                 <span class="text-danger field-validation-valid" data-valmsg-for="DiscountCode" data-valmsg-replace="true"></span>
             </div>
+
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="UpdateDate">建立日期</label>
-                <input class="form-control col-sm-9" type="datetime-local" id="UpdateDate" name="UpdateDate" value="@Model.UpdateDate" />
-                <span class="text-danger field-validation-valid" data-valmsg-for="UpdateDate" data-valmsg-replace="true"></span>
-            </div>
+                <div class="col-sm-9">
+                    <input class="form-control-plaintext" type="text" id="UpdateDate" name="UpdateDate" readonly value="@Model.UpdateDate.ToString()" />
+                    </div>
+                <label class="col-sm-3 col-form-label"></label>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="UpdateDate" data-valmsg-replace="true"></span>
+                </div>
 
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="UserStatus">帳號狀態</label>
-                <select name="UserStatus" class="form-control col-sm-9">
-                    @{if (Model.UserStatus == "NR")
-                        {
-                            <option value="NR" selected>正常</option>
-                            <option value="SP">停權</option>
-                            <option value="WL">註銷</option>
+                <div class="col-sm-9">
+                    <select name="UserStatus" class="form-control">
+                        @{if (Model.UserStatus == "NR")
+                            {
+                                <option value="NR" selected>正常</option>
+                                <option value="SP">停權</option>
+                                <option value="WL">註銷</option>
+                            }
+                            else if (Model.UserStatus == "SP")
+                            {
+                                <option value="NR">正常</option>
+                                <option value="SP" selected>停權</option>
+                                <option value="WL">註銷</option>
+                            }
+                            else
+                            {
+                                <option value="NR">正常</option>
+                                <option value="SP">停權</option>
+                                <option value="WL" selected>註銷</option>
+                            }
                         }
-                        else if (Model.UserStatus == "SP")
-                        {
-                            <option value="NR">正常</option>
-                            <option value="SP" selected>停權</option>
-                            <option value="WL">註銷</option>
-                        }
-                        else
-                        {
-                            <option value="NR">正常</option>
-                            <option value="SP">停權</option>
-                            <option value="WL" selected>註銷</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="form-group row">
+                    </select>
+                </div>
+                </div>
+            <div class="form-group row d-none">
                 <label class="col-sm-3 col-form-label" for="Vip">Vip</label>
                 <select name="Vip" class="form-control col-sm-9">
                     @{if (Model.UserStatus == "01")
