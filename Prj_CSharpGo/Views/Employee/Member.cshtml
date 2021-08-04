@@ -39,16 +39,13 @@
                 會員編號
             </th>
             <th>
-                帳號
+                帳號 / Email
             </th>
             <th>
                 名字
             </th>
             <th>
                 電話
-            </th>
-            <th>
-                Email
             </th>
             <th>
                 帳號狀態
@@ -58,51 +55,48 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr class="wrap" data-index="@item.UserAccount @item.Email">
-            <td>
-                @item.UserId
-            </td>
-            <td>
-                @item.UserAccount
-            </td>
-            <td>
-                @item.UserName
-            </td>
-            <td>
-                @item.Phone
-            </td>
-            <td>
-                @item.Email
-            </td>
-            @if (item.UserStatus == "NR")
-            {
+            <tr class="wrap" data-index="@item.Email">
                 <td>
-                    正常
+                    @item.UserId
                 </td>
-            }
-            else if (item.UserStatus == "SP")
-            {
                 <td>
-                    停權
+                    @item.Email
                 </td>
-            }
-            else
-            {
                 <td>
-                    註銷
+                    @item.UserName
                 </td>
-            }
+                <td>
+                    @item.Phone
+                </td>
+                @if (item.UserStatus == "NR")
+                {
+                    <td>
+                        正常
+                    </td>
+                }
+                else if (item.UserStatus == "SP")
+                {
+                    <td>
+                        停權
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        註銷
+                    </td>
+                }
 
-            <td class="text-xl-right">
-                <a href="/Employee/MemberEdit/@item.UserId" class="btn btn-info btn-icon-split">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-info-circle"></i>
-                    </span>
-                    <span class="text">詳細資料</span>
-                </a>
-            </td>
+                <td class="text-xl-right">
+                    <a href="/Employee/MemberEdit/@item.UserId" class="btn btn-info btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                        <span class="text">詳細資料</span>
+                    </a>
+                </td>
 
-        </tr>
+            </tr>
         }
     </tbody>
 </table>
