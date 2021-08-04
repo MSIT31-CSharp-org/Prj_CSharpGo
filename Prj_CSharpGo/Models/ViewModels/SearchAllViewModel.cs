@@ -32,7 +32,7 @@ namespace Prj_CSharpGo.Models
         public string CampGenre { get; set; }
 
         public IEnumerable<Product> products { get; set; }
-        //public IEnumerable<ProductImg> productImgs { get; set; }
+        public IEnumerable<ProductImg> productImgs { get; set; }
         public IEnumerable<Recipe> recipes { get; set; }
         public IEnumerable<RecipeImg> recipeImgs { get; set; }
         public IEnumerable<Camp> camps { get; set; }
