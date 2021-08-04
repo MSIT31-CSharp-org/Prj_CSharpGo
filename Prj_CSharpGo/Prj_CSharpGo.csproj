@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Search\detail.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\Auth\Create.cshtml" />
     <None Include="Views\Auth\Details.cshtml" />
     <None Include="Views\Auth\Edit.cshtml" />
