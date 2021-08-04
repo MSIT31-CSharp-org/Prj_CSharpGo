@@ -1,36 +1,14 @@
-﻿@model Prj_CSharpGo.Models.ShopCartViewModels.returnshCartIndexVM
-@*
-    @model List<Prj_CSharpGo.Models.ShopCartViewModels.PShopCartViewMolds>
+﻿@using Microsoft.AspNetCore.Http
 
-    @{
-        foreach (var item in Model)
-        {
-            //購物車版面架構
-            <div class="col-12">
-                <h1 class="tit3">@item.ProductId</h1>
-                <a class="btn btn-success" href="/">確定訂單</a>
-            </div>
-            <div class="col-12">
-                <h1 class="tit3">@item.ProductName</h1>
-                <a class="btn btn-success" href="/">確定訂單</a>
-            </div>
-            <div class="col-12">
-                <h1 class="tit3">@item.Quantity</h1>
-                <a class="btn btn-success" href="/">確定訂單</a>
-            </div>
-            <div class="col-12">
-                <h1 class="tit3">@item.TotalPrice</h1>
-                <a class="btn btn-success" href="/">確定訂單</a>
-            </div>
-            <div class="col-12">
-                <h1 class="tit3">@item.TotalPrice</h1>
-                <a class="btn btn-success" href="/">確定訂單</a>
-            </div>
-        }
-    }
-*@
+@model Prj_CSharpGo.Models.ShopCartViewModels.returnshCartIndexVM
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
+@*@{
+           string userid = user.HttpContext.Session.GetString("Userid") ?? "Guest";
+    }*@
+
 @{
-    ViewData["Title"] = "露營用品";
+    ViewData["Title"] = "購物車";
 }
 
 <main id="main">
@@ -67,13 +45,12 @@
                     <h3>購物車清單</h3>
                 </div>
                 <br>
-
-
                 <table class="table">
                     <thead>
                         <tr class="table-warning">
                             <th scope="col">貨號</th>
                             <th scope="col">商品名稱</th>
+                            <th scope="col">單價</th>
                             <th scope="col">數量</th>
                             <th scope="col">小 計</th>
                             <th scope="col">總金額</th>
@@ -81,102 +58,126 @@
                     </thead>
 
                     <tbody>
-                        
-                        @foreach (var item in Model.ShoppingCarts)
-                        {
-                            <tr>
-                                <th scope="row">@item.ProductId</th>
-                                <td>@item.Product</td>  <!--.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName-->
-                                <td>>@item.Quantity</td>
-                                <td>
-                                    <select class="$form-select-bg-position" name="PlusPrice" id="PlusPrice">
-                                        <option value="0">  0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">5</option>
-                                    </select>
-                                    <div><div id="pricevalue1"></div></div>
+                        @{ int i = 1;
+                            int? Totall = 0;
+                            @foreach (var item in Model.ShoppingCarts)
+                            {
+                                string temp1 = "price" + i;
+                                string temp2 = "getUUP" + i;
+                                string temp3 = "pricevalue" + i;
+                                string temp4 = "before" + i;
+                                <tr>
+                                    <th scope="row">@item.ProductId</th>
+                                    <td>@item.ProductName</td>  <!--.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName-->
+                                    <td id="SHOUP" name="SHOUP">@item.UnitPrice 元</td>
 
-                                </td>
+                                    <input type="hidden" name="getUUP" id="@temp2" value="@item.UnitPrice" />
 
 
-                                @*
                                     <td>
-                                        @Model.Product.FirstOrDefault(x => x.ProductId == item.ProductId).SMTotal 元
+                                        @*會員手動調整商品數量    應該要推進購物車資料庫裡的數量*@
+                                        <select class="$form-select-bg-position " name="PQuantity" id="@temp1">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
                                     </td>
-                                    <td id="total_price">
-                                        @item.BigTotal
+                                    @*各項單品小計(隨會員更改浮動相乘)@Model.PuserFilterModel.SMTotal*@
+                                    <td>
+                                        <div id="@temp3">@item.UnitPrice 元</div>
                                     </td>
-                                *@
-                            </tr>
+
+                                    <input type="hidden" id="@temp4" value="" />
+
+
+                                    <td>
+                                        @*總金額(小計相加)@Model.PuserFilterModel.BigTotal =   @<tr id="Total">@Totall 元</tr> *@
+                                        @{ Totall += @item.UnitPrice;}
+
+                                    </td>
+
+                                </tr>
+                                i++;
+
+                            }
+                            <tr id="Total">@Totall 元</tr>
                         }
+                    </tbody>
 
-                        @foreach (var item in Model.Products)
-                        {
-                            <tr>
-                                <th scope="row">@item.ProductId</th>
-                                <td>@item.ProductName</td>  <!--.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName-->
-                                <td>>@item.UnitPrice</td>
-                                <td>
-                                    <select class="$form-select-bg-position" name="PlusPrice" id="PlusPrice">
-                                        <option value="0">  0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">5</option>
-                                    </select>
-                                    <div><div id="pricevalue1"></div></div>
+                </table>
+                @*把這頁的資料傳進資料庫ShoppingCartUserFilterModel的PuserFilterModel*@
+                @*把這頁的資料傳進控制器PShopCartController的Index*@
+                @using (Html.BeginForm("OrderIndex", "PShopCartController", FormMethod.Post))//指定提交傳回控制器方式//應該改成AddOrder
+                {
 
-                                </td>
-                               </tr>
-                                }
-                        </tbody>
+                    @Html.HiddenFor(Model => Model.PuserFilterModel.UserId)
+                    @Html.HiddenFor(Model => Model.PuserFilterModel.ProductId)
+                    @Html.HiddenFor(Model => Model.PuserFilterModel.ProductName)
+                    @Html.HiddenFor(Model => Model.PuserFilterModel.UnitPrice)
+                    @Html.HiddenFor(Model => Model.PuserFilterModel.Quantity)
+                    @Html.HiddenFor(Model => Model.PuserFilterModel.SMTotal)
+                    //@Html.HiddenFor(Model => Model.PuserFilterModel.BigTotal)
 
-                    </table>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/Home/Product" type="button" class="btn btn-secondary">再逛逛</a>
+                        <a href="/PShopCart/OrderIndex" type="submit" class="btn btn-success" id="comform">去買單</a>
 
-                    @using (Html.BeginForm("ComfirmResult", "Campreserve", FormMethod.Post))
-                    {
-
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="/Campreserve/Index" type="button" class="btn btn-secondary">再逛逛</a>
-                            <button type="submit" class="btn btn-success">去買單~</button>
-
-                        </div>
-
-                    }
-
-                </div>
+                    </div>
+                }
             </div>
-        </section>
+        </div>
+    </section>
+</main><!-- End #main -->
+<!-- ======= Footer ======= -->
+<!-- Template Main JS File -->
+@*<script src="~/js/main.js"></script>*@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
 
-    </main><!-- End #main -->
-    <!-- ======= Footer ======= -->
-    <!-- Template Main JS File -->
-    @*<script src="~/js/main.js"></script>*@
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"></script>
+</script>
 
 
+@for (int j = 1; j < @Model.ShoppingCarts.Count() + 1; j++)
+{
     <script>
-    @* var origin_price =@iteml.BigTotal;
-    $("#PlusPrice").change(function () {
-        if (PlusPrice != null) {
-            $("#pricevalue1").empty()
-            $("#pricevalue2").empty()
-        }
-        var s = parseInt($("#PlusPrice").prop("value")) * 100;
+        @{var UUP = "getUUP" + j.ToString(); }//抓這個購物車裡 特定商品的價格
+        @{var TTemp = "price" + j.ToString(); }//會員可以選擇的商品數量
+        @{ var Temp3 = "pricevalue" + j.ToString();}//這是確定下訂數量
+        $("#@TTemp").change(function () {
+                if (@TTemp != null) {
+                  $("#@Temp3").empty()
+                }
+                //S是小計  要傳回去購物車的資料庫
+                var s = parseInt($("#@TTemp").prop("value")) * parseInt($("#@UUP").prop("value"));
+            $("#@Temp3").append(  s + "  元");
 
-        $("#pricevalue1").append("(共  " + s + "  元)");
-        $("#pricevalue2").append("(共  " + s + "  元)");
-        $('#total_price').text(origin_price + parseInt(s));
-        $("#Peoplenumber").val(s / 100)
+            @Totall=0;
+            @foreach (var item in Model.ShoppingCarts)
+            {
 
+                 Totall += @item.UnitPrice;
+             }
+             $('#Total').text(@Totall);
 
-    });
-    *@
+            @*$.ajax({
+                type: "post",
+                url: "/PShopCart/Index/" +"@item.ProductId" +"@TTemp",
+                contentType: "application/json",
+                data: JSON.stringify()
+            })
+                .then(function (e) {
 
+                })*@
+
+            });
     </script>
+}
 
+<script>
+        $("#comform").click(function () {
+            alert('@Html.Raw(ViewBag.messagea)');
+         });
 
+</script>

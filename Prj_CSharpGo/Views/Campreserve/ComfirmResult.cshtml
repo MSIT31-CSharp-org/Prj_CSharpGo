@@ -7,7 +7,7 @@
 <main id="main">
 
     <!-- ======= Intro Single ======= -->
-    <section class="intro-single">
+    <section class="intro-single" style="margin-top:-120px">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-8">
@@ -15,18 +15,7 @@
                         <h1 class="title-single">營地預約訂單</h1>
                     </div>
                 </div>
-                <div class="col-md-12 col-lg-4">
-                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="#">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">
-                                Book Cover Deisgn
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
+
             </div>
         </div>
     </section><!-- End Intro Single-->
@@ -56,7 +45,7 @@
 
                     <tbody>
                         <tr>
-                            <th><img src="~/img/@ViewBag.Img" width="100" ></th>
+                            <th><img src="~/img/@ViewBag.Img" width="100"></th>
                             <th scope="row">@Model.CampName</th>
                             <td>@Model.StartDay.ToString("yyyy-MM-dd")</td>
                             <td>@Model.EndDay.ToString("yyyy-MM-dd")</td>
@@ -94,6 +83,7 @@
                     @Html.HiddenFor(Model => Model.HolidayPrice)
                     @Html.HiddenFor(Model => Model.Peoplenumber)
                     @Html.HiddenFor(Model => Model.TotalPrice)
+                    @Html.HiddenFor(Model => Model.PlusPrice)
                     @Html.HiddenFor(Model => Model.TotalPricebig)
 
 
