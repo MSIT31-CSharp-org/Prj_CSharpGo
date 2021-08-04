@@ -3,9 +3,9 @@
 @model Prj_CSharpGo.Models.ShopCartViewModels.returnshCartIndexVM
 
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
-@{
-        string userid = user.HttpContext.Session.GetString("Userid") ?? "Guest";
- }
+@*@{
+           string userid = user.HttpContext.Session.GetString("Userid") ?? "Guest";
+    }*@
 
 @{
     ViewData["Title"] = "購物車";
@@ -99,16 +99,16 @@
 
                                 </tr>
                                 i++;
-                                <tr id="Total">@Totall 元</tr>
+
                             }
-                            
+                            <tr id="Total">@Totall 元</tr>
                         }
                     </tbody>
 
                 </table>
                 @*把這頁的資料傳進資料庫ShoppingCartUserFilterModel的PuserFilterModel*@
                 @*把這頁的資料傳進控制器PShopCartController的Index*@
-                @using (Html.BeginForm("OrderIndex", "PShopCartController", FormMethod.Post))//指定提交傳回控制器方式
+                @using (Html.BeginForm("OrderIndex", "PShopCartController", FormMethod.Post))//指定提交傳回控制器方式//應該改成AddOrder
                 {
 
                     @Html.HiddenFor(Model => Model.PuserFilterModel.UserId)
@@ -121,7 +121,7 @@
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="/Home/Product" type="button" class="btn btn-secondary">再逛逛</a>
-                        <a href="/PShopCart/OrderIndex" type="submit" class="btn btn-success"id="comform">去買單</a>
+                        <a href="/PShopCart/OrderIndex" type="submit" class="btn btn-success" id="comform">去買單</a>
 
                     </div>
                 }
@@ -152,6 +152,14 @@
                 //S是小計  要傳回去購物車的資料庫
                 var s = parseInt($("#@TTemp").prop("value")) * parseInt($("#@UUP").prop("value"));
             $("#@Temp3").append(  s + "  元");
+
+            @Totall=0;
+            @foreach (var item in Model.ShoppingCarts)
+            {
+
+                 Totall += @item.UnitPrice;
+             }
+             $('#Total').text(@Totall);
 
             @*$.ajax({
                 type: "post",

@@ -28,18 +28,24 @@ namespace Prj_CSharpGo.Controllers
         //以下是購物車相關------------------------------------------------------------------------------------
         [HttpPost]
         public IActionResult AddCart(ShoppingCart ShoppingCarts)//檢視：無-接收商品頁面的資料 要傳進購物車資料庫PShopCartViewMolds中的ShoppingCarts的動作
-
         {
-            ShoppingCart PTOSCOrder = new ShoppingCart() { 
-                ShCartID = ShoppingCarts.ShCartID,
-                UserId = ShoppingCarts.UserId,
-                ProductId = ShoppingCarts.ProductId,
-                Quantity = ShoppingCarts.Quantity,
-                UnitPrice = ShoppingCarts.UnitPrice,
-                Status = ShoppingCarts.Status,
-                ProductName = ShoppingCarts.ProductName,
-            };
-            _context.ShoppingCarts.Add(PTOSCOrder);
+            if (_context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId) != null)
+            {
+                _context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).Quantity += ShoppingCarts.Quantity;
+            }
+            else
+            {
+                ShoppingCart PTOSCOrder = new ShoppingCart()
+                {
+                    UserId = ShoppingCarts.UserId,
+                    ProductId = ShoppingCarts.ProductId,
+                    Quantity = ShoppingCarts.Quantity,
+                    UnitPrice = ShoppingCarts.UnitPrice,
+                    Status = ShoppingCarts.Status,
+                    ProductName = ShoppingCarts.ProductName,
+                };
+                _context.ShoppingCarts.Add(PTOSCOrder);
+            }
             _context.SaveChanges();         
             return Redirect("/PShopCart/Index");//接收的直要呈現在VIEW的檢視頁面/PShopCart/Index
         }
@@ -61,8 +67,8 @@ namespace Prj_CSharpGo.Controllers
 
         //以下是訂單相關---------------------------------------------------------------------------------------
         [HttpPost]
-        public IActionResult OrderIndex(POrderAllModel POrderAllModel)//檢視：無-接收購物車清單要傳進訂單資料庫的資料
-                                                                      //AddOrder
+        public IActionResult OrderIndex(POrderAllModel POrderAllModel)//檢視：改成AddOrder?無-接收購物車清單要傳進訂單資料庫的資料
+                                                                                 //AddOrder
         {
             Order SCtoOrder = new Order()//推進資料庫Order
             {
@@ -84,10 +90,8 @@ namespace Prj_CSharpGo.Controllers
             _context.SaveChanges();
             // return Redirect("/PShopCart/OrderIndex");
 
-
             OrderDetail SCtoOrderDetail = new OrderDetail()//推進資料庫OrderDetail
             {
-
                 OrderId = POrderAllModel.OrderId,
                 ProductId = POrderAllModel.ProductId,
                 // OrderDate = DateTime.Now,
@@ -96,10 +100,8 @@ namespace Prj_CSharpGo.Controllers
                 Discount = POrderAllModel.Discount,
                 Commets = POrderAllModel.Commets,
                 Approval = POrderAllModel.Approval,
-
                 //Peoplenumber = SCPtoOrderModel.Peoplenumber,
                 //TotalPrice = SCPtoOrderModel.TotalPricebig + SCPtoOrderModel.PeoplePrice * SCPtoOrderModel.Peoplenumber,
-
             };
             _context.OrderDetails.Add(SCtoOrderDetail);
             _context.SaveChanges();
