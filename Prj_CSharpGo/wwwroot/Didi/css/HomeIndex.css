@@ -11587,8 +11587,8 @@ footer.footer {
 /*自己寫的*/
 
 .picSize {
-    max-width: 650px;
-    max-height: 650px;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: cover;
 /*    margin-top:20%;
     margin-left:20%; 
@@ -11650,8 +11650,6 @@ footer.footer {
 
         .card_1 {
             margin-right: 15px;
-            width: 200px;
-            height: 380px;
             float: left;
         }
 
@@ -11683,3 +11681,8 @@ footer.footer {
         .card4 {
             margin-top: 20px;
         }
+
+/*背景*/
+.bg{
+    background-image:url(~/Didi/img/camping.png);
+}

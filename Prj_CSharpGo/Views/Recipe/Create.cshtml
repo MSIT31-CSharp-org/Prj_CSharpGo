@@ -11,11 +11,11 @@
         <form class="col-md-9 m-auto" method="post" action="/Recipe/Create" data-ajax='false'>
             @*<form class="col-md-9 m-auto" method="post" action="/Recipe/Edit" role="form" data-ajax='false'>*@
             @*上傳圖片 JS在最下面*@
-            <div  class=" inputimg">
+            <div class=" inputimg">
                 <img id="output" style="max-width: 400px; max-height: 400px; margin-left: 50px" class="mt-1" />
                 <input type="file" name="Img" accept="image/*" onchange="loadFile(event)" style="margin-top:10px;">
             </div>
-            <br> <br>
+            <br>
             @*上傳圖片*@
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
@@ -36,7 +36,6 @@
                     <label for="inputsubject">料理時間Cooking time</label>
                     <input type="text" class="form-control mt-1" name="CookingTime" placeholder="CookingTime">
                 </div>
-
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
@@ -44,47 +43,54 @@
                     <input type="text" class="form-control mt-1" name="Yield" placeholder="Model.Yield">
                 </div>
             </div>
+
+            @*新增食材*@
+            <div class="row">
+                <div class="col-md-2" style="float:left">
+                    <button id="ass_add" type="button" class="bi bi-plus form-control mt-1" style="font-size:20px">  新增食材</button>
+                </div>
+            </div>
             @*食材清單*@
-        <div id="ass_area">
-            @{
-                var index = 0;
-                        <div class="row" id="row_@index">
-                            <input type="text" class="form-control mt-1" name="Description[@index].Key" value="@index" hidden>
-                            <input type="text" class="form-control mt-1" name="ProductID[@index].Key" value="@index" hidden>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputsubject">FOOD_Description</label>
-                                <div class="row">
-                                    <div class="col-md-2" style="float:left">
-                                        <button id="ass_add" type="button" class="bi bi-plus form-control mt-1"></button>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control mt-1" name="Description[@index].Value" placeholder="Description">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label for="inputsubject">Product</label>
-                                <div class="=row">
-                                    <div class="col-md-8">
-                                        <select class="form-control mt-1" style="float: left;" name="ProductID[@index].Value">
-                                            <option value="0">食材選擇</option>
-                                            @{ foreach (var item in Model.Products)
-                                                {
-                                                    <option value="@item.ProductId">@item.ProductName </option>
-                                                }
-                                            }
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2" style="float: left;margin-left:5px;">
-                                        @*<button type="button" class="form-control mt-1 col-md-2" onclick="del_row(this)" data-id="' + row_num + '">Del</button>*@
-                                        <button type="button" class="form-control mt-1" onclick="del_row(this)" data-id="@index">Del</button>
-                                    </div>
+            <div id="ass_area">
+                @{
+                    var index = 0;
+                    <div class="row" id="row_@index">
+                        <input type="text" class="form-control mt-1" name="Description[@index].Key" value="@index" hidden>
+                        <input type="text" class="form-control mt-1" name="ProductID[@index].Key" value="@index" hidden>
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="inputsubject">FOOD_Description</label>
+                            <div class="row">
+                                @*<div class="col-md-2" style="float:left">
+                                    <button id="ass_add" type="button" class="bi bi-plus form-control mt-1"></button>
+                                </div>*@
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control mt-1" name="Description[@index].Value" placeholder="Description">
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="inputsubject">Product</label>
+                            <div class="=row">
+                                <div class="col-md-8">
+                                    <select class="form-control mt-1" style="float: left;" name="ProductID[@index].Value">
+                                        <option value="0">食材選擇</option>
+                                        @{ foreach (var item in Model.Products)
+                                            {
+                                                <option value="@item.ProductId">@item.ProductName </option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-2" style="float: left;margin-left:5px;">
+                                    @*<button type="button" class="form-control mt-1 col-md-2" onclick="del_row(this)" data-id="' + row_num + '">Del</button>*@
+                                    <button type="button" class="form-control mt-1" onclick="del_row(this)" data-id="@index">Del</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     index++;
-                    }
-                    
+                }
+
             </div>
             <div class="mb-3">
                 <label for="inputmessage">01.備料Preparation</label>

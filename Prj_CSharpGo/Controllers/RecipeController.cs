@@ -27,6 +27,9 @@ namespace Prj_CSharpGo.Controllers
         public IActionResult Detail(int? id)
         {
             Recipe re = _context.Recipes.Find(id);
+            ViewData["Association"] = this._context.Associations.Where(x => x.RecipeId == id).ToList();
+            ViewData["Product"] = this._context.Products.ToList();
+            ViewData["ProductImg"] = this._context.ProductImgs.ToList();
             return View(re);
         }
         public IActionResult Edit(int id)
@@ -74,17 +77,21 @@ namespace Prj_CSharpGo.Controllers
                     _context.Associations.Remove(item);
                 }
             }
-            // 在做新增
+            // 再做新增
             foreach (KeyValuePair<int, string> item in ProductID)
             {
                 var AssociationObj = new Association();
                 AssociationObj.RecipeId = RecipeId;
                 AssociationObj.ProductId = "";
+                AssociationObj.Description = "";
                 if (item.Value != null)
                 {
                     AssociationObj.ProductId = item.Value;
                 }
-                AssociationObj.Description = Description[item.Key].ToString();
+                if(Description[item.Key]!=null)
+                {
+                    AssociationObj.Description = Description[item.Key].ToString();
+                }
                 _context.Associations.Add(AssociationObj);
             }
             _context.SaveChanges();
