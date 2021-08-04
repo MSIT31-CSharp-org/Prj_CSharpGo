@@ -266,3 +266,9 @@
 	/*   object-fit: contain; */
 	/*   object-fit: fill; */
 }
+
+.inputimg{
+	
+	width:450px;
+	height:450px;
+}

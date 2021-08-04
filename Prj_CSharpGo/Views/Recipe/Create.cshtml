@@ -11,8 +11,10 @@
         <form class="col-md-9 m-auto" method="post" action="/Recipe/Create" data-ajax='false'>
             @*<form class="col-md-9 m-auto" method="post" action="/Recipe/Edit" role="form" data-ajax='false'>*@
             @*上傳圖片 JS在最下面*@
-            <img id="output" style="width: 400px; height: 300px; margin-left:50px" class="form-control mt-1" />
-            <input type="file" name="Img" accept="image/*" onchange="loadFile(event)">
+            <div  class=" inputimg">
+                <img id="output" style="max-width: 400px; max-height: 400px; margin-left: 50px" class="mt-1" />
+                <input type="file" name="Img" accept="image/*" onchange="loadFile(event)" style="margin-top:10px;">
+            </div>
             <br> <br>
             @*上傳圖片*@
             <div class="row">
@@ -27,12 +29,12 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
-                    <label for="inputsubject">料理時間Cooking time</label>
-                    <input type="text" class="form-control mt-1" name="CookingTime" placeholder="CookingTime">
-                </div>
-                <div class="form-group col-md-6 mb-3">
                     <label for="inputsubject">準備時間時間PreparationTime</label>
                     <input type="text" class="form-control mt-1" name="PreparationTime" placeholder="PreparationTime">
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="inputsubject">料理時間Cooking time</label>
+                    <input type="text" class="form-control mt-1" name="CookingTime" placeholder="CookingTime">
                 </div>
 
             </div>
