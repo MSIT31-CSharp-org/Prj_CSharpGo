@@ -179,15 +179,21 @@
                 </div>
                 <div div="row">
                     <ul class="pagination pagination-lg justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#" tabindex="-1">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
-                        </li>
+                        @Html.PagedListPager((IPagedList)Model.products, x => Url.Action("Index", new { page = x , categoryid = Model.userModel.CategoryId , categorytype=Model.userModel.CategoryType}),
+                            new X.PagedList.Web.Common.PagedListRenderOptions
+                            {
+                                LiElementClasses = new string[] { "page-item" },
+                                PageClasses = new string[] { "page-link" }
+                            })
+                        @*<li class="page-item disabled">
+                                <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#" tabindex="-1">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
+                            </li>*@
                     </ul>
                 </div>
             </div>
@@ -276,7 +282,7 @@
                                     </div>
                                     <!--End Third slide-->
 
-                                    @*@Html.PagedListPager((IPagedList)Model, x => Url.Action("Index", new { page = x }))*@
+
                                 </div>
                                 <!--End Slides-->
                             </div>

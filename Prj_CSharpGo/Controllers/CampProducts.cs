@@ -24,37 +24,45 @@ namespace Prj_CSharpGo.Controllers
 
 
         //分頁用
-        private int pageSize = 8;
+        private int pageSize = 9;
 
-        public IActionResult Index(string categoryid="",string categorytype="",int Page=1)
+        public IActionResult Index(string categoryid = "", string categorytype = "", int Page = 1)
         {
             ProductHome productHome = new ProductHome();
+
 
             if (categoryid == "" && categorytype == "")
             {
                 productHome.products = _context.Products.ToList();
             }
-            else if(categorytype == "")
+            else if (categorytype == "")
             {
                 productHome.products = _context.Products.Where(s => s.CategoryId == categoryid).ToList();
-            }else if (categoryid != "" && categorytype != "")
+            }
+            else if (categoryid != "" && categorytype != "")
             {
                 productHome.products = _context.Products.Where(s => s.CategoryId == categoryid && s.CategoryType == categorytype).ToList();
             }
             //productHome.products = categoryid==""? _context.Products.ToList():_context.Products.Where(s => s.CategoryId == categoryid).ToList();
-            string[] productIdArr =  productHome.products.Select(s => s.ProductId).ToArray();
+            string[] productIdArr = productHome.products.Select(s => s.ProductId).ToArray();
             productHome.productImgs = _context.ProductImgs.Where(s => productIdArr.Contains(s.ProductId)).ToList();
             productHome.categories = _context.Categories.ToList();//.Where(s => s.CategoryName == name);
-            productHome.categoriesTypeIs =  _context.CategoriesTypeIs.ToList();
+            productHome.categoriesTypeIs = _context.CategoriesTypeIs.ToList();
 
-            //productHome.products = _context.Products.OrderBy(o => o.ProductId).ToPagedList(Page, pageSize);
+            productHome.products = productHome.products.OrderBy(o => o.ProductId).ToPagedList(Page, pageSize);
+
+            productHome.userModel = new Product()
+            {
+                CategoryId = categoryid,
+                CategoryType = categorytype,
+            };
 
             return View("Index", productHome);
 
             //return View("Index", productHome);
         }
 
-    
+
 
         // 正常來說會收到一段string productid 但是目前頁面還沒處理好 我就直接給 productid = "Aa10CL007"
         public IActionResult ProductDetail(string productid, string categoryid = "", string categorytype = "")
@@ -67,7 +75,7 @@ namespace Prj_CSharpGo.Controllers
             }
             else if (categorytype == "")
             {
-                productHome.products = _context.Products.Where(s => s.CategoryId == categoryid && s.ProductId== productid).ToList();
+                productHome.products = _context.Products.Where(s => s.CategoryId == categoryid && s.ProductId == productid).ToList();
             }
             else if (categoryid != "" && categorytype != "")
             {
@@ -97,7 +105,7 @@ namespace Prj_CSharpGo.Controllers
             //    categoriesTypeIs = _context.CategoriesTypeIs.ToList(),
             //    categoriesTypeIis = _context.CategoriesTypeIis.ToList()
             //};
-            return View("ProductDetail",productHome);
+            return View("ProductDetail", productHome);
         }
 
         //public IActionResult Test()
