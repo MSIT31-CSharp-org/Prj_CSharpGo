@@ -77,7 +77,7 @@
                                 <label for="inputsubject">Product</label>
                                 <div class="=row">
                                     <div class="col-md-8">
-                                        <select class="form-control mt-1" style="float: left;">
+                                        <select class="form-control mt-1" name="ProductID[@index].Value" style="float: left;">
                                             <option value="0">食材選擇</option>
                                             @* 這邊無法用2次Model去foreach，所以用ViewData取代(controller也要寫) *@
                                             @{ foreach (var pro in ViewData["Products"] as List<Product>)
@@ -117,7 +117,7 @@
                             <label for="inputsubject">Product</label>
                             <div class="=row">
                                 <div class="col-md-8">
-                                    <select class="form-control mt-1" style="float: left;">
+                                    <select class="form-control mt-1" style="float: left;" name="ProductID[0].Value">
                                         <option value="0">食材選擇</option>
                                         @{ foreach (var item in Model.Products)
                                             {

@@ -159,7 +159,7 @@ namespace Prj_CSharpGo.Controllers
                 }
             }
             this._context.SaveChanges();
-            return RedirectToAction("Recipe");
+            return RedirectToAction("index");
         }
     }
 }
