@@ -26,7 +26,7 @@ namespace Prj_CSharpGo.Controllers
         //分頁用
         private int pageSize = 8;
 
-        public IActionResult Index(string categoryid="",string categorytype="")
+        public IActionResult Index(string categoryid="",string categorytype="",int Page=1)
         {
             ProductHome productHome = new ProductHome();
 
@@ -46,6 +46,8 @@ namespace Prj_CSharpGo.Controllers
             productHome.productImgs = _context.ProductImgs.Where(s => productIdArr.Contains(s.ProductId)).ToList();
             productHome.categories = _context.Categories.ToList();//.Where(s => s.CategoryName == name);
             productHome.categoriesTypeIs =  _context.CategoriesTypeIs.ToList();
+
+            //productHome.products = _context.Products.OrderBy(o => o.ProductId).ToPagedList(Page, pageSize);
 
             return View("Index", productHome);
 

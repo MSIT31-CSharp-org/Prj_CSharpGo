@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using X.PagedList;
 @using X.PagedList.Mvc.Core
-@using X.PagedList.Web.Common
+
 
 
 
@@ -10,6 +10,7 @@
 @{
     ViewData["Title"] = "商品";
 }
+
 
 
 
@@ -275,6 +276,7 @@
                                     </div>
                                     <!--End Third slide-->
 
+                                    @*@Html.PagedListPager((IPagedList)Model, x => Url.Action("Index", new { page = x }))*@
                                 </div>
                                 <!--End Slides-->
                             </div>
@@ -293,7 +295,6 @@
         </div>
     </section>
 
-   
 
 
     <!--End Brands-->
