@@ -23,12 +23,13 @@
                 <span class="text-danger field-validation-valid" data-valmsg-for="UserId" data-valmsg-replace="true"></span>
             </div>
 
-            @*<div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="UserAccount">帳號</label>
-                <input class="form-control-plaintext col-sm-9" type="text" data-val="true" data-val-required="不可空白" id="UserAccount" name="UserAccount" readonly value="@Model.UserAccount" />
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="Email">帳號 / Email</label>
+                <input class="form-control-plaintext col-sm-9" type="text" id="Email" name="Email" readonly value="@Model.Email" />
                 <label class="col-sm-3 col-form-label"></label>
-                <span class="text-danger field-validation-valid" data-valmsg-for="UserAccount" data-valmsg-replace="true"></span>
-            </div>*@
+                <span class="text-danger field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+            </div>
+
             <div class="form-group row d-none">
                 <label class="col-sm-3 col-form-label" for="UserPassword">密碼</label>
                 <input class="form-control-plaintext col-sm-9" type="text" data-val="true" data-val-required="不可空白" id="UserPassword" name="UserPassword" readonly value="@Model.UserPassword" />
@@ -59,11 +60,6 @@
                 <label class="col-sm-3 col-form-label" for="Phone">電話</label>
                 <input class="form-control-plaintext col-sm-9" type="text" id="Phone" name="Phone" readonly value="@Model.Phone" />
                 <span class="text-danger field-validation-valid" data-valmsg-for="Phone" data-valmsg-replace="true"></span>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="Email">Email</label>
-                <input class="form-control-plaintext col-sm-9" type="text" id="Email" name="Email" readonly value="@Model.Email" />
-                <span class="text-danger field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="Img">照片</label>
@@ -105,10 +101,10 @@
                     }
                 </select>
             </div>
-            @*<div class="form-group row">
+            <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="Vip">Vip</label>
                 <select name="Vip" class="form-control col-sm-9">
-                    @{if (Model.Vip == "01")
+                    @{if (Model.UserStatus == "01")
                         {
                             <option value="01" selected>普通</option>
                             <option value="02">Vip</option>
@@ -120,7 +116,7 @@
                         }
                     }
                 </select>
-            </div>*@
+            </div>
             <div class="form-group">
                 <input type="submit" value="確定送出" class="btn btn-primary" />
                 <a href="/Employee/Member" class="btn btn-danger">回到清單</a>
