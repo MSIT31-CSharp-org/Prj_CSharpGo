@@ -106,7 +106,10 @@ namespace Prj_CSharpGo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Employee employee)
         {
-            if (await _context.Employees.FindAsync(employee.EmployeeId) != null)
+            var queryemp = from o in _context.Employees
+                           where o.EmployeeEmail == employee.EmployeeEmail
+                           select o;
+            if (queryemp.Count() != 0)
             {
                 HttpContext.Session.SetString("employeeToastr", "帳號已存在");
                 return View();
@@ -189,14 +192,15 @@ namespace Prj_CSharpGo.Controllers
         }
 
         // 會員資料頁面
-        public async Task<IActionResult> Member()
+        public async Task<IActionResult> Member(int Page = 1)
         {
             string empSession = HttpContext.Session.GetString("employeeId") ?? "Guest";
             if (empSession == "Guest")
             {
                 return Redirect("/Employee/Login");
             }
-            return View(await _context.Users.ToListAsync());
+            return View(await _context.Users.OrderBy(p => p.UserId).ToPagedListAsync(Page, pageSize));
+            //return View(await _context.Users.ToListAsync());
         }
 
         // 會員編輯頁面
@@ -273,7 +277,7 @@ namespace Prj_CSharpGo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OrderEdit([Bind("UserId,UserAccount,UserPassword,UserName,Birthday,Region,Address,Phone,Email,Img,DiscountCode,UpdateDate,UserStatus,Vip")] Order order)
+        public async Task<IActionResult> OrderEdit([Bind("OrderId,OrderDate,PayMethod,TotalPrice,UserId,Approval")] Order order)
         {
             if (ModelState.IsValid)
             {

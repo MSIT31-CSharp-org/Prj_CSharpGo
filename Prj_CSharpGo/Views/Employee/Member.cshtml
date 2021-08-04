@@ -1,4 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
+@using X.PagedList;
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
 
 @model IEnumerable<Prj_CSharpGo.Models.User>
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
@@ -55,7 +58,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr class="wrap" data-index="@item.Email">
+            <tr class="wrap" data-index="@item.UserId @item.Email">
                 <td>
                     @item.UserId
                 </td>
@@ -100,6 +103,27 @@
         }
     </tbody>
 </table>
+
+@Html.PagedListPager(
+    (IPagedList)Model,
+    page => Url.Action("Member", new { page = page }),
+    PagedListRenderOptions
+        .EnableUnobtrusiveAjaxReplacing(
+            new PagedListRenderOptions()
+            {
+                UlElementClasses = new[] { "pagination" },
+                LiElementClasses = new[] { "page-item" },
+                PageClasses = new[] { "page-link" },
+                LinkToPreviousPageFormat = "«",
+                LinkToNextPageFormat = "»",
+                DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+                DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                MaximumPageNumbersToDisplay = 14
+            },
+            new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "Target", OnSuccess = "Success" })
+)
 
 @if (empToastr != "Guest")
 {
