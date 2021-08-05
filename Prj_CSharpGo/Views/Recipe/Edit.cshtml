@@ -6,18 +6,18 @@
     ViewData["Title"] = "Edit";
 }
 
-
+<link rel="stylesheet" href="~/Didi/css/recipe.css">
 
 @*Start Contact*@
 <div class="container py-5">
     <div class="row py-5">
         <form class="col-md-9 m-auto" method="post" action="/Recipe/Edit" data-ajax='false' enctype="multipart/form-data">
             <input type="text" name="RecipeId" value="@Model.Recipe.RecipeId" hidden>
-            @*<form class="col-md-9 m-auto" method="post" action="/Recipe/Edit" role="form" data-ajax='false'>*@
             @*上傳圖片 JS在最下面*@
-            <img id="output" style="max-width: 300px;max-height: 400px;" class="form-control mt-1" src="~/Didi/img/@Model.Recipe.Img" />
-            <input type="file" name="Img" accept="image/*" onchange="loadFile(event)">
-            <br> <br> <br>
+            <div style="text-align:center" class=" inputimg">
+                <img id="output" style="max-width: 400px; max-height: 400px; display: block; margin: auto; " class="mt-1" src="~/Didi/img/@Model.Recipe.Img" />
+                <input type="file" name="Img" accept="image/*" onchange="loadFile(event)" style="margin-top:10px;">
+            </div>
             @*上傳圖片*@
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
@@ -31,14 +31,13 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
-                    <label for="inputsubject">料理時間Cooking time</label>
-                    <input type="text" class="form-control mt-1" name="CookingTime" value="@Model.Recipe.CookingTime">
-                </div>
-                <div class="form-group col-md-6 mb-3">
                     <label for="inputsubject">準備時間時間PreparationTime</label>
                     <input type="text" class="form-control mt-1" name="PreparationTime" value="@Model.Recipe.PreparationTime">
                 </div>
-
+                <div class="form-group col-md-6 mb-3">
+                    <label for="inputsubject">料理時間Cooking time</label>
+                    <input type="text" class="form-control mt-1" name="CookingTime" value="@Model.Recipe.CookingTime">
+                </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
@@ -46,63 +45,69 @@
                     <input type="text" class="form-control mt-1" name="Yield" value="@Model.Recipe.Yield">
                 </div>
             </div>
-
+            @*新增食材*@
+            <div class="row">
+                <div class="col-md-2" style="float:left">
+                    <button id="ass_add" type="button" class="bi bi-plus form-control mt-1" style="font-size:20px">  新增食材</button>
+                </div>
+            </div>
             @*食材清單*@
-        <div id="ass_area">
-            @* 如果沒有對應的Associations給他一個與新增相同的預設 *@
-            @if (Model.Associations.Count() > 0)
-            {
-                var index = 0;
-                foreach (var ass in Model.Associations)
+            <div id="ass_area">
+                @* 如果沒有對應的Associations給他一個與新增相同的預設 *@
+                @if (Model.Associations.Count() > 0)
                 {
-                    <div class="row" id="row_@index">
-                        <input type="text" class="form-control mt-1" name="Description[@index].Key" value="@index" hidden>
-                        <input type="text" class="form-control mt-1" name="ProductID[@index].Key" value="@index" hidden>
-                        <div class="form-group col-md-6 mb-3">
-                            <label for="inputsubject">FOOD_Description</label>
-                            <div class="row">
-                                <div class="col-md-2" style="float:left">
+                    var index = 0;
+                    foreach (var ass in Model.Associations)
+                    {
+                        <div class="row" id="row_@index">
+                            <input type="text" class="form-control mt-1" name="Description[@index].Key" value="@index" hidden>
+                            <input type="text" class="form-control mt-1" name="ProductID[@index].Key" value="@index" hidden>
+                            <div class="form-group col-md-6 mb-3">
+                                <label for="inputsubject">FOOD_Description</label>
+                                <div class="row">
+                                    @*<div class="col-md-2" style="float:left">
                                     <button id="ass_add" type="button" class="bi bi-plus form-control mt-1"></button>
-                                </div>
-                                <div class="col-md-10">
-                                    <input type="text" class="form-control mt-1" name="Description[@index].Value"  value="@ass.Description" placeholder="Description">
+                                </div>*@
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control mt-1" name="Description[@index].Value" value="@ass.Description" placeholder="Description">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 mb-3">
-                            <label for="inputsubject">Product</label>
-                            <div class="=row">
-                                <div class="col-md-8">
-                                    <select class="form-control mt-1" style="float: left;">
-                                        <option value="0">食材選擇</option>
-                                        @* 這邊無法用2次Model去foreach，所以用ViewData取代(controller也要寫) *@
-                                        @{ foreach (var pro in ViewData["Products"] as List<Product>)
-                                            {
-                                                @* 比對Associations.ProductId是否與Product.ProductId相同=>相同預設選取 *@
-                                                if (ass.ProductId == pro.ProductId)
+                            <div class="form-group col-md-6 mb-3">
+                                <label for="inputsubject">Product</label>
+                                <div class="=row">
+                                    <div class="col-md-8">
+                                        <select class="form-control mt-1" name="ProductID[@index].Value" style="float: left;">
+                                            <option value="0">食材選擇</option>
+                                            @* 這邊無法用2次Model去foreach，所以用ViewData取代(controller也要寫) *@
+                                            @{ foreach (var pro in ViewData["Products"] as List<Product>)
                                                 {
-                                                    <option value="@pro.ProductId" selected>@pro.ProductName </option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="@pro.ProductId">@pro.ProductName </option>
-                                                }
+                                                    @* 比對Associations.ProductId是否與Product.ProductId相同=>相同預設選取 *@
+                                                    if (ass.ProductId == pro.ProductId)
+                                                    {
+                                                        <option value="@pro.ProductId" selected>@pro.ProductName </option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@pro.ProductId">@pro.ProductName </option>
+                                                    }
 
+                                                }
                                             }
-                                        }
-                                    </select>
-                                </div>
-                                <div class="col-md-2" style="float: left;margin-left:5px;">
-                                    <button type="button" class="form-control mt-1" onclick="del_row(this)" data-id="0">Del</button>
+                                        </select>
+                                    </div>
+                                    @* 刪除 *@
+                                    <div class="col-md-2" style="float: left;margin-left:5px;">
+                                        <button type="button" class="form-control mt-1" onclick="del_row(this)" data-id="@index">Del</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    index++;
+                        index++;
+                    }
                 }
-            }
-            else
-            {
+                else
+                {
                     <div class="row" id="row_0">
                         <div class="form-group col-md-6 mb-3">
                             <label for="inputsubject">FOOD_Description</label>
@@ -112,7 +117,7 @@
                             <label for="inputsubject">Product</label>
                             <div class="=row">
                                 <div class="col-md-8">
-                                    <select class="form-control mt-1" style="float: left;">
+                                    <select class="form-control mt-1" style="float: left;" name="ProductID[0].Value">
                                         <option value="0">食材選擇</option>
                                         @{ foreach (var item in Model.Products)
                                             {
@@ -127,9 +132,9 @@
                             </div>
                         </div>
                     </div>
-            }
+                }
 
-        </div>
+            </div>
             <div class="mb-3">
                 <label for="inputmessage">01.備料Preparation</label>
                 <textarea class="form-control mt-1" name="Preparation" rows="8">@Model.Recipe.Preparation</textarea>

@@ -1,108 +1,132 @@
-﻿@model IEnumerable<Prj_CSharpGo.Models.User>
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
+
+@*@model IEnumerable<Prj_CSharpGo.Models.User>*@
+@model Prj_CSharpGo.Models.User
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "會員檔案";
+    @*Layout = "~/Views/Shared/Layout.cshtml";*@
+
+    string userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
+    @*string userStatus = user.HttpContext.Session.GetString("userStatus") ?? "Guest";*@
+    string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <!--<th>-->
-                @*@Html.DisplayNameFor(model => model.UserAccount)*@
-            <!--</th>-->
-            <th>
-                @Html.DisplayNameFor(model => model.UserPassword)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Birthday)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Region)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Img)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiscountCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdateDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserStatus)
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.Vip)*@
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <!--<td>-->
-                @*@Html.DisplayFor(modelItem => item.UserAccount)*@
-            <!--</td>-->
-            <td>
-                @Html.DisplayFor(modelItem => item.UserPassword)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Birthday)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Region)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Img)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserStatus)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.Vip)*@
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UserId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UserId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="~/css/LoginRegister.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1 col-md-1">
+                <!--<partial name="_ManageNav" />-->
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item btn"><a class="btn-outline-primary nav-link" id="profile" href="/Auth/Index">會員檔案</a></li>
+                    @*<hr />
+                    <li class="nav-item btn"><a class="btn-outline-primary nav-link" id="change-password" href="/Auth/ChangePassword">密碼設置</a></li>*@
+                </ul>
+            </div>
+            <div class="col-1 col-md-1"></div>
+
+            <div class="col-10 col-md-10">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form action="/Auth/MemberEdit" method="post">
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="row d-flex justify-content-start d-inline col-8 d-inline">
+                                    <h4 class="col-5 align-content-center">會員檔案</h4>
+                                    <!--送出表單-->
+                                    <button type="submit" class="btn btn-outline-primary col-5 align-content-center">確認修改</button>
+                                </div>
+                            </div>
+
+                            <hr />
+
+
+                            <!--使用者帳號-->
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="col-8">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-address-card col-1"></i>
+                                            </div>
+                                        </div>
+                                        <input asp-for="Email" class="form-control" disabled />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--電話號碼-->
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="col-8">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-phone col-1"></i>
+                                            </div>
+                                        </div>
+                                        <input asp-for="Phone" class="form-control" />
+                                        <span asp-validation-for="Phone" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+
+    @if (userToastr != "Guest")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["success"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
+</body>
+</html>

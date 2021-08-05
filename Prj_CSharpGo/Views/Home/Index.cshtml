@@ -1,12 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
 @model Prj_CSharpGo.Models.ViewModels.ProductHome
 
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
 
 @{
+    string userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
     string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
-    string useremail = user.HttpContext.Session.GetString("email") ?? "Guest";
-    string userName = user.HttpContext.Session.GetString("userName") ?? "Guest";
 }
 @{
     ViewData["Title"] = "首頁";
@@ -106,164 +105,247 @@
 <!-- Image Showcases-->
 <br />
 @*<div class="card-container">
-    <div class="card card1">
-        <a href="#" class="back"><img src="~/Didi/img/20210728144455.png" /></a>
-        <a href="#" class="font"><img src="~/Didi/img/camping.png" /></a>
-    </div>
-  </div>*@
+      <div class="card card1">
+          <a href="#" class="back"><img src="~/Didi/img/20210728144455.png" /></a>
+          <a href="#" class="font"><img src="~/Didi/img/camping.png" /></a>
+      </div>
+    </div>*@
 
-    <section class="showcase">
-        <div class="container-fluid p-0">
-            <div class="row g-0 ">
-                <div class="col-lg-6 order-lg-2 text-white showcase-img dh posR" style="background-color:gray;">
-                    <img class="picSize" style=" float: right;" src="~/Didi/img/camping.png" />
+<!--<section class="showcase">
+    <div class="container-fluid p-0">
+        <div class="row g-0 ">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img dh posR" style="background-color:gray;">
+                <img class="picSize" style=" float: right;" src="~/Didi/img/camping.png" />
+            </div>
+            <div class="col-lg-4 order-lg-1 my-auto showcase-text posL">-->
+                @* 圖片反轉 *@
+                <!--<div class="card_1 font" style="width:300px;margin-right:0px;">
+                    <div class="font" style="width: 600px; height: 400px; background-color: white; border-style: dashed;">
+                        <h2>關於我們</h2>
+                        <p class="lead mb-0 card-back">介紹本網站</p>
+                    </div>
+                    <div class="back"><img src="~/Didi/img/camping.png" style="width: 600px; height: 400px;" /></div>
                 </div>
-                <div class="col-lg-4 order-lg-1 my-auto showcase-text posL">
-                    <div class="card_1 font" >
-                        <div class="font" style="width: 500px; height: 400px; background-color: white; border-style: dashed;">
-                            <h2>關於我們</h2>
-                            <p class="lead mb-0 card-back">介紹本網站</p>
+            </div>
+        </div>
+        <div class="row g-0">
+            <div class="col-lg-6 order-lg-1 text-white showcase-img dh posL" style="background-color:gray;"><img class="picSize" src="~/Didi/img/camping.png" /></div>
+            <div class="col-lg-4 order-lg-2 my-auto showcase-text dh posR">
+                <div class="card_1 font" style="width:300px;margin-left:-100px;">
+                    <div class="font" style="width: 600px; height: 400px; background-color: white; border-style: dashed;">
+                        <h2>適合您的商品</h2>
+                        <p class="lead mb-0">推薦顧客</p>
+                    </div>
+                    <div class="back"><img src="~/Didi/img/camping.png" style="width: 600px; height: 400px;" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="row g-0">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img dh posR" style="background-color:gray;"><img class="picSize" style=" float: right;" src="~/Didi/img/camping.png" /></div>
+            <div class="col-lg-4 order-lg-1 my-auto showcase-text dh posL" style="background-color:pink;">
+                <h2>最棒的營地</h2>
+                <p class="lead mb-0">介紹營地</p>
+            </div>
+        </div>
+    </div>
+</section>-->
+<br />
+<br/>
+<br/>
+
+<div class="container">
+    <section class="showcase">
+        <div class="container-fluid p-0" >
+            <div class="g-0 ">
+                <div class="showcase-img dh bg">
+                    <div class="row">
+                        <div class="col-lg-3 card_1 " >
+                            <div class="font" style="width: 345px; height: 571px; border: 15px #FFAC55 solid;; margin-left: 0%; ">
+                                <h2>關於我們</h2>
+                            </div>
+                            <div class="back" style="width: 345px; height: 571px; border: 15px #FFAC55 solid;; margin-left: 0%; ">
+                                <h2>關於我們</h2>
+                            </div>
                         </div>
-                        <div class="back" ><img src="~/Didi/img/camping.png"style="width: 500px; height: 400px;"/></div>
+                        <div class="col-lg-8">
+                            <img class="picSize" style=" float: right;" src="~/Didi/img/camping.png" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="g-0 ">
+                <div class="showcase-img dh bg" style="background-color:gray">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <img class="picSize" style=" float: right;" src="~/Didi/img/camping.png" />
+                        </div>
+                        <div class="col-lg-3 card_1 " style="background-color:gray;">
+                            <div class="font" style="border-style: dashed;margin-left:0%; position: absolute; color: blue; bottom: 0; right: 0;">
+                                <h2>shop now</h2>
+                            </div>
+                            <div class="back" style="border-style: dashed; margin-left: 0%;position: absolute; color: red; bottom: 0; right: 0;">
+                                <h2>GO!</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="g-0 ">
+                <div class="showcase-img dh bg" style="background-color:gray">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <img class="picSize" style=" float: right;" src="~/Didi/img/camping.png" />
+                        </div>
+                        <div class="col-lg-3 card_1 " style="background-color:gray;">
+                            <div class="font" style="border-style: dashed;margin-left:0%; position: absolute; color: blue; bottom: 0; right: 0;">
+                                <h2>shop now</h2>
+                            </div>
+                            <div class="back" style="border-style: dashed; margin-left: 0%;position: absolute; color: red; bottom: 0; right: 0;">
+                                <h2>GO!</h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row g-0">
-                <div class="col-lg-6 text-white showcase-img dh posL" style="background-color:gray;"><img class="picSize" src="~/Didi/img/camping.png" /></div>
-                <div class="col-lg-4 my-auto showcase-text dh posR" style="background-color:pink;">
-                    <h2>適合您的商品</h2>
-                    <p class="lead mb-0">推薦顧客</p>
+                <div class="col-lg-8 order-lg-2 text-white showcase-img dh posR" style="background-color:gray;">
+                    <img class="picSize" style=" float: right;" src="~/Didi/img/camping.png" />
                 </div>
-            </div>
-            <div class="row g-0">
-                <div class="col-lg-6 order-lg-2 text-white showcase-img dh posR" style="background-color:gray;"><img class="picSize" style=" float: right;" src="~/Didi/img/camping.png" /></div>
-                <div class="col-lg-4 order-lg-1 my-auto showcase-text dh posL" style="background-color:pink;">
+                <div class="col-lg-2 order-lg-1 my-auto showcase-text dh posL" style="background-color:pink;">
                     <h2>最棒的營地</h2>
                     <p class="lead mb-0">介紹營地</p>
                 </div>
             </div>
         </div>
     </section>
-
-    @* 精選商品 *@
-    <div style="margin-top:10%;">
-        <section class="new-product-area section-padding30">
-            <div class="container">
-                <!-- Section tittle -->
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="section-tittle mb-70">
-                            <h2>推薦商品</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-3 col-sm-6">
-                        <div class="single-new-pro mb-30 text-center">
-                            <div class="product-img">
-                                <img src="~/img/ProductsImg/Aa10CL007.jpg" alt="" style="width: 100%; height: 200%; object-fit: cover;">
-                            </div>
-                            <div class="product-caption">
-                                @foreach (var item in Model.products)
-                                {
-                                    if (item.ProductId == "Aa10CL007")
-                                    {
-                                        <h3><a href="product_details.html">@item.ProductName</a></h3>
-                                        <span>$@item.UnitPrice</span>
-                                    }
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-3 col-sm-6">
-                        <div class="single-new-pro mb-30 text-center">
-                            <div class="product-img">
-                                <img src="~/img/ProductsImg/Aa10CL008.jpg" alt="" style="width: 100%; height: 200%; object-fit: cover;">
-                            </div>
-                            <div class="product-caption">
-                                @foreach (var item in Model.products)
-                                {
-                                    if (item.ProductId == "Aa10CL008")
-                                    {
-                                        <h3><a href="product_details.html">@item.ProductName</a></h3>
-                                        <span>$@item.UnitPrice</span>
-                                    }
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-3 col-sm-6">
-                        <div class="single-new-pro mb-30 text-center">
-                            <div class="product-img">
-                                <img src="~/img/ProductsImg/Aa10CS001.jpeg" alt="" style="width: 100%; height: 200%; object-fit: cover;">
-                            </div>
-                            <div class="product-caption">
-                                @foreach (var item in Model.products)
-                                {
-                                    if (item.ProductId == "Aa10CS001")
-                                    {
-                                        <h3><a href="product_details.html">@item.ProductName</a></h3>
-                                        <span>$@item.UnitPrice</span>
-                                    }
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+</div>
 
 
-
-    @* 商品分類 *@
-    <div style="margin-top:10%">
+@* 精選商品 *@
+<div style="margin-top:10%;">
+    <section class="new-product-area section-padding30">
         <div class="container">
+            <!-- Section tittle -->
             <div class="row">
-                <div class="section-heading" style="text-align: center;">
-                    <h3>本站分類</h3>
+                <div class="col-xl-12">
+                    <div class="section-tittle mb-70">
+                        <h2>推薦商品</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-3 col-sm-6">
+                    <div class="single-new-pro mb-30 text-center">
+                        <div class="product-img">
+                            <img src="~/img/ProductsImg/Aa10CL007.jpg" alt="" style="width: 100%; height: 200%; object-fit: cover;">
+                        </div>
+                        <div class="product-caption">
+                            @foreach (var item in Model.products)
+                            {
+                                if (item.ProductId == "Aa10CL007")
+                                {
+                                    <h3><a href="/CampProducts/ProductDetail?productid=Aa10CL007">@item.ProductName</a></h3>
+                                    <span>$@item.UnitPrice</span>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-3 col-sm-6">
+                    <div class="single-new-pro mb-30 text-center">
+                        <div class="product-img">
+                            <img src="~/img/ProductsImg/Aa10CL008.jpg" alt="" style="width: 100%; height: 200%; object-fit: cover;">
+                        </div>
+                        <div class="product-caption">
+                            @foreach (var item in Model.products)
+                            {
+                                if (item.ProductId == "Aa10CL008")
+                                {
+                                    <h3><a href="/CampProducts/ProductDetail?productid=Aa10CL008">@item.ProductName</a></h3>
+                                    <span>$@item.UnitPrice</span>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-3 col-sm-6">
+                    <div class="single-new-pro mb-30 text-center">
+                        <div class="product-img">
+                            <img src="~/img/ProductsImg/Aa10CS001.jpeg" alt="" style="width: 100%; height: 200%; object-fit: cover;">
+                        </div>
+                        <div class="product-caption">
+                            @foreach (var item in Model.products)
+                            {
+                                if (item.ProductId == "Aa10CS001")
+                                {
+                                    <h3><a href="/CampProducts/ProductDetail?productid=Aa10CS001">@item.ProductName</a></h3>
+                                    <span>$@item.UnitPrice</span>
+                                }
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- 商品放置欄 -->
-        <div class="container py-5">
-            <div class="row">
-                @foreach (var item in Model.categories)
-                {
-                    <div class="col-12 col-md-4 p-5 mt-3">
-                        <div style="margin:auto; width:350px;height:250px">
-                            <a href="#"><img src="~/img/ProductsImg/@item.Description" class="rounded-circle img-fluid border img_1"></a>
-                        </div>
-                        <div>
-                            <h5 class="text-center mt-3 mb-3">@item.CategoryName</h5>
-                        </div>
-                        <div>
-                            @* 連結到產品大分類 *@
-                            <p class="text-center"><a href="/Home/ProductCate" class="btn btn-danger">GO</a></p>
-                        </div>
-                    </div>
+    </section>
+</div>
 
 
-                }
+
+@* 商品分類 *@
+<div style="margin-top:10%">
+    <div class="container">
+        <div class="row">
+            <div class="section-tittle mb-70">
+                <h2>本站分類</h2>
             </div>
         </div>
     </div>
+    <!-- 商品放置欄 -->
+    <div class="container py-5">
+        <div class="row">
+            @foreach (var item in Model.categories)
+            {
+                <div class="col-12 col-md-4 p-5 mt-3">
+                    <div style="margin:auto; width:350px;height:250px">
+                        <a href="#"><img src="~/img/ProductsImg/@item.Description" class="rounded-circle img-fluid border img_1"></a>
+                    </div>
+                    <div>
+                        <h5 class="text-center mt-3 mb-3">@item.CategoryName</h5>
+                    </div>
+                    <div>
+                        @* 連結到產品大分類 *@
+                        <p class="text-center"><a href="/CampProducts/Index?categoryid=@item.CategoryId" class="btn btn-danger">GO</a></p>
+                    </div>
+                </div>
 
 
-    <!-- 推薦商品 -->
-    <!-- Start Script -->
-    <script src="assets/js/jquery-1.11.0.min.js"></script>
-    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/templatemo.js"></script>
-    <script src="assets/js/custom.js"></script>
-
-    <!-- End Script -->
+            }
+        </div>
+    </div>
+</div>
 
 
-    @if (userToastr == "登出成功")
-    {
-        <script type="text/javascript">
+<!-- 推薦商品 -->
+<!-- Start Script -->
+<script src="assets/js/jquery-1.11.0.min.js"></script>
+<script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/templatemo.js"></script>
+<script src="assets/js/custom.js"></script>
+
+<!-- End Script -->
+
+
+@if (userToastr == "登出成功")
+{
+    <script type="text/javascript">
 
         $(function () {
 
@@ -288,11 +370,11 @@
             "hideMethod": "fadeOut"
         }
     })
-        </script>
-    }
-    else if (userToastr != "Guest")
-    {
-        <script type="text/javascript">
+    </script>
+}
+else if (userToastr != "Guest")
+{
+    <script type="text/javascript">
 
         $(function () {
 
@@ -317,5 +399,5 @@
             "hideMethod": "fadeOut"
         }
     })
-        </script>
-    }
+    </script>
+}

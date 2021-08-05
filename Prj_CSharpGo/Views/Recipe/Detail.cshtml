@@ -1,6 +1,6 @@
 ﻿@model Prj_CSharpGo.Models.Recipe
 <!-- Receipe Post Search -->
-<div class="receipe-post-search mb-80" style="margin-left: 80px;margin-bottom:60px;margin-top:60px;">
+@*<div class="receipe-post-search mb-80" style="margin-left: 80px;margin-bottom:60px;margin-top:60px;">
     <div class="container">
         <form action="#" method="post">
             <div class="row">
@@ -31,7 +31,7 @@
             </div>
         </form>
     </div>
-</div>
+</div>*@
 
 <!-- Receipe Slider -->
 <div class="container" style="text-align: center;">
@@ -51,7 +51,7 @@
                     <h6>份量: @Model.Yield 人份</h6>
                 </div>
             </div>
-            <div class="col-12 col-md-2">
+            @*<div class="col-12 col-md-2">
                 <div class="receipe-ratings text-right my-5">
                     <div class="ratings">
                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -62,7 +62,7 @@
                     </div>
                     <a href="#" class="btn delicious-btn">For Begginers</a>
                 </div>
-            </div>
+            </div>*@
             <div class="col-12 col-md-2">
                 @* 修改&刪除 *@
                 <a class="btn btn-success bi bi-pencil-square" href="/Recipe/Edit/@Model.RecipeId"></a>
@@ -73,6 +73,10 @@
             <div class="row">
                 <div class="col-md-6">
                     <p>
+                        <h3>需準備食材:</h3>
+                    </p>
+
+                    <p>
                         <h3>01.備料</h3>
                     </p>
                     @Html.Raw(Model.Preparation.Replace(Environment.NewLine, "<br/>"))
@@ -82,12 +86,37 @@
                     @Html.Raw(Model.Step.Replace(Environment.NewLine, "<br/>"))
                 </div>
                 <div class="col-md-4">
-                    <div style="float:right;">
-                        123
-                    </div>
-                </div>
-            </div>
+                    <p>
+                        <h3>推薦商品</h3>
+                    </p>
+                    @foreach (var ass in ViewData["Association"] as List<Association>)
+                    {
+                        @foreach (var pro in ViewData["Product"] as List<Product>)
+                        {
+                            @foreach (var img in ViewData["productimg"] as List<ProductImg>)
+                            {
+                                if (ass.ProductId == img.ProductId)
+                                {
+                                    if (Model.RecipeId == ass.RecipeId)
+                                    {
+                                        if (ass.ProductId == pro.ProductId)
+                                        {
+                                            <div>
+                                                <img src="~/img/ProductsImg/@img.Img" style="max-width: 100px;max-height: 100px" />
+                                            </div>
+                                            <div>
+                                                @pro.ProductName/@pro.ProductDescription
+                                            </div>
+                                        }
+                                    }
+                                }
 
+                            }
+                        }
+                    }
+                </div>
+                       
+            </div>
         </div>
     </div>
 </div>

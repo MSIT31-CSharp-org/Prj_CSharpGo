@@ -1,24 +1,19 @@
-﻿@page
-@using Microsoft.AspNetCore.Http
-@model LoginModel
-
+﻿@using Microsoft.AspNetCore.Http
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
-
-@{
-    string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
-}
+@model Prj_CSharpGo.Models.User
 
 @{
     ViewData["Title"] = "登入";
-    Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml";
+    Layout = "~/Views/Shared/Auth/_AuthLayout.cshtml";
 
+    string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-    <link rel="stylesheet" href="~/css/LoginRegister.css" >
+    <link rel="stylesheet" href="~/css/LoginRegister.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -26,10 +21,9 @@
 </head>
 
 <body>
+    @Html.AntiForgeryToken()
 
-    <form id="account" method="post" >
-
-        <div asp-validation-summary="All" class="text-danger"></div>
+    <form id="account" method="post" action="/Auth/Login">
 
         <!--信箱驗證-->
         <div class="form-group row d-flex justify-content-center">
@@ -40,9 +34,9 @@
                             <i class="fas fa-envelope col-1"></i>
                         </div>
                     </div>
-                    <input type="text" asp-for="Input.Email" class="form-control" placeholder="Email" />
+                    <input type="text" asp-for="Email" name="Email" class="form-control" placeholder="Email" />
                 </div>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
 
@@ -55,29 +49,29 @@
                             <i class="fas fa-lock col-1"></i>
                         </div>
                     </div>
-                    <input type="password" asp-for="Input.Password" class="form-control" id="id_password" placeholder="密碼" />
+                    <input type="password" asp-for="UserPassword" class="form-control" id="id_password" placeholder="密碼" />
                     <i class="fas fa-eye form-control col-1" id="togglePassword" style="cursor: pointer; margin-left: -30px; z-index: 1000; justify-content: center; align-items: center; "></i>
                 </div>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                <span asp-validation-for="UserPassword" class="text-danger"></span>
             </div>
         </div>
 
         <!--記住密碼-->
-        <div class="form-group row justify-content-center d-inline-block d-flex">
-            <div class="col-8">
-                <div class="d-inline d-flex justify-content-start custom-control custom-checkbox custom-control-inline">
-                    <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" asp-for="Input.RememberMe">
-                    <label for="checkbox_0" class="custom-control-label" asp-for="Input.RememberMe">
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
-                    </label>
+        @*<div class="form-group row justify-content-center d-inline-block d-flex">
+                <div class="col-8">
+                    <div class="d-inline d-flex justify-content-start custom-control custom-checkbox custom-control-inline">
+                        <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" asp-for="RememberMe">
+                        <label for="checkbox_0" class="custom-control-label" asp-for="RememberMe">
+                            @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </div>*@
 
         <div class="form-group row justify-content-center d-inline-block d-flex">
             <div class="col-8">
                 <div class="d-inline d-flex justify-content-start">
-                    <a id="forgot-password" asp-page="./ForgotPassword" style="text-decoration:none;">
+                    <a href="/Auth/ForgotPassword" id="forgot-password" style="text-decoration:none;">
                         <i class="fas fa-question-circle"></i>
                         <label style="cursor:pointer;">
                             忘記密碼
@@ -100,9 +94,15 @@
 
 
 
+
+
+
+
+
     @section Scripts {
-        <partial name="_ValidationScriptsPartial">
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
+
     <!-- For 顯示密碼-->
     <script>
         const togglePassword = document.querySelector('#togglePassword');

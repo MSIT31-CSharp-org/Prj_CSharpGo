@@ -1,0 +1,106 @@
+﻿@using Microsoft.AspNetCore.Http
+@model Prj_CSharpGo.Models.ShopCartViewModels.POrderAllModel
+
+
+@{
+    ViewData["Title"] = "訂單頁面";
+
+}
+
+<main id="main">
+
+    <!-- ======= Intro Single ======= -->
+    <section class="intro-single">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-8">
+                    <div class="title-single-box">
+                        <h1 class="title-single">訂單頁面</h1>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Book Cover Deisgn
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Intro Single-->
+    <!-- ======= Blog Single ======= -->
+    <section class="news-single nav-arrow-b">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>訂購清單</h3>
+                </div>
+                <br>
+                <table class="table">
+                    <thead>
+                        <tr class="table-warning">
+                            <th scope="col">訂單編號</th>
+                            <th scope="col">會員編號</th>
+                            <th scope="col">訂單日期</th>
+                            <th scope="col">商品編號</th>
+                            <th scope="col">商品名稱</th>
+                            <th scope="col">總金額</th>
+                            <th scope="col">付款方式</th>
+                        </tr>
+                    </thead>
+                    <tbody>                     
+                        <tr>
+                            <th scope="row">@Model.OrderId</th>
+                            <td>@Model.UserId</td>
+                            <td>@Model.OrderDate</td>
+                             <td>@Model.ProductId</td>
+                            <td>@Model.ProductName</td>
+                            <td> $@Model.TotalPrice 元</td>
+                            <td> @Model.PayMethod</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+
+                @*using (Html.BeginForm("SHOPQ", "PuserFilterModel", FormMethod.Post))//指定提交傳回後台控制器方式
+                    {
+
+                        @Html.HiddenFor(Model => Model.PuserFilterModel.UserId)
+                        @Html.HiddenFor(Model => Model.PuserFilterModel.ProductId)
+                        @Html.HiddenFor(Model => Model.PuserFilterModel.ProductName)
+                        @Html.HiddenFor(Model => Model.PuserFilterModel.Quantity)
+                        @Html.HiddenFor(Model => Model.PuserFilterModel.UnitPrice)
+                        @Html.HiddenFor(Model => Model.PuserFilterModel.SMTotal)
+                        @Html.HiddenFor(Model => Model.PuserFilterModel.BigTotal)
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="/Home/Product" type="button" class="btn btn-secondary">再逛逛</a>
+                            <a href="/Home/Product" type="submit" class="btn btn-success">去買單</a>
+
+                        </div>
+                    }
+                *@
+            </div>
+        </div>
+    </section>
+</main><!-- End #main -->
+<!-- ======= Footer ======= -->
+<!-- Template Main JS File -->
+@*<script src="~/js/main.js"></script>*@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+
+</script>
+<script>
+
+        $("#comform").click(function () {
+            alert('@Html.Raw(ViewBag.messagea)');
+         });
+
+</script>

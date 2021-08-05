@@ -29,10 +29,10 @@
             <!-- data-valmsg-for 受驗證欄位的 name -->
             <!-- data-valmsg-replace 必要 -->
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="EmployeeId">編號</label>
-                <input class="form-control col-sm-9" type="number" data-val="true" data-val-required="不可空白" data-val-number="帳號應為數字" id="EmployeeId" name="EmployeeId" value="" />
+                <label class="col-sm-3 col-form-label" for="EmployeeEmail">Email</label>
+                <input class="form-control col-sm-9" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="EmployeeEmail" name="EmployeeEmail" value="" />
                 <label class="col-sm-3 col-form-label"></label>
-                <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeId" data-valmsg-replace="true"></span>
+                <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeEmail" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="EmployeeName">名字</label>
@@ -45,12 +45,6 @@
                 <input class="form-control col-sm-9" type="password" data-val="true" data-val-required="不可空白" id="EmployeePassword" name="EmployeePassword" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger " data-valmsg-for="EmployeePassword" data-valmsg-replace="true"></span>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="EmployeeEmail">Email</label>
-                <input class="form-control col-sm-9" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="EmployeeEmail" name="EmployeeEmail" value="" />
-                <label class="col-sm-3 col-form-label"></label>
-                <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeEmail" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="EmployeeStatus">職稱</label>

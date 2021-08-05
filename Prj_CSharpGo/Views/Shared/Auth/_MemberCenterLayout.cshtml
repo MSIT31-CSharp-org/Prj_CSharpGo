@@ -1,13 +1,13 @@
-﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
-    {
-        Layout = (string)parentLayout;
-    }
-    else
-    {
-        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
-    }
+﻿
+@{
+
+    Layout = "~/Views/Shared/Layout.cshtml";
+
 }
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +25,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-1 col-md-1">
-                <partial name="_ManageNav" />
+                <!--<partial name="_ManageNav" />-->
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item btn"><a class="btn-outline-primary nav-link id="profile" href="/Auth/Index">會員檔案</a></li>
+                    <hr />
+                    <li class="nav-item btn"><a class="btn-outline-primary nav-link id="change-password" href="/Auth/ChangePassword">密碼設置</a></li>
+                </ul>
             </div>
             <div class="col-1 col-md-1"></div>
             <div class="col-10 col-md-10">
