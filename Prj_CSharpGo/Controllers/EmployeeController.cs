@@ -87,8 +87,8 @@ namespace Prj_CSharpGo.Controllers
             {
                 return Redirect("/Employee/Login");
             }
-            return View(await _context.Employees.OrderBy(p => p.EmployeeId).ToPagedListAsync(Page, pageSize));
-            //return View(await _context.Employees.ToListAsync());
+            //return View(await _context.Employees.OrderBy(p => p.EmployeeId).ToPagedListAsync(Page, pageSize));
+            return View(await _context.Employees.ToListAsync());
         }
 
         // 新增帳號頁面
