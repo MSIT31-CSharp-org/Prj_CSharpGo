@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
+@{
+    string userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -111,15 +117,52 @@
                     <span class="position-absolute top-50 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
                 </a>*@
 
-            <div class="shCart">
+            <div class="shCart" ">
                 <a class="nav-link" href="@Url.Action("Index", "PShopCart")">
-                    <i class="fas fa-cart-arrow-down text-dark"></i>
+                    <i class="fas fa-cart-arrow-down text-dark" style="font-size: 2.2vmin"></i>
                 </a>
             </div>
-            <!--<div class="LoginPart">-->
-                <!-- 會員 Identity 註冊/登入模組 -->
-                <!--<partial name="_LoginPartial" />
-            </div>-->
+
+
+            <!-- 會員 Identity 註冊/登入模組 -->
+            <div class="" style="margin-left:1vw;">
+                @{
+                    if (userId == "Guest")
+                    {
+                        <div class="Register_Part" style="margin-left:12px;">
+                            <a class="nav-link text-dark" href="@Url.Action("Register", "Auth")">
+                                <i class="fas fa-user-plus" style="font-size: 2.2vmin"></i>註冊
+                            </a>
+                        </div>
+                        <div class="Login_Part" style="margin-left: 12px;">
+                            <a class="nav-link text-dark" href="@Url.Action("Login", "Auth")">
+                                <i class="fas fa-sign-in-alt" style="font-size:2.5vmin"></i>登入
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="MemberCenter_Part" style="margin-left:12px;">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "Auth")">
+                                <i class="fa fa-fw fa-user" style="font-size: 2.2vmin"></i>會員中心
+                            </a>
+                        </div>
+                        <div class="Logout_Part" style="margin-left:12px;">
+                            <a class="nav-link text-dark" href="@Url.Action("Logout", "Auth")">
+                                <i class="fas fa-sign-out-alt" style="font-size: 2.2vmin"></i>登出
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+
+
+
+
+
+
+
+
 
         </div>
     </nav>

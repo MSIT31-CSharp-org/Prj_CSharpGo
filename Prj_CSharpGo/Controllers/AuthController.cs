@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,119 +36,166 @@ namespace Prj_CSharpGo.Controllers
 
         // GET: Auth
         // 會員中心介面
-        [HttpGet("Index")]
-        public IActionResult Index()
+        public IActionResult Index(int? id)
+        {
+            //List<User> userList = _context.Users.ToList();
+
+
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+
+            HttpContext.Session.SetString("userToastr", "登入成功");
+
+            if (userId == "Guest")
+            {
+                return Redirect("/Auth/Login");
+            }
+
+            var userInfo = _context.Users.Find(id);
+            return View(userInfo);
+
+        }
+
+        // ===================================================================================================================================================
+
+
+        // 登入  GET: /Auth/Login
+        public IActionResult Login()
         {
             return View();
         }
 
-        // GET: Auth/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult Login(User user,string email, string userPassword)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            User query = _context.Users.Where(m => m.Email == user.Email).FirstOrDefault();
+            //var member = _context.Users.Where(m => m.Email == email && m.UserPassword == userPassword).FirstOrDefault();
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.UserId == id);
-            if (user == null)
+            if (query != null && query.UserPassword == user.UserPassword)
             {
-                return NotFound();
+                HttpContext.Session.SetString("userToastr", "帳號不存在");
+                return View();
             }
-
-            return View(user);
+            if (query.IsSuccess == false)
+            {
+                HttpContext.Session.SetString("userToastr", "帳號尚未開通，請至電子郵件收信");
+                return View();
+            }
+            // 登入成功  寫入Session
+            HttpContext.Session.SetString("userToastr", "登入成功");
+            HttpContext.Session.SetString("userId", query.UserId.ToString());
+            HttpContext.Session.SetString("userIsSuccess", query.IsSuccess.ToString());
+            return RedirectToAction("Index");
         }
 
-        // =======================================================================================
 
 
 
-
-
-
-
-
-
-        // ============================== IUser_Services ==========================================
-        // 登入
-        // GET: /Auth/Login
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        // 註冊  GET: /Auth/Login
+        public IActionResult Register()
         {
-            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
-        // 註冊
-        public async Task<IActionResult> RegisterUserAsync(User user)
+        [HttpPost]
+        public IActionResult Register(User user,IdentityUser userid)
         {
-            User userConfirm = new User()
+            var userConfirm = new User()
             {
-                UserId = 0,
-                Email = "",
-                UserPassword = "",
-                //ConfirmPassword = "",
-                UserStatus = "SP",   // 帳號尚未開通 = "SP"
-                //IsSuccess = false    // 啟用帳號 = false
+                UserId = user.UserId,
+                Email = user.Email,
+                UserPassword = user.UserPassword,
+                ConfirmPassword = user.ConfirmPassword,
+                UserStatus = user.UserStatus,   // 帳號尚未開通 = "SP"
+                IsSuccess = user.IsSuccess    // 啟用帳號 = false
             };
 
-            if (user == null)
-                throw new NullReferenceException("很抱歉，目前無法使用註冊功能");
-
-            if (await _context.Users.FindAsync(user.Email) != null)
+            if (ModelState.IsValid == false)
             {
-                HttpContext.Session.SetString("userToastr", "帳號已存在");
+                return View();
+            }
+            // 判斷前後密碼相符
+            if (user.UserPassword != user.ConfirmPassword)
+            {
+                HttpContext.Session.SetString("userToastr", "前後密碼不相符");
+                user.IsSuccess = false;
+                return View();
+            }
+            //var tmp = _context.Users.Find(user.Email.ToString());
+
+            var userExist = (from u in _context.Users
+                          where u.Email == user.Email
+                          select u.Email).ToList()[0];
+
+
+            // 判斷 Email 存不存在
+            if (userExist != null)
+            {
+                HttpContext.Session.SetString("userToastr", "很抱歉，您無法使用此組信箱建立帳號");
                 return View();
             }
 
-            if (ModelState.IsValid)
+            var member = _context.Users.Where(m => m.Email == user.Email).FirstOrDefault();
+
+            if (member.IsSuccess == null)
             {
+                var confirmEmailToken = _context.Users.Where(m => m.UserId == user.UserId);
+                var encodedEmailToken = Encoding.UTF8.GetBytes((confirmEmailToken).ToString());
+                var validEmailToken = WebEncoders.Base64UrlEncode(encodedEmailToken);
 
-                //if (user.UserPassword != user.ConfirmPassword)
-                //{
+                string url = $"{_configuration["AppUrl"]}/api/auth/confirmemail?userid={user.UserId}&token={validEmailToken}";
 
-                //    HttpContext.Session.SetString("userToastr", "前後密碼不相符");
-                //    return View();
-                //}
+                _mailService.SendEmailAsync(user.Email, "Confirm your email", $"<h1>Welcome to Auth Demo</h1>" +
+                        $"<p>Please confirm your email by <a href='{url}'>Clicking here</a></p>");
 
+                HttpContext.Session.SetString("userToastr", "您現在可以至電子郵件收取會員註冊信以完成驗證程序");
+                HttpContext.Session.SetString("userStatus", user.UserStatus.ToString());
+                HttpContext.Session.SetString("userIsSuccess", user.IsSuccess.ToString());
 
+                var exchangeserStatus = _context.Users.Find(user);
+                exchangeserStatus.UserStatus = "NR";
+                exchangeserStatus.IsSuccess = false;   // IsSuccess 型態為 bool
                 _context.Add(user);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
+                return Redirect("/Auth/Login");
+            }
+            return View();
 
-
-                // 帳號完成開通 = "NR"
-                userConfirm.UserStatus = "NR";
-                // 啟用帳號 = true
-                //userConfirm.IsSuccess = true;
-
-
-
-            };
-            HttpContext.Session.SetString("userToastr", "您現在可以至電子郵件收取會員註冊信以完成驗證程序");
-            return Redirect("/Employee/Index");
         }
 
 
-        // Email => 使用者點擊返回驗證模組
-        public ActionResult ConfirmEmail()
+
+        // Email => 寄送驗證信
+        [HttpPost]
+        public IActionResult SendConfirmEmail(User user)
         {
-            string account = HttpContext.Request.Query["Id"].ToString();
+            return NotFound();
+        }
+
+
+
+        // Email => 使用者點擊返回驗證模組
+        [HttpGet("ConfirmEmail")]
+        public IActionResult ConfirmEmail()
+        {
+            string id = HttpContext.Request.Query["Id"].ToString();
             string token = HttpContext.Request.Query["token"].ToString();
-            if (string.IsNullOrWhiteSpace(account) || string.IsNullOrWhiteSpace(token))
+
+            if (string.IsNullOrWhiteSpace(id) || string.IsNullOrWhiteSpace(token))
             {
                 return NotFound();
             }
 
             var decodedToken = WebEncoders.Base64UrlDecode(token);
             string normalToken = Encoding.UTF8.GetString(decodedToken);
+
             var userID = (from u in _context.Users
-                          where u.Email == normalToken
+                          where u.UserId.ToString() == normalToken
                           select u.UserId).ToList()[0];
+
             var changUserStatus = _context.Users.Find(userID);
             changUserStatus.UserStatus = "NR";
-            //changUserStatus.IsSuccess = true;   // IsSuccess 型態為 bool
+            changUserStatus.IsSuccess = true;   // IsSuccess 型態為 bool
             changUserStatus.UpdateDate = DateTime.Now;
 
             HttpContext.Session.SetString("userToastr", "會員已開通完成，現在請放心購物");
@@ -157,9 +205,19 @@ namespace Prj_CSharpGo.Controllers
         }
 
 
+
+        // 登出 Logout
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("userId");
+            HttpContext.Session.SetString("userToastr", "登出成功");
+            return Redirect("/Auth/Login");
+        }
+
+
     }
 
 
-    
+
 }
 

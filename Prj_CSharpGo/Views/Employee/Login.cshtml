@@ -18,12 +18,14 @@
         <form method="post" action="/Employee/Login">
 
             @Html.AntiForgeryToken()
+
             <div class="form-group">
-                <label class="control-label" for="EmployeeId">帳號</label>
-                <input class="form-control" type="number" data-val="true" data-val-required="帳號不可空白" data-val-number="帳號應為數字" id="EmployeeId" name="EmployeeId" value="1001" />
+                <label class="control-label" for="EmployeeEmail">Email</label>
+                <input class="form-control" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="EmployeeEmail" name="EmployeeEmail" value="employee1001@mail.com" />
                 <label class="col-sm-3 col-form-label"></label>
-                <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeId" data-valmsg-replace="true"></span>
+                <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeEmail" data-valmsg-replace="true"></span>
             </div>
+
             <div class="form-group">
                 <label class="control-label" for="EmployeePassword">密碼</label>
                 <input class="form-control" type="password" data-val="true" data-val-required="密碼不可空白" id="EmployeePassword" name="EmployeePassword" value="employee1001" />

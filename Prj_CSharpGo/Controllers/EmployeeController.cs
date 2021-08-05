@@ -24,7 +24,7 @@ namespace Prj_CSharpGo.Controllers
 
         //分頁用
         private int pageSize = 8;
-        
+
 
         public IActionResult Test()
         {
@@ -39,7 +39,7 @@ namespace Prj_CSharpGo.Controllers
             stream.Position = 0;
 
             var fileName = $"Loai_{DateTime.Now.ToString("yyyy/MM/dd/hh/mm/ss")}.xlsx";
-            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",fileName);
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
         // 登入頁面
         public IActionResult Login()
@@ -53,7 +53,7 @@ namespace Prj_CSharpGo.Controllers
         public async Task<IActionResult> Login(Employee employee)
         {
             // 驗證帳密
-            Employee query = await _context.Employees.FirstOrDefaultAsync(m => m.EmployeeId == employee.EmployeeId);
+            Employee query = await _context.Employees.FirstOrDefaultAsync(m => m.EmployeeEmail == employee.EmployeeEmail);
             if (query != null && query.EmployeePassword == employee.EmployeePassword)
             {
                 if (query.EmployeeStatus == null)
@@ -106,7 +106,10 @@ namespace Prj_CSharpGo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Employee employee)
         {
-            if (await _context.Employees.FindAsync(employee.EmployeeId) != null)
+            var queryemp = from o in _context.Employees
+                           where o.EmployeeEmail == employee.EmployeeEmail
+                           select o;
+            if (queryemp.Count() != 0)
             {
                 HttpContext.Session.SetString("employeeToastr", "帳號已存在");
                 return View();
@@ -130,8 +133,15 @@ namespace Prj_CSharpGo.Controllers
             {
                 return Redirect("/Employee/Login");
             }
-            var employee = await _context.Employees.FindAsync(id);
-            return View(employee);
+
+            var empId = _context.Employees.FirstOrDefault(m => m.EmployeeId == id);
+            if (empId == null)
+            {
+                return NotFound();
+            }
+
+            Employee employee = await _context.Employees.FindAsync(id);
+            return View("Edit", employee);
         }
 
         [HttpPost]
@@ -159,6 +169,13 @@ namespace Prj_CSharpGo.Controllers
             {
                 return Redirect("/Employee/Login");
             }
+
+            var empId = _context.Employees.FirstOrDefault(m => m.EmployeeId == id);
+            if (empId == null)
+            {
+                return NotFound();
+            }
+
             var employee = await _context.Employees.FirstOrDefaultAsync(m => m.EmployeeId == id);
             return View(employee);
         }
@@ -175,14 +192,15 @@ namespace Prj_CSharpGo.Controllers
         }
 
         // 會員資料頁面
-        public async Task<IActionResult> Member()
+        public async Task<IActionResult> Member(int Page = 1)
         {
             string empSession = HttpContext.Session.GetString("employeeId") ?? "Guest";
             if (empSession == "Guest")
             {
                 return Redirect("/Employee/Login");
             }
-            return View(await _context.Users.ToListAsync());
+            return View(await _context.Users.OrderBy(p => p.UserId).ToPagedListAsync(Page, pageSize));
+            //return View(await _context.Users.ToListAsync());
         }
 
         // 會員編輯頁面
@@ -193,6 +211,13 @@ namespace Prj_CSharpGo.Controllers
             {
                 return Redirect("/Employee/Login");
             }
+
+            var UsersId = _context.Users.FirstOrDefault(m => m.UserId == id);
+            if (UsersId == null)
+            {
+                return NotFound();
+            }
+
             var member = await _context.Users.FindAsync(id);
             return View(member);
         }
@@ -219,6 +244,8 @@ namespace Prj_CSharpGo.Controllers
             {
                 return Redirect("/Employee/Login");
             }
+
+
             return View(await _context.Orders.ToListAsync());
         }
 
@@ -229,6 +256,12 @@ namespace Prj_CSharpGo.Controllers
             if (empSession == "Guest")
             {
                 return Redirect("/Employee/Login");
+            }
+
+            var OrderId = _context.OrderDetails.FirstOrDefault(m => m.OrderId == id);
+            if (OrderId == null)
+            {
+                return NotFound();
             }
 
             EmployeeOrder emporder = new EmployeeOrder()
@@ -244,7 +277,7 @@ namespace Prj_CSharpGo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OrderEdit([Bind("UserId,UserAccount,UserPassword,UserName,Birthday,Region,Address,Phone,Email,Img,DiscountCode,UpdateDate,UserStatus,Vip")] Order order)
+        public async Task<IActionResult> OrderEdit([Bind("OrderId,OrderDate,PayMethod,TotalPrice,UserId,Approval")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -275,6 +308,12 @@ namespace Prj_CSharpGo.Controllers
             if (empSession == "Guest")
             {
                 return Redirect("/Employee/Login");
+            }
+
+            var ProductsId = _context.Products.FirstOrDefault(m => m.ProductId == id);
+            if (ProductsId == null)
+            {
+                return NotFound();
             }
 
             var member = await _context.Products.FindAsync(id);

@@ -15,7 +15,60 @@
 <form action="/Employee/OrderEdit/@Model._order.OrderId" method="post">
 
     @Html.AntiForgeryToken()
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label" for="Approval">帳號狀態</label>
+        <div class="col-sm-9">
+            <select name="Approval" class="form-control">
+
+                @{if (Model._order.Approval == "NR")
+                    {
+                        <option value="NR" selected>已完成</option>
+                        <option value="SP">出貨中</option>
+                        <option value="WL">取消</option>
+                    }
+                    else if (Model._order.Approval == "SP")
+                    {
+                        <option value="NR">已完成</option>
+                        <option value="SP" selected>出貨中</option>
+                        <option value="WL">取消</option>
+                    }
+                    else
+                    {
+                        <option value="NR">已完成</option>
+                        <option value="SP">出貨中</option>
+                        <option value="WL" selected>取消</option>
+                    }
+                }
+            </select>
+
+            <div class="form-group row d-none">
+                <input class="form-control-plaintext col-sm-9" type="text" id="OrderId" name="OrderId" readonly value="@Model._order.OrderId" />
+            </div>
+
+            <div class="form-group row d-none">
+                <input class="form-control-plaintext col-sm-9" type="text" id="UserId" name="UserId" readonly value="@Model._order.UserId" />
+            </div>
+
+            <div class="form-group row d-none">
+                <input class="form-control-plaintext col-sm-9" type="text" id="TotalPrice" name="TotalPrice" readonly value="@Model._order.TotalPrice" />
+            </div>
+
+            <div class="form-group row d-none">
+                <input class="form-control-plaintext col-sm-9" type="text" id="PayMethod" name="PayMethod" readonly value="@Model._order.PayMethod" />
+            </div>
+
+            <div class="form-group row d-none">
+                <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.OrderDate" />
+            </div>
+            
+        </div>
+    </div>
+
+
+
     <table class="table">
+
         <thead>
             <tr>
                 <th>
@@ -30,39 +83,32 @@
                 <th>
                     數量
                 </th>
-                <th>
-                    Commets
-                </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.OrderDetails)
             {
-            <tr>
-                <td>
-                    @item.ProductId
-                </td>
-                <td>
-                    @Model.Products.FirstOrDefault(x=>x.ProductId== item.ProductId).ProductName
-                </td>
-                <td>
-                    @item.UnitPrice
-                </td>
-
-
-
-                <td>
-                    @item.Quantity
-                </td>
-                <td>
-                    @item.Commets
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @item.ProductId
+                    </td>
+                    <td>
+                        @Model.Products.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName
+                    </td>
+                    <td>
+                        @item.UnitPrice
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                </tr>
             }
+
+
         </tbody>
     </table>
     <div class="form-group">
-        @*<input type="submit" value="確定送出" class="btn btn-primary" />*@
+        <input type="submit" value="確定送出" class="btn btn-primary" />
         <a href="/Employee/Order" class="btn btn-danger">回到清單</a>
     </div>
 </form>
