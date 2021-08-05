@@ -111,81 +111,72 @@
                     </div>
 
                 </div>
-                <form action="/PShopCart/AddCart" method="post">
-                    <div class="row">
+                <div class="row">
 
+                    @foreach (var item in Model.products)
+                    {
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
 
-                        @foreach (var item in Model.products)
-                        {
-                            <input type="hidden" name="UserId" value="1001">
-                            <input type="hidden" name="ProductId" value="@item.ProductId">
-                            <div class="col-md-4">
-                                <div class="card mb-4 product-wap rounded-0">
+                                @if (Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId) != null)
+                                {
 
-                                    @if (Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId) != null)
-                                    {
-
-                                        <div class="card rounded-0">
-                                            <img class="card-img rounded-0 img-fluid" style="width:302.8px;height:302.8px" src="/img/ProductsImg/@Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId).Img">
-                                            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                                <ul class="list-unstyled">
-                                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=@item.ProductId"><i class="far fa-eye"></i></a></li>
-                                                    <li><a class="btn btn-success text-white mt-2" href="/PShopCart/Index"><i class="fas fa-cart-plus"></i></a></li>
-                                                </ul>
-                                            </div>
+                                    <div class="card rounded-0">
+                                        <img class="card-img rounded-0 img-fluid" style="width:302.8px;height:302.8px" src="/img/ProductsImg/@Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId).Img">
+                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                            <ul class="list-unstyled">
+                                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                                <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=@item.ProductId"><i class="far fa-eye"></i></a></li>
+                                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                            </ul>
                                         </div>
-
-                                    }
-                                    else
-                                    {
-                                        <div class="card rounded-0">
-                                            無照片
-                                            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                                <ul class="list-unstyled">
-                                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                                    <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail"><i class="far fa-eye"></i></a></li>
-                                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    }
-
-                                    <div class="card-body">
-                                        <a href="shop-single.html" class="h3 text-decoration-none">@item.ProductName</a>
-                                        <input type="hidden" name="ProductName" value="@item.ProductName">
-                                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-
-                                            <li>@Model.categories.Where(s => s.CategoryId == item.CategoryId).FirstOrDefault().CategoryName</li>
-                                            <li>@Model.categoriesTypeIs.Where(s => s.CategoryTypeI == item.CategoryType).FirstOrDefault().TypeIname</li>
-
-                                            <li class="pt-2">
-                                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                            </li>
-                                        </ul>
-                                        <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                            <li>
-                                                <i class="text-warning fa fa-star"></i>
-                                                <i class="text-warning fa fa-star"></i>
-                                                <i class="text-warning fa fa-star"></i>
-                                                <i class="text-muted fa fa-star"></i>
-                                                <i class="text-muted fa fa-star"></i>
-                                            </li>
-                                        </ul>
-                                        <p class="text-center mb-0">$@item.UnitPrice</p>
-                                        <input type="hidden" name="UnitPrice" value=" @item.UnitPrice">
                                     </div>
+
+                                }
+                                else
+                                {
+                                    <div class="card rounded-0">
+                                        無照片
+                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                            <ul class="list-unstyled">
+                                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                                <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail"><i class="far fa-eye"></i></a></li>
+                                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                }
+
+                                <div class="card-body">
+                                    <a href="shop-single.html" class="h3 text-decoration-none">@item.ProductName</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+                                        <li>@Model.categories.Where(s => s.CategoryId == item.CategoryId).FirstOrDefault().CategoryName</li>
+                                        <li>@Model.categoriesTypeIs.Where(s => s.CategoryTypeI == item.CategoryType).FirstOrDefault().TypeIname</li>
+
+                                        <li class="pt-2">
+                                            <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                        </li>
+                                    </ul>
+                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                        <li>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-muted fa fa-star"></i>
+                                            <i class="text-muted fa fa-star"></i>
+                                        </li>
+                                    </ul>
+                                    <p class="text-center mb-0">$@item.UnitPrice</p>
                                 </div>
                             </div>
-                        }
-
-                    </div>
-
-                </form>
+                        </div>
+                    }
+                </div>
                 <div div="row">
                     <ul class="pagination pagination-lg justify-content-end">
                         @Html.PagedListPager((IPagedList)Model.products, x => Url.Action("Index", new { page = x , categoryid = Model.userModel.CategoryId , categorytype=Model.userModel.CategoryType}),
