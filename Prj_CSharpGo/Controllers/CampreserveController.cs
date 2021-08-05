@@ -146,7 +146,7 @@ namespace Prj_CSharpGo.Controllers
                             errorMsg = "剩餘4帳可預約!";
                             break;
                         }
-                        else if (quantityCount > findCamp.CampQuantity)
+                        else if (quantityCount >= findCamp.CampQuantity)
                         {
                             errorMsg = "已額滿無法預約!";
                             break;
