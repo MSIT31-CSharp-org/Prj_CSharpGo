@@ -54,7 +54,7 @@
     <!-- Open Content -->
 
     <section>
-        <form action="/PShopCart/shoppingcart" method="post">
+        <form action="/PShopCart/AddCart" method="post">
             <div class="container pb-5">
                 <div class="row">
 
@@ -145,12 +145,14 @@
 
                     @foreach (var item in Model.products)
                     {
-
+                        <input type="hidden" name="UserId" value="1001">
                         <div class="col-lg-7 mt-5" style="width: 500px">
                             <div class="card" style="margin-top: 114px ; margin-left:20px">
                                 <div class="card-body" style="height:580px">
                                     <h1 class="h2">@item.ProductName</h1>
+                                    <input type="hidden" name="ProductName" value="@item.ProductName">
                                     <p class="h3 py-2">$ @item.UnitPrice</p>
+                                    <input type="hidden" name="UnitPrice" value=" @item.UnitPrice">
                                     <p class="py-2">
                                         <i class="fa fa-star text-warning"></i>
                                         <i class="fa fa-star text-warning"></i>
@@ -181,38 +183,38 @@
 
 
                                         @*<li class="list-inline-item">
-                                      @Model.categories.Where(s => s.CategoryId == item.CategoryId).FirstOrDefault().CategoryName
-                                    </li>*@
+                                              @Model.categories.Where(s => s.CategoryId == item.CategoryId).FirstOrDefault().CategoryName
+                                            </li>*@
                                         @*@if (item.CategoryId == "A ")
-                                    {
-                                        <li class="list-inline-item">
-                                            <p class="text-muted"><strong>帳篷</strong></p>
-                                        </li>
-                                    }
-                                    else if (item.CategoryId == "B ")
-                                    {
-                                        <li class="list-inline-item">
-                                            <p class="text-muted"><strong>寢具</strong></p>
-                                        </li>
-                                    }
-                                    else if (item.CategoryId == "C ")
-                                    {
-                                        <li class="list-inline-item">
-                                            <p class="text-muted"><strong>戶外家具</strong></p>
-                                        </li>
-                                    }
-                                    else if (item.CategoryId == "D ")
-                                    {
-                                        <li class="list-inline-item">
-                                            <p class="text-muted"><strong>廚房用品</strong></p>
-                                        </li>
-                                    }
-                                    else
-                                    {
-                                        <li class="list-inline-item">
-                                            <p class="text-muted"><strong>食品</strong></p>
-                                        </li>
-                                    }*@
+                                            {
+                                                <li class="list-inline-item">
+                                                    <p class="text-muted"><strong>帳篷</strong></p>
+                                                </li>
+                                            }
+                                            else if (item.CategoryId == "B ")
+                                            {
+                                                <li class="list-inline-item">
+                                                    <p class="text-muted"><strong>寢具</strong></p>
+                                                </li>
+                                            }
+                                            else if (item.CategoryId == "C ")
+                                            {
+                                                <li class="list-inline-item">
+                                                    <p class="text-muted"><strong>戶外家具</strong></p>
+                                                </li>
+                                            }
+                                            else if (item.CategoryId == "D ")
+                                            {
+                                                <li class="list-inline-item">
+                                                    <p class="text-muted"><strong>廚房用品</strong></p>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="list-inline-item">
+                                                    <p class="text-muted"><strong>食品</strong></p>
+                                                </li>
+                                            }*@
 
                                         <li class="list-inline-item">
                                             <h6>商品編號 :</h6>
@@ -220,36 +222,50 @@
 
                                         <li class="list-inline-item">
                                             <p class="text-muted"><strong>@item.ProductId</strong></p>
+                                            <input type="hidden" name="ProductId" value="@item.ProductId">
                                         </li>
 
                                     </ul>
 
                                     @*<h6>Specification:</h6>
-                                <ul class="list-unstyled pb-3">
-                                    <li>Lorem ipsum dolor sit</li>
-                                    <li>Amet, consectetur</li>
-                                    <li>Adipiscing elit,set</li>
-                                    <li>Duis aute irure</li>
-                                    <li>Ut enim ad minim</li>
-                                    <li>Dolore magna aliqua</li>
-                                    <li>Excepteur sint</li>
-                                </ul>*@
+                                        <ul class="list-unstyled pb-3">
+                                            <li>Lorem ipsum dolor sit</li>
+                                            <li>Amet, consectetur</li>
+                                            <li>Adipiscing elit,set</li>
+                                            <li>Duis aute irure</li>
+                                            <li>Ut enim ad minim</li>
+                                            <li>Dolore magna aliqua</li>
+                                            <li>Excepteur sint</li>
+                                        </ul>*@
 
 
                                     <input type="hidden" name="product-title" value="Activewear">
                                     <div class="row">
 
+                                        @*<div class="col-auto">
+                                                <ul class="list-inline pb-3">
+                                                    <li class="list-inline-item text-right">
+                                                        Quantity
+                                                        <input type="hidden" name="Quantity" id="product-quanity" value="1">
+                                                    </li>
+                                                    <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
+                                                    <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
+                                                    <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
+                                                </ul>
+                                            </div>*@
+
                                         <div class="col-auto">
                                             <ul class="list-inline pb-3">
                                                 <li class="list-inline-item text-right">
                                                     Quantity
-                                                    <input type="hidden" name="product-quanity" id="product-quanity" value="1">
+                                                    <input type="hidden" name="Quantity" id="product-quanity" value="1">
                                                 </li>
-                                                <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
                                                 <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
-                                                <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
                                             </ul>
                                         </div>
+
+
+
                                     </div>
                                     <div class="row pb-3">
                                         <div class="col d-grid">
@@ -363,7 +379,7 @@
 
                 <div class="p-2 pb-3">
                     <div class="product-wap card rounded-0">
-                        <div class="card rounded-0"  style="width:304.4px ; height:350px">
+                        <div class="card rounded-0" style="width:304.4px ; height:350px">
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Aa44ND036.jpg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
@@ -440,8 +456,8 @@
                 </div>
 
                 <div class="p-2 pb-3">
-                    <div class="product-wap card rounded-0" >
-                        <div class="card rounded-0" style="width:304.4px ; height:350px" >
+                    <div class="product-wap card rounded-0">
+                        <div class="card rounded-0" style="width:304.4px ; height:350px">
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Dd32CL111.jpg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
@@ -635,7 +651,7 @@
                 </div>
 
                 <div class="p-2 pb-3">
-                    <div class="product-wap card rounded-0" >
+                    <div class="product-wap card rounded-0">
                         <div class="card rounded-0" style="width:304.4px ; height:350px">
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Aa41ND016.jpg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
@@ -674,7 +690,7 @@
                 </div>
 
                 <div class="p-2 pb-3">
-                    <div class="product-wap card rounded-0" >
+                    <div class="product-wap card rounded-0">
                         <div class="card rounded-0" style="width:304.4px ; height:350px">
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Aa43CS026.jpeg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
@@ -713,7 +729,7 @@
                 </div>
 
                 <div class="p-2 pb-3">
-                    <div class="product-wap card rounded-0" >
+                    <div class="product-wap card rounded-0">
                         <div class="card rounded-0" style="width:304.4px ; height:350px">
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Cc10CS051.jpeg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
@@ -761,7 +777,7 @@
     <script src="~/Aassets/js/jquery-1.11.0.min.js"></script>
     <script src="~/Aassets/js/jquery-migrate-1.2.1.min.js"></script>
     <script src="~/Aassets/js/bootstrap.bundle.min.js"></script>
-    <script src="~/Aassets/js/templatemo.js"></script>
+    @*<script src="~/Aassets/js/templatemo.js"></script>*@
     <script src="~/Aassets/js/custom.js"></script>
     <!-- End Script -->
     <!-- Start Slider Script -->
