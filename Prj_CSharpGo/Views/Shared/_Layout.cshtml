@@ -75,27 +75,7 @@
                     </li>
 
                 </ul>
-
-
             </div>
-
-
-            <!-- Sam 搜尋功能 (可搜尋版本) 陽春版 -->
-            @*<form asp-controller="Search" asp-action="Index" method="get">
-                    <input type="text" name="SearchString" />
-                    <input type="submit" value="搜尋" />
-                </form>*@
-
-            @*<form method="get" action="/Search/Index">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="" name="SearchString">
-                            <div class="input-group-text">
-                                <i class="fa fa-fw fa-search"></i>
-                            </div>
-                        </div>
-                    </div>
-                </form>*@
 
 
             <!-- Sam 搜尋功能 (可搜尋版本) 圖示版 -->
@@ -103,8 +83,7 @@
                 <div class="search">
                     <div class="icon" onclick="toggleSearchBar()"></div>
                     <div class="input">
-                        <input type="text" id="mysearch" name="SearchString" placeholder="找外出，找美景">
-                        <a class="nav-link" href="@Url.Action("Index", "Recipe")"></a>
+                        <input type="text" id="mysearch" name="SearchString" placeholder="找點什麼吧!">
                     </div>
                     <span class="clear" onclick="clearFunc()"></span>
                 </div>
@@ -112,11 +91,6 @@
 
 
             <!-- 購物車 -->
-            @*<a class="align-self-center nav-icon position-relative text-decoration-none" href="@Url.Action("Index", "PShopCart")">
-                    <i class="d-flex fas fa-cart-arrow-down text-dark mr-1" style="margin-left: 40px;font-size:1.1vw;margin:0;"></i>
-                    <span class="position-absolute top-50 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
-                </a>*@
-
             <div class="shCart">
                 <a class="nav-link" href="@Url.Action("Index", "PShopCart")">
                     <i class="fas fa-cart-arrow-down text-dark" style="font-size: 2.2vmin"></i>

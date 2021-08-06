@@ -65,17 +65,20 @@ namespace Prj_CSharpGo.Controllers
         // 會員中心
         public IActionResult Index(int? id)
         {
-            //List<User> userList = _context.Users.ToList();
             string userId = HttpContext.Session.GetString("userId") ?? "Guest";
-
-            //HttpContext.Session.SetString("userToastr", "登入成功");
+            string userAccount = HttpContext.Session.GetString("userAccount") ?? "Guest";
 
             if (userId == "Guest")
             {
                 return Redirect("/Auth/Login");
             }
 
-            var userInfo = _context.Users.Find(id);
+            // 找出目前已登入使用者的 UserId
+            var userID = (from u in _context.Users
+                          where u.UserAccount == userAccount
+                          select u.UserId).ToList()[0];
+            var userInfo = _context.Users.Find(userID);
+
             return View(userInfo);
 
         }
@@ -85,7 +88,7 @@ namespace Prj_CSharpGo.Controllers
         // ===========================================================================================================================================================
 
         [HttpPost]
-        public IActionResult Login(string userId, string UserAccount, string UserPassword, string userStatus, string isSuccess)
+        public IActionResult Login(string userId, string UserAccount, string UserPassword)
         {
             if (!(string.IsNullOrEmpty(UserAccount) || string.IsNullOrEmpty(UserPassword)))
             {
@@ -155,7 +158,7 @@ namespace Prj_CSharpGo.Controllers
                     HttpContext.Session.SetString("userId", f_userId[0].ToString());
                     HttpContext.Session.SetString("userStatus", f_userStatus[0].ToString());
                     HttpContext.Session.SetString("userIsSuccess", ifSuccess[0].ToString());
-                    //HttpContext.Session.SetString("userAccount", userAccount);
+                    HttpContext.Session.SetString("userAccount", query[0].ToString());
                     //HttpContext.Session.SetString("userPassword", userPassword);
                     //return Content("登入成功");
                     return Redirect("/Auth/Index");
@@ -317,8 +320,6 @@ namespace Prj_CSharpGo.Controllers
             return View();
         }
 
-
-        // Email驗證 => 使用者點擊返回驗證模組
         public IActionResult confirmEmail()
         {
             string account = HttpContext.Request.Query["id"].ToString();
