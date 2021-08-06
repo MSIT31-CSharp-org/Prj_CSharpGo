@@ -316,13 +316,31 @@ namespace Prj_CSharpGo.Controllers
             {
                 return NotFound();
             }
+            ViewData["Img"] = from o in _context.ProductImgs
+                              where o.ProductId == id
+                              select o;
+ 
             var member = await _context.Products.FindAsync(id);
-            return View(member);
+            var upimg = new UpImg
+            {
+                ProductId = member.ProductId,
+                CategoryId = member.CategoryId,
+                ProductName = member.ProductName,
+                ProductDescription = member.ProductDescription,
+                Specification = member.Specification,
+                Cost = member.Cost,
+                UnitPrice = member.UnitPrice,
+                UnitInStock = member.UnitInStock,
+                Status = member.Status,
+                Approval = member.Approval,
+                CategoryType = member.CategoryType
+            };
+            return View(upimg);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ProductEdit([Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status,CategoryType")] Product product)
+        public async Task<IActionResult> ProductEdit(UpImg productImg, [Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status,CategoryType")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -346,6 +364,27 @@ namespace Prj_CSharpGo.Controllers
                 {
                     product.CategoryId = "E ";
                 };
+
+                if (productImg != null)
+                {
+                    string[] subs = productImg.ImageFile.FileName.Split('.');
+                    string NewImgName = product.ProductId + "." + subs[1];
+
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(productImg.ImageFile.FileName);
+                    string extension = Path.GetExtension(productImg.Img);
+                    productImg.Img = fileName = fileName + product.ProductId + extension;
+                    string path = Path.Combine(wwwRootPath + "/Img/ProductsImg", NewImgName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await productImg.ImageFile.CopyToAsync(fileStream);
+                    }
+                    ProductImg temp = new ProductImg();
+                    temp.Img = NewImgName;
+                    temp.ProductId = product.ProductId;
+                    _context.Add(temp);
+                }
+
                 _context.Update(product);
                 await _context.SaveChangesAsync();
                 HttpContext.Session.SetString("employeeToastr", "修改成功");
@@ -413,7 +452,6 @@ namespace Prj_CSharpGo.Controllers
                     temp.Img = NewImgName;
                     temp.ProductId = product.ProductId;
                     _context.Add(temp);
-
                 }
 
                 _context.Add(product);

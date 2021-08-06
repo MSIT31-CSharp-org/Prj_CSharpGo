@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http
 
-@model Prj_CSharpGo.Models.Product
+@model Prj_CSharpGo.Models.ViewModels.UpImg
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
 
 @{
@@ -10,6 +10,11 @@
 @{
     ViewData["Title"] = "ProductEdit";
     Layout = "EmployeeLayout";
+
+    string Img1= "";
+    foreach (var item in ViewData["Img"] as IEnumerable<ProductImg>) { Img1 = item.Img; }
+
+
 }
 
 <h1>商品編輯</h1>
@@ -17,7 +22,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form action="/Employee/ProductEdit/@Model.ProductId" method="post">
+        <form action="/Employee/ProductEdit/@Model.ProductId" method="post" enctype="multipart/form-data">
 
             @Html.AntiForgeryToken()
             <div class="form-group row">
@@ -558,12 +563,15 @@
             </div>
 
             <div class="form-group row">
-                <img id="output" style="width: 400px; height: 300px; margin-left:50px" class="form-control mt-1" />
-                <input type="file" name="Img" accept="image/*" onchange="loadFile(event)">
+                @*<label asp-for="Img" ></label>
+        <input asp-for="Img" accept="image/*"  class="form-control"/>
+        <span asp-validation-for="Img" class="text-danger"> </span>*@
+                <img id="output" src="~/img/ProductsImg/@Img1" style="width: 400px; height: 300px;" class="form-control mt-1" runat="server" />
+                <input type="file" name="ImageFile" accept="image/*" onchange="loadFile(event)" runat="server">
             </div>
 
             <div class="form-group">
-                <input type="submit" value="確定送出" class="btn btn-primary" />
+                <input type="submit" value="確定送出" class="btn btn-primary" runat="server"/>
                 <a href="/Employee/Product" class="btn btn-danger">回到清單</a>
             </div>
         </form>
