@@ -322,10 +322,30 @@ namespace Prj_CSharpGo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ProductEdit([Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status")] Product product)
+        public async Task<IActionResult> ProductEdit([Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status,CategoryType")] Product product)
         {
             if (ModelState.IsValid)
             {
+                if (product.CategoryType.Substring(0, 1) == "a")
+                {
+                    product.CategoryId = "A ";
+                }
+                else if (product.CategoryType.Substring(0, 1) == "b")
+                {
+                    product.CategoryId = "B ";
+                }
+                else if (product.CategoryType.Substring(0, 1) == "c")
+                {
+                    product.CategoryId = "C ";
+                }
+                else if (product.CategoryType.Substring(0, 1) == "d")
+                {
+                    product.CategoryId = "D ";
+                }
+                else
+                {
+                    product.CategoryId = "E ";
+                };
                 _context.Update(product);
                 await _context.SaveChangesAsync();
                 HttpContext.Session.SetString("employeeToastr", "修改成功");
@@ -346,7 +366,7 @@ namespace Prj_CSharpGo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ProductCreate([Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status")] Product product)
+        public async Task<IActionResult> ProductCreate(ProductImg productImg,IFormFile Img,[Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status,CategoryType")] Product product)
         {
             if (await _context.Products.FindAsync(product.ProductId) != null)
             {
@@ -355,6 +375,39 @@ namespace Prj_CSharpGo.Controllers
             }
             if (ModelState.IsValid)
             {
+                if (product.CategoryType.Substring(0, 1) == "a")
+                {
+                    product.CategoryId = "A ";
+                }
+                else if (product.CategoryType.Substring(0, 1) == "b")
+                {
+                    product.CategoryId = "B ";
+                }
+                else if (product.CategoryType.Substring(0, 1) == "c")
+                {
+                    product.CategoryId = "C ";
+                }
+                else if (product.CategoryType.Substring(0, 1) == "d")
+                {
+                    product.CategoryId = "D ";
+                }
+                else
+                {
+                    product.CategoryId = "E ";
+                };
+
+                if (Img != null)
+                {
+                    
+                    string[] subs = Img.FileName.Split('.');
+                    String NewImgName = product.ProductId + "." + subs[1];
+                    Img.CopyTo(new FileStream("./wwwroot/img/" + NewImgName, FileMode.Create));
+                    productImg.Img = NewImgName;
+                    productImg.ProductId = product.ProductId;
+                    _context.Add(productImg);
+                    return Content(NewImgName);
+                }
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 HttpContext.Session.SetString("employeeToastr", "新增商品成功");
