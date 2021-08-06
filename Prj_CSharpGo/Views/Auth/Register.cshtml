@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/Auth/_AuthLayout.cshtml";
 }
 
-@{ 
+@{
     string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
 }
 
@@ -202,13 +202,13 @@
     </script>
 
 
-    @if (userToastr != "Guest")
+    @if (userToastr != "Guest" || userToastr == "您現在可以至電子郵件收取會員註冊信以完成驗證程序")
     {
         <script type="text/javascript">
 
         $(function () {
 
-        Command: toastr["error"]("@userToastr");
+        Command: toastr["success"]("@userToastr");
         @{user.HttpContext.Session.Remove("userToastr");}
 
         toastr.options = {
@@ -232,6 +232,35 @@
         </script>
     }
 
+    else if (userToastr == "@S_t")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["error"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+    })
+        </script>
+    }
 
 </body>
 </html>
