@@ -275,9 +275,7 @@ namespace Prj_CSharpGo.Models
 
             modelBuilder.Entity<Employee>(entity =>
             {
-                entity.Property(e => e.EmployeeId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("EmployeeID");
+                entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
                 entity.Property(e => e.EmployeeEmail).HasMaxLength(50);
 
@@ -292,9 +290,7 @@ namespace Prj_CSharpGo.Models
 
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.Property(e => e.OrderId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("OrderID");
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.Approval)
                     .HasMaxLength(2)
@@ -386,7 +382,7 @@ namespace Prj_CSharpGo.Models
 
             modelBuilder.Entity<ProductImg>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Img);
 
                 entity.ToTable("ProductImg");
 
@@ -398,7 +394,7 @@ namespace Prj_CSharpGo.Models
                     .HasColumnName("ProductID");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.ProductImgs)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__ProductIm__Produ__19DFD96B");
@@ -541,6 +537,8 @@ namespace Prj_CSharpGo.Models
                 entity.Property(e => e.Region).HasMaxLength(10);
 
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.UserAccount).HasMaxLength(30);
 
                 entity.Property(e => e.UserName).HasMaxLength(20);
 
