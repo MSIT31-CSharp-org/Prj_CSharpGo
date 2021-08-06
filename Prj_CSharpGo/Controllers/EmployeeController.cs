@@ -26,7 +26,7 @@ namespace Prj_CSharpGo.Controllers
         }
 
         //分頁用
-        private int pageSize = 8;
+        private int pageSize = 9;
 
         public IWebHostEnvironment HostEnvironment { get; }
 
