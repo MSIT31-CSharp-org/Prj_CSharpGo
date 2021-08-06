@@ -148,7 +148,7 @@
     </tbody>
 </table>
 
-@Html.PagedListPager(
+@*@Html.PagedListPager(
     (IPagedList)Model,
     page => Url.Action("Index", new { page = page }),
     PagedListRenderOptions
@@ -167,7 +167,7 @@
                 MaximumPageNumbersToDisplay = 14
             },
             new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "Target", OnSuccess = "Success" })
-)
+)*@
 
 @if (empToastr != "Guest")
 {
