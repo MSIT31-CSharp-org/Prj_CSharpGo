@@ -382,7 +382,7 @@ namespace Prj_CSharpGo.Models
 
             modelBuilder.Entity<ProductImg>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Img);
 
                 entity.ToTable("ProductImg");
 
@@ -394,7 +394,7 @@ namespace Prj_CSharpGo.Models
                     .HasColumnName("ProductID");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.ProductImgs)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__ProductIm__Produ__19DFD96B");
