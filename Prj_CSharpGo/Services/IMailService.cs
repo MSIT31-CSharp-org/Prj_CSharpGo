@@ -25,7 +25,7 @@ namespace Prj_CSharpGo.Services
         {
             var apiKey = _configuration["SendGridAPIKey"];
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("atb000.0101@gmail.com", "野性");
+            var from = new EmailAddress("atb000.0101@gmail.com", "一起露營吧！");
             var to = new EmailAddress(toEmail);
             var msg = MailHelper.CreateSingleEmail(from, to, subject, content, content);
             var response = await client.SendEmailAsync(msg);
