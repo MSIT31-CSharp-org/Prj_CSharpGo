@@ -26,6 +26,11 @@ namespace Prj_CSharpGo.Controllers
         }
         public IActionResult Detail(int? id)
         {
+            var rec = _context.Recipes.FirstOrDefault(m => m.RecipeId == id);
+            if (rec == null)
+            {
+                return NotFound();
+            }
             Recipe re = _context.Recipes.Find(id);
             ViewData["Association"] = this._context.Associations.Where(x => x.RecipeId == id).ToList();
             ViewData["Product"] = this._context.Products.ToList();
@@ -42,6 +47,12 @@ namespace Prj_CSharpGo.Controllers
                                select o,
                 Products = this._context.Products.Where(x => x.CategoryId == "E ")
             };
+            var rec = _context.Recipes.FirstOrDefault(m => m.RecipeId == id);
+            if (rec == null)
+            {
+                return NotFound();
+            }
+
             //這邊無法用2次Model去foreach，所以用ViewData取代 => 這邊如果用all.Products會抓不到，所以直接用資料庫文法重抓
             ViewData["Products"] = this._context.Products.Where(x => x.CategoryId == "E ").ToList();
             return View(all);
