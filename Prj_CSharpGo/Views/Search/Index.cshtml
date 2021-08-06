@@ -295,8 +295,9 @@
     <script src="~/Bassets/js/custom.js"></script>
     <!-- End Script -->
 </body>
-
 </html>
+
+
 @*<form asp-controller="Search" asp-action="Index">
         <p>
             關鍵字<input type="text" name="SearchString" />
@@ -316,78 +317,3 @@
         </div>
     </div>*@
 
-
-<!--<div class="products-warp" id="products-search">
-    <div class="container">
-        <div class="products-content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="result-quantity">
-                        <div class="row">
-                            <div class="col-md-6"><h3 class="text-primary">搜尋關鍵字「<span class="color-danger"> </span>」</h3></div>-->
-<!-- <div class="col-md-6 text-right"><p>總共有 <strong class="color-danger">9</strong> 項搜尋結果</p></div> -->
-<!--</div>
-</div>-->
-<!--<div class="product-row">-->
-<!-- 食譜列表 -->
-<!--<div class="col-md-12">
-        <div class="recipes-content">
-
-            <div class="row" style="padding: 15px 0;">
-
-                @foreach (var item in Model.Recipes)
-                {
-                    <div class="col-lg-3 col-md-4 col-xs-6">
-                        <div class="recipe-col">
-                            @if (Model.recipeImgs.ToList().FirstOrDefault(x => x.RecipeId == item.RecipeId) != null)
-                            {
-                                <div>
-                                    <a img src="/img/RecipeImg/@Model.recipeImgs.ToList().FirstOrDefault(x => x.RecipeId == item.RecipeId).Img"></a>
-                                </div>
-
-
-                                <img src="/img/RecipeImg/@item.Img" alt="product" class="img-responsive">
-
-                                <div class="caption">
-                                    <h4><a href="/recipes/m-1324">@item.RecipeName</a></h4>
-                                    <div class="description">
-
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-</div>-->
-<!--<div class="camp-row">-->
-<!-- 營地列表 -->
-<!--<div class="col-md-12">
-        <div class="camps-content">
-
-            <div class="row" style="padding: 15px 0;">
-
-                @foreach (var item in Model.Camps)
-                {
-                    <div class="col-lg-3 col-md-4 col-xs-6">
-                        <div class="camp-col">
-
-                            @if (Model.campImgs.ToList().FirstOrDefault(x => x.CampId == item.CampId) != null)
-                            {
-                                <div class="caption">
-                                    <h4><a href="/camps/m-1324">@item.CampName</a></h4>
-                                    <div class="description">
-
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-
-                }
-            </div>
-        </div>
-    </div>
-</div>-->
