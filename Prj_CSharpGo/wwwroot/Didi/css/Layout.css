@@ -1,0 +1,30 @@
+﻿
+.home_all {
+    max-width: 1600px !important;
+}
+
+.header_font1:hover {
+    transform: rotate(0.05turn) !important;
+    transform: scale(1) !important;
+    color: red !important;
+}
+
+/*a:hover {
+    color: #5AA0E6 !important;
+    -o-transition: color .20s linear !important;
+    -webkit-transition: color .20s linear !important;
+    -moz-transition: color .20s linear !important;
+    transition: color .20s linear !important;
+}*/
+.title_bar {
+    font-size: 1.5rem !important;
+}
+
+/*.icoin_size {
+    font-size: 50px !important;
+}*/
+
+.search_icon{
+    margin-left:20px !important;
+}
+

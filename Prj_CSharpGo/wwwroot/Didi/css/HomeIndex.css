@@ -4668,7 +4668,6 @@ textarea.form-control-lg {
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #fff;
     /*background-clip: border-box;*/
     /*border: 1px solid rgba(0, 0, 0, 0.125);*/
     /*border-radius: 0.25rem;*/
@@ -11536,6 +11535,7 @@ header.masthead {
 
 .showcase .showcase-img {
     min-height: 30rem;
+   
     background-size: cover;
 }
 
@@ -11597,8 +11597,7 @@ footer.footer {
 
 .dh:hover {
     transform: rotateX(5deg);
-    /*background-color: black;*/
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 .posL {
@@ -11649,7 +11648,7 @@ footer.footer {
         }
 
         .card_1 {
-            margin-right: 15px;
+            /*margin-right: 15px;*/
             float: left;
         }
 
@@ -11682,7 +11681,5 @@ footer.footer {
             margin-top: 20px;
         }
 
-/*背景*/
-.bg{
-    background-image:url(~/Didi/img/camping.png);
-}
+
+
