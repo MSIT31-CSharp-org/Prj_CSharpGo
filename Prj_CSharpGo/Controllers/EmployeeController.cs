@@ -11,20 +11,24 @@ using Prj_CSharpGo.Models.ViewModels;
 using X.PagedList;
 using System.IO;
 using OfficeOpenXml;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Prj_CSharpGo.Controllers
 {
     public class EmployeeController : Controller
     {
         private WildnessCampingContext _context;
-        public EmployeeController(WildnessCampingContext context)
+        private IWebHostEnvironment _hostEnvironment;
+        public EmployeeController(WildnessCampingContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _hostEnvironment = hostEnvironment;
         }
 
         //分頁用
         private int pageSize = 8;
 
+        public IWebHostEnvironment HostEnvironment { get; }
 
         public IActionResult Test()
         {
@@ -87,8 +91,8 @@ namespace Prj_CSharpGo.Controllers
             {
                 return Redirect("/Employee/Login");
             }
-            return View(await _context.Employees.OrderBy(p => p.EmployeeId).ToPagedListAsync(Page, pageSize));
-            //return View(await _context.Employees.ToListAsync());
+            //return View(await _context.Employees.OrderBy(p => p.EmployeeId).ToPagedListAsync(Page, pageSize));
+            return View(await _context.Employees.ToListAsync());
         }
 
         // 新增帳號頁面
@@ -245,7 +249,6 @@ namespace Prj_CSharpGo.Controllers
                 return Redirect("/Employee/Login");
             }
 
-
             return View(await _context.Orders.ToListAsync());
         }
 
@@ -288,8 +291,6 @@ namespace Prj_CSharpGo.Controllers
             return Redirect("/Employee/Order");
         }
 
-
-
         // 商品資料頁面
         public async Task<IActionResult> Product()
         {
@@ -315,17 +316,36 @@ namespace Prj_CSharpGo.Controllers
             {
                 return NotFound();
             }
-
             var member = await _context.Products.FindAsync(id);
             return View(member);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ProductEdit([Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status")] Product product)
+        public async Task<IActionResult> ProductEdit([Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status,CategoryType")] Product product)
         {
             if (ModelState.IsValid)
             {
+                if (product.CategoryType.Substring(0, 1) == "a")
+                {
+                    product.CategoryId = "A ";
+                }
+                else if (product.CategoryType.Substring(0, 1) == "b")
+                {
+                    product.CategoryId = "B ";
+                }
+                else if (product.CategoryType.Substring(0, 1) == "c")
+                {
+                    product.CategoryId = "C ";
+                }
+                else if (product.CategoryType.Substring(0, 1) == "d")
+                {
+                    product.CategoryId = "D ";
+                }
+                else
+                {
+                    product.CategoryId = "E ";
+                };
                 _context.Update(product);
                 await _context.SaveChangesAsync();
                 HttpContext.Session.SetString("employeeToastr", "修改成功");
@@ -346,7 +366,7 @@ namespace Prj_CSharpGo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ProductCreate([Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status")] Product product)
+        public async Task<IActionResult> ProductCreate(UpImg productImg, [Bind("ProductId,CategoryId,ProductName,ProductDescription,Specification,UnitPrice,UnitInStock,Status,CategoryType")] Product product)
         {
             if (await _context.Products.FindAsync(product.ProductId) != null)
             {
@@ -355,6 +375,47 @@ namespace Prj_CSharpGo.Controllers
             }
             if (ModelState.IsValid)
             {
+                if (product.CategoryType.Substring(0, 1) == "a")
+                {
+                    product.CategoryId = "A ";
+                }
+                else if (product.CategoryType.Substring(0, 1) == "b")
+                {
+                    product.CategoryId = "B ";
+                }
+                else if (product.CategoryType.Substring(0, 1) == "c")
+                {
+                    product.CategoryId = "C ";
+                }
+                else if (product.CategoryType.Substring(0, 1) == "d")
+                {
+                    product.CategoryId = "D ";
+                }
+                else
+                {
+                    product.CategoryId = "E ";
+                };
+                if (productImg != null)
+                {
+                    string[] subs = productImg.ImageFile.FileName.Split('.');
+                    string NewImgName = product.ProductId + "." + subs[1];
+
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(productImg.ImageFile.FileName);
+                    string extension = Path.GetExtension(productImg.Img);
+                    productImg.Img = fileName = fileName + product.ProductId + extension;
+                    string path = Path.Combine(wwwRootPath + "/Img/ProductsImg", NewImgName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await productImg.ImageFile.CopyToAsync(fileStream);
+                    }
+                    ProductImg temp = new ProductImg();
+                    temp.Img = NewImgName;
+                    temp.ProductId = product.ProductId;
+                    _context.Add(temp);
+
+                }
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 HttpContext.Session.SetString("employeeToastr", "新增商品成功");
@@ -362,9 +423,5 @@ namespace Prj_CSharpGo.Controllers
             }
             return View(product);
         }
-
-
-
-
     }
 }
