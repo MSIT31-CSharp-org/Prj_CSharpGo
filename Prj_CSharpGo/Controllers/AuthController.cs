@@ -92,7 +92,7 @@ namespace Prj_CSharpGo.Controllers
                 // 找出目前使用者欲登入的 UserId
                 var userID = (from u in _context.Users
                               where u.UserAccount == UserAccount
-                              where u.UserPassword == UserPassword
+                              //where u.UserPassword == UserPassword
                               select u.UserId).ToList()[0];
                 var get_UserId = _context.Users.Find(userID);
 
@@ -132,25 +132,18 @@ namespace Prj_CSharpGo.Controllers
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-                // >>>>>>>>>>>> 將資料庫取得的帳號狀態代碼，轉換成字串 <<<<<<<<<<<<<
-                //string normalStatus = "正常使用";     // NR
-                string StoppingStatus = "停權";       // SP
-                string NLogStatus = "註銷";           // WL
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
                 if (get_UserId.UserStatus.ToString() != "NR")
                 {
                     if (get_UserId.UserStatus.ToString() == "SP")
                     {
-                        HttpContext.Session.SetString("userToastr", $"您目前的帳號狀態為{StoppingStatus}，如有任何帳號疑慮，敬請聯繫官方服務中心");
+                        HttpContext.Session.SetString("userToastr", "目前此帳號狀態已遭停權，如有任何帳號疑慮，敬請聯繫官方服務中心");
                         //return Redirect("/Home/Login");
                         return View();
                     }
                     else if (get_UserId.UserStatus.ToString() == "WL")
                     {
-                        HttpContext.Session.SetString("userToastr", $"您目前的帳號狀態為{NLogStatus}，如有任何帳號疑慮，敬請聯繫官方服務中心");
+                        HttpContext.Session.SetString("userToastr", "目前此帳號狀態已被註銷，如有任何帳號疑慮，敬請聯繫官方服務中心");
                         //return Redirect("/Home/Login");
                         return View();
                     }
@@ -221,22 +214,7 @@ namespace Prj_CSharpGo.Controllers
             var UpdateStatus = from o in _context.Users
                                where o.UserStatus == userStatus
                                select o;
-            // >>>>>>>>>>>> 將資料庫取得的帳號狀態代碼，轉換成字串 <<<<<<<<<<<<<
-            string normalStatus = "正常使用";     // NR
-            string StoppingStatus = "停權";       // SP
-            string NLogStatus = "註銷";           // WL
-            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-            // if (String.IsNullOrEmpty(account) || !(regexAccount.IsMatch(account))){
-            //    if (ACQuery.Count() != 0)
-            //    {
-            //        HttpContext.Session.SetString("userToastr", "此帳號已有人使用！"); return Content("此帳號已有人使用！");
-            //        return View();
-            //    }
-            //    else if (ACQuery.Count() == 0) { return Content("可由您建立的帳號！"); return Redirect("/Auth/confirmemail"); }
-            //    HttpContext.Session.SetString("userToastr", "帳號格式有誤"); return Content("帳號格式有誤");
-            //  }
 
             // 1. ------------------- 判斷帳號是否已被創建 -------------------
             if (ACQuery.Count() != 0)
@@ -284,14 +262,12 @@ namespace Prj_CSharpGo.Controllers
             {
                 if (userStatus == "SP")
                 {
-                    string S_t = $"您目前的帳號狀態為{StoppingStatus}，如有任何帳號疑慮，敬請聯繫官方服務中心";
-                    HttpContext.Session.SetString("userToastr", S_t);
+                    HttpContext.Session.SetString("userToastr", "目前此帳號狀態已遭停權，如有任何帳號疑慮，敬請聯繫官方服務中心");
                     return Redirect("/Home/Index");
                 }
                 else if (userStatus == "WL")
                 {
-                    string N_t = $"您目前的帳號狀態為{NLogStatus}，如有任何帳號疑慮，敬請聯繫官方服務中心";
-                    HttpContext.Session.SetString("userToastr", N_t);
+                    HttpContext.Session.SetString("userToastr", "目前此帳號狀態已被註銷，如有任何帳號疑慮，敬請聯繫官方服務中心");
                     return Redirect("/Home/Index");
                 }
                 return Redirect("/Auth/Login");
