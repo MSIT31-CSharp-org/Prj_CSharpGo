@@ -111,83 +111,99 @@
                     </div>
 
                 </div>
-                <div class="row">
+                <form  class="" action="/PShopCart/AddCart" method="post">
+                    <div class="row">
 
-                    @foreach (var item in Model.products)
-                    {
-                        <div class="col-md-4">
-                            <div class="card mb-4 product-wap rounded-0">
 
-                                @if (Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId) != null)
-                                {
+                        @foreach (var item in Model.products)
+                        {
+                            <input type="hidden" name="UserId" value="1001">
+                            <input type="hidden" name="ProductId" value="@item.ProductId">
+                            <div class="col-md-4">
+                                <div class="card mb-4 product-wap rounded-0">
 
-                                    <div class="card rounded-0">
-                                        <img class="card-img rounded-0 img-fluid" style="width:302.8px;height:302.8px" src="/img/ProductsImg/@Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId).Img">
-                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                            <ul class="list-unstyled">
-                                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                                <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=@item.ProductId"><i class="far fa-eye"></i></a></li>
-                                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
-                                            </ul>
+                                    @if (Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId) != null)
+                                    {
+
+                                        <div class="card rounded-0">
+                                            <img class="card-img rounded-0 img-fluid" style="width:302.8px;height:302.8px" src="/img/ProductsImg/@Model.productImgs.ToList().FirstOrDefault(x => x.ProductId == item.ProductId).Img">
+                                            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                                <ul class="list-unstyled">
+                                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                                    <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=@item.ProductId"><i class="far fa-eye"></i></a></li>
+                                                    @*<li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>*@
+                                                    <li><a class="btn btn-success text-white mt-2" href="/PShopCart/Index"><i class="fas fa-cart-plus"></i></a></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                }
-                                else
-                                {
-                                    <div class="card rounded-0">
-                                        無照片
-                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                            <ul class="list-unstyled">
-                                                <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                                <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail"><i class="far fa-eye"></i></a></li>
-                                                <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
-                                            </ul>
+                                    }
+                                    else
+                                    {
+                                        <div class="card rounded-0">
+                                            無照片
+                                            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                                <ul class="list-unstyled">
+                                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                                    <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail"><i class="far fa-eye"></i></a></li>
+                                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
+                                                </ul>
+                                            </div>
                                         </div>
+                                    }
+
+                                    <div class="card-body">
+                                        <a href="shop-single.html" class="h3 text-decoration-none">@item.ProductName</a>
+                                        <input type="hidden" name="ProductName" value="@item.ProductName">
+                                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+                                            <li>@Model.categories.Where(s => s.CategoryId == item.CategoryId).FirstOrDefault().CategoryName</li>
+                                            <li>@Model.categoriesTypeIs.Where(s => s.CategoryTypeI == item.CategoryType).FirstOrDefault().TypeIname</li>
+
+                                            <li class="pt-2">
+                                                <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                                <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                                <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                                <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                                <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                            </li>
+                                        </ul>
+                                        <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                            <li>
+                                                <i class="text-warning fa fa-star"></i>
+                                                <i class="text-warning fa fa-star"></i>
+                                                <i class="text-warning fa fa-star"></i>
+                                                <i class="text-muted fa fa-star"></i>
+                                                <i class="text-muted fa fa-star"></i>
+                                            </li>
+                                        </ul>
+                                        <p class="text-center mb-0">$@item.UnitPrice</p>
+                                        <input type="hidden" name="UnitPrice" value=" @item.UnitPrice">
                                     </div>
-                                }
-
-                                <div class="card-body">
-                                    <a href="shop-single.html" class="h3 text-decoration-none">@item.ProductName</a>
-                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-
-                                        <li>@Model.categories.Where(s => s.CategoryId == item.CategoryId).FirstOrDefault().CategoryName</li>
-                                        <li>@Model.categoriesTypeIs.Where(s => s.CategoryTypeI == item.CategoryType).FirstOrDefault().TypeIname</li>
-
-                                        <li class="pt-2">
-                                            <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                            <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                            <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                            <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                            <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                        </li>
-                                    </ul>
-                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i class="text-warning fa fa-star"></i>
-                                            <i class="text-warning fa fa-star"></i>
-                                            <i class="text-warning fa fa-star"></i>
-                                            <i class="text-muted fa fa-star"></i>
-                                            <i class="text-muted fa fa-star"></i>
-                                        </li>
-                                    </ul>
-                                    <p class="text-center mb-0">$@item.UnitPrice</p>
                                 </div>
                             </div>
-                        </div>
-                    }
-                </div>
+                        }
+
+                    </div>
+
+                </form>
                 <div div="row">
                     <ul class="pagination pagination-lg justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#" tabindex="-1">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
-                        </li>
+                        @Html.PagedListPager((IPagedList)Model.products, x => Url.Action("Index", new { page = x, categoryid = Model.userModel.CategoryId, categorytype = Model.userModel.CategoryType }),
+                            new X.PagedList.Web.Common.PagedListRenderOptions
+                            {
+                                LiElementClasses = new string[] { "page-item" },
+                                PageClasses = new string[] { "page-link" }
+                            })
+                        @*<li class="page-item disabled">
+                                <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#" tabindex="-1">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
+                            </li>*@
                     </ul>
                 </div>
             </div>
@@ -200,7 +216,7 @@
         <div class="container my-4">
             <div class="row text-center py-3">
                 <div class="col-lg-6 m-auto">
-                    <h1 class="h1">Our Brands</h1>
+                    <h1 class="h1">Our Products</h1>
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                         Lorem ipsum dolor sit amet.
@@ -225,16 +241,16 @@
                                     <div class="carousel-item active">
                                         <div class="row">
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="~/Bassets/img/brand_01.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="~/img/ProductsImg/Aa10SP004.jpg" style="width:110.25px; height:110.25px" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="~/Bassets/img/brand_02.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="~/img/ProductsImg/Aa42SP023.jpg" style="width:110.25px; height:110.25px" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="~/Bassets/img/brand_03.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="~/img/ProductsImg/Aa41ND018.jpg" style="width:110.25px; height:110.25px" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="~/Bassets/img/brand_04.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="~/img/ProductsImg/Aa20SP010.jpg" style="width:110.25px; height:110.25px" alt="Brand Logo"></a>
                                             </div>
                                         </div>
                                     </div>
@@ -243,16 +259,16 @@
                                     <div class="carousel-item">
                                         <div class="row">
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="~/Bassets/img/brand_01.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="~/img/ProductsImg/Bb10HN038.jpg" style="width:110.25px; height:110.25px" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="~/Bassets/img/brand_02.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="~/img/ProductsImg/Bb10TT040.jpg" style="width:110.25px; height:110.25px" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="~/Bassets/img/brand_03.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="~/img/ProductsImg/Bb20CL043.jpg" style="width:110.25px; height:110.25px" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="~/Bassets/img/brand_04.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="~/img/ProductsImg/Bb20CL049.jpg" style="width:110.25px; height:110.25px" alt="Brand Logo"></a>
                                             </div>
                                         </div>
                                     </div>
@@ -261,22 +277,22 @@
                                     <div class="carousel-item">
                                         <div class="row">
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="~/Bassets/img/brand_01.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="~/img/ProductsImg/Cc10CS051.jpeg" style="width:110.25px; height:110.25px" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="~/Bassets/img/brand_02.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="~/img/ProductsImg/Cc10BD056.jpg" style="width:110.25px; height:110.25px" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="~/Bassets/img/brand_03.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="~/img/ProductsImg/Cc10CS052.jpeg" style="width:110.25px; height:110.25px" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="~/Bassets/img/brand_04.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="~/img/ProductsImg/Cc10CS053.jpeg" style="width:110.25px; height:110.25px" alt="Brand Logo"></a>
                                             </div>
                                         </div>
                                     </div>
                                     <!--End Third slide-->
 
-                                    @*@Html.PagedListPager((IPagedList)Model, x => Url.Action("Index", new { page = x }))*@
+
                                 </div>
                                 <!--End Slides-->
                             </div>

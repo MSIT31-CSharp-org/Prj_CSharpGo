@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
 
-@model Prj_CSharpGo.Models.Product
+@model Prj_CSharpGo.Models.ViewModels.UpImg
+
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
 
 @{
@@ -10,13 +11,14 @@
 @{
     ViewData["Title"] = "ProductCreate";
     Layout = "EmployeeLayout";
+
 }
 
 <h1>請輸入新增資料</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form action="/Employee/ProductCreate" method="post">
+        <form action="/Employee/ProductCreate" method="post" enctype="multipart/form-data">
 
             @Html.AntiForgeryToken()
             <div class="form-group row">
@@ -27,15 +29,36 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="CategoryId">類別</label>
-                <select name="CategoryId" class="form-control col-sm-9">
-                    <option value="A ">帳篷</option>
-                    <option value="B ">寢具</option>
-                    <option value="C ">戶外家具</option>
-                    <option value="D ">廚房用品</option>
-                    <option value="E ">食品</option>
+                <label class="col-sm-3 col-form-label" for="CategoryType">類別</label>
+                <select name="CategoryType" class="form-control col-sm-9">
+                    <optgroup label="帳篷">
+                        <option value="a1">寢帳</option>
+                        <option value="a2">客廳</option>
+                        <option value="a3">天幕</option>
+                        <option value="a4">帳篷周邊</option>
+                    </optgroup>
+                    <optgroup label="寢具">
+                        <option value="b1">睡墊/充氣床/行軍床</option>
+                        <option value="b2">睡袋/枕頭/毛毯</option>
+                        <option value="b3">配件</option>
+                    </optgroup>
+                    <optgroup label="戶外家具">
+                        <option value="c1">桌子</option>
+                        <option value="c2">椅子</option>
+                        <option value="c3">置物架</option>
+                        <option value="c4">燈具</option>
+                    </optgroup>
+                    <optgroup label="廚房用品">
+                        <option value="d1">爐具</option>
+                        <option value="d2">炊煮用品</option>
+                        <option value="d3">燒烤用品</option>
+                        <option value="d4">餐飲用具</option>
+                        <option value="d5">保冷設備</option>
+                    </optgroup>
+                    <option value="e0">食品</option>
                 </select>
             </div>
+
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="ProductName">名稱</label>
                 <input class="form-control col-sm-9" type="text" data-val="true" data-val-required="不可空白" id="ProductName" name="ProductName" value="" />
@@ -74,14 +97,34 @@
                 </select>
             </div>
 
+
+            <div class="form-group row">
+                @*<label asp-for="Img" ></label>
+                <input asp-for="Img" accept="image/*"  class="form-control"/>
+                <span asp-validation-for="Img" class="text-danger"> </span>*@
+
+                <img id="output" style="width: 400px; height: 300px;" class="form-control mt-1" runat="server"/>
+                <input type="file" name="ImageFile" accept="image/*" onchange="loadFile(event)" runat="server">
+            </div>
+
             <div class="form-group">
-                <input type="submit" value="確定送出" class="btn btn-primary" />
+                <input type="submit" value="確定送出" class="btn btn-primary" runat="server"/>
                 <a href="/Employee/ProductCreate" class="btn btn-danger">回到清單</a>
             </div>
 
         </form>
     </div>
 </div>
+
+<script>
+    var loadFile = function (event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+</script>
 
 @if (empToastr != "Guest")
 {

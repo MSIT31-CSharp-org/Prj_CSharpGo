@@ -32,12 +32,16 @@
                             <h3>營地預約注意事項</h3>
                         </div>
                         <div>
-                            ※ 星期二公休<br>
+                            ※ 星期二公休，不接受當天預約<br>
                             ※ 一般營位僅提供場地使用。<br>
                             ※ 一般營位僅提供場地使用。<br>
                             ※ 每營位限搭1睡帳、1客廳帳，附1停車位 (無法加車，如需加車請另外加訂營位)。<br>
                             ※ 每營位限4人使用，第5人起每人100元清潔費(可加2人，3歲以下免費)，最多6人。<br>
                             ※ 露宿車內，需依照營位費計算。<br>
+                            ※ 價格<br>
+                            &emsp; &emsp;&ensp;A區草地平日價格:1000元 &ensp;假日價格:1100元<br>
+                            &emsp; &emsp;&ensp;B區棧板平日價格:1100元 &ensp;假日價格:1300元<br>
+                            &emsp; &emsp;&ensp;C區碎石平日價格: 900元 &ensp; 假日價格:1000元<br>
                         </div>
                         <br>
                         @using (Html.BeginForm("Index", "Campreserve", FormMethod.Post))
@@ -106,8 +110,8 @@
                                 </div>
 
 
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button id="getButton" type="submit" class="btn btn-b">預約</button>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end"style="margin-left:-100px">
+                                    <button id="getButton" type="submit" class="btn btn-success" >點此預約</button>
                                     @*<button type="button" class="btn btn-b">查看</button>*@
                                 </div>
                             </div>

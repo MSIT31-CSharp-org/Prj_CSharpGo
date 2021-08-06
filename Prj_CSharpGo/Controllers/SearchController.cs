@@ -28,44 +28,39 @@ namespace Prj_CSharpControllers
 
         public async Task<IActionResult> Index(string searchString)
         {
-            //SearchAllViewModel searchAll = new SearchAllViewModel();
-
-            //string[] productIdArr = searchAll.products.Select(s => s.ProductId).ToArray();
-            //searchAll.productImgs = _context.ProductImgs.Where(s=> productIdArr.Contains(s.ProductId)).ToList();
-
-
-            // 全站搜尋
-            IQueryable<string> RgenreQuery = from r in _context.Recipes
-                                             orderby r.RecipeName
-                                             select r.RecipeName;
-
+            // 關鍵字搜尋
             IQueryable<string> PgenreQuery = from r in _context.Products
                                              orderby r.ProductName
                                              select r.ProductName;
 
-            IQueryable<string> CgenreQuery = from r in _context.Camps
-                                             orderby r.CampName
-                                             select r.CampName;
-
-            var recipes = from r in _context.Recipes
-                          select r;
+            //Product pp = new Product();
 
             var products = from p in _context.Products
                            select p;
 
-            var camps = from c in _context.Camps
-                        select c;
-            
+            var productImgs = from c in _context.ProductImgs
+                              select c;
+
+            var recipeImgs = from c in _context.RecipeImgs
+                             select c;
+
+            var campImgs = from c in _context.CampImgs
+                           select c;
+
+            var categories = from c in _context.Categories
+                             select c;
+
+            var categoriesTypeIs = from c in _context.CategoriesTypeIs
+                                   select c;
+
+            var categoriesTypeIis = from c in _context.CategoriesTypeIis
+                                    select c;
+
+            // 
             if (!string.IsNullOrEmpty(searchString))
             {
-                // Recipe 食譜
-                recipes = recipes.Where(s => s.RecipeName.Contains(searchString));
-                // Product 產品
                 products = products.Where(s => s.ProductName.Contains(searchString));
-                // Camp 營地
-                camps = camps.Where(s => s.CampName.Contains(searchString));
             }
-
             //if (!string.IsNullOrEmpty(Genre))
             //{
             //    recipes = recipes.Where(x => x.RecipeName == Genre);
@@ -75,32 +70,17 @@ namespace Prj_CSharpControllers
 
             SearchAllViewModel allGenreVM = new SearchAllViewModel
             {
-                RGenres = new SelectList(await RgenreQuery.Distinct().ToListAsync()),
-                PGenres = new SelectList(await PgenreQuery.Distinct().ToListAsync()),
-                CGenres = new SelectList(await CgenreQuery.Distinct().ToListAsync()),
-                //productImgs = _context.ProductImgs,
-                Recipes = await recipes.ToListAsync(),
-                Products = await products.ToListAsync(),
-                Camps = await camps.ToListAsync(),
-
-                products = _context.Products.ToList(),
-                productImgs = _context.ProductImgs.ToList(),
-                recipes = _context.Recipes.ToList(),
-                recipeImgs = _context.RecipeImgs.ToList(),
-                camps = _context.Camps.ToList(),
-                campImgs = _context.CampImgs.ToList(),
-                categories = _context.Categories.ToList(),
-                categoriesTypeIs = _context.CategoriesTypeIs.ToList(),
-                categoriesTypeIis = _context.CategoriesTypeIis.ToList()
+                //pGenres = new SelectList(await PgenreQuery.Distinct().ToListAsync()),
+                products = await products.ToListAsync(),
+                productImgs =await productImgs.ToListAsync(),
+                categories = await categories.ToListAsync(),
+                categoriesTypeIs =await categoriesTypeIs.ToListAsync(),
+                categoriesTypeIis =await categoriesTypeIis.ToListAsync()
             };
             return View(allGenreVM);
 
         }
-        public IActionResult Detail(int? id)
-        {
-           Product pr = _context.Products.Find(id);
-            return View(pr);
-        }
+      
         public IActionResult Privacy()
         {
             return View();
