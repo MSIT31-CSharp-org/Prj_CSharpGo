@@ -40,15 +40,16 @@ namespace Prj_CSharpGo
 
             services.AddTransient<IMailService, SendGridMailService>();
 
-            //// 創建自定義密碼策略 https://www.yogihosting.com/aspnet-core-identity-username-email-password-policy/
-            //services.Configure<IdentityOptions>(opts => {
-            //    opts.Password.RequiredLength = 6;
-            //    opts.Password.RequireNonAlphanumeric = false;
-            //    opts.Password.RequireLowercase = true;
-            //    opts.Password.RequireUppercase = true;
-            //    opts.Password.RequireDigit = true;
-            //});
-            //// 所有資料保護權杖的超時期限變更為3小時
+            // 創建自定義密碼策略 https://www.yogihosting.com/aspnet-core-identity-username-email-password-policy/
+            services.Configure<IdentityOptions>(opts =>
+            {
+                opts.Password.RequiredLength = 6;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = true;
+                opts.Password.RequireUppercase = true;
+                opts.Password.RequireDigit = true;
+            });
+            // 所有資料保護權杖的超時期限變更為3小時
             //services.Configure<DataProtectionTokenProviderOptions>(o =>
             //    o.TokenLifespan = TimeSpan.FromHours(3));
         }

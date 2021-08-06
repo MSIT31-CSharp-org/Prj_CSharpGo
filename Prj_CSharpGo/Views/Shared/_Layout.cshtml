@@ -26,7 +26,9 @@
     <link href="~/css/janecamp.css" rel="stylesheet">
     <link href="~/css/janecampindex.css" rel="stylesheet">
     <link href="~/css/janecampreserveindex.css" rel="stylesheet">
-    <link href="~/css/Search.css" rel="stylesheet">
+    <link href="~/css/Search.css?v=0.1" rel="stylesheet">
+    @* 放不進去= =要加improtant，太多模板，bootstrap會卡 *@
+    <link rel="stylesheet" href="~/Didi/css/Layout.css?v=0.1">
 
 </head>
 
@@ -34,142 +36,127 @@
 
     <!-- ======= Header/Navbar ======= -->
     <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
-        <div class="container">
+        <div class="container home_all">
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-
-            <a class="navbar-brand text-brand justify-content-start " href="@Url.Action("Index", "Home")">露營<span class="color-b">推廣</span></a>
+            @*class="color-b"*@
+            <a class="navbar-brand text-brand justify-content-start T_fonts " href="@Url.Action("Index", "Home")" > 一起來<span class="header_font1">露營</span><span>吧!</span></a>
 
             <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
                 <ul class="navbar-nav">
-
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Home")">首頁</a>
+                        <a class="nav-link title_bar" href="@Url.Action("Index", "Home")" id="test">首頁</a>
                     </li>
-
                     <!-- 育儒 ShoppingCart -->
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "CampProducts")">露營用品</a>
+                        <a class="nav-link title_bar" href="@Url.Action("Index", "CampProducts")">露營用品</a>
                     </li>
-
                     <!-- 家迪 Recipe -->
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Recipe")">食譜</a>
+                        <a class="nav-link title_bar" href="@Url.Action("Index", "Recipe")">食譜</a>
                     </li>
-
                     <!-- 昱娟  Camp Campreserve -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">露營場地</a>
-                        <div class="dropdown-menu">
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle title_bar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">露營場地</a>
+                        <div class="dropdown-menu title_bar">
                             <a class="dropdown-item " href="@Url.Action("Index", "Camp")">露營場地介紹</a>
                             <a class="dropdown-item " href="@Url.Action("Index", "Campreserve")">露營場地預約</a>
                         </div>
                     </li>
-
                     <!-- 文杰 Employee -->
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Employee")">管理員中心</a>
+                        <a class="nav-link title_bar" href="@Url.Action("Index", "Employee")">管理員中心</a>
                     </li>
-
-                </ul>
-
-
-            </div>
-
-
-            <!-- Sam 搜尋功能 (可搜尋版本) 陽春版 -->
-            @*<form asp-controller="Search" asp-action="Index" method="get">
-                    <input type="text" name="SearchString" />
-                    <input type="submit" value="搜尋" />
-                </form>*@
-
-            @*<form method="get" action="/Search/Index">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="" name="SearchString">
-                            <div class="input-group-text">
-                                <i class="fa fa-fw fa-search"></i>
+                    <!-- Sam 搜尋功能 (可搜尋版本) 圖示版 -->
+                    <li class="nav-item">
+                        <form method="get" action="/Search/Index" class="justify-content-center align-items-center search_icon icoin_size">
+                            <div class="search">
+                                <div class="icon" onclick="toggleSearchBar()"></div>
+                                <div class="input">
+                                    <input type="text" id="mysearch" name="SearchString" placeholder="找點什麼吧!">
+                                </div>
+                                <span class="clear" onclick="clearFunc()"></span>
+                            </div>
+                        </form>
+                    </li>
+                    @* 瑞秋的購物車 *@
+                    <li class="nav-item">
+                        <div class="shCart">
+                            <a class="nav-link" href="@Url.Action("Index", "PShopCart")">
+                                <i class="fas fa-cart-arrow-down text-dark" style="font-size: 1.5rem;margin-top:10px;"></i>
+                            </a>
+                        </div>
+                    </li>
+                    @* 會員登入&註冊 *@
+                    <li class="nav-item">
+                        <div class="dropdown " style="">
+                            <a class="nav-link dropdown-toggle title_bar" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person-fill" style="font-size: 1.75rem;"></i></a>
+                            <div class="dropdown-menu title_bar" style="margin-left:1vw;">
+                                @{
+                                    if (userId == "Guest")
+                                    {
+                                        <div class="Register_Part dropdown-item" style="margin-left:12px;">
+                                            <a class="nav-link text-dark" href="@Url.Action("Register", "Auth")">
+                                                <i class="fas fa-user-plus" style="font-size: 1.5rem"></i>註冊
+                                            </a>
+                                        </div>
+                                        <div class="Login_Part dropdown-item" style="margin-left: 12px;">
+                                            <a class="nav-link text-dark" href="@Url.Action("Login", "Auth")">
+                                                <i class="fas fa-sign-in-alt" style="font-size:1.5rem"></i>登入
+                                            </a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="MemberCenter_Part" style="margin-left:12px;">
+                                            <a class="nav-link text-dark" href="@Url.Action("Index", "Auth")">
+                                                <i class="fa fa-fw fa-user" style="font-size: 2.2vmin"></i>會員中心
+                                            </a>
+                                        </div>
+                                        <div class="Logout_Part" style="margin-left:12px;">
+                                            <a class="nav-link text-dark" href="@Url.Action("Logout", "Auth")">
+                                                <i class="fas fa-sign-out-alt" style="font-size: 2.2vmin"></i>登出
+                                            </a>
+                                        </div>
+                                    }
+                                }
                             </div>
                         </div>
-                    </div>
-                </form>*@
-
-
-            <!-- Sam 搜尋功能 (可搜尋版本) 圖示版 -->
-            <form method="get" action="/Search/Index" class="justify-content-center align-items-center">
-                <div class="search">
-                    <div class="icon" onclick="toggleSearchBar()"></div>
-                    <div class="input">
-                        <input type="text" id="mysearch" name="SearchString" placeholder="找外出，找美景">
-                        <a class="nav-link" href="@Url.Action("Index", "Recipe")"></a>
-                    </div>
-                    <span class="clear" onclick="clearFunc()"></span>
-                </div>
-            </form>
-
-
-            <!-- 購物車 -->
-            @*<a class="align-self-center nav-icon position-relative text-decoration-none" href="@Url.Action("Index", "PShopCart")">
-                    <i class="d-flex fas fa-cart-arrow-down text-dark mr-1" style="margin-left: 40px;font-size:1.1vw;margin:0;"></i>
-                    <span class="position-absolute top-50 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
-                </a>*@
-
-            <div class="shCart" ">
-                <a class="nav-link" href="@Url.Action("Index", "PShopCart")">
-                    <i class="fas fa-cart-arrow-down text-dark" style="font-size: 2.2vmin"></i>
-                </a>
+                    </li>
+                </ul>
             </div>
-
-
-            <!-- 會員 Identity 註冊/登入模組 -->
-            <div class="" style="margin-left:1vw;">
-                @{
-                    if (userId == "Guest")
-                    {
-                        <div class="Register_Part" style="margin-left:12px;">
-                            <a class="nav-link text-dark" href="@Url.Action("Register", "Auth")">
-                                <i class="fas fa-user-plus" style="font-size: 2.2vmin"></i>註冊
-                            </a>
-                        </div>
-                        <div class="Login_Part" style="margin-left: 12px;">
-                            <a class="nav-link text-dark" href="@Url.Action("Login", "Auth")">
-                                <i class="fas fa-sign-in-alt" style="font-size:2.5vmin"></i>登入
-                            </a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="MemberCenter_Part" style="margin-left:12px;">
-                            <a class="nav-link text-dark" href="@Url.Action("Index", "Auth")">
-                                <i class="fa fa-fw fa-user" style="font-size: 2.2vmin"></i>會員中心
-                            </a>
-                        </div>
-                        <div class="Logout_Part" style="margin-left:12px;">
-                            <a class="nav-link text-dark" href="@Url.Action("Logout", "Auth")">
-                                <i class="fas fa-sign-out-alt" style="font-size: 2.2vmin"></i>登出
-                            </a>
-                        </div>
-                    }
-                }
-            </div>
-
-
-
-
-
-
-
-
-
         </div>
     </nav>
     <!-- End Header/Navbar -->
+    <!-- Sam 搜尋功能 (可搜尋版本) 陽春版 -->
+    @*<form asp-controller="Search" asp-action="Index" method="get">
+            <input type="text" name="SearchString" />
+            <input type="submit" value="搜尋" />
+        </form>*@
+    @*<form method="get" action="/Search/Index">
+            <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="inputMobileSearch" placeholder="" name="SearchString">
+                    <div class="input-group-text">
+                        <i class="fa fa-fw fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </form>*@
+    <!-- 購物車 -->
+    @*<a class="align-self-center nav-icon position-relative text-decoration-none" href="@Url.Action("Index", "PShopCart")">
+            <i class="d-flex fas fa-cart-arrow-down text-dark mr-1" style="margin-left: 40px;font-size:1.1vw;margin:0;"></i>
+            <span class="position-absolute top-50 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+        </a>*@
+
+    <!-- 會員 Identity 註冊/登入模組 -->
+
+
 
     <main id="main">
-
         <!-- ======= Intro Single ======= -->
         @*<section class="intro-single">
                 <div class="container">
@@ -191,156 +178,155 @@
         <!-- End Blog Single-->
     </main>
 
-
     <!-- ======= Footer ======= -->
-    <section class="section-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-4">
-                    <div class="widget-a">
-                        <div class="w-header-a">
-                            <h3 class="w-title-a text-brand">關於我們</h3>
-                        </div>
-                        <div class="w-body-a">
-                            <p class="w-text-a color-text-a">
-                                Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis
-                                sed aute irure.
-                            </p>
-                        </div>
-                        <div class="w-footer-a">
-                            <ul class="list-unstyled">
-                                <li class="color-a">
-                                    <span class="color-text-a">
-                                        <i class="fas fa-envelope"></i>
-                                    </span> contact@example.com
-                                </li>
-                                <li class="color-a">
-                                    <span class="color-text-a"><i class="fas fa-phone"></i></span> +54 356 945234
-                                </li>
-                            </ul>
+    @*<section class="section-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <div class="widget-a">
+                            <div class="w-header-a">
+                                <h3 class="w-title-a text-brand">關於我們</h3>
+                            </div>
+                            <div class="w-body-a">
+                                <p class="w-text-a color-text-a">
+                                    Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis
+                                    sed aute irure.
+                                </p>
+                            </div>
+                            <div class="w-footer-a">
+                                <ul class="list-unstyled">
+                                    <li class="color-a">
+                                        <span class="color-text-a">
+                                            <i class="fas fa-envelope"></i>
+                                        </span> contact@example.com
+                                    </li>
+                                    <li class="color-a">
+                                        <span class="color-text-a"><i class="fas fa-phone"></i></span> +54 356 945234
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-4 section-md-t3">
-                    <div class="widget-a">
-                        <div class="w-header-a">
-                            <h3 class="w-title-a text-brand">露營用品</h3>
+                    <div class="col-sm-12 col-md-4 section-md-t3">
+                        <div class="widget-a">
+                            <div class="w-header-a">
+                                <h3 class="w-title-a text-brand">露營用品</h3>
+                            </div>
+                            <div class="w-body-a">
+                                <div class="w-body-a">
+                                    <ul class="list-unstyled">
+                                        <li class="item-list-a">
+                                            <i class="bi bi-chevron-right"></i> <a href="#">Site Map</a>
+                                        </li>
+                                        <li class="item-list-a">
+                                            <i class="bi bi-chevron-right"></i> <a href="#">Legal</a>
+                                        </li>
+                                        <li class="item-list-a">
+                                            <i class="bi bi-chevron-right"></i> <a href="#">Agent Admin</a>
+                                        </li>
+                                        <li class="item-list-a">
+                                            <i class="bi bi-chevron-right"></i> <a href="#">Careers</a>
+                                        </li>
+                                        <li class="item-list-a">
+                                            <i class="bi bi-chevron-right"></i> <a href="#">Affiliate</a>
+                                        </li>
+                                        <li class="item-list-a">
+                                            <i class="bi bi-chevron-right"></i> <a href="#">Privacy Policy</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="w-body-a">
+                    </div>
+                    <div class="col-sm-12 col-md-4 section-md-t3">
+                        <div class="widget-a">
+                            <div class="w-header-a">
+                                <h3 class="w-title-a text-brand">露營場地預約</h3>
+                            </div>
                             <div class="w-body-a">
                                 <ul class="list-unstyled">
                                     <li class="item-list-a">
-                                        <i class="bi bi-chevron-right"></i> <a href="#">Site Map</a>
+                                        <i class="bi bi-chevron-right"></i> <a href="#">Venezuela</a>
                                     </li>
                                     <li class="item-list-a">
-                                        <i class="bi bi-chevron-right"></i> <a href="#">Legal</a>
+                                        <i class="bi bi-chevron-right"></i> <a href="#">China</a>
                                     </li>
                                     <li class="item-list-a">
-                                        <i class="bi bi-chevron-right"></i> <a href="#">Agent Admin</a>
+                                        <i class="bi bi-chevron-right"></i> <a href="#">Hong Kong</a>
                                     </li>
                                     <li class="item-list-a">
-                                        <i class="bi bi-chevron-right"></i> <a href="#">Careers</a>
+                                        <i class="bi bi-chevron-right"></i> <a href="#">Argentina</a>
                                     </li>
                                     <li class="item-list-a">
-                                        <i class="bi bi-chevron-right"></i> <a href="#">Affiliate</a>
+                                        <i class="bi bi-chevron-right"></i> <a href="#">Singapore</a>
                                     </li>
                                     <li class="item-list-a">
-                                        <i class="bi bi-chevron-right"></i> <a href="#">Privacy Policy</a>
+                                        <i class="bi bi-chevron-right"></i> <a href="#">Philippines</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4 section-md-t3">
-                    <div class="widget-a">
-                        <div class="w-header-a">
-                            <h3 class="w-title-a text-brand">露營場地預約</h3>
-                        </div>
-                        <div class="w-body-a">
-                            <ul class="list-unstyled">
-                                <li class="item-list-a">
-                                    <i class="bi bi-chevron-right"></i> <a href="#">Venezuela</a>
+            </div>
+        </section>
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav class="nav-footer">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a href="#">Home</a>
                                 </li>
-                                <li class="item-list-a">
-                                    <i class="bi bi-chevron-right"></i> <a href="#">China</a>
+                                <li class="list-inline-item">
+                                    <a href="#">About</a>
                                 </li>
-                                <li class="item-list-a">
-                                    <i class="bi bi-chevron-right"></i> <a href="#">Hong Kong</a>
+                                <li class="list-inline-item">
+                                    <a href="#">Property</a>
                                 </li>
-                                <li class="item-list-a">
-                                    <i class="bi bi-chevron-right"></i> <a href="#">Argentina</a>
+                                <li class="list-inline-item">
+                                    <a href="#">Blog</a>
                                 </li>
-                                <li class="item-list-a">
-                                    <i class="bi bi-chevron-right"></i> <a href="#">Singapore</a>
+                                <li class="list-inline-item">
+                                    <a href="#">Contact</a>
                                 </li>
-                                <li class="item-list-a">
-                                    <i class="bi bi-chevron-right"></i> <a href="#">Philippines</a>
+                            </ul>
+                        </nav>
+                        <div class="socials-a">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="bi bi-facebook" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="bi bi-twitter" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="bi bi-instagram" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="bi bi-linkedin" aria-hidden="true"></i>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
+                        <div class="copyright-footer">
+                            <p class="copyright color-text-a">
+                                &copy; Copyright
+                                <span class="color-a">野性</span> All Rights Reserved.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <nav class="nav-footer">
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a href="#">Home</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">About</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">Property</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">Blog</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">Contact</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="socials-a">
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="bi bi-facebook" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="bi bi-twitter" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="bi bi-instagram" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="bi bi-linkedin" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="copyright-footer">
-                        <p class="copyright color-text-a">
-                            &copy; Copyright
-                            <span class="color-a">野性</span> All Rights Reserved.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+        </footer>*@
     <!-- End  Footer -->
 
     <div id="preloader"></div>

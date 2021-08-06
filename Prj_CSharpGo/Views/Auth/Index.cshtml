@@ -5,8 +5,9 @@
 @{
     @*Layout = "~/Views/Shared/Layout.cshtml";*@
 
-    string userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
-    string userStatus = user.HttpContext.Session.GetString("userStatus") ?? "Guest";
+    string f_userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
+    string f_userStatus = user.HttpContext.Session.GetString("userStatus") ?? "Guest";
+    string ifSuccess = user.HttpContext.Session.GetString("userIsSuccess") ?? "Guest";
     string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
 }
 
@@ -121,6 +122,93 @@
         $(function () {
 
         Command: toastr["success"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
+    else if (userToastr == "登入成功")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["error"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
+    else if (userToastr == "不存在此帳號")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["error"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
+    else if (userToastr == "帳號尚未開通，請至電子信箱確認")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["error"]("@userToastr");
         @{user.HttpContext.Session.Remove("userToastr");}
 
         toastr.options = {

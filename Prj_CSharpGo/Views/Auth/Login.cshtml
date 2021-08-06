@@ -135,7 +135,7 @@
     <!-- For 顯示密碼-->
     <script>
         const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#id_password');
+        const password = document.querySelector('#UserPassword');
 
         togglePassword.addEventListener('click', function (e) {
             // toggle the type attribute
@@ -147,7 +147,7 @@
     </script>
 
 
-    @if (userToastr == "登出成功")
+    @if (userToastr != "Guest" || userToastr == "登出成功" || userToastr == "會員已開通完成")
     {
         <script type="text/javascript">
 
@@ -176,7 +176,12 @@
     })
         </script>
     }
-    else if (userToastr != "Guest")
+
+    else if (
+             userToastr == "此帳號不存在" || userToastr == "您的帳號未開通" || userToastr == "帳號尚未開通，請至電子信箱確認" ||
+             userToastr == "目前此帳號狀態已被註銷，如有任何帳號疑慮，敬請聯繫官方服務中心" ||
+             userToastr == "目前此帳號狀態已遭停權，如有任何帳號疑慮，敬請聯繫官方服務中心"
+             )
     {
         <script type="text/javascript">
 
@@ -205,5 +210,6 @@
     })
         </script>
     }
+
 </body>
 </html>
