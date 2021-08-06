@@ -27,7 +27,7 @@ namespace Prj_CSharpGo.Controllers
 
         //以下是購物車相關------------------------------------------------------------------------------------
         [HttpPost]
-        public IActionResult AddCart(ShoppingCart ShoppingCarts)//檢視：無-接收商品頁面的資料 要傳進購物車資料庫PShopCartViewMolds中的ShoppingCarts的動作
+        public IActionResult AddCart(CartView ShoppingCarts)//檢視：無-接收商品頁面的資料 要傳進購物車資料庫PShopCartViewMolds中的ShoppingCarts的動作
         {
             if (_context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId) != null)
             {
@@ -40,9 +40,9 @@ namespace Prj_CSharpGo.Controllers
                     UserId = ShoppingCarts.UserId,
                     ProductId = ShoppingCarts.ProductId,
                     Quantity = ShoppingCarts.Quantity,
-                    UnitPrice = ShoppingCarts.UnitPrice,
                     Status = ShoppingCarts.Status,
                     ProductName = ShoppingCarts.ProductName,
+                    UnitPrice = ShoppingCarts.UnitPrice,
                 };
                 _context.ShoppingCarts.Add(PTOSCOrder);
             }
@@ -51,7 +51,7 @@ namespace Prj_CSharpGo.Controllers
         }
         public IActionResult Index()//檢視：購物車訂單頁面-一開始推進去購物車資料的動作  從購物車資料庫裡抓資料                                
         {
-            returnshCartIndexVM returnshCartIndexVM = new returnshCartIndexVM();
+            CartView returnshCartIndexVM = new CartView();
             returnshCartIndexVM.ShoppingCarts = _context.ShoppingCarts.ToList();
             returnshCartIndexVM.Products = _context.Products.ToList();
             returnshCartIndexVM.Users = _context.Users.ToList();
