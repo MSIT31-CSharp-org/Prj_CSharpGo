@@ -54,7 +54,6 @@ namespace Prj_CSharpGo.Controllers
             CartView returnshCartIndexVM = new CartView();
             returnshCartIndexVM.ShoppingCarts = _context.ShoppingCarts.ToList();
             returnshCartIndexVM.Products = _context.Products.ToList();
-            returnshCartIndexVM.Users = _context.Users.ToList();
 
             ViewData["total"] = _context.ShoppingCarts;
             return View("Index", returnshCartIndexVM);
