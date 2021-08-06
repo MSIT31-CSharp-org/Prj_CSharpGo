@@ -182,40 +182,6 @@
 
 
 
-                                        @*<li class="list-inline-item">
-                                              @Model.categories.Where(s => s.CategoryId == item.CategoryId).FirstOrDefault().CategoryName
-                                            </li>*@
-                                        @*@if (item.CategoryId == "A ")
-                                            {
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted"><strong>帳篷</strong></p>
-                                                </li>
-                                            }
-                                            else if (item.CategoryId == "B ")
-                                            {
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted"><strong>寢具</strong></p>
-                                                </li>
-                                            }
-                                            else if (item.CategoryId == "C ")
-                                            {
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted"><strong>戶外家具</strong></p>
-                                                </li>
-                                            }
-                                            else if (item.CategoryId == "D ")
-                                            {
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted"><strong>廚房用品</strong></p>
-                                                </li>
-                                            }
-                                            else
-                                            {
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted"><strong>食品</strong></p>
-                                                </li>
-                                            }*@
-
                                         <li class="list-inline-item">
                                             <h6>商品編號 :</h6>
                                         </li>
@@ -227,16 +193,6 @@
 
                                     </ul>
 
-                                    @*<h6>Specification:</h6>
-                                        <ul class="list-unstyled pb-3">
-                                            <li>Lorem ipsum dolor sit</li>
-                                            <li>Amet, consectetur</li>
-                                            <li>Adipiscing elit,set</li>
-                                            <li>Duis aute irure</li>
-                                            <li>Ut enim ad minim</li>
-                                            <li>Dolore magna aliqua</li>
-                                            <li>Excepteur sint</li>
-                                        </ul>*@
 
 
                                     <input type="hidden" name="product-title" value="Activewear">
@@ -264,15 +220,13 @@
                                             </ul>
                                         </div>
 
-
-
                                     </div>
                                     <div class="row pb-3">
                                         <div class="col d-grid">
                                             <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
                                         </div>
                                         <div class="col d-grid">
-                                            <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
+                                            <a href="/CampProducts/ProductDetail?productid=@item.ProductId" type="submit" class="btn btn-success btn-lg" name="submit" id="addtocard" value="addtocard">Add To Cart</a>
                                         </div>
                                     </div>
                                 </div>
@@ -812,6 +766,13 @@
             }
             ]
         });
+
+
+        $('#addtocard').click(function () {
+
+            alert("已加入購物車");
+
+        })
     </script>
     <!-- End Slider Script -->
 
