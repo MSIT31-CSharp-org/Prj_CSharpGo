@@ -365,7 +365,7 @@ namespace Prj_CSharpGo.Controllers
                     product.CategoryId = "E ";
                 };
 
-                if (productImg != null)
+                if (productImg.ImageFile != null)
                 {
                     string[] subs = productImg.ImageFile.FileName.Split('.');
                     string NewImgName = product.ProductId + "." + subs[1];
