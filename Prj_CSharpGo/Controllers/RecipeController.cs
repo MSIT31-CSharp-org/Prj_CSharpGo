@@ -123,10 +123,11 @@ namespace Prj_CSharpGo.Controllers
             // 上傳圖片檔案
             if (Img != null)
             {
+                Console.WriteLine(Img.FileName);
                 string[] subs = Img.FileName.Split('.');
                 String NewImgName = DateTime.Now.ToString("yyyyMMddHHmmss") + "." + subs[1];
-                newRecipe.Img = NewImgName;
                 Img.CopyTo(new FileStream("./wwwroot/Didi/img/" + NewImgName, FileMode.Create));
+                newRecipe.Img = NewImgName;
             }
             newRecipe.UserId = 1001;
             _context.Add(newRecipe);
