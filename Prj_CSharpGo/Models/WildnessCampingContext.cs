@@ -317,9 +317,7 @@ namespace Prj_CSharpGo.Models
 
                 entity.ToTable("OrderDetail");
 
-                entity.Property(e => e.Odpk)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ODPK");
+                entity.Property(e => e.Odpk).HasColumnName("ODPK");
 
                 entity.Property(e => e.Approval)
                     .HasMaxLength(2)

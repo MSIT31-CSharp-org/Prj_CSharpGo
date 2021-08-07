@@ -142,7 +142,6 @@ namespace Prj_CSharpGo.Controllers
                 orderDetail.ProductId = item.ProductId;
                 orderDetail.UnitPrice = item.UnitPrice;
                 orderDetail.Quantity = item.Quantity;
-                orderDetail.Odpk = Convert.ToInt32(null);
                 _context.OrderDetails.Add(orderDetail);
                 _context.SaveChanges();
             }
