@@ -10,6 +10,7 @@ namespace Prj_CSharpGo.Models
         public Product()
         {
             Associations = new HashSet<Association>();
+            OrderDetails = new HashSet<OrderDetail>();
             ProductImgs = new HashSet<ProductImg>();
             ShoppingCarts = new HashSet<ShoppingCart>();
         }
@@ -28,6 +29,7 @@ namespace Prj_CSharpGo.Models
 
         public virtual Category Category { get; set; }
         public virtual ICollection<Association> Associations { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<ProductImg> ProductImgs { get; set; }
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }

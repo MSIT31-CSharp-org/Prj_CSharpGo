@@ -36,6 +36,7 @@ namespace Prj_CSharpGo.Models
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Chinese_Taiwan_Stroke_CI_AS");
@@ -304,9 +305,11 @@ namespace Prj_CSharpGo.Models
 
             modelBuilder.Entity<OrderDetail>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Odpk);
 
                 entity.ToTable("OrderDetail");
+
+                entity.Property(e => e.Odpk).HasColumnName("ODPK");
 
                 entity.Property(e => e.Approval)
                     .HasMaxLength(2)
@@ -322,13 +325,13 @@ namespace Prj_CSharpGo.Models
                     .HasColumnName("ProductID");
 
                 entity.HasOne(d => d.Order)
-                    .WithMany()
+                    .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__OrderDeta__Order__37A5467C");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__OrderDeta__Produ__38996AB5");
@@ -507,13 +510,9 @@ namespace Prj_CSharpGo.Models
 
                 entity.Property(e => e.Address).HasMaxLength(50);
 
-                entity.Property(e => e.Birthday)
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
+                entity.Property(e => e.Birthday).HasColumnType("datetime");
 
-                entity.Property(e => e.ConfirmPassword)
-                    .HasMaxLength(30)
-                    .IsFixedLength(true);
+                entity.Property(e => e.ConfirmPassword).HasMaxLength(50);
 
                 entity.Property(e => e.DiscountCode).HasMaxLength(8);
 
@@ -529,7 +528,9 @@ namespace Prj_CSharpGo.Models
 
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
 
-                entity.Property(e => e.UserAccount).HasMaxLength(30);
+                entity.Property(e => e.UserAccount)
+                    .IsRequired()
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.UserName).HasMaxLength(20);
 

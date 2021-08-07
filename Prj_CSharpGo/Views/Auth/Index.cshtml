@@ -3,9 +3,11 @@
 @model Prj_CSharpGo.Models.User
 
 @{
-    string f_userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
-    string f_userStatus = user.HttpContext.Session.GetString("userStatus") ?? "Guest";
-    string ifSuccess = user.HttpContext.Session.GetString("userIsSuccess") ?? "Guest";
+    ViewData["Title"] = "我的會員";
+}
+
+@{
+    string userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
     string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
 }
 
@@ -14,71 +16,72 @@
 <html lang="zh-tw">
 
 <head>
-
     <meta charset="utf-8" />
-    <title>您的會員檔案</title>
-    <link rel="stylesheet" href="~/css/LoginRegister.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="~/css/LoginRegister.css">
+    <link rel="stylesheet" href="~/css/sb-admin-2.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
-    <script src="~/js/toastr.min.js"></script>
-
-
+    <style>
+        h1 {
+            text-align: center;
+            font-weight: bolder;
+        }
+    </style>
 </head>
 
 
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-1 col-md-1">
+
+            <div class="col-12 col-md-12 col-lg-12 col-xl-12 align-content-center justify-content-start">
+                <h1 class="align-content-center justify-content-start">我的會員</h1>
+            </div>
+            <div class="col-12 col-md-12">
+                <hr class="col-10 col-md-10  align-content-center justify-content-start" style="margin: 1vh auto; width: 100%; text-align: center; " />
+            </div>
+            <div class="col-12 col-md-12"></div>
+            <!----------------------------------------- 過 渡 白 板 ---------------------------------------->
+            <div class="col-1 col-md-1"></div>
+            <!----------------------------------------- Start SideNavBar ---------------------------------------->
+            <div class="side-navbar col-1 col-md-1">
                 <!--<partial name="_ManageNav" />-->
                 <ul class="list-group nav nav-pills flex-column">
-                    <li class="list-group-item-info active nav-item btn"><a class="nav-link" id="profile" href="/Auth/Index">會員檔案</a></li>
+                    <li class="list-group-item nav-item border border-0"><a class="nav-link btn btn-outline-primary" id="profile" href="/Auth/Index">會員檔案</a></li>
                     <hr />
-                    <li class="list-group-item nav-item btn"><a class="nav-link" id="change-password" href="/Auth/ChangePassword">密碼設置</a></li>
+                    <li class="list-group-item nav-item border border-0"><a class="nav-link btn btn-outline-primary" id="change-password" href="/Auth/ChangePassword">密碼設置</a></li>
+                    <hr />
+                    <li class="list-group-item nav-item border border-0"><a class="nav-link btn btn-outline-primary" id="order-detail" href="/Auth/MemberOrder">訂單查詢</a></li>
                 </ul>
             </div>
+            <!----------------------------------------- 過 渡 白 板 ---------------------------------------->
             <div class="col-1 col-md-1"></div>
+            <!----------------------------------------- End SideNavBar ---------------------------------------->
 
-            <div class="col-10 col-md-10">
+            <div class="col-9 col-md-9">
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="/Auth/MemberEdit" method="post">
-                            <div class="form-group row d-flex justify-content-start">
-                                <div class="row d-flex justify-content-start d-inline col-8 d-inline">
-                                    <h4 class="col-5 align-content-center">會員檔案</h4>
-                                    <!--送出表單-->
-                                    <button type="submit" class="btn btn-outline-primary col-5 align-content-center">確認修改</button>
-                                </div>
-                            </div>
 
-                            <hr />
+                        <form action="/Auth/MemberInfo" method="post">
 
-
-                            <!--使用者帳號-->
+                            <!--帳號-->
                             <div class="form-group row d-flex justify-content-start">
                                 <div class="col-8">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
-                                                <i class="fas fa-address-card col-1"></i>
+                                                <i class="fas fa-user-circle col-1"></i>
+                                                &nbsp;帳號
                                             </div>
                                         </div>
-                                        <input asp-for="Email" class="form-control" disabled />
+                                        <label name="UserAccount" asp-for="UserAccount" class="form-control">@Model.UserAccount</label>
+                                        @*<input asp-for="UserAccount" class="form-control" disabled />*@
                                         <div class="input-group-append">
                                             <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
                                         </div>
@@ -86,6 +89,40 @@
                                 </div>
                             </div>
 
+                            <!--Email-->
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="col-8">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-envelope col-1"></i>
+                                                &nbsp;信箱
+                                            </div>
+                                        </div>
+                                        <label name="Email" asp-for="Email" class="form-control">@Model.Email</label>
+                                        @*<input asp-for="Email" class="form-control" disabled />*@
+                                        <div class="input-group-append">
+                                            <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--姓名-->
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="col-8">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-address-card col-1"></i>
+                                                &nbsp;姓名
+                                            </div>
+                                        </div>
+                                        <input asp-for="UserName" class="form-control" />
+                                        @*<span asp-validation-for="UserName" class="text-danger"></span>*@
+                                    </div>
+                                </div>
+                            </div>
 
                             <!--電話號碼-->
                             <div class="form-group row d-flex justify-content-start">
@@ -94,13 +131,57 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <i class="fas fa-phone col-1"></i>
+                                                &nbsp;電話
                                             </div>
                                         </div>
                                         <input asp-for="Phone" class="form-control" />
-                                        <span asp-validation-for="Phone" class="text-danger"></span>
+                                        @*<span asp-validation-for="Phone" class="text-danger"></span>*@
                                     </div>
                                 </div>
                             </div>
+
+                            <!--生日-->
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="col-8">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-calendar-check col-1"></i>
+                                                &nbsp;生日
+                                            </div>
+                                        </div>
+                                        <input type="date" asp-for="Birthday" class="form-control" />
+                                        @*<span asp-validation-for="Birthday" class="text-danger"></span>*@
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--所在縣市、詳細地址-->
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="col-8">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-map-marked-alt col-1 col-md-1"></i>
+                                            &nbsp;地址
+                                        </div>
+                                        <input type="text" class="form-control col-1 col-2" asp-for="Region" placeholder="縣市" />
+                                        <input type="text" class="form-control col-9 col-md-9" asp-for="Address" placeholder="詳細地址" />
+                                        @*<select class="form-select col-1 col-2" id="inputGroupSelect01" asp-for="Region" placeholder="縣市">
+                                                <option value="1">台北</option>
+                                                <option value="2"></option>
+                                                <option value="3">Three</option>
+                                            </select>*@
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--送出表單按鈕-->
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="row d-flex justify-content-start d-inline col-8 d-inline">
+                                    <button type="submit" class="btn btn-outline-primary col-5 col-md-5 align-content-center">確認修改</button>
+                                </div>
+                            </div>
+
                         </form>
                     </div>
                 </div>
@@ -109,12 +190,10 @@
         </div>
     </div>
 
-    @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
-    }
 
 
-    @if (userToastr != "Guest")
+
+    @if (userToastr == "登入成功" || userToastr == "您的會員資料變更成功")
     {
         <script type="text/javascript">
 
@@ -143,35 +222,7 @@
     })
         </script>
     }
-    else if (userToastr == "登入成功")
-    {
-        <script type="text/javascript">
 
-        $(function () {
-
-        Command: toastr["error"]("@userToastr");
-        @{user.HttpContext.Session.Remove("userToastr");}
-
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-    })
-        </script>
-    }
     else if (userToastr == "不存在此帳號")
     {
         <script type="text/javascript">
@@ -201,13 +252,14 @@
     })
         </script>
     }
-    else if (userToastr == "帳號尚未開通，請至電子信箱確認")
+
+    else if (userToastr == "您的帳號未開通" || userToastr == "帳號尚未開通，請至電子信箱確認" || userToastr == "目前此帳號狀態已遭停權，如有任何帳號疑慮，敬請聯繫官方服務中心" || userToastr == "請重新輸入您的會員基本資料")
     {
         <script type="text/javascript">
 
         $(function () {
 
-        Command: toastr["error"]("@userToastr");
+            Command: toastr["warning"]("@userToastr");
         @{user.HttpContext.Session.Remove("userToastr");}
 
         toastr.options = {
@@ -230,5 +282,19 @@
     })
         </script>
     }
+
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/toastr.min.js"></script>
+
 </body>
 </html>
