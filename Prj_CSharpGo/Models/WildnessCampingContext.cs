@@ -313,9 +313,13 @@ namespace Prj_CSharpGo.Models
 
             modelBuilder.Entity<OrderDetail>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Odpk);
 
                 entity.ToTable("OrderDetail");
+
+                entity.Property(e => e.Odpk)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ODPK");
 
                 entity.Property(e => e.Approval)
                     .HasMaxLength(2)
@@ -331,13 +335,13 @@ namespace Prj_CSharpGo.Models
                     .HasColumnName("ProductID");
 
                 entity.HasOne(d => d.Order)
-                    .WithMany()
+                    .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__OrderDeta__Order__37A5467C");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__OrderDeta__Produ__38996AB5");

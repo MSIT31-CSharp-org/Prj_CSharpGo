@@ -34,11 +34,12 @@ namespace Prj_CSharpGo.Models.ShopCartViewModels
         public double? Discount { get; set; }
         public string Commets { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual IEnumerable<Product> Products { get; set; }
+        public virtual IEnumerable<ProductImg> ProductImgs { get; set; }
 
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual IEnumerable<OrderDetail> OrderDetails { get; set; }
 
-        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual IEnumerable<ShoppingCart> ShoppingCarts { get; set; }
 
     }
 }

@@ -1,14 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Http
 
-@model Prj_CSharpGo.Models.ShopCartViewModels.returnshCartIndexVM
+@*@model Prj_CSharpGo.Models.ShopCartViewModels.returnshCartIndexVM*@
+
+@model Prj_CSharpGo.Models.ShopCartViewModels.CartView
 
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
-@*@{
-           string userid = user.HttpContext.Session.GetString("Userid") ?? "Guest";
-    }*@
+@{
+           string f_userId = user.HttpContext.Session.GetString("userId") ?? "1001";
+    }
 
 @{
     ViewData["Title"] = "購物車";
+    Dictionary<Product, short?> openWith = new Dictionary<Product, short?>();
 }
 
 <main id="main">
@@ -22,18 +25,13 @@
                         <h1 class="title-single">購物車</h1>
                     </div>
                 </div>
-                <div class="col-md-12 col-lg-4">
-                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="#">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">
-                                Book Cover Deisgn
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
+                @*<div class="col-md-12 col-lg-4">
+                        <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                            <ol class="breadcrumb">
+
+                            </ol>
+                        </nav>
+                    </div>*@
             </div>
         </div>
     </section><!-- End Intro Single-->
@@ -42,89 +40,120 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3>購物車清單</h3>
+                    @*<h3>購物車清單</h3>*@
                 </div>
                 <br>
-                <table class="table">
-                    <thead>
-                        <tr class="table-warning">
-                            <th scope="col">貨號</th>
-                            <th scope="col">商品名稱</th>
-                            <th scope="col">單價</th>
-                            <th scope="col">數量</th>
-                            <th scope="col">小 計</th>
-                            <th scope="col">總金額</th>
-                        </tr>
-                    </thead>
 
-                    <tbody>
-                        @{ int i = 1;
-                            int? Totall = 0;
-                            @foreach (var item in Model.ShoppingCarts)
-                            {
-                                string temp1 = "price" + i;
-                                string temp2 = "getUUP" + i;
-                                string temp3 = "pricevalue" + i;
-                                string temp4 = "before" + i;
-                                <tr>
-                                    <th scope="row">@item.ProductId</th>
-                                    <td>@item.ProductName</td>  <!--.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName-->
-                                    <td id="SHOUP" name="SHOUP">@item.UnitPrice 元</td>
+                    <input type="hidden" name="UserId" id="UserId" value="@Model.UserId" />
+                    <table class="table">
+                        <thead>
+                            <tr class="table-warning">
+                                <th scope="col">貨號</th>
+                                <th scope="col">商品名稱</th>
+                                <th scope="col">單價</th>
+                                <th scope="col">數量</th>
+                                <th scope="col">小 計</th>
+                            </tr>
+                        </thead>
 
-                                    <input type="hidden" name="getUUP" id="@temp2" value="@item.UnitPrice" />
+                        <tbody>
+                            @{ int i = 1;
+                                int? Totall = 0;
+                                @foreach (var item in Model.ShoppingCarts)
+                                {
+                                    int? subtotal = item.Quantity * item.UnitPrice;
 
 
-                                    <td>
-                                        @*會員手動調整商品數量    應該要推進購物車資料庫裡的數量*@
-                                        <select class="$form-select-bg-position " name="PQuantity" id="@temp1">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </td>
-                                    @*各項單品小計(隨會員更改浮動相乘)@Model.PuserFilterModel.SMTotal*@
-                                    <td>
-                                        <div id="@temp3">@item.UnitPrice 元</div>
-                                    </td>
-
-                                    <input type="hidden" id="@temp4" value="" />
+                                    string temp1 = "price" + i;
+                                    string temp2 = "getUUP" + i;
+                                    string temp3 = "pricevalue" + i;
+                                    string temp4 = "before" + i;
 
 
-                                    <td>
-                                        @*總金額(小計相加)@Model.PuserFilterModel.BigTotal =   @<tr id="Total">@Totall 元</tr> *@
-                                        @{ Totall += @item.UnitPrice;}
+                            <tr>
+                                <th scope="row">@item.ProductId</th>
+                                <td>
+                                    <img class="card-img rounded-0 img-fluid" style="width:302.8px;height:302.8px" src="/img/ProductsImg/@Model.ProductImgs.FirstOrDefault(x => x.ProductId == item.ProductId).Img">
+                                </td>
+                                <td>@item.ProductName</td>  <!--.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName-->
+                                <td id="SHOUP" name="SHOUP">@item.UnitPrice 元</td>
 
-                                    </td>
+                                <input type="hidden" name="getUUP" id="@temp2" value="@item.UnitPrice" />
 
-                                </tr>
-                                i++;
 
+                                <td>
+                                    @*會員手動調整商品數量    應該要推進購物車資料庫裡的數量*@
+                                    @using (Html.BeginForm("dash", "PShopCart", FormMethod.Post))//指定提交傳回控制器方式//應該改成AddOrder
+                                    {
+                                        <input type="hidden" name="ProductId" id="ProductId" value="@item.ProductId" />
+                                        <input type="submit" value="-" class="bi bi-dash-lg">
+                                    }
+
+                                    <input class="form-control" name="PQuantity" id="@temp1" value="@item.Quantity" readonly>
+
+                                    @using (Html.BeginForm("plus", "PShopCart", FormMethod.Post))//指定提交傳回控制器方式//應該改成AddOrder
+                                    {
+                                        <input type="hidden" name="ProductId" id="ProductId" value="@item.ProductId" />
+                                        <input type="submit" value="+" class="bi bi-plus-lg">
+                                    }
+
+                                </td>
+                                @*各項單品小計(隨會員更改浮動相乘)@Model.PuserFilterModel.SMTotal*@
+                                
+                                <td>
+                                    <div id="@temp3">@subtotal 元</div>
+                                </td>
+
+                                <input type="hidden" id="@temp4" value="" />
+
+
+                                <td>
+                                    @*總金額(小計相加)@Model.PuserFilterModel.BigTotal =   @<tr id="Total">@Totall 元</tr> *@
+                                    @{ Totall += subtotal;}
+                                    @using (Html.BeginForm("delete", "PShopCart", FormMethod.Post))//指定提交傳回控制器方式//應該改成AddOrder
+                                    {
+                                        <input type="hidden" name="ProductId" id="ProductId" value="@item.ProductId" />
+                                        <input type="submit" value="刪掉" class="bi bi-plus-lg">
+                                    }
+                                </td>
+
+                            </tr>
+
+
+                                    i++;
+
+                                }
                             }
-                            <tr id="Total">@Totall 元</tr>
-                        }
-                    </tbody>
 
-                </table>
-                @*把這頁的資料傳進資料庫ShoppingCartUserFilterModel的PuserFilterModel*@
-                @*把這頁的資料傳進控制器PShopCartController的Index*@
-                @using (Html.BeginForm("OrderIndex", "PShopCartController", FormMethod.Post))//指定提交傳回控制器方式//應該改成AddOrder
-                {
+                            <tr class="table-warning">
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col">總金額： @Totall 元</th>
+                            </tr>
 
-                    @Html.HiddenFor(Model => Model.PuserFilterModel.UserId)
-                    @Html.HiddenFor(Model => Model.PuserFilterModel.ProductId)
-                    @Html.HiddenFor(Model => Model.PuserFilterModel.ProductName)
-                    @Html.HiddenFor(Model => Model.PuserFilterModel.UnitPrice)
-                    @Html.HiddenFor(Model => Model.PuserFilterModel.Quantity)
-                    @Html.HiddenFor(Model => Model.PuserFilterModel.SMTotal)
-                    //@Html.HiddenFor(Model => Model.PuserFilterModel.BigTotal)
+                        </tbody>
+
+                    </table>
+                    @*把這頁的資料傳進資料庫ShoppingCartUserFilterModel的PuserFilterModel*@
+                    @*把這頁的資料傳進控制器PShopCartController的Index*@
+
+
+                    @*@Html.HiddenFor(Model => Model.PuserFilterModel.UserId)
+                        @Html.HiddenFor(Model => Model.PuserFilterModel.ProductId)
+                        @Html.HiddenFor(Model => Model.PuserFilterModel.ProductName)
+                        @Html.HiddenFor(Model => Model.PuserFilterModel.UnitPrice)
+                        @Html.HiddenFor(Model => Model.PuserFilterModel.Quantity)
+                        @Html.HiddenFor(Model => Model.PuserFilterModel.SMTotal)
+                        //@Html.HiddenFor(Model => Model.PuserFilterModel.BigTotal)*@
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="/Home/Product" type="button" class="btn btn-secondary">再逛逛</a>
-                        <a href="/PShopCart/OrderIndex" type="submit" class="btn btn-success" id="comform">去買單</a>
+                        <a href="/PShopCart/Bill " type="submit" class="btn btn-success" id="comform">去買單</a>
 
                     </div>
-                }
+                
             </div>
         </div>
     </section>
@@ -139,6 +168,7 @@
 </script>
 
 
+
 @for (int j = 1; j < @Model.ShoppingCarts.Count() + 1; j++)
 {
     <script>
@@ -150,16 +180,13 @@
                   $("#@Temp3").empty()
                 }
                 //S是小計  要傳回去購物車的資料庫
-                var s = parseInt($("#@TTemp").prop("value")) * parseInt($("#@UUP").prop("value"));
+            var s = parseInt($("#@TTemp").prop("value")) * parseInt($("#@UUP").prop("value"));
+
             $("#@Temp3").append(  s + "  元");
 
-            @Totall=0;
-            @foreach (var item in Model.ShoppingCarts)
-            {
 
-                 Totall += @item.UnitPrice;
-             }
-             $('#Total').text(@Totall);
+
+
 
             @*$.ajax({
                 type: "post",
@@ -176,8 +203,5 @@
 }
 
 <script>
-        $("#comform").click(function () {
-            alert('@Html.Raw(ViewBag.messagea)');
-         });
 
 </script>

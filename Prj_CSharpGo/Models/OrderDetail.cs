@@ -14,6 +14,7 @@ namespace Prj_CSharpGo.Models
         public double? Discount { get; set; }
         public string Commets { get; set; }
         public string Approval { get; set; }
+        public int Odpk { get; set; }
 
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
