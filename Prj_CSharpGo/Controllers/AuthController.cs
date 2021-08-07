@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -55,32 +56,67 @@ namespace Prj_CSharpGo.Controllers
         }
 
         // 登出
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
             HttpContext.Session.Remove("userId");
             HttpContext.Session.SetString("userToastr", "已成功登出");
-            return Redirect("/Home/Index");
+
+            // 登出成功後，等待2秒轉導回首頁
+            CancellationTokenSource cts = new CancellationTokenSource();
+            try
+            {
+                await Task.Delay(1500, cts.Token);
+            }
+            catch (TaskCanceledException ex)
+            {
+                Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ==>") + ex.ToString());
+            }
+            return View("LogoutTurn");
+        }
+
+        // 登出轉導頁
+        public IActionResult LogoutTurn()
+        {
+            return View();
         }
 
         // 會員中心
-        public IActionResult Index(int? id)
+        public IActionResult Index()
         {
+            // 接收 Login Form 傳入的 Session
             string userId = HttpContext.Session.GetString("userId") ?? "Guest";
-            string userAccount = HttpContext.Session.GetString("userAccount") ?? "Guest";
 
+            // 判斷傳入的 userId ，身分若是訪客，就將使用者導回登入頁
             if (userId == "Guest")
             {
                 return Redirect("/Auth/Login");
             }
 
-            // 找出目前已登入使用者的 UserId
+            // 找出目前已登入的使用者 id
             var userID = (from u in _context.Users
-                          where u.UserAccount == userAccount
-                          select u.UserId).ToList()[0];
-            var userInfo = _context.Users.Find(userID);
+                          where u.UserId.ToString() == userId
+                          select u).FirstOrDefault();
 
-            return View(userInfo);
+            return View("Index", userID);
+        }
 
+        // 會員中心 => 密碼變更
+        public IActionResult ChangePassword()
+        {
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+
+            // 判斷傳入的 userId ，身分若是訪客，就將使用者導回登入頁
+            if (userId == "Guest")
+            {
+                return Redirect("/Auth/Login");
+            }
+
+            // 找出目前已登入的使用者 id
+            var userID = (from u in _context.Users
+                          where u.UserId.ToString() == userId
+                          select u).FirstOrDefault();
+
+            return View("Index", userID);
         }
 
         // ===========================================================================================================================================================
@@ -88,30 +124,27 @@ namespace Prj_CSharpGo.Controllers
         // ===========================================================================================================================================================
 
         [HttpPost]
-        public IActionResult Login(string userId, string UserAccount, string UserPassword)
+        public IActionResult Login(string UserAccount, string UserPassword,string userStatus)
         {
             if (!(string.IsNullOrEmpty(UserAccount) || string.IsNullOrEmpty(UserPassword)))
             {
-                // 找出目前使用者欲登入的 UserId
-                var userID = (from u in _context.Users
-                              where u.UserAccount == UserAccount
-                              //where u.UserPassword == UserPassword
-                              select u.UserId).ToList()[0];
-                var get_UserId = _context.Users.Find(userID);
-
-                // UserId
+                // UserID
                 var f_userId = (from u in _context.Users
-                                where u.UserAccount == UserAccount
-                                select u.UserId).ToList();
-                // UserStatus
-                var f_userStatus = (from u in _context.Users
-                                    where u.UserAccount == UserAccount
-                                    select u.UserStatus).ToList();
+                              where u.UserAccount == UserAccount
+                              select u.UserId).ToList();
+
+                // 判斷若當即登入的該使用者帳號是否存在
+                if (f_userId.Count() == 0)
+                {
+                    HttpContext.Session.SetString("userToastr", "此帳號不存在");
+                    return View();
+                }
+
 
                 // 僅只取帳號
-                var query = (from u in _context.Users
-                             where u.UserAccount == UserAccount
-                             select u).ToList();
+                var queryAccount = (from u in _context.Users
+                                    where u.UserAccount == UserAccount
+                                    select u).ToList();
 
                 // 判斷帳號、密碼是否相等
                 var queryList = (from u in _context.Users
@@ -124,10 +157,19 @@ namespace Prj_CSharpGo.Controllers
                                  where u.UserAccount == UserAccount
                                  where u.UserPassword == UserPassword
                                  select u.IsSuccess).ToList();
+
+                // UserStatus
+                var NRStatus = (from u in _context.Users
+                                    where u.UserStatus == userStatus
+                                    select u).ToList();
+
+                // 找出目前使用者欲登入的 UserId
+                var get_UserId = _context.Users.Find(f_userId[0]);
+
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 // 帳號存在 ?
-                int x = query.Count;
+                int x = queryAccount.Count;
                 // 帳號、密碼存在 ?
                 int s = queryList.Count;
                 // 帳號通過Email驗證 ?
@@ -136,7 +178,7 @@ namespace Prj_CSharpGo.Controllers
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-                if (get_UserId.UserStatus.ToString() != "NR")
+                if (get_UserId.UserStatus.ToString() != "NR" || get_UserId.UserStatus.ToString() == null)
                 {
                     if (get_UserId.UserStatus.ToString() == "SP")
                     {
@@ -146,22 +188,10 @@ namespace Prj_CSharpGo.Controllers
                     }
                     else if (get_UserId.UserStatus.ToString() == "WL")
                     {
-                        HttpContext.Session.SetString("userToastr", "目前此帳號狀態已被註銷，如有任何帳號疑慮，敬請聯繫官方服務中心");
+                        HttpContext.Session.SetString("userToastr", "此帳號不存在");
                         //return Redirect("/Home/Login");
                         return View();
                     }
-                }
-                // 登入成功  寫入Session
-                else if (s == 1 && y == 1 && get_UserId.IsSuccess == true)
-                {
-                    HttpContext.Session.SetString("userToastr", "登入成功");
-                    HttpContext.Session.SetString("userId", f_userId[0].ToString());
-                    HttpContext.Session.SetString("userStatus", f_userStatus[0].ToString());
-                    HttpContext.Session.SetString("userIsSuccess", ifSuccess[0].ToString());
-                    HttpContext.Session.SetString("userAccount", query[0].ToString());
-                    //HttpContext.Session.SetString("userPassword", userPassword);
-                    //return Content("登入成功");
-                    return Redirect("/Auth/Index");
                 }
                 else if (x == 0)
                 {
@@ -180,6 +210,13 @@ namespace Prj_CSharpGo.Controllers
                     HttpContext.Session.SetString("userToastr", "帳號尚未開通，請至電子信箱確認");
                     //return Content("帳號尚未開通，請至電子郵件收信");
                     return View();
+                }
+                // 登入成功  寫入Session
+                else if (s == 1 && y == 1 && get_UserId.IsSuccess == true)
+                {
+                    HttpContext.Session.SetString("userToastr", "登入成功");
+                    HttpContext.Session.SetString("userId", get_UserId.UserId.ToString());
+                    return Redirect("/Auth/Index");
                 }
 
             }
@@ -248,16 +285,16 @@ namespace Prj_CSharpGo.Controllers
             {
                 if (string.IsNullOrWhiteSpace(email))
                 {
-                    HttpContext.Session.SetString("userToastr", "Email格式有誤");
+                    HttpContext.Session.SetString("userToastr", "輸入的Email格式有誤");
                     //return Content("Email格式有誤");
                     return View();
                 }
-                HttpContext.Session.SetString("userToastr", "已被使用的Email");
+                HttpContext.Session.SetString("userToastr", "此Email已被使用");
                 //return Content("已被使用的Email");
                 return View();
 
             }
-            HttpContext.Session.SetString("userToastr", "是您可私有的Email");
+            HttpContext.Session.SetString("userToastr", "可用的Email");
 
             // 5. ------------------- 判斷用戶帳號使用權(還沒創建前都是Null) ----------------------
 
@@ -270,7 +307,7 @@ namespace Prj_CSharpGo.Controllers
                 }
                 else if (userStatus == "WL")
                 {
-                    HttpContext.Session.SetString("userToastr", "目前此帳號狀態已被註銷，如有任何帳號疑慮，敬請聯繫官方服務中心");
+                    HttpContext.Session.SetString("userToastr", "此帳號不存在");
                     return Redirect("/Home/Index");
                 }
                 return Redirect("/Auth/Login");
@@ -290,7 +327,7 @@ namespace Prj_CSharpGo.Controllers
                 UserPassword = password,
                 ConfirmPassword = confirmPassword,
                 UserName = "",
-                UserStatus = userStatus,
+                UserStatus = "NR",
                 UpdateDate = DateTime.Now,
                 IsSuccess = false
             };
@@ -307,17 +344,22 @@ namespace Prj_CSharpGo.Controllers
                             $"<h3 class='font-weight-bold'>請點擊下方按鈕以完成會員資格開通</h3>" +
                             $"<h3 class='font-weight-bold'><a href='{url}' class='btn btn-primary stretched-link' style='text-decoration:none;'>完成驗證</a></h3>");
 
-            HttpContext.Session.SetString("userToastr", "您現在可以至電子郵件收取會員註冊信以完成驗證程序");
-            HttpContext.Session.SetString("userId", userid.ToString());
-            HttpContext.Session.SetString("userEmail", email);
-            HttpContext.Session.SetString("userPassword", password);
-            HttpContext.Session.SetString("userIsSuccess", isSuccess.ToString());
-            //HttpContext.Session.SetString("userStatus", userStatus.ToString());
-            //HttpContext.Session.SetString("userName", username);
 
-            //return Content("註冊成功");
-            //return RedirectToAction("Login", "Auth");
-            return View();
+            HttpContext.Session.SetString("userToastr", $"請至您的電子郵件 {email} 開通會員資格認證信");
+
+            // 註冊成功後，等待1.5秒轉導至登入頁
+            CancellationTokenSource cts = new CancellationTokenSource();
+            try
+            {
+                await Task.Delay(1000, cts.Token);
+            }
+            catch (TaskCanceledException ex)
+            {
+                string Status = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ==>") + ex.ToString();
+                HttpContext.Session.SetString("userToastr", Status);
+                return View() ;
+            }
+            return View("Login");
         }
 
         public IActionResult confirmEmail()
@@ -346,14 +388,9 @@ namespace Prj_CSharpGo.Controllers
             HttpContext.Session.SetString("userStatus", changUserStatus.UserStatus);
             HttpContext.Session.SetString("userIsSuccess", changUserStatus.IsSuccess.ToString());
             HttpContext.Session.SetString("userUpadteDate", changUserStatus.UpdateDate.ToString());
-            //HttpContext.Session.SetString("userId", changUserStatus.UserId.ToString());
-            //HttpContext.Session.SetString("userEmail", changUserStatus.Email);
-            //HttpContext.Session.SetString("userAccount", changUserStatus.UserAccount);
-            //HttpContext.Session.SetString("userPassword", changUserStatus.UserPassword);
 
             _context.SaveChanges();
             return Redirect("/Auth/Login");
-            //return RedirectToAction("Login", "Auth");
         }
 
     }

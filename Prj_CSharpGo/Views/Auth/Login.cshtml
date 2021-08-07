@@ -3,6 +3,7 @@
 @model Prj_CSharpGo.Models.User
 
 @{
+    ViewData["Title"] = "登入";
     Layout = "~/Views/Shared/Auth/_AuthLayout.cshtml";
 }
 
@@ -14,32 +15,29 @@
 <html lang="zh-tw">
 
 <head>
-
     <meta charset="utf-8" />
-    <title>登入</title>
-    <link rel="stylesheet" href="~/css/LoginRegister.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="~/css/LoginRegister.css">
+    <link rel="stylesheet" href="~/css/sb-admin-2.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
-    <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <script src="~/js/toastr.min.js"></script>
-
 </head>
 
 <body>
+
     <form id="account" method="post" action="/Auth/Login">
 
         <!--帳號-->
@@ -56,20 +54,6 @@
             </div>
         </div>
 
-
-        <!--信箱驗證-->
-        <!--<div class="form-group row d-flex justify-content-center">
-            <div class="col-8">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <i class="fas fa-envelope col-1"></i>
-                        </div>
-                    </div>
-                    <input class="form-control" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="Email" name="Email" placeholder="example@hotmail.com" />
-                </div>
-            </div>
-        </div>-->
         <!--密碼-->
         <div class="form-group row d-flex justify-content-center">
             <div class="col-8">
@@ -122,7 +106,16 @@
     </form>
 
 
-
+    <!-- 帶資料的隱藏按鈕 -->
+    <div class="d-flex d-inline align-item-end justify-content-end">
+        <div class="form-group d-inline">
+            <button id="nowGive1" type="button" class="btn btn-light border border-0">.</button>
+        </div>
+        <span>&emsp;</span>
+        <div class="form-group d-inline">
+            <button id="nowGive2" type="button" class="btn btn-light border border-0">.</button>
+        </div>
+    </div>
 
 
 
@@ -131,6 +124,18 @@
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
+
+    <!-- 帶資料的隱藏按鈕 -->
+    <script>
+        $("#nowGive1").click(function (event) {
+            $("#UserAccount").val("StevenRunnigMan");
+            $("#UserPassword").val("wqfuhQrg94$2dfkj");
+        });
+        $("#nowGive2").click(function (event) {
+            $("#UserAccount").val("RunRunRunSteven");
+            $("#UserPassword").val("wqfuhQrg94$2dfkj");
+        });
+    </script>
 
     <!-- For 顯示密碼-->
     <script>
@@ -147,7 +152,7 @@
     </script>
 
 
-    @if (userToastr != "Guest" || userToastr == "登出成功" || userToastr == "會員已開通完成")
+    @if (userToastr == "登入成功" || userToastr == "會員已開通完成")
     {
         <script type="text/javascript">
 
@@ -176,12 +181,7 @@
     })
         </script>
     }
-
-    else if (
-             userToastr == "此帳號不存在" || userToastr == "您的帳號未開通" || userToastr == "帳號尚未開通，請至電子信箱確認" ||
-             userToastr == "目前此帳號狀態已被註銷，如有任何帳號疑慮，敬請聯繫官方服務中心" ||
-             userToastr == "目前此帳號狀態已遭停權，如有任何帳號疑慮，敬請聯繫官方服務中心"
-             )
+    else if (userToastr != "Guest" || userToastr == "此帳號不存在" || userToastr == "目前此帳號狀態已遭停權，如有任何帳號疑慮，敬請聯繫官方服務中心")
     {
         <script type="text/javascript">
 
@@ -210,6 +210,34 @@
     })
         </script>
     }
+    else if (userToastr == "您的帳號未開通" || userToastr == "帳號尚未開通，請至電子信箱確認")
+    {
+        <script type="text/javascript">
 
+        $(function () {
+
+            Command: toastr["warning"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
 </body>
 </html>
