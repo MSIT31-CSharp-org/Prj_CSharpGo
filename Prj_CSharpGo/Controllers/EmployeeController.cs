@@ -26,7 +26,7 @@ namespace Prj_CSharpGo.Controllers
         }
 
         //分頁用
-        private int pageSize = 9;
+        private int pageSize = 12;
 
         public IWebHostEnvironment HostEnvironment { get; }
 
@@ -471,9 +471,61 @@ namespace Prj_CSharpGo.Controllers
             {
                 return Redirect("/Employee/Login");
             }
-
             return View(await _context.Camps.ToListAsync());
+        }
 
+        // 會員編輯頁面
+        public async Task<IActionResult> CampEdit(int? id)
+        {
+            string empSession = HttpContext.Session.GetString("employeeId") ?? "Guest";
+            if (empSession == "Guest")
+            {
+                return Redirect("/Employee/Login");
+            }
+
+            var UsersId = _context.Camps.FirstOrDefault(m => m.CampId == id);
+            if (UsersId == null)
+            {
+                return NotFound();
+            }
+
+            var camp = await _context.Camps.FindAsync(id);
+            return View(camp);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CampEdit(IFormFile ImgName,[Bind("CampId,CampName,CampSize,CampQuantity,WeekdayPrice,HolidayPrice,LimitPeople,Description,Approval,PlusPrice,Ahref,Img")] Camp camp)
+        {
+            if (camp != null)
+            {
+                string[] subs = ImgName.FileName.Split('.');
+                string[] subs2 = camp.Ahref.Split("/");
+                string NewImgName = subs2[1] + "." + subs[1];
+
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(ImgName.FileName);
+                string extension = Path.GetExtension(camp.Img);
+
+                string path = Path.Combine(wwwRootPath + "/Img", NewImgName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await ImgName.CopyToAsync(fileStream);
+                }
+                camp.Img = NewImgName;
+
+
+                _context.Update(camp);
+                await _context.SaveChangesAsync();
+            }
+            if (ModelState.IsValid)
+            {
+                _context.Update(camp);
+                await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("employeeToastr", "修改成功");
+                return Redirect("/Employee/Camp");
+            }
+            return View(camp);
         }
     }
 }

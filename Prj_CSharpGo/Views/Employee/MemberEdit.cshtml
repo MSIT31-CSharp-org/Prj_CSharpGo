@@ -1,7 +1,7 @@
 ﻿@model Prj_CSharpGo.Models.User
 
 @{
-    ViewData["Title"] = "MemberEdit";
+    ViewData["Title"] = "會員編輯";
     Layout = "EmployeeLayout";
 }
 
@@ -51,7 +51,8 @@
             </div>
             <div class="form-group row d-none">
                 <label class="col-sm-3 col-form-label" for="IsSuccess">IsSuccess</label>
-                <input class="form-control-plaintext col-sm-9" type="checkbox"  cam-variable-type="Boolean" id="IsSuccess" name="IsSuccess" readonly value="@Model.IsSuccess" />
+                <input asp-for="IsSuccess" class="form-control" value="@Model.IsSuccess" />
+
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="IsSuccess" data-valmsg-replace="true"></span>
             </div>
