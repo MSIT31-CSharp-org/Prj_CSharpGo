@@ -366,9 +366,9 @@ namespace Prj_CSharpGo.Controllers
 
         // 會員中心 => 基本資料變更
         [HttpPost]
-        public async Task<IActionResult> MemberInfo(string account, string email, string username, string phone, DateTime birthday, string region, string address)
+        public async Task<IActionResult> MemberInfo(string email,string username, string phone,DateTime birthday, string region, string address)
         {
-            string userId = HttpContext.Session.GetString("userId");
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
 
             // 找出目前已登入的使用者 id
             var userID = (from u in _context.Users
@@ -376,7 +376,7 @@ namespace Prj_CSharpGo.Controllers
                           select u.UserId).FirstOrDefault();
 
             // 優先判斷輸入的資訊舊密碼是否存在
-            if (userID.ToString() != userId)
+            if (userID.ToString() != userId )
             {
                 HttpContext.Session.SetString("userToastr", "請重新輸入您的會員基本資料");
                 return Redirect("/Auth/Index");
@@ -388,10 +388,6 @@ namespace Prj_CSharpGo.Controllers
 
             // 設定該使用者之 UserId 用以變更
             var changMemberinfo = _context.Users.Find(userID);
-            account = changMemberinfo.UserAccount;
-            email = changMemberinfo.Email;
-            changMemberinfo.UserAccount = account;
-            changMemberinfo.Email = email;
             changMemberinfo.UserName = username;
             changMemberinfo.Phone = phone;
             changMemberinfo.Birthday = birthday;
