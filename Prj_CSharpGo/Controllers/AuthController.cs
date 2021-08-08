@@ -150,11 +150,51 @@ namespace Prj_CSharpGo.Controllers
             return View(userID);
         }
 
-        // 會員中心 => 訂單變更
-        public async Task<IActionResult> MemberOrder(int? id)
+
+        // 會員中心 => 訂單資料顯示
+        public IActionResult MemberOrder()
         {
             string userId = HttpContext.Session.GetString("userId") ?? "Guest";
 
+            // 找出目前已登入的使用者 id
+            var userID = (from u in _context.Users
+                          where u.UserId.ToString() == userId
+                          select u.UserId).FirstOrDefault();
+
+            if (userId == "Guest" || userID.ToString() != userId || userId == null)
+            {
+                HttpContext.Session.SetString("userToastr", "目前您的身分為訪客，請重新登入");
+                return Redirect("/Auth/Login");
+            }
+
+            // 找出此會員的所有訂單
+            var f_UserID = _context.Users.Find(userID);
+            // ·························································································
+            // ························ 兩種方法 : 找到此 UserId 的所有訂單 ······························
+            // ·························································································
+            // ····················· 10 ································· 10 ···························
+            // ·························································································
+            var MemberOrderView = _context.Orders.Where(o => o.UserId == f_UserID.UserId).ToList();
+            // ·························································································
+            // ····················· 20 ································· 20 ···························
+            // ·························································································
+            //var MOrder = (from u in _context.Orders
+            //              where u.UserId == f_UserID.UserId
+            //              select u).ToList();
+            // ·························································································
+            // ·························································································
+            if (MemberOrderView == null)
+            {
+                HttpContext.Session.SetString("userToastr", "已幫您查詢訂單，但未能成功");
+                return View();
+            }
+            return View(MemberOrderView);
+        }
+
+        // 會員中心 => 訂單變更
+        public async Task<IActionResult> MemberOrderEdit(int? id)
+        {
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
 
             // 找出目前已登入的使用者 id
             var userID = (from u in _context.Users
@@ -167,7 +207,6 @@ namespace Prj_CSharpGo.Controllers
                 HttpContext.Session.SetString("userToastr", "目前您的身分為訪客，請重新登入");
                 return Redirect("/Auth/Login");
             }
-
 
             // 找出此會員的所有訂單
             var MOrder = (from u in _context.Orders
@@ -192,6 +231,7 @@ namespace Prj_CSharpGo.Controllers
             return View(User_order);
 
         }
+
 
         // =================================================================================================================================================================================
         // 【POST : 登入 / 註冊】 ===========================================================================================================================================================
@@ -526,12 +566,6 @@ namespace Prj_CSharpGo.Controllers
                     HttpContext.Session.SetString("userToastr", "密碼空空如也");
                     return View();
                 }
-                // 密碼空空如也
-                else if (password == null && NewPassword == null && confirmNewPassword == null)
-                {
-                    HttpContext.Session.SetString("userToastr", "密碼空空如也");
-                    return View();
-                }
             }
 
             // 變更密碼成功，等待1.0秒轉導至登入頁
@@ -564,7 +598,7 @@ namespace Prj_CSharpGo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> MemberOrder([Bind("OrderId,OrderDate,PayMethod,TotalPrice,UserId,Approval")] Order order)
+        public async Task<IActionResult> MemberOrderEidt([Bind("OrderId,OrderDate,PayMethod,TotalPrice,UserId,Approval,Address,UserName")] Order order)
         {
             string userId = HttpContext.Session.GetString("userId") ?? "Guest";
 

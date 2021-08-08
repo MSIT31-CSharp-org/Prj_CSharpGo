@@ -1,0 +1,202 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
+
+@model Prj_CSharpGo.Models.ViewModels.MemberOrder
+
+@{
+    ViewData["Title"] = "取消訂單";
+}
+
+@{
+    string userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
+    string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
+}
+
+
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/LoginRegister.css">
+    <link rel="stylesheet" href="~/css/sb-admin-2.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <style>
+        h1 {
+            text-align: center;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12 col-md-12 col-lg-12 col-xl-12 align-content-center justify-content-start">
+                <h1 class="align-content-center justify-content-start">我的訂單</h1>
+            </div>
+            <div class="col-12 col-md-12">
+                <hr class="col-10 col-md-10  align-content-center justify-content-start" style="margin: 1vh auto; width: 100%; text-align: center; " />
+            </div>
+            <div class="col-12 col-md-12"></div>
+            <!----------------------------------------- 過 渡 白 板 ---------------------------------------->
+            <div class="col-1 col-md-1"></div>
+            <!----------------------------------------- Start SideNavBar ---------------------------------------->
+            <div class="side-navbar col-1 col-md-1">
+                <ul class="list-group nav nav-pills flex-column">
+                    <li class="list-group-item nav-item border border-0"><a class="nav-link btn btn-outline-primary" id="profile" href="/Auth/Index">會員檔案</a></li>
+                    <hr />
+                    <li class="list-group-item nav-item border border-0"><a class="nav-link btn btn-outline-primary" id="change-password" href="/Auth/ChangePassword">密碼設置</a></li>
+                    <hr />
+                    <li class="list-group-item nav-item border border-0"><a class="nav-link btn btn-outline-primary" id="order-detail" href="/Auth/MemberOrder">訂單查詢</a></li>
+                </ul>
+            </div>
+            <!----------------------------------------- 過 渡 白 板 ---------------------------------------->
+            <div class="col-1 col-md-1"></div>
+            <!----------------------------------------- End SideNavBar ---------------------------------------->
+
+            <div class="col-9 col-md-9">
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <h1>訂單編號 : @Model._order.OrderId</h1>
+
+                        <hr />
+
+                        <form action="/Auth/OrderEdit/@Model._order.OrderId" method="post">
+
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="Approval">訂單狀態</label>
+                                <div class="col-sm-9">
+                                    <select name="Approval" class="form-control">
+
+                                        @{if (Model._order.Approval == "NR")
+                                            {
+                                                <option value="NR" selected>已完成</option>
+                                                <option value="SP">出貨中</option>
+                                                <option value="WL">取消</option>
+                                            }
+                                            else if (Model._order.Approval == "SP")
+                                            {
+                                                <option value="NR">已完成</option>
+                                                <option value="SP" selected>出貨中</option>
+                                                <option value="WL">取消</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="NR">已完成</option>
+                                                <option value="SP">出貨中</option>
+                                                <option value="WL" selected>取消</option>
+                                            }
+                                        }
+                                    </select>
+
+                                    <div class="form-group row d-none">
+                                        <input class="form-control-plaintext col-sm-9" type="text" id="OrderId" name="OrderId" readonly value="@Model._order.OrderId" />
+                                    </div>
+
+                                    <div class="form-group row d-none">
+                                        <input class="form-control-plaintext col-sm-9" type="text" id="UserId" name="UserId" readonly value="@Model._order.UserId" />
+                                    </div>
+
+                                    <div class="form-group row d-none">
+                                        <input class="form-control-plaintext col-sm-9" type="text" id="TotalPrice" name="TotalPrice" readonly value="@Model._order.TotalPrice" />
+                                    </div>
+
+                                    <div class="form-group row d-none">
+                                        <input class="form-control-plaintext col-sm-9" type="text" id="PayMethod" name="PayMethod" readonly value="@Model._order.PayMethod" />
+                                    </div>
+
+                                    <div class="form-group row d-none">
+                                        <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.OrderDate" />
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                            <table class="table">
+
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            產品編號
+                                        </th>
+                                        <th>
+                                            商品名稱
+                                        </th>
+                                        <th>
+                                            單價
+                                        </th>
+                                        <th>
+                                            數量
+                                        </th>
+                                        <th>
+                                            小計/總金額
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.OrderDetails)
+                                    {
+                                        int? subtotal = item.UnitPrice * item.Quantity;
+                                        <tr>
+                                            <td>
+                                                @item.ProductId
+                                            </td>
+                                            <td>
+                                                @Model.Products.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName
+                                            </td>
+                                            <td>
+                                                @item.UnitPrice
+                                            </td>
+                                            <td>
+                                                @item.Quantity
+                                            </td>
+                                            <td>
+                                                @subtotal
+                                            </td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            @Model._order.TotalPrice
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                            <div class="form-group">
+                                <input type="submit" value="確定送出" class="btn btn-primary" />
+                                <a href="/Employee/Order" class="btn btn-danger">回到清單</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
