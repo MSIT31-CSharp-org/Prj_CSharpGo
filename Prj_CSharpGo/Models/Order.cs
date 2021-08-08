@@ -19,6 +19,7 @@ namespace Prj_CSharpGo.Models
         public DateTime? OrderDate { get; set; }
         public string Approval { get; set; }
         public string Address { get; set; }
+        public string UserName { get; set; }
 
         public virtual User User { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
