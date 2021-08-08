@@ -4,6 +4,8 @@
     ViewData["Title"] = "cust_Index";
 }
 
+<link rel="stylesheet" href="~/Didi/css/recipe.css?v=0.1">
+
 <!DOCTYPE html>
 <html lang="en">
 <body>
@@ -26,9 +28,9 @@
             <section class="best-receipe-area" style="margin-top:50px;">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-7 mb-3">
                             @*<div class="section-heading">*@
-                            <a style="text-align: center; float: right; font-size: 30px;"><h3>食譜推薦</h3></a>
+                            <a style="text-align: center; float: right; font-size: 30px;"><h3 class="re_font">食譜推薦</h3></a>
                         </div>
                         @*<div class="col-md-6 mb-3">
                                 <a class="btn btn-success bi bi-plus" style="float:right" href="/Recipe/Create"></a>
@@ -50,11 +52,11 @@
                                     {<img src="~/Didi/img/@item.Img"
                                           class="rounded-circle img-fluid border img_1">}
                                 </div>
-                                <div>
-                                    <h5 class="text-center mt-3 mb-3">@item.RecipeName</h5>
+                                <div >
+                                    <h3 class="text-center mt-3 mb-3 re_fonts">@item.RecipeName</h3>
                                 </div>
                                 <div>
-                                    <p class="text-center"><a class="btn btn-success" href="/Recipe/cust_Detail/@item.RecipeId">Read more</a></p>
+                                    <p class="text-center"><a class="btn btn-success re_fonts" href="/Recipe/cust_Detail/@item.RecipeId">Read more</a></p>
                                 </div>
                             </div>
                         }

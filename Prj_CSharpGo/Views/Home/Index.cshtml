@@ -222,12 +222,14 @@
                                 必備的餐廚用品<br /><br />
                                 美味的食品
                             </h3>
-                            <div class="font" style="border-style: dashed;margin-left:0%; position: absolute; color: blue; bottom: 10px; right: 10px;">
-                                <h3>shop now <i class="bi bi-cart"></i></h3>
+                            <div style="border-style: dashed;margin-left:0%; position: absolute; color: blue; bottom: 10px; right: 10px;">
+                                @*class="font"*@
+                                @*<h3>去逛逛吧<i class="bi bi-cart"></i></h3>*@
+                                <a href="/CampProducts" class="btn btn-success" style="font-size:20px">去逛逛吧~</a>
                             </div>
-                            <div class="back" style="border-style: dashed; margin-left: 0%; position: absolute; color: red; bottom: 10px; right: 10px;">
+                            @*<div class="back" style="border-style: dashed; margin-left: 0%; position: absolute; color: red; bottom: 10px; right: 10px;">
                                 <h3>GO <i class="bi bi-hand-index"></i></h3>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -245,34 +247,30 @@
                             <h3><br /><br />
                                 最棒的營地
                             </h3>
-                            <div class="font" style="border-style: dashed; margin-left: 0%; position: absolute; color: blue; bottom: 10px; right: 10px;">
-                                <h3>book now <i class="bi bi-calendar-plus"></i></h3>
+                            <div style="border-style: dashed; margin-left: 0%; position: absolute; color: blue; bottom: 10px; right: 10px;">
+                                @*class="font"*@
+                                @*<h3>book now <i class="bi bi-calendar-plus"></i></h3>*@
+                                <a href="/Camp" class="btn btn-success" style="font-size:20px">了解更多...</a>
                             </div>
-                            <div class="back " style="border-style: dashed; margin-left: 0%; position: absolute; color: red; bottom: 10px; right: 10px;">
-                                <h3>GO <i class="bi bi-hand-index"></i></h3>
-                            </div>
+                            @*<div class="back " style="border-style: dashed; margin-left: 0%; position: absolute; color: red; bottom: 10px; right: 10px;">
+                                <h3 href="/CampProducts/index">GO <i class="bi bi-hand-index"></i></h3>
+                            </div>*@
                         </div>
                     </div>
                 </div>
             </div>
-            <br />
-            <br />
-            <br />
             </div>
         </section>
     </div>
-            
-
-
 @* 精選商品 *@
-<div style="margin-top:10%;">
+<div style="margin-top:5%;">
     <section class="new-product-area section-padding30">
         <div class="container">
             <!-- Section tittle -->
             <div class="row">
                 <div class="col-xl-12">
                     <div class="section-tittle mb-70">
-                        <h3>推薦商品</h3>
+                        <h2>推薦商品</h2>
                     </div>
                 </div>
             </div>
@@ -288,7 +286,7 @@
                                 if (item.ProductId == "Aa10CL007")
                                 {
                                     <h3><a href="/CampProducts/ProductDetail?productid=Aa10CL007">@item.ProductName</a></h3>
-                                    <span>$@item.UnitPrice</span>
+                                    <span style="font-size:30px;">$@item.UnitPrice</span>
                                 }
                             }
                         </div>
@@ -304,8 +302,8 @@
                             {
                                 if (item.ProductId == "Aa10CL008")
                                 {
-                                    <h3><a href="/CampProducts/ProductDetail?productid=Aa10CL008">@item.ProductName</a></h3>
-                                    <span>$@item.UnitPrice</span>
+                                    <h3 class=""><a href="/CampProducts/ProductDetail?productid=Aa10CL008">@item.ProductName</a></h3>
+                                    <span style="font-size:30px;">$@item.UnitPrice</span>
                                 }
                             }
                         </div>
@@ -322,7 +320,7 @@
                                 if (item.ProductId == "Aa10CS001")
                                 {
                                     <h3><a href="/CampProducts/ProductDetail?productid=Aa10CS001">@item.ProductName</a></h3>
-                                    <span>$@item.UnitPrice</span>
+                                    <span style="font-size:30px;">$@item.UnitPrice</span>
                                 }
                             }
                         </div>
@@ -333,32 +331,31 @@
     </section>
 </div>
 
-
-
 @* 商品分類 *@
-<div style="margin-top:10%">
+<div style="margin-top:2%">
     <div class="container">
         <div class="row">
             <div class="section-tittle mb-70">
-                <h3>本站分類</h3>
+                <h2>本站分類</h2>
             </div>
         </div>
     </div>
     <!-- 商品放置欄 -->
-    <div class="container py-5">
+    <div class="container">
+        @*py-5*@
         <div class="row">
             @foreach (var item in Model.categories)
             {
                 <div class="col-12 col-md-4 p-5 mt-3">
                     <div style="margin:auto; width:350px;height:250px">
-                        <a href="#"><img src="~/img/ProductsImg/@item.Description" class="rounded-circle img-fluid border img_1"></a>
+                        <a href="#"><img src="~/img/ProductsImg/@item.Description" class="rounded img-fluid border img_1"></a>
                     </div>
                     <div>
                         <h3 class="text-center mt-3 mb-3">@item.CategoryName</h3>
                     </div>
                     <div>
                         @* 連結到產品大分類 *@
-                        <p class="text-center"><a href="/CampProducts/Index?categoryid=@item.CategoryId" class="btn btn-danger">GO</a></p>
+                        <p class="text-center"><a href="/CampProducts/Index?categoryid=@item.CategoryId" class="btn btn-success" style="font-size:20px">GO</a></p>
                     </div>
                 </div>
             }
