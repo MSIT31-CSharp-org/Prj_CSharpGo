@@ -18,8 +18,8 @@
 
 <main id="main">
 
-    <!-- ======= Intro Single ======= -->
-    <section class="intro-single">
+    <!-- ======= Intro Single ======= class="intro-single"-->
+    <section style="margin-top:60px">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-8">
@@ -51,11 +51,13 @@
                     <thead>
                         <tr class="table-warning">
                             <th scope="col">貨號</th>
+                            <th scope="col">圖片</th>
                             <th scope="col">商品名稱</th>
                             <th scope="col">單價</th>
-                            <th scope="col">數量</th>
-                            <th scope="col">小 計</th>
                             <th scope="col"></th>
+                            <th scope="col">數量</th>
+                            <th scope="col"></th>
+                            <th scope="col">小 計</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -74,78 +76,91 @@
                                 string temp4 = "before" + i;
 
 
-                        <tr>
-                            <th scope="row">@item.ProductId</th>
-                            <td>
-                                <img class="card-img rounded-0 img-fluid" style="width:302.8px;height:302.8px" src="/img/ProductsImg/@Model.ProductImgs.FirstOrDefault(x => x.ProductId == item.ProductId).Img">
-                            </td>
-                            <td>@item.ProductName</td>  <!--.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName-->
-                            <td id="SHOUP" name="SHOUP">@item.UnitPrice 元</td>
+                                <tr>
+                                    <th scope="row">@item.ProductId</th>
+                                    <td>
+                                        <img class="card-img rounded-0 img-fluid" style="width:200px;height:200px" src="/img/ProductsImg/@Model.ProductImgs.FirstOrDefault(x => x.ProductId == item.ProductId).Img">
+                                    </td>
+                                    <td>@item.ProductName</td>  <!--.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName-->
+                                    <td id="SHOUP" name="SHOUP">@item.UnitPrice 元</td>
 
-                            <input type="hidden" name="getUUP" id="@temp2" value="@item.UnitPrice" />
-
-
-                            <td>
-                                @*會員手動調整商品數量    應該要推進購物車資料庫裡的數量*@
-                                @using (Html.BeginForm("dash", "PShopCart", FormMethod.Post))//指定提交傳回控制器方式//應該改成AddOrder
-                                {
-                                    <input type="hidden" name="ProductId" id="ProductId" value="@item.ProductId" />
-                                    <input type="submit" value="-" class="row">
-                                }
-
-                                <input class="row" name="PQuantity" id="@temp1" value="@item.Quantity" readonly>
-
-                                @using (Html.BeginForm("plus", "PShopCart", FormMethod.Post))//指定提交傳回控制器方式//應該改成AddOrder
-                                {
-                                    <input type="hidden" name="ProductId" id="ProductId" value="@item.ProductId" />
-                                    <input type="submit" value="+" class="row">
-                                }
-
-                            </td>
-                            @*各項單品小計(隨會員更改浮動相乘)@Model.PuserFilterModel.SMTotal*@
-
-                            <td>
-                                <div id="@temp3">@subtotal 元</div>
-                            </td>
-
-                            <input type="hidden" id="@temp4" value="" />
+                                    <input type="hidden" name="getUUP" id="@temp2" value="@item.UnitPrice" />
 
 
-                            <td>
-                                @*總金額(小計相加)@Model.PuserFilterModel.BigTotal =   @<tr id="Total">@Totall 元</tr> *@
-                                @{ Totall += subtotal;}
-                                @using (Html.BeginForm("delete", "PShopCart", FormMethod.Post))//指定提交傳回控制器方式//應該改成AddOrder
-                                {
-                                    <input type="hidden" name="ProductId" id="ProductId" value="@item.ProductId" />
-                                    <input type="submit" value="刪掉" class="bi bi-plus-lg">
-                                }
-                            </td>
-                            <td>
-                            </td>
+                                    <td style="width: 15px;height:15px">
+                                        @*會員手動調整商品數量    應該要推進購物車資料庫裡的數量*@
+                                        <div class="col-md-1-4-1">
+                                            @using (Html.BeginForm("dash", "PShopCart", FormMethod.Post))//指定提交傳回控制器方式//應該改成AddOrder
+                                            {
+                                                <input type="hidden" name="ProductId" id="ProductId" value="@item.ProductId" />
+                                                <input type="submit" value="-" class="btn btn-success">
+                                            }
+                                        </div>
+                                    </td>
 
-                        </tr>
+                                    <td style="width: 65px;height:65px;margin:-10px">
+                                        <div>
+                                            <input class="form-control" name="PQuantity" id="@temp1" value="@item.Quantity" readonly>
+                                        </div>
+                                    </td>
+
+                                    <td style="width: 15px;height:15px">
+                                        <div class="col-md-1-4-1">
+                                            @using (Html.BeginForm("plus", "PShopCart", FormMethod.Post))//指定提交傳回控制器方式//應該改成AddOrder
+                                            {
+                                                <input type="hidden" name="ProductId" id="ProductId" value="@item.ProductId" />
+                                                <input type="submit" value="+" class="btn btn-success">
+                                            }
+                                        </div>
+                                    </td>
+                                    @*各項單品小計(隨會員更改浮動相乘)@Model.PuserFilterModel.SMTotal*@
+
+                                    <td>
+                                        <div id="@temp3">@subtotal 元</div>
+                                    </td>
+
+                                    <input type="hidden" id="@temp4" value="" />
+
+
+                                    <td>
+                                        @*總金額(小計相加)@Model.PuserFilterModel.BigTotal =   @<tr id="Total">@Totall 元</tr> *@
+                                        @{ Totall += subtotal;}
+                                        @using (Html.BeginForm("delete", "PShopCart", FormMethod.Post))//指定提交傳回控制器方式//應該改成AddOrder
+                                        {
+                                            <input type="hidden" name="ProductId" id="ProductId" value="@item.ProductId" />
+                                            <input type="submit" value="刪掉" class="btn btn-secondary">
+                                        }
+                                    </td>
+                                    <td>
+                                    </td>
+
+                                </tr>
 
                                 i++;
 
                             }
                         }
 
-                    <tr class="table-warning">
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col">總金額： @Totall 元</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                    </tr>
+                        <tr class="table-warning">
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col">總金額：</th>
+                            <th scope="col"> @Totall 元</th>
+                        </tr>
 
                     </tbody>
-
+                     
                 </table>
 
                 <form action="/PShopCart/Bill" method="post">
-
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/CampProducts" type="button" class="btn btn-secondary">再逛逛</a>
+                    </div>
                     @Html.AntiForgeryToken()
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="UserName">收件人名稱</label>
@@ -164,10 +179,11 @@
 
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="Approval">付款方式</label>
-                        <select name="Approval" id="Approval" class="form-control col-sm-9">
-                            <option value="01">貨到付款</option>
+                        <label class="col-sm-3 col-form-label" for="PayMethod">付款方式</label>
+                        <select name="PayMethod" id="PayMethod" class="form-control col-sm-9">
+                            <option value="01">ATM</option>
                             <option value="02">信用卡</option>
+                            <option value="03">貨到付款</option>
                         </select>
                     </div>
 
@@ -177,8 +193,7 @@
 
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="/CampProducts" type="button" class="btn btn-secondary">再逛逛</a>
-                        <input type="submit" class="btn btn-success" value="去買單">
+                        <input type="submit" id="shopend"class="btn btn-success" value="確定">
                     </div>
 
 
@@ -217,5 +232,14 @@
         $("#UserName").val("@Model.UserName");
         $("#Address").val($("#Address1").val());
 
-        });
+    });
+
+
+    $("#shopend").click(function (event) {
+        alert("訂單已完成")
+
+    });
+
+
+
 </script>
