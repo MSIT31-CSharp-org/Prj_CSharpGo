@@ -292,6 +292,8 @@ namespace Prj_CSharpGo.Models
             {
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
+                entity.Property(e => e.Address).HasMaxLength(50);
+
                 entity.Property(e => e.Approval)
                     .HasMaxLength(2)
                     .IsFixedLength(true);
