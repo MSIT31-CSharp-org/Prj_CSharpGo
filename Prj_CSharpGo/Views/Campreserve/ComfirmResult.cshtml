@@ -4,6 +4,24 @@
     ViewData["Title"] = "營地預約訂單";
 }
 
+<head>
+
+
+    <style>
+        h3, .h3, h2, .h2 {
+            font-weight: 700;
+        }
+
+        #article {
+            font-weight: 700;
+        }
+    </style>
+
+
+
+
+</head>
+
 <main id="main">
 
     <!-- ======= Intro Single ======= -->
@@ -12,7 +30,7 @@
             <div class="row">
                 <div class="col-md-12 col-lg-8">
                     <div class="title-single-box">
-                        <h1 class="title-single">營地預約訂單</h1>
+                        <h1 class="title-single">露營場地預約訂單</h1>
                     </div>
                 </div>
 
@@ -24,16 +42,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3>營地預約訂單明細</h3>
+                    <h3>場地預約訂單明細</h3>
                 </div>
                 <br>
 
 
-                <table class="table">
+                <table class="table" style="font-size: 20px; font-weight: 700">
                     <thead>
                         <tr class="table-warning">
                             <th scope="col">圖片</th>
-                            <th scope="col">區域名稱</th>
+                            <th scope="col">場地名稱</th>
                             <th scope="col">租借日期</th>
                             <th scope="col">退租日期</th>
                             <th scope="col">小 計</th>
@@ -55,7 +73,7 @@
                             </td>
                             <td>@Model.CampQuantity</td>
                             <td>
-                                <select class="$form-select-bg-position" name="PlusPrice" id="PlusPrice">
+                                <select class="$form-select-bg-position" name="PlusPrice" id="PlusPrice" style="font-weight: 700;font-size:20px">
                                     <option value="0">  0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -88,8 +106,8 @@
 
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="/Campreserve/Index" type="button" class="btn btn-secondary">取消</a>
-                        <button type="submit" class="btn btn-success" id="comform">確認</button>
+                        <a href="/Campreserve/Index" type="button" class="btn btn-secondary" style="font-weight: 700;font-size:18px">取消</a>
+                        <button type="submit" class="btn btn-success" id="comform"style="font-weight: 700;font-size:18px">確認</button>
 
                     </div>
 
