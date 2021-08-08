@@ -306,6 +306,8 @@ namespace Prj_CSharpGo.Models
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
+                entity.Property(e => e.UserName).HasMaxLength(20);
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.UserId)

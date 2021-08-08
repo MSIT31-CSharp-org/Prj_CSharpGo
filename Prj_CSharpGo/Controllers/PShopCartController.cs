@@ -107,7 +107,8 @@ namespace Prj_CSharpGo.Controllers
 
             return Redirect("/PShopCart/Index");
         }
-        public IActionResult Bill(Order order)
+        [HttpPost]
+        public IActionResult Bill([Bind("OrderID,UserID,TotalPrice,PayMethod,OrderDate,Approval,Address,UserName")] Order order)
         {
             string userId = HttpContext.Session.GetString("userId") ?? "1001";
             var dash0 = _context.ShoppingCarts.Where(x => x.UserId.ToString() == userId).ToList();
@@ -125,6 +126,12 @@ namespace Prj_CSharpGo.Controllers
             {
                 order.TotalPrice += item.Quantity*item.UnitPrice;
 
+            }
+            
+            
+            if (order.TotalPrice == 0)
+            {
+                return Redirect("/PShopCart/Index");
             }
             order.Approval = "SP";
             _context.Orders.Add(order);
@@ -190,11 +197,14 @@ namespace Prj_CSharpGo.Controllers
 
                 ShoppingCarts = _context.ShoppingCarts.Where(x => x.UserId.ToString() == userId),
                 Products = _context.Products.ToList(),
-                ProductImgs = _context.ProductImgs.ToList()
+                ProductImgs = _context.ProductImgs.ToList(),
+                UserName = _context.Users.Find(Convert.ToInt32(userId)).UserName,
+                Address = _context.Users.Find(Convert.ToInt32(userId)).Address
 
             };
 
-            ViewData["total"] = _context.ShoppingCarts;
+            ViewBag.Address = _context.Users.Find(Convert.ToInt32(userId)).Address;
+           ViewData["total"] = _context.ShoppingCarts;
             return View("Index", returnshCartIndexVM);
         }
         [HttpPost]
@@ -245,6 +255,16 @@ namespace Prj_CSharpGo.Controllers
             _context.SaveChanges();
             return Redirect("/PShopCart/OrderIndex");
         }
+
+
+        //public IActionResult Addressjson(int? id)
+        //{
+
+        //    return _context.Users.Find(id);
+        //}
+
+
+
         // public IActionResult OrderIndex(IFormCollection post)//檢視：確定的訂單頁面-購物車要將清單推進訂單資料庫與頁面的動作 
         //{
 
