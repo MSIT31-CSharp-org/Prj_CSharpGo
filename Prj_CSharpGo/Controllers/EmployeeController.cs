@@ -497,29 +497,27 @@ namespace Prj_CSharpGo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CampEdit(IFormFile ImgName,[Bind("CampId,CampName,CampSize,CampQuantity,WeekdayPrice,HolidayPrice,LimitPeople,Description,Approval,PlusPrice,Ahref,Img")] Camp camp)
         {
-            if (camp != null)
-            {
-                string[] subs = ImgName.FileName.Split('.');
-                string[] subs2 = camp.Ahref.Split("/");
-                string NewImgName = subs2[1] + "." + subs[1];
 
-                string wwwRootPath = _hostEnvironment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(ImgName.FileName);
-                string extension = Path.GetExtension(camp.Img);
-
-                string path = Path.Combine(wwwRootPath + "/Img", NewImgName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await ImgName.CopyToAsync(fileStream);
-                }
-                camp.Img = NewImgName;
-
-
-                _context.Update(camp);
-                await _context.SaveChangesAsync();
-            }
             if (ModelState.IsValid)
             {
+                if (ImgName != null)
+                {
+                    string[] subs = ImgName.FileName.Split('.');
+                    string[] subs2 = camp.Ahref.Split("/");
+                    string NewImgName = subs2[1] + "." + subs[1];
+
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(ImgName.FileName);
+                    string extension = Path.GetExtension(camp.Img);
+
+                    string path = Path.Combine(wwwRootPath + "/Img", NewImgName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await ImgName.CopyToAsync(fileStream);
+                    }
+                    camp.Img = NewImgName;
+                }
+
                 _context.Update(camp);
                 await _context.SaveChangesAsync();
                 HttpContext.Session.SetString("employeeToastr", "修改成功");

@@ -101,9 +101,18 @@
                 <span asp-validation-for="Ahref" class="text-danger"></span>
             </div>
 
+            <div class="form-group row d-none">
+                <label asp-for="Img" class="col-sm-3 col-form-label">Img</label>
+                <div class="col-sm-9">
+                    <input asp-for="Img" class="form-control" value="@Model.Img" />
+                </div>
+                <label class="col-sm-3 col-form-label"></label>
+                <span asp-validation-for="Img" class="text-danger"></span>
+            </div>
+
             <div class="form-group row">
 
-                <img id="output" src="~/img/@Model.Img"style="width: 400px; height: 300px;" class="form-control mt-1" runat="server" />
+                <img id="output" src="~/img/@Model.Img" style="width: 400px; height: 300px;" class="form-control mt-1" runat="server" />
                 <input type="file" name="ImgName" accept="image/*" onchange="loadFile(event)" runat="server">
             </div>
 

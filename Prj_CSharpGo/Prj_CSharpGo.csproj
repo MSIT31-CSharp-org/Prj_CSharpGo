@@ -177,7 +177,6 @@
     <Folder Include="wwwroot\assets\vendor\js\" />
     <Folder Include="wwwroot\assets\vendor\php-email-form\" />
     <Folder Include="wwwroot\assets\vendor\swiper\" />
-    <Folder Include="wwwroot\Jay\" />
   </ItemGroup>
 
 </Project>

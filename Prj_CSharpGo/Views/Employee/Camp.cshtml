@@ -1,8 +1,13 @@
-﻿@model IEnumerable<Prj_CSharpGo.Models.Camp>
+﻿@using Microsoft.AspNetCore.Http
+
+@model IEnumerable<Prj_CSharpGo.Models.Camp>
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
 
 @{
     ViewData["Title"] = "Camp";
     Layout = "~/Views/Shared/EmployeeLayout.cshtml";
+    string empToastr = emp.HttpContext.Session.GetString("employeeToastr") ?? "Guest";
 }
 
 <h1>露營區資料</h1>
@@ -38,39 +43,69 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CampName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CampSize)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CampQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WeekdayPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HolidayPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LimitPeople)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PlusPrice)
-            </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CampName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CampSize)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CampQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WeekdayPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HolidayPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LimitPeople)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlusPrice)
+                </td>
 
-            <td class="text-xl-right">
-                <a href="/Employee/CampEdit/@item.CampId" class="btn btn-info btn-icon-split">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-info-circle"></i>
-                    </span>
-                    <span class="text">編輯資料</span>
-                </a>
-            </td>
+                <td class="text-xl-right">
+                    <a href="/Employee/CampEdit/@item.CampId" class="btn btn-info btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                        <span class="text">編輯資料</span>
+                    </a>
+                </td>
 
-        </tr>
+            </tr>
         }
     </tbody>
 </table>
+
+@if (empToastr != "Guest")
+{
+    <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["success"]("@empToastr");
+        @{emp.HttpContext.Session.Remove("employeeToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+    </script>
+}
