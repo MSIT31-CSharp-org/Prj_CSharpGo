@@ -21,7 +21,7 @@ namespace Prj_CSharpGo.Models
         public string UserPassword { get; set; }
         public string ConfirmPassword { get; set; }
         public string UserName { get; set; }
-        public string Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
         public string Region { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }

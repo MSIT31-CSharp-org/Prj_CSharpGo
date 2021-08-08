@@ -20,6 +20,14 @@
     <div class="col-md-4">
         <form action="/Employee/ProductCreate" method="post" enctype="multipart/form-data">
 
+            <div class="form-group d-inline">
+                <button id="nowGive1" type="button" class="btn btn-light border border-0">.</button>
+            </div>
+            <span>&emsp;</span>
+            <div class="form-group d-inline">
+                <button id="nowGive2" type="button" class="btn btn-light border border-0">.</button>
+            </div>
+
             @Html.AntiForgeryToken()
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="ProductId">編號</label>
@@ -30,7 +38,7 @@
 
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="CategoryType">類別</label>
-                <select name="CategoryType" class="form-control col-sm-9">
+                <select name="CategoryType" id="CategoryType" class="form-control col-sm-9">
                     <optgroup label="帳篷">
                         <option value="a1">寢帳</option>
                         <option value="a2">客廳</option>
@@ -100,17 +108,19 @@
 
             <div class="form-group row">
                 @*<label asp-for="Img" ></label>
-                <input asp-for="Img" accept="image/*"  class="form-control"/>
-                <span asp-validation-for="Img" class="text-danger"> </span>*@
+            <input asp-for="Img" accept="image/*"  class="form-control"/>
+            <span asp-validation-for="Img" class="text-danger"> </span>*@
 
-                <img id="output" style="width: 400px; height: 300px;" class="form-control mt-1" runat="server"/>
+                <img id="output" style="width: 400px; height: 300px;" class="form-control mt-1" runat="server" />
                 <input type="file" name="ImageFile" accept="image/*" onchange="loadFile(event)" runat="server">
             </div>
 
             <div class="form-group">
-                <input type="submit" value="確定送出" class="btn btn-primary" runat="server"/>
-                <a href="/Employee/ProductCreate" class="btn btn-danger">回到清單</a>
+                <input type="submit" value="確定送出" class="btn btn-primary" runat="server" />
+                <a href="/Employee/Product" class="btn btn-danger">回到清單</a>
             </div>
+
+
 
         </form>
     </div>
@@ -155,3 +165,26 @@
     })
     </script>
 }
+
+<script>
+    $("#nowGive1").click(function (event) {
+        $("#ProductId").val("Cc20CS059");
+        $("#CategoryType").val("a1");
+        $("#ProductName").val("氣候達人網屋400");
+        $("#ProductDescription").val("絕佳透氣循環設計，大型紗網通風構造，遮光性PU塗層可抑制溫度上升，提升整體遮光效果.可與帳篷連結，並附有連結襟布，讓連結後的起居空間變得更寬廣  .附前庭柱");
+        $("#Specification").val("(鋼/18mm*2)");
+        $("#UnitPrice").val("22600");
+        $("#UnitInStock").val("20");
+        $("#Status").val("01");
+    });
+    $("#nowGive2").click(function (event) {
+        $("#ProductId").val("Aa30SP051");
+        $("#CategoryType").val("a1");
+        $("#ProductName").val("桔楓印地安300帳");
+        $("#ProductDescription").val("◆經典的那華荷花色印地安帳\n◆簡單搭設的單桿設計\n◆帳內頂端附有營燈掛勾\n◆專用收納袋\n高強度7075鋁合金營柱");
+        $("#Specification").val("使用尺寸：300×250×180cm");
+        $("#UnitPrice").val("8500");
+        $("#UnitInStock").val("16");
+        $("#Status").val("01");
+    });
+</script>

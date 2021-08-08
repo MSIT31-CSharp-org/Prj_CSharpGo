@@ -21,14 +21,14 @@
 
             <div class="form-group">
                 <label class="control-label" for="EmployeeEmail">Email</label>
-                <input class="form-control" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="EmployeeEmail" name="EmployeeEmail" value="employee1001@mail.com" />
+                <input class="form-control" type="email" data-val="true" data-val-email="請輸入正確格式 example@mail.com" data-val-required="Email不可空白" id="EmployeeEmail" name="EmployeeEmail" value="" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="EmployeeEmail" data-valmsg-replace="true"></span>
             </div>
 
             <div class="form-group">
                 <label class="control-label" for="EmployeePassword">密碼</label>
-                <input class="form-control" type="password" data-val="true" data-val-required="密碼不可空白" id="EmployeePassword" name="EmployeePassword" value="employee1001" />
+                <input class="form-control" type="password" data-val="true" data-val-required="密碼不可空白" id="EmployeePassword" name="EmployeePassword" value="" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger " data-valmsg-for="EmployeePassword" data-valmsg-replace="true"></span>
             </div>
@@ -36,6 +36,21 @@
                 <input type="submit" value="確定" class="btn btn-primary" />
                 <a href="/Home/Index" class="btn btn-danger">取消</a>
             </div>
+
+
+
+                <div class="form-group d-inline">
+                    <button id="nowGive1" type="button" class="btn btn-light border border-0">.</button>
+                </div>
+                <span>&emsp;</span>
+                <div class="form-group d-inline">
+                    <button id="nowGive2" type="button" class="btn btn-light border border-0">.</button>
+                </div>                
+                <span>&emsp;</span>
+                <div class="form-group d-inline">
+                    <button id="nowGive3" type="button" class="btn btn-light border border-0">.</button>
+                </div>
+
 
         </form>
     </div>
@@ -99,3 +114,19 @@ else if (empToastr != "Guest")
     })
     </script>
 }
+
+<!-- 帶資料的隱藏按鈕 -->
+<script>
+    $("#nowGive1").click(function (event) {
+        $("#EmployeeEmail").val("employee2008@mail.com");
+        $("#EmployeePassword").val("employee");
+    });
+    $("#nowGive2").click(function (event) {
+        $("#EmployeeEmail").val("employee2008@mail.com");
+        $("#EmployeePassword").val("employee2008");
+    });
+    $("#nowGive3").click(function (event) {
+        $("#EmployeeEmail").val("employee1001@mail.com");
+        $("#EmployeePassword").val("employee1001");
+    });
+</script>

@@ -518,9 +518,7 @@ namespace Prj_CSharpGo.Models
 
                 entity.Property(e => e.Address).HasMaxLength(50);
 
-                entity.Property(e => e.Birthday)
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
+                entity.Property(e => e.Birthday).HasColumnType("datetime");
 
                 entity.Property(e => e.ConfirmPassword).HasMaxLength(50);
 

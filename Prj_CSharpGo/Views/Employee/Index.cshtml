@@ -22,21 +22,31 @@
 @if (empStatus == "True")
 {
 
-    <div>
-        <a href="/Employee/Create" class="btn btn-outline-success">新增員工帳號</a>
-    </div>
+<div>
+    <a href="/Employee/Create" class="bi bi-file-earmark-plus"></a>
+    <a href="/Employee/Create" class="btn btn-outline-success">新增員工帳號</a>
+</div>
     <br />
 
     <div class="search-form">
         <label> 編號 或 E-mail搜索 </label>
         <input id="search-input" type="text" placeholder="" />
         <style id="m-search"></style>
+
+        <div class="form-group d-inline">
+            <button id="nowGive1" type="button" class="btn btn-light border border-0">.</button>
+        </div>
+        <span>&emsp;</span>
+        <div class="form-group d-inline">
+            <button id="nowGive2" type="button" class="btn btn-light border border-0">.</button>
+        </div>
+
     </div>
 
     <script>
         var that = $(this);
         var mSearch = $("#m-search");
-        $("#search-input").bind("change paste keyup", function () {
+        $("#search-input").bind("change paste keyup focus", function () {
             var value = $(this).val();
             if (!value) {
                 mSearch.html("");
@@ -149,25 +159,25 @@
 </table>
 
 @*@Html.PagedListPager(
-    (IPagedList)Model,
-    page => Url.Action("Index", new { page = page }),
-    PagedListRenderOptions
-        .EnableUnobtrusiveAjaxReplacing(
-            new PagedListRenderOptions()
-            {
-                UlElementClasses = new[] { "pagination" },
-                LiElementClasses = new[] { "page-item" },
-                PageClasses = new[] { "page-link" },
-                LinkToPreviousPageFormat = "«",
-                LinkToNextPageFormat = "»",
-                DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
-                DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
-                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-                DisplayLinkToNextPage = PagedListDisplayMode.Always,
-                MaximumPageNumbersToDisplay = 14
-            },
-            new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "Target", OnSuccess = "Success" })
-)*@
+        (IPagedList)Model,
+        page => Url.Action("Index", new { page = page }),
+        PagedListRenderOptions
+            .EnableUnobtrusiveAjaxReplacing(
+                new PagedListRenderOptions()
+                {
+                    UlElementClasses = new[] { "pagination" },
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                    LinkToPreviousPageFormat = "«",
+                    LinkToNextPageFormat = "»",
+                    DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+                    DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                    MaximumPageNumbersToDisplay = 14
+                },
+                new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "Target", OnSuccess = "Success" })
+    )*@
 
 @if (empToastr != "Guest")
 {
@@ -198,3 +208,12 @@
     })
     </script>
 }
+
+<script>
+    $("#nowGive1").click(function (event) {
+        $("#search-input").val("2003");
+    });
+    $("#nowGive2").click(function (event) {
+        $("#search-input").val("employee2003@mail.com");
+    });
+</script>
