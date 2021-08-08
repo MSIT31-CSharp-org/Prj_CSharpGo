@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -51,7 +50,7 @@ namespace Prj_CSharpGo.Controllers
         }
 
         // 登出
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
             HttpContext.Session.Remove("userId");
             HttpContext.Session.SetString("userToastr", "已成功登出");
@@ -69,31 +68,24 @@ namespace Prj_CSharpGo.Controllers
             return View("LogoutTurn");
         }
 
-        // 登出轉導頁
-        public IActionResult LogoutTurn()
-        {
-            return View();
-        }
-
         // 會員中心
-        public IActionResult Index()
+        public IActionResult Index(int? id)
         {
-            // 接收 Login Form 傳入的 Session
             string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+            string userAccount = HttpContext.Session.GetString("userAccount") ?? "Guest";
 
-            // 判斷傳入的 userId ，身分若是訪客，就將使用者導回登入頁
             if (userId == "Guest")
             {
                 return Redirect("/Auth/Login");
             }
 
-            // 找出目前已登入的使用者 id
+            // 找出目前已登入使用者的 UserId
             var userID = (from u in _context.Users
-                          where u.UserId.ToString() == userId
-                          select u).FirstOrDefault();
+                          where u.UserAccount == userAccount
+                          select u.UserId).ToList()[0];
+            var userInfo = _context.Users.Find(userID);
 
-            return View("Index", userID);
-        }
+            return View(userInfo);
 
         // 會員中心 => 密碼變更
         public IActionResult ChangePassword()
@@ -146,7 +138,14 @@ namespace Prj_CSharpGo.Controllers
         {
             if (!(string.IsNullOrEmpty(UserAccount) || string.IsNullOrEmpty(UserPassword)))
             {
-                // UserID
+                // 找出目前使用者欲登入的 UserId
+                var userID = (from u in _context.Users
+                              where u.UserAccount == UserAccount
+                              //where u.UserPassword == UserPassword
+                              select u.UserId).ToList()[0];
+                var get_UserId = _context.Users.Find(userID);
+
+                // UserId
                 var f_userId = (from u in _context.Users
                                 where u.UserAccount == UserAccount
                                 select u.UserId).ToList();
@@ -245,13 +244,6 @@ namespace Prj_CSharpGo.Controllers
                     HttpContext.Session.SetString("userToastr", "帳號尚未開通，請至電子信箱確認");
                     //return Content("帳號尚未開通，請至電子郵件收信");
                     return View();
-                }
-                // 登入成功  寫入Session
-                else if (s == 1 && y == 1 && get_UserId.IsSuccess == true)
-                {
-                    HttpContext.Session.SetString("userToastr", "登入成功");
-                    HttpContext.Session.SetString("userId", get_UserId.UserId.ToString());
-                    return Redirect("/Auth/Index");
                 }
 
 
@@ -371,8 +363,23 @@ namespace Prj_CSharpGo.Controllers
             _context.Users.Add(newMember);
             _context.SaveChanges();
 
+            var accountEncode = Encoding.UTF8.GetBytes(account);
+            var validAccountEncode = WebEncoders.Base64UrlEncode(accountEncode);
 
-            HttpContext.Session.SetString("userToastr", $"請至您的電子郵件 {email} 開通會員資格認證信");
+            string url = $"{_configuration["AppUrl"]}/Auth/confirmEmail?id={account}&token={validAccountEncode}";
+            await _mailService.SendEmailAsync(email,
+                            "做夥暢行露營會員資格吧！",
+                            $"<h1><i>Welcome to WildnessCamping</i></h1>" +
+                            $"<h3 class='font-weight-bold'>請點擊下方按鈕以完成會員資格開通</h3>" +
+                            $"<h3 class='font-weight-bold'><a href='{url}' class='btn btn-primary stretched-link' style='text-decoration:none;'>完成驗證</a></h3>");
+
+            HttpContext.Session.SetString("userToastr", "您現在可以至電子郵件收取會員註冊信以完成驗證程序");
+            HttpContext.Session.SetString("userId", userid.ToString());
+            HttpContext.Session.SetString("userEmail", email);
+            HttpContext.Session.SetString("userPassword", password);
+            HttpContext.Session.SetString("userIsSuccess", isSuccess.ToString());
+            //HttpContext.Session.SetString("userStatus", userStatus.ToString());
+            //HttpContext.Session.SetString("userName", username);
 
             // 註冊成功後，等待1.0秒轉導至登入頁
             CancellationTokenSource cts = new CancellationTokenSource();

@@ -3,7 +3,6 @@
 @model Prj_CSharpGo.Models.User
 
 @{
-    ViewData["Title"] = "註冊";
     Layout = "~/Views/Shared/Auth/_AuthLayout.cshtml";
 }
 
@@ -26,7 +25,6 @@
     <link rel="stylesheet" href="~/css/sb-admin-2.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link href="~/Content/toastr.min.css" rel="stylesheet" />
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -124,8 +122,6 @@
 
 
 
-
-
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
@@ -171,10 +167,7 @@
     </script>
 
 
-
-
-
-    @if (userToastr == "Guest")
+    @if (userToastr != "Guest" || userToastr == "您現在可以至電子郵件收取會員註冊信以完成驗證程序")
     {
         <script type="text/javascript">
 
