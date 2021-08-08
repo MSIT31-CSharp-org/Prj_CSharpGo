@@ -43,7 +43,7 @@
         <div class="row">
 
             <div class="col-12 col-md-12 col-lg-12 col-xl-12 align-content-center justify-content-start">
-                <h1 class="align-content-center justify-content-start">我的訂單</h1>
+                <h1 class="align-content-center justify-content-start">【修改訂單】</h1>
             </div>
             <div class="col-12 col-md-12">
                 <hr class="col-10 col-md-10  align-content-center justify-content-start" style="margin: 1vh auto; width: 100%; text-align: center; " />
@@ -67,64 +67,44 @@
 
             <div class="col-9 col-md-9">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-10">
 
-                        <h1>訂單編號 : @Model._order.OrderId</h1>
+                        @*<form action="/Auth/MemberOrderEdit/@Model._order.OrderId" method="post">*@
+                        <form action="/Auth/MemberOrderEdit/@Model._order.OrderId" method="post">
 
-                        <hr />
-
-                        <form action="/Auth/OrderEdit/@Model._order.OrderId" method="post">
-
-                            @Html.AntiForgeryToken()
-
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label" for="Approval">訂單狀態</label>
-                                <div class="col-sm-9">
-                                    <select name="Approval" class="form-control">
-
-                                        @{if (Model._order.Approval == "NR")
-                                            {
-                                                <option value="NR" selected>已完成</option>
-                                                <option value="SP">出貨中</option>
-                                                <option value="WL">取消</option>
-                                            }
-                                            else if (Model._order.Approval == "SP")
-                                            {
-                                                <option value="NR">已完成</option>
-                                                <option value="SP" selected>出貨中</option>
-                                                <option value="WL">取消</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="NR">已完成</option>
-                                                <option value="SP">出貨中</option>
-                                                <option value="WL" selected>取消</option>
-                                            }
-                                        }
-                                    </select>
-
-                                    <div class="form-group row d-none">
-                                        <input class="form-control-plaintext col-sm-9" type="text" id="OrderId" name="OrderId" readonly value="@Model._order.OrderId" />
-                                    </div>
-
-                                    <div class="form-group row d-none">
-                                        <input class="form-control-plaintext col-sm-9" type="text" id="UserId" name="UserId" readonly value="@Model._order.UserId" />
-                                    </div>
-
-                                    <div class="form-group row d-none">
-                                        <input class="form-control-plaintext col-sm-9" type="text" id="TotalPrice" name="TotalPrice" readonly value="@Model._order.TotalPrice" />
-                                    </div>
-
-                                    <div class="form-group row d-none">
-                                        <input class="form-control-plaintext col-sm-9" type="text" id="PayMethod" name="PayMethod" readonly value="@Model._order.PayMethod" />
-                                    </div>
-
-                                    <div class="form-group row d-none">
-                                        <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.OrderDate" />
-                                    </div>
-
-                                </div>
+                            <div class="form-group ">
+                                @if (Model._order.Approval == "NR" || Model._order.Approval == "SP")
+                                {
+                                    <input type="submit" value="取消訂單" class="btn btn-danger" />
+                                    <a href="/Auth/MemberOrder" class="btn btn-primary">回上一頁</a>
+                                }
+                                else
+                                {
+                                    <a href="/Auth/MemberOrder" class="btn btn-primary">回上一頁</a>
+                                }
                             </div>
+
+
+                            <div class="form-group row d-none">
+                                <input class="form-control-plaintext col-sm-9" type="text" id="OrderId" name="OrderId" readonly value="@Model._order.OrderId" />
+                            </div>
+
+                            <div class="form-group row d-none">
+                                <input class="form-control-plaintext col-sm-9" type="text" id="UserId" name="UserId" readonly value="@Model._order.UserId" />
+                            </div>
+
+                            <div class="form-group row d-none">
+                                <input class="form-control-plaintext col-sm-9" type="text" id="TotalPrice" name="TotalPrice" readonly value="@Model._order.TotalPrice" />
+                            </div>
+
+                            <div class="form-group row d-none">
+                                <input class="form-control-plaintext col-sm-9" type="text" id="PayMethod" name="PayMethod" readonly value="@Model._order.PayMethod" />
+                            </div>
+
+                            <div class="form-group row d-none">
+                                <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.OrderDate" />
+                            </div>
+
 
 
 
@@ -132,9 +112,6 @@
 
                                 <thead>
                                     <tr>
-                                        <th>
-                                            產品編號
-                                        </th>
                                         <th>
                                             商品名稱
                                         </th>
@@ -145,7 +122,7 @@
                                             數量
                                         </th>
                                         <th>
-                                            小計/總金額
+                                            小計
                                         </th>
                                     </tr>
                                 </thead>
@@ -154,9 +131,6 @@
                                     {
                                         int? subtotal = item.UnitPrice * item.Quantity;
                                         <tr>
-                                            <td>
-                                                @item.ProductId
-                                            </td>
                                             <td>
                                                 @Model.Products.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName
                                             </td>
@@ -172,31 +146,131 @@
                                         </tr>
                                     }
                                     <tr>
+                                        <td></td>
+                                        <td></td>
                                         <td>
+                                            <br />
+                                            <b>總金額</b>
                                         </td>
                                         <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                            @Model._order.TotalPrice
+                                            <br />
+                                            <b>@Model._order.TotalPrice</b>
                                         </td>
                                     </tr>
-
-
                                 </tbody>
                             </table>
-                            <div class="form-group">
-                                <input type="submit" value="確定送出" class="btn btn-primary" />
-                                <a href="/Employee/Order" class="btn btn-danger">回到清單</a>
-                            </div>
+
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+
+    @if (userToastr == "已為您完成取消訂單")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["success"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
+    else if (userToastr == "訂單狀態未變更" || userToastr == "目前您的身分為訪客，請重新登入")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["error"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
+    else if (userToastr == "已幫您查詢訂單，但未能成功")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+            Command: toastr["warning"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
+
+
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/toastr.min.js"></script>
+
 </body>
 </html>

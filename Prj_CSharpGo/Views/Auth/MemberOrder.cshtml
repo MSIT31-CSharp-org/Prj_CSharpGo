@@ -43,7 +43,7 @@
         <div class="row">
 
             <div class="col-12 col-md-12 col-lg-12 col-xl-12 align-content-center justify-content-start">
-                <h1 class="align-content-center justify-content-start">我的訂單</h1>
+                <h1 class="align-content-center justify-content-start">【我的訂單】</h1>
             </div>
             <div class="col-12 col-md-12">
                 <hr class="col-10 col-md-10  align-content-center justify-content-start" style="margin: 1vh auto; width: 100%; text-align: center; " />
@@ -67,7 +67,7 @@
 
             <div class="col-9 col-md-9">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-9">
 
                         <table class="table">
                             <thead>
@@ -75,9 +75,6 @@
                                     <th>
                                         訂單編號
                                     </th>
-                                    @*<th>
-                                        會員編號
-                                    </th>*@
                                     <th>
                                         訂單總額
                                     </th>
@@ -86,6 +83,9 @@
                                     </th>
                                     <th>
                                         訂單狀態
+                                    </th>
+                                    <th class=" col-3 col-md-3 justify-content-center align-content-center">
+                                        訂單詳細資訊
                                     </th>
                                 </tr>
                             </thead>
@@ -122,12 +122,13 @@
                                             </td>
                                         }
 
-                                        <td class="text-xl-right">
+
+                                        <td class=" col-3 col-md-3 justify-content-center align-content-center">
                                             <a href="/Auth/MemberOrderEdit/@item.OrderId" class="btn btn-info btn-icon-split">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-info-circle"></i>
                                                 </span>
-                                                <span class="text">詳細資料</span>
+                                                <span class="text">訂單詳細資訊</span>
                                             </a>
                                         </td>
 
@@ -146,38 +147,7 @@
 
 
 
-
-
-    @if (userToastr == "訂單修改完成")
-    {
-        <script type="text/javascript">
-
-        $(function () {
-
-        Command: toastr["success"]("@userToastr");
-        @{user.HttpContext.Session.Remove("userToastr");}
-
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-    })
-        </script>
-    }
-    else if (userToastr == "訂單狀態未變更" || userToastr == "目前您的身分為訪客，請重新登入")
+    @if (userToastr == "目前您的身分為訪客，請重新登入")
     {
         <script type="text/javascript">
 
@@ -206,7 +176,7 @@
     })
         </script>
     }
-    else if (userToastr == "已幫您查詢訂單，但未能成功")
+    else if (userToastr == "已幫您查詢訂單，但未能成功" || userToastr == "訂單狀態未變更")
     {
         <script type="text/javascript">
 

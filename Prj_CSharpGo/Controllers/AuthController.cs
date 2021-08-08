@@ -185,7 +185,7 @@ namespace Prj_CSharpGo.Controllers
             // ·························································································
             if (MemberOrderView == null)
             {
-                HttpContext.Session.SetString("userToastr", "已幫您查詢訂單，但未能成功");
+                HttpContext.Session.SetString("userToastr", "已為您查詢訂單，但未能成功");
                 return View();
             }
             return View(MemberOrderView);
@@ -209,16 +209,28 @@ namespace Prj_CSharpGo.Controllers
             }
 
             // 找出此會員的所有訂單
-            var MOrder = (from u in _context.Orders
-                          where u.UserId.ToString() == userId
-                          where u.OrderId == id
-                          select u).ToList();
-            int m = MOrder.Count();
-            if (m != 1)
+            var f_UserID = _context.Users.Find(userID);
+            // ·························································································
+            // ························ 兩種方法 : 找到此 UserId 的所有訂單 ······························
+            // ·························································································
+            // ····················· 10 ································· 10 ···························
+            // ·························································································
+            var MemberOrderView = _context.Orders.Where(o => o.UserId == f_UserID.UserId).ToList();
+            // ·························································································
+            // ····················· 20 ································· 20 ···························
+            // ·························································································
+            //var MOrder = (from u in _context.Orders
+            //              where u.UserId == f_UserID.UserId
+            //              select u).ToList();
+            // ·························································································
+            // ·························································································
+            if (MemberOrderView == null)
             {
                 HttpContext.Session.SetString("userToastr", "已幫您查詢訂單，但未能成功");
                 return View();
             }
+
+            var CancelOrder = _context.Orders.Where(o => o.UserId == f_UserID.UserId).FirstOrDefault();
 
             MemberOrder User_order = new MemberOrder()
             {
@@ -237,246 +249,185 @@ namespace Prj_CSharpGo.Controllers
         // 【POST : 登入 / 註冊】 ===========================================================================================================================================================
         // =================================================================================================================================================================================
 
-        // 登入
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++【 登入 】+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         [HttpPost]
-        public IActionResult Login(string UserAccount, string UserPassword, string userStatus)
+        public IActionResult Login(string UserAccount, string UserPassword)
         {
+            // 先判斷登入需要輸入的欄位是否有空值或是回傳Null的情形
             if (!(string.IsNullOrEmpty(UserAccount) || string.IsNullOrEmpty(UserPassword)))
             {
-                // UserID
-                var f_userId = (from u in _context.Users
-                                where u.UserAccount == UserAccount
-                                select u.UserId).ToList();
-
-                // 判斷若當即登入的該使用者帳號是否存在
-                if (f_userId.Count() == 0)
+                // 輸入的帳號如果對應資料庫是 Null ?
+                var NanAccount = _context.Users.Where(o => o.UserAccount == UserAccount).FirstOrDefault();
+                if (NanAccount.ToString() == "0" || NanAccount == null)
                 {
-                    HttpContext.Session.SetString("userToastr", "此帳號不存在");
+                    HttpContext.Session.SetString("userToastr", "建立一組您自己的帳號吧！");
                     return View();
                 }
 
+                // 將帳號和密碼對應到資料庫一模一樣的帳號密碼，以取得該 UserId
+                var ac_pwd = (from u in _context.Users
+                              where u.UserAccount == UserAccount
+                              where u.UserPassword == UserPassword
+                              select u.UserId).ToList()[0];
 
-                // 僅只取帳號
-                var queryAccount = (from u in _context.Users
-                                    where u.UserAccount == UserAccount
-                                    select u).ToList();
+                // 取得 UserId 的登入判斷依據
+                var get_UserId = _context.Users.Find(ac_pwd);
+                int id = get_UserId.UserId;                     // 寫入Session用
+                string ac = get_UserId.UserAccount.ToString();        // 取得該使用者帳號
+                string pwd = get_UserId.UserPassword.ToString();      // 取得該使用者密碼
+                string st = get_UserId.UserStatus.ToString();   // 取得該帳號狀態
+                string isok = get_UserId.IsSuccess.ToString();  // 取得該帳號開通狀態
 
-                // 判斷帳號、密碼是否相等
-                var queryList = (from u in _context.Users
-                                 where u.UserAccount == UserAccount
-                                 where u.UserPassword == UserPassword
-                                 select u).ToList();
-
-                // 取帳號認證狀態，判斷帳號、密碼是否相等
-                var ifSuccess = (from u in _context.Users
-                                 where u.UserAccount == UserAccount
-                                 where u.UserPassword == UserPassword
-                                 select u.IsSuccess).ToList();
-
-                // UserStatus
-                var NRStatus = (from u in _context.Users
-                                where u.UserStatus == userStatus
-                                select u).ToList();
-
-                // 找出目前使用者欲登入的 UserId
-                var get_UserId = _context.Users.Find(f_userId[0]);
-
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                // 帳號存在 ?
-                int x = queryAccount.Count;
-                // 帳號、密碼存在 ?
-                int s = queryList.Count;
-                // 帳號通過Email驗證 ?
-                int y = ifSuccess.Count;
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-                if (get_UserId.UserStatus.ToString() != "NR" || get_UserId.UserStatus.ToString() == null)
+                // 多道判斷 帳號、密碼 是否沒取得
+                if (ac != null && pwd != null)
                 {
-                    if (get_UserId.UserStatus.ToString() == "SP")
+                    // 登入成功
+                    if (isok == "True" && st == "NR")
                     {
-                        HttpContext.Session.SetString("userToastr", "目前此帳號狀態已遭停權，如有任何帳號疑慮，敬請聯繫官方服務中心");
-                        //return Redirect("/Home/Login");
+                        HttpContext.Session.SetString("userToastr", "登入成功");
+                        HttpContext.Session.SetString("userId", id.ToString());
+                        return Redirect("/Auth/Index");
+                    }
+                    else if (isok == "false" && st == "NR")
+                    {
+                        HttpContext.Session.SetString("userToastr", $"<a href='/Auth/OneMoreEmailSending'>補寄驗證信 => 點我</a>");
                         return View();
                     }
-                    else if (get_UserId.UserStatus.ToString() == "WL")
+                    else if (isok == "True" && st != "NR")
                     {
-                        HttpContext.Session.SetString("userToastr", "此帳號不存在");
-                        //return Redirect("/Home/Login");
-                        return View();
+                        if (st == null)
+                        {
+                            HttpContext.Session.SetString("userToastr", "此帳號暫時無法使用，請聯繫客服");
+                            return View();
+                        }
+                        else if (st == "SP")
+                        {
+                            HttpContext.Session.SetString("userToastr", "此帳號暫時無法使用，請聯繫客服");
+                            return View();
+                        }
+                        else if (st == "WL")
+                        {
+                            HttpContext.Session.SetString("userToastr", "無效帳號");
+                            return View();
+                        }
                     }
                 }
-                else if (x == 0)
-                {
-                    HttpContext.Session.SetString("userToastr", "此帳號不存在");
-                    //return Content("無法使用此帳號登入");
-                    return View();
-                }
-                else if (y == 0)
-                {
-                    HttpContext.Session.SetString("userToastr", "您的帳號未開通");
-                    //return Content("無法使用此帳號登入");
-                    return View();
-                }
-                else if (x != 0 && y == 0)
-                {
-                    HttpContext.Session.SetString("userToastr", "帳號尚未開通，請至電子信箱確認");
-                    //return Content("帳號尚未開通，請至電子郵件收信");
-                    return View();
-                }
-                // 登入成功  寫入Session
-                else if (s == 1 && y == 1 && get_UserId.IsSuccess == true)
-                {
-                    HttpContext.Session.SetString("userToastr", "登入成功");
-                    HttpContext.Session.SetString("userId", get_UserId.UserId.ToString());
-                    return Redirect("/Auth/Index");
-                }
-
+                HttpContext.Session.SetString("userToastr", "唉呀！出了點狀況···");
+                return View();
             }
+            HttpContext.Session.SetString("userToastr", "請輸入完整的帳號密碼");
             return View();
-
         }
 
-        // 註冊
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++【 註冊 】+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         [HttpPost]
-        public async Task<IActionResult> Register(string account, string password, string confirmPassword, string email, string username, string userStatus, bool isSuccess)
+        public async Task<IActionResult> Register(string account, string password, string confirmPassword, string email, string userStatus)
         {
-
             // 【正則表達式 Regex】 -------------------------------------------------------------------------------------
-            Regex regexAccount = new Regex(@"^[a-zA-Z0-9]{6,20}$");
-            Regex regexPassword = new Regex(@"^(?!.*[^\x21-\x7e])(?=.{6,20})(?=.*[a-zA-Z])(?=.*[a-zA-Z])(?=.*\d).*$");
+            //Regex regexAccount = new Regex(@"^[a-zA-Z0-9]{6,20}$");
+            //Regex regexPassword = new Regex(@"^(?!.*[^\x21-\x7e])(?=.{6,20})(?=.*[a-zA-Z])(?=.*[a-zA-Z])(?=.*\d).*$");
             // ------------------- -------------------------------------------------------------------------------------
 
-
-            // ~~~~~~~~~~~~ 取得用戶帳號 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            var ACQuery = from o in _context.Users
-                          where o.UserAccount == account
-                          select o;
-            // ~~~~~~~~~~~~ 取得用戶Email ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            var EmailQuery = from o in _context.Users
-                             where o.Email == email
-                             select o;
-            // ~~~~~~~~~~~~ 取得主密碼 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            var PwdQuery = from o in _context.Users
-                           where o.UserPassword == password
-                           select o;
-            // ~~~~~~~~~~~~ 取得第二道驗證密碼 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            var ConfirmPwdQuery = from o in _context.Users
-                                  where o.ConfirmPassword == confirmPassword
-                                  select o;
-            // ~~~~~~~~~~~~ 取得帳號目前狀態 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            var UpdateStatus = from o in _context.Users
-                               where o.UserStatus == userStatus
-                               select o;
-
-
-            // 1. ------------------- 判斷帳號是否已被創建 -------------------
-            if (ACQuery.Count() != 0)
+            // 判斷所有註冊需要輸入的欄位是否有空值或是回傳Null的情形
+            if (!(string.IsNullOrEmpty(account) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(email)))
             {
-                HttpContext.Session.SetString("userToastr", "此帳號已有人使用！");
-                //return Content("此帳號已有人使用！");
-                return View();
-            }
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                // ======> START <===== 因為以下欄位為第一次寫入，故尚未有資料，凡以下欄位皆須單獨做判斷 ======> START <======
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                // ************************************ 取得輸入的帳號 ***************************************************
+                var InputAC = _context.Users.Where(o => o.UserAccount == account);
+                // ************************************ 取得用戶Email ****************************************************
+                var InputEmail = _context.Users.Where(o => o.Email == email);
+                // ************************************ 取得主密碼 *******************************************************
+                var InputPwd = _context.Users.Where(o => o.UserPassword == password);
+                // ************************************ 取得第二道驗證密碼 ************************************************
+                var InputConfirmPwd = _context.Users.Where(o => o.ConfirmPassword == confirmPassword);
+                // ************************************ 取得帳號目前狀態 **************************************************
+                var UpdateStatus = _context.Users.Where(o => o.UserStatus == userStatus);
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-            // 2. ------------------- 判斷輸入密碼格式 ----------------------
-            if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(confirmPassword))
-            {
-                HttpContext.Session.SetString("userToastr", "密碼格式有誤");
-                //return Content("密碼格式有誤");
-                return View();
-            }
 
-            // 3. ------------------- 判斷前後密碼相符 ----------------------
-            if (password != confirmPassword)
-            {
-                HttpContext.Session.SetString("userToastr", "前後密碼不相符");
-                //return Content("前後密碼不相符");
-                return View();
-            }
-
-            // 4. ------------------- 判斷信箱是否已被其他用戶使用 ----------------------
-            if (EmailQuery.Count() == 1)
-            {
-                if (string.IsNullOrWhiteSpace(email))
+                if (!(password == confirmPassword || string.IsNullOrEmpty(InputAC.ToString()) || string.IsNullOrEmpty(InputEmail.ToString()) || string.IsNullOrEmpty(UpdateStatus.ToString())))
                 {
-                    HttpContext.Session.SetString("userToastr", "輸入的Email格式有誤");
-                    //return Content("Email格式有誤");
-                    return View();
+                    // 1. -------------------------------------- 判斷帳號是否已被創建 -----------------------------------------
+                    if (!string.IsNullOrEmpty(InputAC.ToString()))
+                    {
+                        HttpContext.Session.SetString("userToastr", "這組帳號有人使用囉！換一組帳號吧！");
+                        return View();
+                    }
+                    // 2. -------------------------------------- 判斷前後密碼相符 ---------------------------------------------
+                    if (password != confirmPassword)
+                    {
+                        HttpContext.Session.SetString("userToastr", "前後密碼不相符");
+                        return View();
+                    }
+                    // 3. -------------------------------------- 判斷信箱是否已被其他用戶使用 ----------------------------------
+                    if (!string.IsNullOrEmpty(InputEmail.ToString()))
+                    {
+                        if (string.IsNullOrWhiteSpace(email))
+                        {
+                            HttpContext.Session.SetString("userToastr", "Email 請填空");
+                            return View();
+                        }
+                        else
+                        {
+                            HttpContext.Session.SetString("userToastr", "換組 Email 吧！");
+                            return View();
+                        }
+                    }
+                    // 4. --------------------------------- 判斷用戶帳號使用權(還沒創建前都是Null) ------------------------------
+                    if (!string.IsNullOrEmpty(UpdateStatus.ToString()) || (UpdateStatus.ToString() != "NR"))
+                    {
+                        if (userStatus == "SP")
+                        {
+                            HttpContext.Session.SetString("userToastr", "此帳號遭停權，請洽客服中心");
+                            return View();
+                        }
+                        else if (userStatus == "WL")
+                        {
+                            HttpContext.Session.SetString("userToastr", "這是您的帳號嗎？");
+                            return View();
+                        }
+                    }
                 }
-                HttpContext.Session.SetString("userToastr", "此Email已被使用");
-                //return Content("已被使用的Email");
-                return View();
 
-            }
-            HttpContext.Session.SetString("userToastr", "可用的Email");
+                // *********************************************************************************************************
+                // *********************************************************************************************************
+                // **********************【 完成以上判斷條件式，若是可以註冊，就執行以下程式碼片段 】****************************
+                // *********************************************************************************************************            
+                // *********************************************************************************************************
 
-            // 5. ------------------- 判斷用戶帳號使用權(還沒創建前都是Null) ----------------------
-
-            if (userStatus != null)
-            {
-                if (userStatus == "SP")
+                // 註冊時，有些使用者的資料不一定要立即取得，但是仍然需要額外設定回傳值給資料庫
+                User newMember = new User
                 {
-                    HttpContext.Session.SetString("userToastr", "目前此帳號狀態已遭停權，如有任何帳號疑慮，敬請聯繫官方服務中心");
-                    return Redirect("/Home/Index");
-                }
-                else if (userStatus == "WL")
-                {
-                    HttpContext.Session.SetString("userToastr", "此帳號不存在");
-                    return Redirect("/Home/Index");
-                }
-                return Redirect("/Auth/Login");
+                    //UserId = userid,      // UserId => PK 自動編號
+                    Email = email,
+                    UserAccount = account,
+                    UserPassword = password,
+                    ConfirmPassword = confirmPassword,
+                    UserName = "",
+                    UserStatus = "NR",
+                    UpdateDate = DateTime.Now,
+                    IsSuccess = false
+                };
+                _context.Users.Add(newMember);
+                _context.SaveChanges();
+
+                var accountEncode = Encoding.UTF8.GetBytes(account);
+                var validAccountEncode = WebEncoders.Base64UrlEncode(accountEncode);
+
+                string url = $"{_configuration["AppUrl"]}/Auth/confirmEmail?id={account}&token={validAccountEncode}";
+                await _mailService.SendEmailAsync(email,
+                                "做夥暢行露營會員資格吧！",
+                                $"<h1><i>Welcome to WildnessCamping</i></h1>" +
+                                $"<h3 class='font-weight-bold'>請點擊下方按鈕以完成會員資格開通</h3>" +
+                                $"<h3 class='font-weight-bold'><a href='{url}' class='btn btn-primary stretched-link' style='text-decoration:none;'>完成驗證</a></h3>");
+
+                HttpContext.Session.SetString("userToastr", $"請至您的電子郵件 {email} 開通會員資格認證信");
+                return View("Login");
             }
-
-            // *********************************************************************************************************
-            // *********************************************************************************************************
-            // **********************【 完成以上判斷條件式，若是可以註冊，就執行以下程式碼片段 】****************************
-            // *********************************************************************************************************            
-            // *********************************************************************************************************
-
-            User newMember = new User
-            {
-                //UserId = userid,      // PK自動編號
-                Email = email,
-                UserAccount = account,
-                UserPassword = password,
-                ConfirmPassword = confirmPassword,
-                UserName = "",
-                UserStatus = "NR",
-                UpdateDate = DateTime.Now,
-                IsSuccess = false
-            };
-            _context.Users.Add(newMember);
-            _context.SaveChanges();
-
-            var accountEncode = Encoding.UTF8.GetBytes(account);
-            var validAccountEncode = WebEncoders.Base64UrlEncode(accountEncode);
-
-            string url = $"{_configuration["AppUrl"]}/Auth/confirmEmail?id={account}&token={validAccountEncode}";
-            await _mailService.SendEmailAsync(email,
-                            "做夥暢行露營會員資格吧！",
-                            $"<h1><i>Welcome to WildnessCamping</i></h1>" +
-                            $"<h3 class='font-weight-bold'>請點擊下方按鈕以完成會員資格開通</h3>" +
-                            $"<h3 class='font-weight-bold'><a href='{url}' class='btn btn-primary stretched-link' style='text-decoration:none;'>完成驗證</a></h3>");
-
-
-            HttpContext.Session.SetString("userToastr", $"請至您的電子郵件 {email} 開通會員資格認證信");
-
-            // 註冊成功後，等待1.0秒轉導至登入頁
-            CancellationTokenSource cts = new CancellationTokenSource();
-            try
-            {
-                await Task.Delay(1000, cts.Token);
-            }
-            catch (TaskCanceledException ex)
-            {
-                string Status = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ==>") + ex.ToString();
-                HttpContext.Session.SetString("userToastr", Status);
-                return View();
-            }
-
-            return View("Login");
+            HttpContext.Session.SetString("userToastr", "幫幫我！把格子填完吧！");
+            return View();
         }
 
         // =================================================================================================================================================================================
@@ -484,158 +435,158 @@ namespace Prj_CSharpGo.Controllers
         // =================================================================================================================================================================================
 
         // 會員中心 => 基本資料變更
-        [HttpPost]
-        public async Task<IActionResult> MemberInfo(string email, string username, string phone, DateTime birthday, string region, string address)
-        {
-            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+        //[HttpPost]
+        //public async Task<IActionResult> MemberInfo(string email, string username, string phone, DateTime birthday, string region, string address)
+        //{
+        //    string userId = HttpContext.Session.GetString("userId") ?? "Guest";
 
-            // 找出目前已登入的使用者 id
-            var userID = (from u in _context.Users
-                          where u.UserId.ToString() == userId
-                          select u.UserId).FirstOrDefault();
+        //    // 找出目前已登入的使用者 id
+        //    var userID = (from u in _context.Users
+        //                  where u.UserId.ToString() == userId
+        //                  select u.UserId).FirstOrDefault();
 
-            // 優先判斷 Users 表中的 UserId 是否對應到 Session 傳入的 userId
-            if (userID.ToString() != userId)
-            {
-                HttpContext.Session.SetString("userToastr", "請重新輸入");
-                return Redirect("/Auth/Login");
-            }
+        //    // 優先判斷 Users 表中的 UserId 是否對應到 Session 傳入的 userId
+        //    if (userID.ToString() != userId)
+        //    {
+        //        HttpContext.Session.SetString("userToastr", "請重新輸入");
+        //        return Redirect("/Auth/Login");
+        //    }
 
-            var uBirth = (from u in _context.Users
-                          where u.Birthday.ToString() == birthday.ToShortDateString()
-                          select u).FirstOrDefault();
+        //    var uBirth = (from u in _context.Users
+        //                  where u.Birthday.ToString() == birthday.ToShortDateString()
+        //                  select u).FirstOrDefault();
 
-            // 設定該使用者之 UserId 用以變更
-            var changMemberinfo = _context.Users.Find(userID);
-            changMemberinfo.UserName = username;
-            changMemberinfo.Phone = phone;
-            changMemberinfo.Birthday = birthday;
-            changMemberinfo.Region = region;
-            changMemberinfo.Address = address;
-            changMemberinfo.UpdateDate = DateTime.Now;
+        //    // 設定該使用者之 UserId 用以變更
+        //    var changMemberinfo = _context.Users.Find(userID);
+        //    changMemberinfo.UserName = username;
+        //    changMemberinfo.Phone = phone;
+        //    changMemberinfo.Birthday = birthday;
+        //    changMemberinfo.Region = region;
+        //    changMemberinfo.Address = address;
+        //    changMemberinfo.UpdateDate = DateTime.Now;
 
-            _context.Update(changMemberinfo);
-            await _context.SaveChangesAsync();
-            HttpContext.Session.SetString("userToastr", "會員資料變更成功");
+        //    _context.Update(changMemberinfo);
+        //    await _context.SaveChangesAsync();
+        //    HttpContext.Session.SetString("userToastr", "會員資料變更成功");
 
-            return Redirect("/Auth/Index");
-        }
+        //    return Redirect("/Auth/Index");
+        //}
 
         // 會員中心 => 密碼變更
-        [HttpPost]
-        public async Task<IActionResult> ChangePassword(string password, string NewPassword, string confirmNewPassword)
-        {
-            // 背景作業 ------ 取得舊密碼
-            var f_userId = (from u in _context.Users
-                            where u.UserPassword == password
-                            select u.UserId).ToList();
-            // 優先判斷輸入的舊密碼是否存在
-            if (f_userId.Count() != 1)
-            {
-                HttpContext.Session.SetString("userToastr", "您輸入的舊密碼有誤");
-                return View();
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> ChangePassword(string password, string NewPassword, string confirmNewPassword)
+        //{
+        //    // 背景作業 ------ 取得舊密碼
+        //    var f_userId = (from u in _context.Users
+        //                    where u.UserPassword == password
+        //                    select u.UserId).ToList();
+        //    // 優先判斷輸入的舊密碼是否存在
+        //    if (f_userId.Count() != 1)
+        //    {
+        //        HttpContext.Session.SetString("userToastr", "您輸入的舊密碼有誤");
+        //        return View();
+        //    }
 
-            // 背景作業 ------ 找出目前使用者的 UserId
-            var get_UserId = _context.Users.Find(f_userId[0]);
+        //    // 背景作業 ------ 找出目前使用者的 UserId
+        //    var get_UserId = _context.Users.Find(f_userId[0]);
 
-            // ------------------- 判斷輸入舊密碼格式 ----------------------
-            if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(confirmNewPassword))
-            {
-                // 比對輸入的舊密碼 == 背景取得的現今密碼 
-                if (password != get_UserId.UserPassword)
-                {
-                    HttpContext.Session.SetString("userToastr", "您輸入的舊密碼有誤");
-                    return View();
-                }
-                // 比對輸入的新密碼 == 二道驗證新密碼
-                else if (NewPassword != confirmNewPassword)
-                {
-                    HttpContext.Session.SetString("userToastr", "新密碼前後密碼不相符");
-                    return View();
-                }
-                // 新密碼不可與舊密碼相同
-                else if (password == NewPassword && password == confirmNewPassword)
-                {
-                    HttpContext.Session.SetString("userToastr", "新密碼不可與舊密碼相同");
-                    return View();
-                }
-                // 密碼空空如也
-                else if (password == null || NewPassword == null || confirmNewPassword == null)
-                {
-                    HttpContext.Session.SetString("userToastr", "密碼空空如也");
-                    return View();
-                }
-            }
+        //    // ------------------- 判斷輸入舊密碼格式 ----------------------
+        //    if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(confirmNewPassword))
+        //    {
+        //        // 比對輸入的舊密碼 == 背景取得的現今密碼 
+        //        if (password != get_UserId.UserPassword)
+        //        {
+        //            HttpContext.Session.SetString("userToastr", "您輸入的舊密碼有誤");
+        //            return View();
+        //        }
+        //        // 比對輸入的新密碼 == 二道驗證新密碼
+        //        else if (NewPassword != confirmNewPassword)
+        //        {
+        //            HttpContext.Session.SetString("userToastr", "新密碼前後密碼不相符");
+        //            return View();
+        //        }
+        //        // 新密碼不可與舊密碼相同
+        //        else if (password == NewPassword && password == confirmNewPassword)
+        //        {
+        //            HttpContext.Session.SetString("userToastr", "新密碼不可與舊密碼相同");
+        //            return View();
+        //        }
+        //        // 密碼空空如也
+        //        else if (password == null || NewPassword == null || confirmNewPassword == null)
+        //        {
+        //            HttpContext.Session.SetString("userToastr", "密碼空空如也");
+        //            return View();
+        //        }
+        //        // 密碼空空如也
+        //        else if (password == null && NewPassword == null && confirmNewPassword == null)
+        //        {
+        //            HttpContext.Session.SetString("userToastr", "密碼空空如也");
+        //            return View();
+        //        }
+        //    }
 
-            // 變更密碼成功，等待1.0秒轉導至登入頁
-            CancellationTokenSource cts = new CancellationTokenSource();
-            try
-            {
-                await Task.Delay(1000, cts.Token);
-            }
-            catch (TaskCanceledException ex)
-            {
-                string Status = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ==>") + ex.ToString();
-                HttpContext.Session.SetString("userToastr", "很抱歉！密碼未能變更成功");
-                return View();
-            }
+        //    // 變更密碼成功，等待1.0秒轉導至登入頁
+        //    CancellationTokenSource cts = new CancellationTokenSource();
+        //    try
+        //    {
+        //        await Task.Delay(1000, cts.Token);
+        //    }
+        //    catch (TaskCanceledException ex)
+        //    {
+        //        string Status = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ==>") + ex.ToString();
+        //        HttpContext.Session.SetString("userToastr", "很抱歉！密碼未能變更成功");
+        //        return View();
+        //    }
 
-            User member = new User()
-            {
-                UserPassword = NewPassword,
-                ConfirmPassword = NewPassword
-            };
+        //    User member = new User()
+        //    {
+        //        UserPassword = NewPassword,
+        //        ConfirmPassword = NewPassword
+        //    };
 
-            var changUserNewPwd = _context.Users.Find(f_userId);
-            changUserNewPwd.UserPassword = NewPassword;
-            changUserNewPwd.ConfirmPassword = confirmNewPassword;
+        //    var changUserNewPwd = _context.Users.Find(f_userId);
+        //    changUserNewPwd.UserPassword = NewPassword;
+        //    changUserNewPwd.ConfirmPassword = confirmNewPassword;
 
-            _context.Update(member);
-            await _context.SaveChangesAsync();
-            HttpContext.Session.SetString("userToastr", "密碼變更成功，請重新登入");
-            return Redirect("/Auth/Login");
-        }
+        //    _context.Update(changUserNewPwd);
+        //    await _context.SaveChangesAsync();
+        //    HttpContext.Session.SetString("userToastr", "密碼變更成功，請重新登入");
+        //    return Redirect("/Auth/Login");
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> MemberOrderEidt([Bind("OrderId,OrderDate,PayMethod,TotalPrice,UserId,Approval,Address,UserName")] Order order)
-        {
-            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+        // 會員中心 => 訂單變更
+        //[HttpPost]
+        //public async Task<IActionResult> MemberOrderEdit([Bind("OrderId,OrderDate,PayMethod,TotalPrice,UserId,Approval")] Order order)
+        //{
+        //    string userId = HttpContext.Session.GetString("userId") ?? "Guest";
 
-            // 找出目前已登入的使用者 id
-            var userID = (from u in _context.Users
-                          where u.UserId.ToString() == userId
-                          select u.UserId).FirstOrDefault();
+        //    // 找出目前已登入的使用者 id
+        //    var userID = (from u in _context.Users
+        //                  where u.UserId.ToString() == userId
+        //                  select u.UserId).FirstOrDefault();
 
-            // 判斷 userId 是否為訪客 || 判斷 Users 表中的 UserId 是否對應到 Session 傳入的 userId
-            if (userId == "Guest" || userID.ToString() != userId || userId == null)
-            {
-                HttpContext.Session.SetString("userToastr", "目前您的身分為訪客，請重新登入");
-                return Redirect("/Auth/Login");
-            }
+        //    // 判斷 userId 是否為訪客 || 判斷 Users 表中的 UserId 是否對應到 Session 傳入的 userId
+        //    if (userId == "Guest" || userID.ToString() != userId || userId == null)
+        //    {
+        //        HttpContext.Session.SetString("userToastr", "目前您的身分為訪客，請重新登入");
+        //        return Redirect("/Auth/Login");
+        //    }
 
-            // 背景作業 ------ 找出目前使用者的 UserId
-            var get_UserId = _context.Users.Find(userID);
+        //    var fUserOrder = _context.Orders.Find(userID);
+        //    var CancelOrder = (from u in _context.Orders
+        //                  where u.OrderId == order.OrderId
+        //                  select u).FirstOrDefault();
 
-            // 變更訂單狀態成功，等待 1.0 秒再Show出畫面
-            CancellationTokenSource cts = new CancellationTokenSource();
-            try
-            {
-                await Task.Delay(1000, cts.Token);
-            }
-            catch (TaskCanceledException ex)
-            {
-                HttpContext.Session.SetString("userToastr", "訂單狀態未變更");
-                return View();
-            }
+        //    // 設定該使用者之 UserId 用以變更
+        //    var CancelOrderinfo = _context.Orders.Find(CancelOrder);
+        //    CancelOrderinfo.Approval = "WL";   // 將訂單狀態變更為"取消" = "WL"
 
-            _context.Update(order);
-            await _context.SaveChangesAsync();
-            HttpContext.Session.SetString("userToastr", "訂單修改完成");
-            return Redirect("/Auth/MemberOrder");
+        //    _context.Update(CancelOrderinfo);
+        //    await _context.SaveChangesAsync();
 
-
-        }
+        //    HttpContext.Session.SetString("userToastr", "已為您完成取消訂單");
+        //    return Redirect("/Auth/MemberOrderEdit");
+        //}
     }
 }
 

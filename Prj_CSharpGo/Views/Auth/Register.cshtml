@@ -30,7 +30,8 @@
 
 <body>
 
-
+    <br />
+    <br />
     <form action="/Auth/Register" method="post">
 
         <!--帳號-->
@@ -56,7 +57,7 @@
                             <i class="fas fa-lock col-1"></i>
                         </div>
                     </div>
-                    <input class="form-control" type="password" data-val="true" data-val-required="密碼不可空白" id="id_password" name="Password" value="" placeholder="請輸入密碼" />
+                    <input class="form-control" type="password" data-val="true" data-val-required="密碼不可空白" id="id_password" name="Password" value="" placeholder="請輸入密碼"/>
                     <i class="fas fa-eye form-control col-1" id="togglePassword" style="cursor: pointer; margin-left: -30px; z-index: 1000; justify-content: center; align-items: center; "></i>
                 </div>
             </div>
@@ -105,10 +106,10 @@
 
 
     <div class="d-flex d-inline align-item-end justify-content-end">
-        <div class="form-group d-inline">
+        @*<div class="form-group d-inline">
             <button id="nowGive1" type="button" class="btn btn-light border border-0">.</button>
         </div>
-        <span>&emsp;</span>
+        <span>&emsp;</span>*@
         <div class="form-group d-inline">
             <button id="nowGive2" type="button" class="btn btn-light border border-0">.</button>
         </div>
@@ -120,14 +121,20 @@
 
     <!-- 帶資料的隱藏按鈕 -->
     <script>
-        $("#nowGive1").click(function (event) {
-            $("#Account").val("Steven_RunnigMan");
+        @*$("#nowGive1").click(function (event) {
+            $("#Account").val("StevenRunnigMan");
             $("#id_password").val("wqfuhQrg94$2dfkj");
             $("#id_password1").val("wqfuhQrg94$2dfkj");
             $("#Email").val("yhhttbb@gmail.com");
         });
+        $("#nowGive1").click(function (event) {
+            $("#Account").val("StevenRunnigMan");
+            $("#id_password").val("wqfuhQrg94$2dfkj");
+            $("#id_password1").val("wqfuhQrg94$2dfkj");
+            $("#Email").val("yhhttbb@gmail.com");
+        });*@
         $("#nowGive2").click(function (event) {
-            $("#Account").val("RunRunRun_Steven");
+            $("#Account").val("csumiss");
             $("#id_password").val("wqfuhQrg94$2dfkj");
             $("#id_password1").val("wqfuhQrg94$2dfkj");
             $("#Email").val("asd7333477@gmail.com");
@@ -162,7 +169,7 @@
 
 
 
-    @if (userToastr == "Guest")
+    @if (userToastr == "Guest" )
     {
         <script type="text/javascript">
 
@@ -219,9 +226,9 @@
         }
     })
         </script>
-    }
-    else if (userToastr != "Guest" || userToastr == "此帳號不存在" || userToastr == "目前此帳號狀態已遭停權，如有任何帳號疑慮，敬請聯繫官方服務中心")
-    {
+            }
+            else if (userToastr != "Guest" || userToastr == "此帳號遭停權，請洽客服中心" || userToastr == "這是您的帳號嗎？")
+            {
         <script type="text/javascript">
 
         $(function () {
@@ -249,8 +256,7 @@
     })
         </script>
     }
-    else if (userToastr == "此帳號已有人使用！" || userToastr == "您的帳號未開通" || userToastr == "密碼格式有誤" || userToastr == "前後密碼不相符" ||
-             userToastr == "帳號尚未開通，請至電子信箱確認" || userToastr == "輸入的Email格式有誤" || userToastr == "此Email已被使用")
+    else if (userToastr == "這組帳號有人使用囉！換一組帳號吧！" || userToastr == "Email 請填空" || userToastr == "換組 Email 吧！" || userToastr == "前後密碼不相符" ||　userToastr == "幫幫我！把格子填完吧！")
     {
         <script type="text/javascript">
 
