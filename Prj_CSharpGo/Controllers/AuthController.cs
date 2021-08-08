@@ -35,6 +35,42 @@ namespace Prj_CSharpGo.Controllers
         }
 
         // =================================================================================================================================================================================
+        // 【GET : 寄信驗證】 ==============================================================================================================================================================
+        // =================================================================================================================================================================================
+
+        // 寄發會員資格開通驗證信
+        public IActionResult confirmEmail()
+        {
+            string account = HttpContext.Request.Query["id"].ToString();
+            string token = HttpContext.Request.Query["token"].ToString();
+
+            if (string.IsNullOrWhiteSpace(account) || string.IsNullOrWhiteSpace(token))
+            {
+                return NotFound();
+            }
+
+            var decodedToken = WebEncoders.Base64UrlDecode(token);
+            string normalToken = Encoding.UTF8.GetString(decodedToken);
+
+            var userID = (from u in _context.Users
+                          where u.UserAccount == normalToken
+                          select u.UserId).ToList()[0];
+
+            var changUserStatus = _context.Users.Find(userID);
+            changUserStatus.IsSuccess = true;   // IsSuccess 型態為 bool
+            changUserStatus.UserStatus = "NR";
+            changUserStatus.UpdateDate = DateTime.Now;
+
+            HttpContext.Session.SetString("userToastr", "會員已開通完成");
+            HttpContext.Session.SetString("userStatus", changUserStatus.UserStatus);
+            HttpContext.Session.SetString("userIsSuccess", changUserStatus.IsSuccess.ToString());
+            HttpContext.Session.SetString("userUpadteDate", changUserStatus.UpdateDate.ToString());
+
+            _context.SaveChanges();
+            return Redirect("/Auth/Login");
+        }
+
+        // =================================================================================================================================================================================
         // 【GET】 =========================================================================================================================================================================
         // =================================================================================================================================================================================
 
@@ -222,7 +258,7 @@ namespace Prj_CSharpGo.Controllers
 
         // 註冊
         [HttpPost]
-        public async Task<IActionResult> Register(int userid, string account, string password, string confirmPassword, string email, string username, string userStatus, bool isSuccess)
+        public async Task<IActionResult> Register(string account, string password, string confirmPassword, string email, string username, string userStatus, bool isSuccess)
         {
 
             // 【正則表達式 Regex】 -------------------------------------------------------------------------------------
@@ -366,9 +402,9 @@ namespace Prj_CSharpGo.Controllers
 
         // 會員中心 => 基本資料變更
         [HttpPost]
-        public async Task<IActionResult> MemberInfo(string account, string email, string username, string phone, DateTime birthday, string region, string address)
+        public async Task<IActionResult> MemberInfo(string email,string username, string phone,DateTime birthday, string region, string address)
         {
-            string userId = HttpContext.Session.GetString("userId");
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
 
             // 找出目前已登入的使用者 id
             var userID = (from u in _context.Users
@@ -376,7 +412,7 @@ namespace Prj_CSharpGo.Controllers
                           select u.UserId).FirstOrDefault();
 
             // 優先判斷輸入的資訊舊密碼是否存在
-            if (userID.ToString() != userId)
+            if (userID.ToString() != userId )
             {
                 HttpContext.Session.SetString("userToastr", "請重新輸入您的會員基本資料");
                 return Redirect("/Auth/Index");
@@ -388,10 +424,6 @@ namespace Prj_CSharpGo.Controllers
 
             // 設定該使用者之 UserId 用以變更
             var changMemberinfo = _context.Users.Find(userID);
-            account = changMemberinfo.UserAccount;
-            email = changMemberinfo.Email;
-            changMemberinfo.UserAccount = account;
-            changMemberinfo.Email = email;
             changMemberinfo.UserName = username;
             changMemberinfo.Phone = phone;
             changMemberinfo.Birthday = birthday;
@@ -488,41 +520,7 @@ namespace Prj_CSharpGo.Controllers
             return Redirect("/Auth/Login");
         }
 
-        // =================================================================================================================================================================================
-        // 【POST : 寄信驗證】 ==============================================================================================================================================================
-        // =================================================================================================================================================================================
 
-        // 寄發會員資格開通驗證信
-        public IActionResult confirmEmail()
-        {
-            string account = HttpContext.Request.Query["id"].ToString();
-            string token = HttpContext.Request.Query["token"].ToString();
-
-            if (string.IsNullOrWhiteSpace(account) || string.IsNullOrWhiteSpace(token))
-            {
-                return NotFound();
-            }
-
-            var decodedToken = WebEncoders.Base64UrlDecode(token);
-            string normalToken = Encoding.UTF8.GetString(decodedToken);
-
-            var userID = (from u in _context.Users
-                          where u.UserAccount == normalToken
-                          select u.UserId).ToList()[0];
-
-            var changUserStatus = _context.Users.Find(userID);
-            changUserStatus.IsSuccess = true;   // IsSuccess 型態為 bool
-            changUserStatus.UserStatus = "NR";
-            changUserStatus.UpdateDate = DateTime.Now;
-
-            HttpContext.Session.SetString("userToastr", "會員已開通完成");
-            HttpContext.Session.SetString("userStatus", changUserStatus.UserStatus);
-            HttpContext.Session.SetString("userIsSuccess", changUserStatus.IsSuccess.ToString());
-            HttpContext.Session.SetString("userUpadteDate", changUserStatus.UpdateDate.ToString());
-
-            _context.SaveChanges();
-            return Redirect("/Auth/Login");
-        }
 
 
     }
