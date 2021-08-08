@@ -40,7 +40,7 @@
 <script src="~/Didi/js/templatemo.js"></script>
 <script src="~/Didi/js/custom.js"></script>
 
-<link rel="stylesheet" href="~/Didi/css/recipe.css">
+<link rel="stylesheet" href="~/Didi/css/recipe.css?v=0.1">
 
 @*Start Contact*@
 <div class="container py-5">
@@ -48,41 +48,41 @@
         <form class="col-md-9 m-auto" method="post" action="/Recipe/Edit" data-ajax='false' enctype="multipart/form-data">
             <input type="text" name="RecipeId" value="@Model.Recipe.RecipeId" hidden>
             @*上傳圖片 JS在最下面*@
-            <div style="text-align:center" class=" inputimg">
-                <img id="output" style="max-width: 400px; max-height: 400px; display: block; margin: auto; " class="mt-1" src="~/Didi/img/@Model.Recipe.Img" />
+            <div style="text-align:center;height:350px;width:500px" class=" inputimg">
+                <img id="output" style="max-width: 400px; max-height: 400px; display: block; margin: auto; border: 15px orange double;" class="mt-1" src="~/Didi/img/@Model.Recipe.Img" />
                 <input type="file" name="Img" accept="image/*" onchange="loadFile(event)" style="margin-top:10px;">
             </div>
             @*上傳圖片*@
             <div class="row">
-                <div class="form-group col-md-6 mb-3">
+                <div class="form-group col-md-6 mb-3 re_font">
                     <label for="inputname">RecipeName</label>
-                    <input type="text" class="form-control mt-1" name="RecipeName" value="@Model.Recipe.RecipeName">
+                    <input type="text" class="form-control mt-1 re_fonts" name="RecipeName" value="@Model.Recipe.RecipeName">
                 </div>
-                <div class="form-group col-md-6 mb-3">
+                <div class="form-group col-md-6 mb-3 re_font">
                     <label for="inputemail">CreateDate</label>
-                    <input type="text" class="form-control mt-1" name="CreateTime" value="@Model.Recipe.CreateTime">
+                    <input type="text" class="form-control mt-1 re_fonts" name="CreateTime" value="@Model.Recipe.CreateTime">
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-md-6 mb-3">
-                    <label for="inputsubject">準備時間時間PreparationTime</label>
-                    <input type="text" class="form-control mt-1" name="PreparationTime" value="@Model.Recipe.PreparationTime">
+                <div class="form-group col-md-6 mb-3 re_font" >
+                    <label for="inputsubject">準備時間PreparationTime</label>
+                    <input type="text" class="form-control mt-1 re_fonts" name="PreparationTime" value="@Model.Recipe.PreparationTime">
                 </div>
-                <div class="form-group col-md-6 mb-3">
+                <div class="form-group col-md-6 mb-3 re_font">
                     <label for="inputsubject">料理時間Cooking time</label>
-                    <input type="text" class="form-control mt-1" name="CookingTime" value="@Model.Recipe.CookingTime">
+                    <input type="text" class="form-control mt-1 re_fonts" name="CookingTime" value="@Model.Recipe.CookingTime">
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-md-6 mb-3">
-                    <label for="inputsubject">份量Yield</label>
-                    <input type="text" class="form-control mt-1" name="Yield" value="@Model.Recipe.Yield">
+                <div class="form-group col-md-6 mb-3 re_font">
+                    <label for="inputsubject">份量Yield(人)</label>
+                    <input type="text" class="form-control mt-1 re_fonts" name="Yield" value="@Model.Recipe.Yield">
                 </div>
             </div>
             @*新增食材*@
             <div class="row">
                 <div class="col-md-2" style="float:left">
-                    <button id="ass_add" onclick="ass_add()" type="button" class="bi bi-plus form-control mt-1" style="font-size:20px">  新增食材</button>
+                    <button id="ass_add" onclick="ass_add()" type="button" class="bi bi-plus form-control mt-1 re_fonts" style="font-size:20px">  新增食材</button>
                 </div>
             </div>
             @*食材清單*@
@@ -96,22 +96,22 @@
                         <div class="row" id="row_@index">
                             <input type="text" class="form-control mt-1" name="Description[@index].Key" value="@index" hidden>
                             <input type="text" class="form-control mt-1" name="ProductID[@index].Key" value="@index" hidden>
-                            <div class="form-group col-md-6 mb-3">
+                            <div class="form-group col-md-6 mb-3 re_font">
                                 <label for="inputsubject">FOOD_Description</label>
                                 <div class="row">
                                     @*<div class="col-md-2" style="float:left">
                                             <button id="ass_add" type="button" class="bi bi-plus form-control mt-1"></button>
                                         </div>*@
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control mt-1" name="Description[@index].Value" value="@ass.Description" placeholder="Description">
+                                        <input type="text" class="form-control mt-1 re_fonts" name="Description[@index].Value" value="@ass.Description" placeholder="Description">
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6 mb-3">
+                            <div class="form-group col-md-6 mb-3 re_font">
                                 <label for="inputsubject">Product</label>
                                 <div class="=row">
                                     <div class="col-md-8">
-                                        <select class="form-control mt-1" name="ProductID[@index].Value" style="float: left;">
+                                        <select class="form-control mt-1 re_fonts" name="ProductID[@index].Value" style="float: left;">
                                             <option value="0">食材選擇</option>
                                             @* 這邊無法用2次Model去foreach，所以用ViewData取代(controller也要寫) *@
                                             @{ foreach (var pro in ViewData["Products"] as List<Product>)
@@ -132,7 +132,7 @@
                                     </div>
                                     @* 刪除 *@
                                     <div class="col-md-2" style="float: left;margin-left:5px;">
-                                        <button type="button" class="form-control mt-1" onclick="del_row(this)" data-id="@index">Del</button>
+                                        <button type="button" class="form-control mt-1 re_fonts" onclick="del_row(this)" data-id="@index">Del</button>
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@
                             <label for="inputsubject">Product</label>
                             <div class="=row">
                                 <div class="col-md-8">
-                                    <select class="form-control mt-1" style="float: left;" name="ProductID[0].Value">
+                                    <select class="form-control mt-1 re_fonts" style="float: left;" name="ProductID[0].Value">
                                         <option value="0">食材選擇</option>
                                         @{ foreach (var item in Model.Products)
                                             {
@@ -160,8 +160,8 @@
                                         }
                                     </select>
                                 </div>
-                                <div class="col-md-2" style="float: left;margin-left:5px;">
-                                    <button type="button" class="form-control mt-1" onclick="del_row(this)" data-id="0">Del</button>
+                                <div class="col-md-3" style="float: left;margin-left:5px;">
+                                    <button type="button" class="form-control mt-1 re_fonts" onclick="del_row(this)" data-id="0">Del</button>
                                 </div>
                             </div>
                         </div>
@@ -169,17 +169,17 @@
                 }
 
             </div>
-            <div class="mb-3">
+            <div class="mb-3 re_font">
                 <label for="inputmessage">01.備料Preparation</label>
-                <textarea class="form-control mt-1" name="Preparation" rows="8">@Model.Recipe.Preparation</textarea>
+                <textarea class="form-control mt-1 re_fonts" name="Preparation" rows="8">@Model.Recipe.Preparation</textarea>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 re_font">
                 <label for="inputmessage">02.烹煮步驟Step</label>
-                <textarea class="form-control mt-1" name="Step" rows="8">@Model.Recipe.Step</textarea>
+                <textarea class="form-control mt-1 re_fonts" name="Step" rows="8">@Model.Recipe.Step</textarea>
             </div>
             <div class="row">
                 <div class="col text-end mt-2">
-                    <button type="submit" class="btn btn-success btn-lg px-3">Send</button>
+                    <button type="submit" class="btn btn-success btn-lg px-3 re_fonts">Send</button>
                 </div>
             </div>
         </form>
@@ -225,18 +225,18 @@
             html += '<div class="row" id="row_' + row_num + '">';
             html += '<input type="text" class="form-control mt-1" name="Description[' + row_num + '].Key" value="' + row_num + '" hidden>';
             html += '<input type="text" class="form-control mt-1" name="ProductID[' + row_num + '].Key" value="' + row_num + '" hidden>';
-            html += '<div class="form-group col-md-6 mb-3" >';
+            html += '<div class="form-group col-md-6 mb-3 re_font" >';
             html += '<label for= "inputsubject" > FOOD_Description</label >';
-            html += '<input type = "text" class="form-control mt-1" name = "Description[' + row_num + '].Value" placeholder = "Description" >';
+            html += '<input type = "text" class="form-control mt-1 re_fonts" name = "Description[' + row_num + '].Value" placeholder = "Description" >';
             html += '</div>';
-            html += '<div class="form-group col-md-6 mb-3" >';
+            html += '<div class="form-group col-md-6 mb-3 re_font" >';
             html += '<label for= "inputsubject" > Product</label >';
             html += '<div class="row">';
-            html += '<div class="col-md-8"><select class="form-control mt-1 style="float: left;"" name = "ProductID[' + row_num + '].Value" >';
+            html += '<div class="col-md-8"><select class="form-control mt-1 re_fonts" style="float: left;"name = "ProductID[' + row_num + '].Value" >';
             html += option_html;
             html += '</select> ';
             html += '</div>';
-            html += '<div class="col-md-2" style=" float: left;margin-left:5px;"><button type="button"class="form-control mt-1" onclick="del_row(this)" data-id="' + row_num + '">Del</button></div>';
+            html += '<div class="col-md-3" style=" float: left;margin-left:5px;"><button type="button"class="form-control mt-1 re_fonts" onclick="del_row(this)" data-id="' + row_num + '">Del</button></div>';
             html += '</div>';
             html += '</div>';
             console.log(html);

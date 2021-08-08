@@ -174,5 +174,25 @@ namespace Prj_CSharpGo.Controllers
             this._context.SaveChanges();
             return RedirectToAction("index");
         }
+
+        //會員/陌生登入頁面
+        public IActionResult cust_Index()
+        {
+            List<Recipe> Recipes = _context.Recipes.ToList();
+            return View("cust_Index", Recipes);
+        }
+        public IActionResult cust_Detail(int? id)
+        {
+            var rec = _context.Recipes.FirstOrDefault(m => m.RecipeId == id);
+            if (rec == null)
+            {
+                return NotFound();
+            }
+            Recipe re = _context.Recipes.Find(id);
+            ViewData["Association"] = this._context.Associations.Where(x => x.RecipeId == id).ToList();
+            ViewData["Product"] = this._context.Products.ToList();
+            ViewData["ProductImg"] = this._context.ProductImgs.ToList();
+            return View(re);
+        }
     }
 }

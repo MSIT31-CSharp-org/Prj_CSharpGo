@@ -47,43 +47,46 @@
         <form class="col-md-9 m-auto" method="post" action="/Recipe/Create" data-ajax='false' enctype="multipart/form-data">
             @*<form class="col-md-9 m-auto" method="post" action="/Recipe/Edit" role="form" data-ajax='false'>*@
             @*上傳圖片 JS在最下面*@
-            <div class=" inputimg">
+            <div class=" inputimg" style="text-align:center;height:350px;width:500px">
                 <img id="output" style="max-width: 400px; max-height: 400px; margin-left: 50px" class="mt-1" />
                 <input type="file" name="Img" accept="image/*" onchange="loadFile(event)" style="margin-top:10px;">
             </div>
             <br>
             @*上傳圖片*@
             <div class="row">
-                <div class="form-group col-md-6 mb-3">
-                    <label for="inputname">RecipeName</label>
-                    <input type="text" class="form-control mt-1" name="RecipeName" placeholder="RecipeName">
+                <div>
+                    <button id="fast_input" class="form-control mt-1 re_fonts" type="button" style="font-size:20px">一鍵填寫</button>
                 </div>
-                <div class="form-group col-md-6 mb-3">
+                <div class="form-group col-md-6 mb-3 re_font">
+                    <label for="inputname ">RecipeName</label>
+                    <input type="text" class="form-control mt-1 re_fonts" name="RecipeName" placeholder="RecipeName">
+                </div>
+                <div class="form-group col-md-6 mb-3 re_font">
                     <label for="inputemail">CreateDate</label>
-                    <input type="text" class="form-control mt-1" name="CreateTime" placeholder="CreateTime">
+                    <input type="text" class="form-control mt-1 re_fonts" name="CreateTime" placeholder="CreateTime">
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-md-6 mb-3">
+                <div class="form-group col-md-6 mb-3 re_font">
                     <label for="inputsubject">準備時間時間PreparationTime</label>
-                    <input type="text" class="form-control mt-1" name="PreparationTime" placeholder="PreparationTime">
+                    <input type="text" class="form-control mt-1 re_fonts" name="PreparationTime" placeholder="PreparationTime">
                 </div>
-                <div class="form-group col-md-6 mb-3">
+                <div class="form-group col-md-6 mb-3 re_font">
                     <label for="inputsubject">料理時間Cooking time</label>
-                    <input type="text" class="form-control mt-1" name="CookingTime" placeholder="CookingTime">
+                    <input type="text" class="form-control mt-1 re_fonts" name="CookingTime" placeholder="CookingTime">
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-md-6 mb-3">
-                    <label for="inputsubject">份量Yield</label>
-                    <input type="text" class="form-control mt-1" name="Yield" placeholder="Model.Yield">
+                <div class="form-group col-md-6 mb-3 re_font">
+                    <label for="inputsubject">份量Yield(人)</label>
+                    <input type="text" class="form-control mt-1 re_fonts" name="Yield" placeholder="Model.Yield">
                 </div>
             </div>
 
             @*新增食材*@
             <div class="row">
                 <div class="col-md-2" style="float:left">
-                    <button id="ass_add" type="button" class="bi bi-plus form-control mt-1" style="font-size:20px">  新增食材</button>
+                    <button id="ass_add" type="button" class="bi bi-plus form-control mt-1 re_fonts" style="font-size:20px">  新增食材</button>
                 </div>
             </div>
             @*食材清單*@
@@ -93,22 +96,22 @@
                     <div class="row" id="row_@index">
                         <input type="text" class="form-control mt-1" name="Description[@index].Key" value="@index" hidden>
                         <input type="text" class="form-control mt-1" name="ProductID[@index].Key" value="@index" hidden>
-                        <div class="form-group col-md-6 mb-3">
+                        <div class="form-group col-md-6 mb-3 re_font">
                             <label for="inputsubject">FOOD_Description</label>
                             <div class="row">
                                 @*<div class="col-md-2" style="float:left">
                                         <button id="ass_add" type="button" class="bi bi-plus form-control mt-1"></button>
                                     </div>*@
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control mt-1" name="Description[@index].Value" placeholder="Description">
+                                    <input type="text" class="form-control mt-1 re_fonts" name="Description[@index].Value" placeholder="Description">
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-6 mb-3">
+                        <div class="form-group col-md-6 mb-3 re_font">
                             <label for="inputsubject">Product</label>
                             <div class="=row">
                                 <div class="col-md-8">
-                                    <select class="form-control mt-1" style="float: left;" name="ProductID[@index].Value">
+                                    <select class="form-control mt-1 re_fonts" style="float: left;" name="ProductID[@index].Value">
                                         <option value="0">食材選擇</option>
                                         @{ foreach (var item in Model.Products)
                                             {
@@ -117,9 +120,9 @@
                                         }
                                     </select>
                                 </div>
-                                <div class="col-md-2" style="float: left;margin-left:5px;">
+                                <div class="col-md-3" style="float: left;margin-left:5px;">
                                     @*<button type="button" class="form-control mt-1 col-md-2" onclick="del_row(this)" data-id="' + row_num + '">Del</button>*@
-                                    <button type="button" class="form-control mt-1" onclick="del_row(this)" data-id="@index">Del</button>
+                                    <button type="button" class="form-control mt-1 re_fonts" onclick="del_row(this)" data-id="@index">Del</button>
                                 </div>
                             </div>
                         </div>
@@ -128,17 +131,17 @@
                 }
 
             </div>
-            <div class="mb-3">
+            <div class="mb-3 re_font">
                 <label for="inputmessage">01.備料Preparation</label>
-                <textarea class="form-control mt-1" name="Preparation" placeholder="Preparation" rows="8"></textarea>
+                <textarea class="form-control mt-1 re_fonts" name="Preparation" placeholder="Preparation" rows="8"></textarea>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 re_font">
                 <label for="inputmessage">02.烹煮步驟Step</label>
-                <textarea class="form-control mt-1" name="Step" placeholder="Preparation" rows="8"></textarea>
+                <textarea class="form-control mt-1 re_fonts" name="Step" placeholder="step" rows="8"></textarea>
             </div>
             <div class="row">
-                <div class="col text-end mt-2">
-                    <button type="submit" class="btn btn-success btn-lg px-3">Send</button>
+                <div class="col text-end mt-2 re_font">
+                    <button type="submit" class="btn btn-success btn-lg px-3 re_fonts">Send</button>
                 </div>
             </div>
         </form>
@@ -170,6 +173,18 @@
             }
         };
 
+        $('#fast_input').on('click', function () {
+            $("input[name='RecipeName']").val('法式水果吐司');
+            $("input[name='CreateTime']").val('2021/8/9 上午 12:00:00');
+            $("input[name='PreparationTime']").val('10');
+            $("input[name='CookingTime']").val('10');
+            $("input[name='Yield']").val('2');
+            $("textarea[name='Preparation']").text('厚片吐司2片>（一般吐司5片)。\n鮮奶250cc。 雞蛋3個。\n草莓／藍莓／桑葚等新鮮水果。\n 糖粉or砂糖適量。');
+            $("textarea[name='Step']").val('鮮奶和雞蛋混合拌勻。\n厚片吐司切9宮格，一般吐司斜角對切。\n放進鮮奶中浸泡約10分鐘。\n熱鍋中小火，放入奶油或是沙拉油皆可。\n將浸泡好的吐司，一個一個放入煎鍋煎熟，每一面皆金黃色。\n起鍋擺盤，再灑上糖粉。\n簡單又吸睛的法式吐司完成。');
+        
+
+
+        })
 
         // ASS_ADD
         $('#ass_add').on('click', function () {
@@ -182,18 +197,18 @@
             html += '<div class="row" id="row_' + row_num + '">';
             html += '<input type="text" class="form-control mt-1" name="Description[' + row_num + '].Key" value="' + row_num + '" hidden>';
             html += '<input type="text" class="form-control mt-1" name="ProductID[' + row_num + '].Key" value="' + row_num + '" hidden>';
-            html += '<div class="form-group col-md-6 mb-3" >';
+            html += '<div class="form-group col-md-6 mb-3 re_font" >';
             html += '<label for= "inputsubject" > FOOD_Description</label >';
-            html += '<input type = "text" class="form-control mt-1" name = "Description[' + row_num + '].Value" placeholder = "Description" >';
+            html += '<input type = "text" class="form-control mt-1 re_fonts" name = "Description[' + row_num + '].Value" placeholder = "Description" >';
             html += '</div>';
-            html += '<div class="form-group col-md-6 mb-3" >';
+            html += '<div class="form-group col-md-6 mb-3 re_font" >';
             html += '<label for= "inputsubject" > Product</label >';
             html += '<div class="row">';
-            html += '<div class="col-md-8"><select class="form-control mt-1 style="float: left;"" name = "ProductID[' + row_num + '].Value" >';
+            html += '<div class="col-md-8"><select class="form-control mt-1 re_fonts"style="float: left;" name = "ProductID[' + row_num + '].Value" >';
             html += option_html;
             html += '</select> ';
             html += '</div>';
-            html += '<div class="col-md-2" style=" float: left;margin-left:5px;"><button type="button"class="form-control mt-1" onclick="del_row(this)" data-id="' + row_num + '">Del</button></div>';
+            html += '<div class="col-md-3" style=" float: left;margin-left:5px;"><button type="button"class="form-control mt-1 re_fonts" onclick="del_row(this)" data-id="' + row_num + '">Del</button></div>';
             html += '</div>';
             html += '</div>';
             console.log(html);
