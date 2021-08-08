@@ -25,6 +25,137 @@ namespace Prj_CSharpGo.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
+        public ActionResult Home()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ShoppingCart>>> myCart()
+        {
+            var shopcart = _context.ShoppingCarts.Where(x => x.UserId == 1001);
+            return await shopcart.ToListAsync();
+        }
+
+
+        [HttpPost]
+        public IActionResult dash(string ProductId)
+        {
+            string userId = HttpContext.Session.GetString("userId") ?? "1001";
+
+            var dash0 = _context.ShoppingCarts.Where(x => x.UserId.ToString() == userId);
+
+            var _dash = dash0.Where(x => x.ProductId == ProductId).ToList()[0];
+            if (_dash == null)
+            {
+                return NotFound();
+            }
+            if (_dash.Quantity == null)
+            {
+                return NotFound();
+            }
+
+            if (_dash.Quantity > 1)
+            {
+                _dash.Quantity -= 1;
+                _context.SaveChanges();
+            }
+
+            return Redirect("/PShopCart/Index");
+        }
+        [HttpPost]
+        public IActionResult plus(string ProductId)
+        {
+            string userId = HttpContext.Session.GetString("userId") ?? "1001";
+            var dash0 = _context.ShoppingCarts.Where(x => x.UserId.ToString() == userId);
+
+            var _dash = dash0.Where(x => x.ProductId == ProductId).ToList()[0];
+            if (_dash == null)
+            {
+                return NotFound();
+            }
+            if (_dash.Quantity == null)
+            {
+                return NotFound();
+            }
+
+            if (_dash.Quantity <= _context.Products.Find(ProductId).UnitInStock)
+            {
+                _dash.Quantity += 1;
+                _context.SaveChanges();
+            }
+            return Redirect("/PShopCart/Index");
+        }
+        [HttpPost]
+        public IActionResult delete(string ProductId)
+        {
+            string userId = HttpContext.Session.GetString("userId") ?? "1001";
+            var dash0 = _context.ShoppingCarts.Where(x => x.UserId.ToString() == userId);
+
+            var _dash = dash0.Where(x => x.ProductId == ProductId).ToList()[0];
+            if (_dash == null)
+            {
+                return NotFound();
+            }
+            if (_dash.Quantity == null)
+            {
+                return NotFound();
+            }
+
+            _context.ShoppingCarts.Remove(_dash);
+            _context.SaveChanges();
+
+            return Redirect("/PShopCart/Index");
+        }
+        public IActionResult Bill(Order order)
+        {
+            string userId = HttpContext.Session.GetString("userId") ?? "1001";
+            var dash0 = _context.ShoppingCarts.Where(x => x.UserId.ToString() == userId).ToList();
+
+
+            if (dash0 == null)
+            {
+                return NotFound();
+            }
+
+            order.UserId = Convert.ToInt32(userId);
+            order.OrderDate = DateTime.Now;
+            order.TotalPrice = 0;
+            foreach (var item in dash0)
+            {
+                order.TotalPrice += item.Quantity*item.UnitPrice;
+
+            }
+            order.Approval = "SP";
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+
+            var query = (from o in _context.Orders
+                        where o.UserId.ToString() == userId
+                        orderby o.OrderDate descending
+                        select o).FirstOrDefault();
+            
+            foreach (var item in dash0)
+            {
+                OrderDetail orderDetail=new();
+                orderDetail.OrderId = query.OrderId;
+                orderDetail.ProductId = item.ProductId;
+                orderDetail.UnitPrice = item.UnitPrice;
+                orderDetail.Quantity = item.Quantity;
+                _context.OrderDetails.Add(orderDetail);
+                _context.SaveChanges();
+            }
+
+
+            foreach (var item in dash0)
+            {
+                _context.ShoppingCarts.Remove(item);
+            }
+            _context.SaveChanges();
+
+            return Redirect("/PShopCart/Index");
+        }
+
         //以下是購物車相關------------------------------------------------------------------------------------
         [HttpPost]
         public IActionResult AddCart(ShoppingCart ShoppingCarts)//檢視：無-接收商品頁面的資料 要傳進購物車資料庫PShopCartViewMolds中的ShoppingCarts的動作
@@ -40,21 +171,28 @@ namespace Prj_CSharpGo.Controllers
                     UserId = ShoppingCarts.UserId,
                     ProductId = ShoppingCarts.ProductId,
                     Quantity = ShoppingCarts.Quantity,
-                    UnitPrice = ShoppingCarts.UnitPrice,
                     Status = ShoppingCarts.Status,
                     ProductName = ShoppingCarts.ProductName,
+                    UnitPrice = ShoppingCarts.UnitPrice,
                 };
                 _context.ShoppingCarts.Add(PTOSCOrder);
             }
-            _context.SaveChanges();         
+            _context.SaveChanges();
             return Redirect("/PShopCart/Index");//接收的直要呈現在VIEW的檢視頁面/PShopCart/Index
         }
         public IActionResult Index()//檢視：購物車訂單頁面-一開始推進去購物車資料的動作  從購物車資料庫裡抓資料                                
         {
-            returnshCartIndexVM returnshCartIndexVM = new returnshCartIndexVM();
-            returnshCartIndexVM.ShoppingCarts = _context.ShoppingCarts.ToList();
-            returnshCartIndexVM.Products = _context.Products.ToList();
-            returnshCartIndexVM.Users = _context.Users.ToList();
+
+            string userId = HttpContext.Session.GetString("userId") ?? "1001";
+
+            CartView returnshCartIndexVM = new CartView()
+            {
+
+                ShoppingCarts = _context.ShoppingCarts.Where(x => x.UserId.ToString() == userId),
+                Products = _context.Products.ToList(),
+                ProductImgs = _context.ProductImgs.ToList()
+
+            };
 
             ViewData["total"] = _context.ShoppingCarts;
             return View("Index", returnshCartIndexVM);
@@ -68,7 +206,7 @@ namespace Prj_CSharpGo.Controllers
         //以下是訂單相關---------------------------------------------------------------------------------------
         [HttpPost]
         public IActionResult OrderIndex(POrderAllModel POrderAllModel)//檢視：改成AddOrder?無-接收購物車清單要傳進訂單資料庫的資料
-                                                                                 //AddOrder
+                                                                      //AddOrder
         {
             Order SCtoOrder = new Order()//推進資料庫Order
             {

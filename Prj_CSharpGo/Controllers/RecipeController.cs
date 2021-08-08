@@ -123,10 +123,11 @@ namespace Prj_CSharpGo.Controllers
             // 上傳圖片檔案
             if (Img != null)
             {
+                Console.WriteLine(Img.FileName);
                 string[] subs = Img.FileName.Split('.');
                 String NewImgName = DateTime.Now.ToString("yyyyMMddHHmmss") + "." + subs[1];
-                newRecipe.Img = NewImgName;
                 Img.CopyTo(new FileStream("./wwwroot/Didi/img/" + NewImgName, FileMode.Create));
+                newRecipe.Img = NewImgName;
             }
             newRecipe.UserId = 1001;
             _context.Add(newRecipe);
@@ -172,6 +173,26 @@ namespace Prj_CSharpGo.Controllers
             }
             this._context.SaveChanges();
             return RedirectToAction("index");
+        }
+
+        //會員/陌生登入頁面
+        public IActionResult cust_Index()
+        {
+            List<Recipe> Recipes = _context.Recipes.ToList();
+            return View("cust_Index", Recipes);
+        }
+        public IActionResult cust_Detail(int? id)
+        {
+            var rec = _context.Recipes.FirstOrDefault(m => m.RecipeId == id);
+            if (rec == null)
+            {
+                return NotFound();
+            }
+            Recipe re = _context.Recipes.Find(id);
+            ViewData["Association"] = this._context.Associations.Where(x => x.RecipeId == id).ToList();
+            ViewData["Product"] = this._context.Products.ToList();
+            ViewData["ProductImg"] = this._context.ProductImgs.ToList();
+            return View(re);
         }
     }
 }

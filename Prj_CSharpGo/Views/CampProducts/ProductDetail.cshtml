@@ -182,40 +182,6 @@
 
 
 
-                                        @*<li class="list-inline-item">
-                                              @Model.categories.Where(s => s.CategoryId == item.CategoryId).FirstOrDefault().CategoryName
-                                            </li>*@
-                                        @*@if (item.CategoryId == "A ")
-                                            {
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted"><strong>帳篷</strong></p>
-                                                </li>
-                                            }
-                                            else if (item.CategoryId == "B ")
-                                            {
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted"><strong>寢具</strong></p>
-                                                </li>
-                                            }
-                                            else if (item.CategoryId == "C ")
-                                            {
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted"><strong>戶外家具</strong></p>
-                                                </li>
-                                            }
-                                            else if (item.CategoryId == "D ")
-                                            {
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted"><strong>廚房用品</strong></p>
-                                                </li>
-                                            }
-                                            else
-                                            {
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted"><strong>食品</strong></p>
-                                                </li>
-                                            }*@
-
                                         <li class="list-inline-item">
                                             <h6>商品編號 :</h6>
                                         </li>
@@ -227,16 +193,6 @@
 
                                     </ul>
 
-                                    @*<h6>Specification:</h6>
-                                        <ul class="list-unstyled pb-3">
-                                            <li>Lorem ipsum dolor sit</li>
-                                            <li>Amet, consectetur</li>
-                                            <li>Adipiscing elit,set</li>
-                                            <li>Duis aute irure</li>
-                                            <li>Ut enim ad minim</li>
-                                            <li>Dolore magna aliqua</li>
-                                            <li>Excepteur sint</li>
-                                        </ul>*@
 
 
                                     <input type="hidden" name="product-title" value="Activewear">
@@ -264,15 +220,13 @@
                                             </ul>
                                         </div>
 
-
-
                                     </div>
                                     <div class="row pb-3">
                                         <div class="col d-grid">
                                             <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
                                         </div>
                                         <div class="col d-grid">
-                                            <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
+                                            <a href="/CampProducts/ProductDetail?productid=@item.ProductId" type="submit" class="btn btn-success btn-lg" name="submit" id="addtocard" value="addtocard">Add To Cart</a>
                                         </div>
                                     </div>
                                 </div>
@@ -304,7 +258,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Aa10CS003.jpeg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Aa10CS003"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -344,7 +298,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Cc20CL062.jpg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Cc20CL062"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -383,7 +337,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Aa44ND036.jpg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Aa44ND036"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -422,7 +376,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Bb20CL044.jpg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Bb20CL044"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -461,7 +415,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Dd32CL111.jpg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Dd32CL111"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -500,7 +454,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Dd31CL103.jpg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Dd31CL103"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -539,7 +493,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Dd50CL127.jpg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Dd50CL127"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -578,7 +532,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Dd31CL102.jpg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Dd31CL102"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -617,7 +571,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Dd42ZD118.jpg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Dd42ZD118"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -656,7 +610,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Aa41ND016.jpg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Aa41ND016"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -695,7 +649,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Aa43CS026.jpeg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                    <@*li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Aa43CS026"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -734,7 +688,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Cc10CS051.jpeg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
+                                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Cc10CS051"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -812,6 +766,13 @@
             }
             ]
         });
+
+
+        $('#addtocard').click(function () {
+
+            alert("已加入購物車");
+
+        })
     </script>
     <!-- End Slider Script -->
 

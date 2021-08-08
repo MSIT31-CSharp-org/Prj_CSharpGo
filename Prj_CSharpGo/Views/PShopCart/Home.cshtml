@@ -1,0 +1,242 @@
+﻿
+
+
+<link href="~/Jay/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/Jay/css/jquery.toast.css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<style>
+    .modal-header,
+    h4,
+    .close {
+        background-color: #5cb85c;
+        color: white;
+        text-align: center;
+        font-size: 2em;
+    }
+
+    .modal-footer {
+        background-color: #f9f9f9;
+    }
+</style>
+
+
+
+
+<div class="container">
+
+    <!-- // mark: news list ui -->
+    <div class="row">
+        <div class="col-sm-4" id="newsApp">
+            <h2>
+                最新消息  <span class="pull-right">
+                    <button id="newItem" v-on:click="newItemClick" class="btn btn-success btn-sm">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </span>
+            </h2>
+            <ul id="latestNews" class="list-group">
+                <li class="list-group-item"
+                    v-for="(news, index) in newsList">
+                    {{ news.title }} [{{ news.ymd }}]
+                    <span class="pull-right">
+                        <button class="btn btn-info btn-xs editItem" v-on:click="editItemClick(index)">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </button>&nbsp;
+                        <button class="btn btn-danger btn-xs deleteItem" v-on:click="deleteItemClick(index)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-sm-4">
+            &nbsp;
+        </div>
+
+        <div class="col-sm-4">
+            &nbsp;
+        </div>
+
+    </div> <!-- end of row -->
+
+</div> <!-- end of container -->
+<!-- 對話盒 -->
+<!-- // mark: dialog ui -->
+<div id="newsModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>新增/修改</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="titleTextBox">
+                            <span class="glyphicon glyphicon-bullhorn"></span>
+                            標題
+                        </label>
+                        <input type="text" v-model="title" id="titleTextBox" class="form-control" placeholder="請輸入標題" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ymdTextBox">
+                            <span class="glyphicon glyphicon-time"></span>
+                            日期
+                        </label>
+                        <input type="text" v-model="ymd" id="ymdTextBox" class="form-control"
+                               placeholder="yyyy-mm-dd 例如: 2017-05-20">
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button type="button" id="okButton" v-on:click="okButtonClick" class="btn btn-success">
+                        <span class="glyphicon glyphicon-ok"></span> 確定
+                    </button>
+                    <button type="button" id="cancelButton" class="btn btn-default" data-dismiss="modal">
+                        <span class="glyphicon glyphicon-remove"></span> 取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /對話盒 -->
+<!-- ========== UI 與 JavaScript 分隔線 ========== -->
+
+
+<script src="~/Jay/js/jquery.js"></script>
+<script src="~/Jay/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/Jay/js/jquery.toast.js"></script>
+
+<script>
+        // mark: news list code
+        var newsApp = new Vue({
+            el: "#newsApp",
+            data: {
+                testData: 100,
+                newsList:
+                    [
+                        { newsId: 1, ymd: "2017-05-01", title: "Item 1" },
+                        { newsId: 2, ymd: "2017-05-01", title: "Item 2" },
+                        { newsId: 3, ymd: "2017-05-02", title: "Item 3" },
+                        { newsId: 4, ymd: "2017-05-03", title: "Item 4" },
+                        { newsId: 5, ymd: "2017-05-04", title: "Item 5" }
+                    ]
+
+            },
+            methods: {
+                newItemClick: function () {
+                    newsModalApp.title = "";
+                    newsModalApp.ymd = "";
+                    newsModalApp.newsIndex = -1
+                    $("#newsModal").modal({ backdrop: "static" });
+                },
+                editItemClick: function (e) {
+                    newsModalApp.title = this.newsList[e].title;
+                    newsModalApp.ymd = this.newsList[e].ymd;
+                    newsModalApp.newsIndex = e;
+                    $("#newsModal").modal({ backdrop: "static" });
+                },
+                deleteItemClick: function (e) {
+                    // this.newsList.splice(e, 1);
+                    $.ajax({
+                        type: "delete",
+                        url: "/api/news/" + newsApp.newsList[e].newsId
+                    })
+                        .then(function (e) {
+                            downloadNewsList()
+                        })
+                }
+            }
+        })
+
+
+        // mark: dailog code
+        var newsModalApp = new Vue({
+            el: "#newsModal",
+            data: {
+                title: "testTitle",
+                ymd: "testYMD",
+                newsIndex: 0
+            },
+            methods: {
+                okButtonClick: function () {
+                    if (this.newsIndex < 0) { // new
+                        var newItem = {
+                            title: this.title,
+                            ymd: this.ymd
+                        }
+                        $.ajax({
+                            type: "post",
+                            url: "/api/news",
+                            contentType: "application/json",
+                            data: JSON.stringify(newItem)
+                        })
+                            .then(function (e) {
+                                downloadNewsList();
+                            })
+                        // newsApp.newsList.push(objNew);
+                    }
+                    else {
+                        newsApp.newsList[this.newsIndex].title = this.title;
+                        newsApp.newsList[this.newsIndex].ymd = this.ymd;
+
+                        $.ajax({
+                            type: "put",
+                            url: "/api/news/" + newsApp.newsList[this.newsIndex].newsId,
+                            contentType: "application/json",
+                            data: JSON.stringify(newsApp.newsList[this.newsIndex])
+                        })
+                            .then(function (e) {
+                                downloadNewsList();
+                            })
+                    }
+
+                    $("#newsModal").modal("hide");
+                }
+            }
+        });
+
+
+
+        // 使用方式:
+        // showToast("標題", "提示文字") 例如:
+        // showToast("Hint", "請點一下正確的圖案");
+        function showToast(heading, message) {
+            $.toast({
+                text: message, // Text that is to be shown in the toast
+                heading: heading, // Optional heading to be shown on the toast
+                icon: 'warning', // Type of toast icon
+                showHideTransition: 'fade', // fade, slide or plain
+                allowToastClose: true, // Boolean value true or false
+                hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+                stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+                position: 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+                textAlign: 'left',  // Text alignment i.e. left, right or center
+                loader: true,  // Whether to show loader or not. True by default
+                loaderBg: '#9ec600',  // Background color of the toast loader
+                beforeShow: function () { }, // will be triggered before the toast is shown
+                afterShown: function () { }, // will be triggered after the toat has been shown
+                beforeHide: function () { }, // will be triggered before the toast gets hidden
+                afterHidden: function () { }  // will be triggered after the toast has been hidden
+            });
+        }
+
+        function downloadNewsList() {
+            $.get("/api/news", function (e) {
+                newsApp.newsList = e;
+            })
+        }
+
+        $(document).ready(function () {
+            downloadNewsList();
+        })
+
+</script>
+
