@@ -17,7 +17,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label" for="Approval">帳號狀態</label>
+        <label class="col-sm-3 col-form-label" for="Approval">訂單狀態</label>
         <div class="col-sm-9">
             <select name="Approval" class="form-control">
 
@@ -83,26 +83,46 @@
                 <th>
                     數量
                 </th>
+                <th>
+                    小計/總金額
+                </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.OrderDetails)
             {
-                <tr>
-                    <td>
-                        @item.ProductId
-                    </td>
-                    <td>
-                        @Model.Products.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName
-                    </td>
-                    <td>
-                        @item.UnitPrice
-                    </td>
-                    <td>
-                        @item.Quantity
-                    </td>
-                </tr>
+                int? subtotal = item.UnitPrice * item.Quantity;
+            <tr>
+                <td>
+                    @item.ProductId
+                </td>
+                <td>
+                    @Model.Products.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName
+                </td>
+                <td>
+                    @item.UnitPrice
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+                <td>
+                     @subtotal
+                </td>
+            </tr>
             }
+        <tr>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                @Model._order.TotalPrice
+            </td>
+        </tr>
 
 
         </tbody>

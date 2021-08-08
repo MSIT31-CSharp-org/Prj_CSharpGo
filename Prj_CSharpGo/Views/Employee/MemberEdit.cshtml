@@ -1,7 +1,7 @@
 ﻿@model Prj_CSharpGo.Models.User
 
 @{
-    ViewData["Title"] = "MemberEdit";
+    ViewData["Title"] = "會員編輯";
     Layout = "EmployeeLayout";
 }
 
@@ -26,7 +26,16 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="Email">帳號 Email</label>
+                <label class="col-sm-3 col-form-label" for="UserAccount">帳號</label>
+                <div class="col-sm-9">
+                    <input class="form-control-plaintext" type="text" id="UserAccount" name="UserAccount" readonly value="@Model.UserAccount" />
+                </div>
+                <label class="col-sm-3 col-form-label"></label>
+                <span class="text-danger field-validation-valid" data-valmsg-for="UserAccount" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="Email">Email</label>
                 <div class="col-sm-9">
                     <input class="form-control-plaintext" type="text" id="Email" name="Email" readonly value="@Model.Email" />
                 </div>
@@ -39,6 +48,19 @@
                 <input class="form-control-plaintext col-sm-9" type="text" data-val="true" data-val-required="不可空白" id="UserPassword" name="UserPassword" readonly value="@Model.UserPassword" />
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="UserPassword" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group row d-none">
+                <label class="col-sm-3 col-form-label" for="IsSuccess">IsSuccess</label>
+                <input asp-for="IsSuccess" class="form-control" value="@Model.IsSuccess" />
+
+                <label class="col-sm-3 col-form-label"></label>
+                <span class="text-danger field-validation-valid" data-valmsg-for="IsSuccess" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group row d-none">
+                <label class="col-sm-3 col-form-label" for="ConfirmPassword">ConfirmPassword</label>
+                <input class="form-control-plaintext col-sm-9" type="text" id="ConfirmPassword" name="ConfirmPassword" readonly value="@Model.ConfirmPassword" />
+                <label class="col-sm-3 col-form-label"></label>
+                <span class="text-danger field-validation-valid" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
             </div>
 
             <div class="form-group row">
@@ -71,17 +93,17 @@
                 <div class="col-sm-9">
                     <input class="form-control-plaintext" type="text" id="Address" name="Address" readonly value="@Model.Address" />
                 </div>
-                    <label class="col-sm-3 col-form-label"></label>
-                    <span class="text-danger field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
-                </div>
+                <label class="col-sm-3 col-form-label"></label>
+                <span class="text-danger field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+            </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="Phone">電話</label>
                 <div class="col-sm-9">
                     <input class="form-control-plaintext" type="text" id="Phone" name="Phone" readonly value="@Model.Phone" />
                 </div>
-                    <label class="col-sm-3 col-form-label"></label>
-                    <span class="text-danger field-validation-valid" data-valmsg-for="Phone" data-valmsg-replace="true"></span>
-                </div>
+                <label class="col-sm-3 col-form-label"></label>
+                <span class="text-danger field-validation-valid" data-valmsg-for="Phone" data-valmsg-replace="true"></span>
+            </div>
             <div class="form-group row d-none">
                 <label class="col-sm-3 col-form-label" for="Img">照片</label>
                 <input class="form-control-plaintext col-sm-9" type="text" id="Img" name="Img" readonly value="@Model.Img" />
@@ -97,10 +119,10 @@
                 <label class="col-sm-3 col-form-label" for="UpdateDate">建立日期</label>
                 <div class="col-sm-9">
                     <input class="form-control-plaintext" type="text" id="UpdateDate" name="UpdateDate" readonly value="@Model.UpdateDate.ToString()" />
-                    </div>
-                <label class="col-sm-3 col-form-label"></label>
-                    <span class="text-danger field-validation-valid" data-valmsg-for="UpdateDate" data-valmsg-replace="true"></span>
                 </div>
+                <label class="col-sm-3 col-form-label"></label>
+                <span class="text-danger field-validation-valid" data-valmsg-for="UpdateDate" data-valmsg-replace="true"></span>
+            </div>
 
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="UserStatus">帳號狀態</label>
@@ -127,7 +149,7 @@
                         }
                     </select>
                 </div>
-                </div>
+            </div>
             <div class="form-group row d-none">
                 <label class="col-sm-3 col-form-label" for="Vip">Vip</label>
                 <select name="Vip" class="form-control col-sm-9">
