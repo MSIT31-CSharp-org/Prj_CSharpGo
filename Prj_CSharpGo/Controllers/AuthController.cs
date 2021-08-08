@@ -150,6 +150,49 @@ namespace Prj_CSharpGo.Controllers
             return View(userID);
         }
 
+        // 會員中心 => 訂單變更
+        public async Task<IActionResult> MemberOrder(int? id)
+        {
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+
+
+            // 找出目前已登入的使用者 id
+            var userID = (from u in _context.Users
+                          where u.UserId.ToString() == userId
+                          select u.UserId).FirstOrDefault();
+
+            // 判斷 Session 傳入的 userId ，身分若是訪客，就將使用者導回登入頁
+            if (userId == "Guest" || userID.ToString() != userId || userId == null)
+            {
+                HttpContext.Session.SetString("userToastr", "目前您的身分為訪客，請重新登入");
+                return Redirect("/Auth/Login");
+            }
+
+
+            // 找出此會員的所有訂單
+            var MOrder = (from u in _context.Orders
+                          where u.UserId.ToString() == userId
+                          where u.OrderId == id
+                          select u).ToList();
+            int m = MOrder.Count();
+            if (m != 1)
+            {
+                HttpContext.Session.SetString("userToastr", "已幫您查詢訂單，但未能成功");
+                return View();
+            }
+
+            MemberOrder User_order = new MemberOrder()
+            {
+                _order = await _context.Orders.FindAsync(id),
+                OrderDetails = from o in _context.OrderDetails
+                               where o.OrderId == id
+                               select o,
+                Products = await _context.Products.ToListAsync()
+            };
+            return View(User_order);
+
+        }
+
         // =================================================================================================================================================================================
         // 【POST : 登入 / 註冊】 ===========================================================================================================================================================
         // =================================================================================================================================================================================
@@ -402,7 +445,7 @@ namespace Prj_CSharpGo.Controllers
 
         // 會員中心 => 基本資料變更
         [HttpPost]
-        public async Task<IActionResult> MemberInfo(string email,string username, string phone,DateTime birthday, string region, string address)
+        public async Task<IActionResult> MemberInfo(string email, string username, string phone, DateTime birthday, string region, string address)
         {
             string userId = HttpContext.Session.GetString("userId") ?? "Guest";
 
@@ -411,11 +454,11 @@ namespace Prj_CSharpGo.Controllers
                           where u.UserId.ToString() == userId
                           select u.UserId).FirstOrDefault();
 
-            // 優先判斷輸入的資訊舊密碼是否存在
-            if (userID.ToString() != userId )
+            // 優先判斷 Users 表中的 UserId 是否對應到 Session 傳入的 userId
+            if (userID.ToString() != userId)
             {
-                HttpContext.Session.SetString("userToastr", "請重新輸入您的會員基本資料");
-                return Redirect("/Auth/Index");
+                HttpContext.Session.SetString("userToastr", "請重新輸入");
+                return Redirect("/Auth/Login");
             }
 
             var uBirth = (from u in _context.Users
@@ -433,7 +476,7 @@ namespace Prj_CSharpGo.Controllers
 
             _context.Update(changMemberinfo);
             await _context.SaveChangesAsync();
-            HttpContext.Session.SetString("userToastr", "您的會員資料變更成功");
+            HttpContext.Session.SetString("userToastr", "會員資料變更成功");
 
             return Redirect("/Auth/Index");
         }
@@ -520,9 +563,45 @@ namespace Prj_CSharpGo.Controllers
             return Redirect("/Auth/Login");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> MemberOrder([Bind("OrderId,OrderDate,PayMethod,TotalPrice,UserId,Approval")] Order order)
+        {
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+
+            // 找出目前已登入的使用者 id
+            var userID = (from u in _context.Users
+                          where u.UserId.ToString() == userId
+                          select u.UserId).FirstOrDefault();
+
+            // 判斷 userId 是否為訪客 || 判斷 Users 表中的 UserId 是否對應到 Session 傳入的 userId
+            if (userId == "Guest" || userID.ToString() != userId || userId == null)
+            {
+                HttpContext.Session.SetString("userToastr", "目前您的身分為訪客，請重新登入");
+                return Redirect("/Auth/Login");
+            }
+
+            // 背景作業 ------ 找出目前使用者的 UserId
+            var get_UserId = _context.Users.Find(userID);
+
+            // 變更訂單狀態成功，等待 1.0 秒再Show出畫面
+            CancellationTokenSource cts = new CancellationTokenSource();
+            try
+            {
+                await Task.Delay(1000, cts.Token);
+            }
+            catch (TaskCanceledException ex)
+            {
+                HttpContext.Session.SetString("userToastr", "訂單狀態未變更");
+                return View();
+            }
+
+            _context.Update(order);
+            await _context.SaveChangesAsync();
+            HttpContext.Session.SetString("userToastr", "訂單修改完成");
+            return Redirect("/Auth/MemberOrder");
 
 
-
+        }
     }
 }
 

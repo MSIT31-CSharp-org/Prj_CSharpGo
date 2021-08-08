@@ -1,0 +1,255 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
+@model IEnumerable<Prj_CSharpGo.Models.ViewModels.MemberOrder>
+
+@{
+    ViewData["Title"] = "我的訂單";
+}
+
+@{
+    string userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
+    string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
+}
+
+
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/LoginRegister.css">
+    <link rel="stylesheet" href="~/css/sb-admin-2.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <style>
+        h1 {
+            text-align: center;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12 col-md-12 col-lg-12 col-xl-12 align-content-center justify-content-start">
+                <h1 class="align-content-center justify-content-start">我的訂單</h1>
+            </div>
+            <div class="col-12 col-md-12">
+                <hr class="col-10 col-md-10  align-content-center justify-content-start" style="margin: 1vh auto; width: 100%; text-align: center; " />
+            </div>
+            <div class="col-12 col-md-12"></div>
+            <!----------------------------------------- 過 渡 白 板 ---------------------------------------->
+            <div class="col-1 col-md-1"></div>
+            <!----------------------------------------- Start SideNavBar ---------------------------------------->
+            <div class="side-navbar col-1 col-md-1">
+                <!--<partial name="_ManageNav" />-->
+                <ul class="list-group nav nav-pills flex-column">
+                    <li class="list-group-item nav-item border border-0"><a class="nav-link btn btn-outline-primary" id="profile" href="/Auth/Index">會員檔案</a></li>
+                    <hr />
+                    <li class="list-group-item nav-item border border-0"><a class="nav-link btn btn-outline-primary" id="change-password" href="/Auth/ChangePassword">密碼設置</a></li>
+                    <hr />
+                    <li class="list-group-item nav-item border border-0"><a class="nav-link btn btn-outline-primary" id="order-detail" href="/Auth/MemberOrder">訂單查詢</a></li>
+                </ul>
+            </div>
+            <!----------------------------------------- 過 渡 白 板 ---------------------------------------->
+            <div class="col-1 col-md-1"></div>
+            <!----------------------------------------- End SideNavBar ---------------------------------------->
+
+            <div class="col-9 col-md-9">
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        訂單編號
+                                    </th>
+                                    <th>
+                                        會員編號
+                                    </th>
+                                    <th>
+                                        訂單總額
+                                    </th>
+                                    <th>
+                                        訂單建立時間
+                                    </th>
+                                    <th>
+                                        訂單狀態
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="wrap" data-index="@item.OrderId @item.UserId @item.OrderDate">
+
+                                        <td>
+                                            @item.OrderId
+                                        </td>
+                                        <td>
+                                            @item.UserId
+
+                                        </td>
+                                        <td>
+                                            @item.TotalPrice
+                                        </td>
+                                        <td>
+                                            @item.OrderDate
+                                        </td>
+                                        @if (@item.Approval == "NR")
+                                        {
+                                            <td>
+                                                已完成
+                                            </td>
+                                        }
+                                        else if (@item.Approval == "SP")
+                                        {
+                                            <td>
+                                                出貨中
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                取消
+                                            </td>
+                                        }
+
+                                        <td class="text-xl-right">
+                                            <a href="/Employee/OrderEdit/@item.OrderId" class="btn btn-info btn-icon-split">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-info-circle"></i>
+                                                </span>
+                                                <span class="text">詳細資料</span>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    @if (userToastr == "訂單修改完成")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["success"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
+    else if (userToastr == "訂單狀態未變更" || userToastr == "目前您的身分為訪客，請重新登入")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["error"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
+    else if (userToastr == "已幫您查詢訂單，但未能成功")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+            Command: toastr["warning"]("@userToastr");
+        @{user.HttpContext.Session.Remove("userToastr");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/toastr.min.js"></script>
+
+</body>
+</html>
