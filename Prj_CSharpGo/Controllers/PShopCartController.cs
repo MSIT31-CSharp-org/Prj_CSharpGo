@@ -84,6 +84,9 @@ namespace Prj_CSharpGo.Controllers
                 _dash.Quantity += 1;
                 _context.SaveChanges();
             }
+
+
+            ViewBag.messagea = "已完成訂單";
             return Redirect("/PShopCart/Index");
         }
         [HttpPost]
