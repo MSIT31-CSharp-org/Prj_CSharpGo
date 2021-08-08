@@ -160,7 +160,7 @@
                                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                                 <ul class="list-unstyled">
                                                     @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
-                                                    <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail"><i class="far fa-eye"></i></a></li>
+                                                    <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=@item.ProductId"><i class="far fa-eye"></i></a></li>
                                                     @*<li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>*@
                                                 </ul>
                                             </div>
@@ -168,7 +168,7 @@
                                     }
 
                                     <div class="card-body">
-                                        <a href="shop-single.html" class="h3 text-decoration-none">@item.ProductName</a>
+                                        <a href="/CampProducts/ProductDetail?productid=@item.ProductId" class="h3 text-decoration-none">@item.ProductName</a>
                                         <input type="hidden" name="ProductName" value="@item.ProductName">
                                         <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
 
