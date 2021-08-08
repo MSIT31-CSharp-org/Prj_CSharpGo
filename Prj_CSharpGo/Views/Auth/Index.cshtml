@@ -67,7 +67,6 @@
 
             <div class="col-9 col-md-9">
                 <div class="row">
-                    <div class="col-md-6">
 
                         <!--帳號-->
                         <div class="form-group row d-flex justify-content-start">
@@ -79,11 +78,10 @@
                                             &nbsp;帳號
                                         </div>
                                     </div>
-                                    <label name="account" asp-for="@Model.UserAccount" class="form-control">@Model.UserAccount</label>
-                                    @*<input asp-for="UserAccount" class="form-control" disabled />*@
-                                    <div class="input-group-append">
-                                        <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
-                                    </div>
+                                    @*<label name="account" asp-for="@Model.UserAccount" class="form-control">@Model.UserAccount</label>*@
+                                    <input asp-for="UserAccount" class="form-control" readonly />
+                                    <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
+                                    <span class="input-group-text text-danger font-weight-bold">不可修改</span>
                                 </div>
                             </div>
                         </div>
@@ -98,11 +96,10 @@
                                             &nbsp;信箱
                                         </div>
                                     </div>
-                                    <label name="email" asp-for="@Model.Email" class="form-control">@Model.Email</label>
-                                    @*<input asp-for="Email" class="form-control" disabled />*@
-                                    <div class="input-group-append">
-                                        <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
-                                    </div>
+                                    @*<label name="email" asp-for="@Model.Email" class="form-control col-10 col-md-10">@Model.Email</label>*@
+                                    <input asp-for="Email" class="form-control" readonly />
+                                    <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
+                                    <span class="input-group-text text-danger font-weight-bold">不可修改</span>
                                 </div>
                             </div>
                         </div>
@@ -190,7 +187,6 @@
             </div>
 
         </div>
-    </div>
 
 
 
