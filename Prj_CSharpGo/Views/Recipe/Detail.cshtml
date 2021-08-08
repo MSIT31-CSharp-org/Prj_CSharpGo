@@ -78,7 +78,7 @@
 </div>
 
 <!-- Receipe Content Area -->
-<div class="receipe-content-area"  style="text-align: center">
+<div class="receipe-content-area" >
     <div class="container">
         <div class="row" style="margin-top:50px;">
             <div class="col-12 col-md-10 " style="padding-left: 170px">
@@ -108,23 +108,22 @@
                     @Html.ActionLink("", "delete", new { id = Model.RecipeId }, new { @class = "btn btn-success bi bi-trash btnc", @style = "font-size:35px;margin-left:10px;background-color:red;" })
             </div>
         </div>
-        <div class="single-preparation-step" style="padding-left: 160px; text-align: center;">
+        <div class="single-preparation-step" style="padding-left: 160px; ">
             <div class="row">
-                <div class="col-md-10">
-                    <p>
+                <div class="col-md-8">
+                    @*<p>
                         <h3 class="re_font">需準備食材:</h3>
-                    </p>
-
+                    </p>*@
                     <p>
                         <h3 class="re_font">01.備料</h3>
                     </p>
-                    <a class="re_font">@Html.Raw(Model.Preparation.Replace(Environment.NewLine, "<br/>"))</a>
+                    <a class="re_fonts">@Html.Raw(Model.Preparation.Replace(Environment.NewLine, "<br/>"))</a>
                     <p>
                         <h3 class="re_font">02.烹煮步驟</h3>
                     </p>
-                    <a class="re_font">@Html.Raw(Model.Step.Replace(Environment.NewLine, "<br/>"))</a>
+                    <a class="re_fonts">@Html.Raw(Model.Step.Replace(Environment.NewLine, "<br/>"))</a>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <p>
                         <h3 class="re_font">推薦商品</h3>
                     </p>
@@ -140,12 +139,12 @@
                                     {
                                         if (ass.ProductId == pro.ProductId)
                                         {
-                                            <div>
+                                            <a href="/CampProducts/ProductDetail?productid=@pro.ProductId">
                                                 <img src="~/img/ProductsImg/@img.Img" style="max-width: 100px;max-height: 100px" />
-                                            </div>
-                                            <div>
-                                                <a class="re_fonts">@pro.ProductName<br />@pro.ProductDescription</a>
-                                            </div>
+                                            </a>
+                                            <a href="/CampProducts/ProductDetail?productid=@pro.ProductId">
+                                                @pro.ProductName/@pro.ProductDescription
+                                            </a>
                                         }
                                     }
                                 }
