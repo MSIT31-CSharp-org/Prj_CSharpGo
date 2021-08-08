@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Prj_CSharpGo.Models.Camp>
+
+@{
+    ViewData["Title"] = "Camp";
+    Layout = "~/Views/Shared/EmployeeLayout.cshtml";
+}
+
+<h1>露營區資料</h1>
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                區域名稱
+            </th>
+            <th>
+                尺寸
+            </th>
+            <th>
+                帳數
+            </th>
+            <th>
+                平日價格
+            </th>
+            <th>
+                假日價格
+            </th>
+            <th>
+                人數限制
+            </th>
+            <th>
+                加購人頭價
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CampName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CampSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CampQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekdayPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HolidayPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LimitPeople)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlusPrice)
+            </td>
+
+            <td class="text-xl-right">
+                <a href="/Employee/CampEdit/@item.CampId" class="btn btn-info btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                    <span class="text">編輯資料</span>
+                </a>
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>

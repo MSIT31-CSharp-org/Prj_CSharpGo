@@ -3,11 +3,9 @@
 @model Prj_CSharpGo.Models.User
 
 @{
-    ViewData["Title"] = "我的會員";
-}
-
-@{
-    string userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
+    string f_userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
+    string f_userStatus = user.HttpContext.Session.GetString("userStatus") ?? "Guest";
+    string ifSuccess = user.HttpContext.Session.GetString("userIsSuccess") ?? "Guest";
     string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
 }
 
@@ -16,17 +14,28 @@
 <html lang="zh-tw">
 
 <head>
-    <meta charset="utf-8" />
 
+    <meta charset="utf-8" />
+    <title>您的會員檔案</title>
+    <link rel="stylesheet" href="~/css/LoginRegister.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="~/css/LoginRegister.css">
-    <link rel="stylesheet" href="~/css/sb-admin-2.min.css">
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <script src="~/js/toastr.min.js"></script>
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <style>
         h1 {
@@ -70,12 +79,6 @@
                     <div class="col-md-6">
 
                         <form action="/Auth/MemberInfo" method="post">
-                            <div class="form-group row d-flex justify-content-start">
-                                <div class="row d-flex justify-content-start d-inline col-8 d-inline">
-                                    <!--送出表單-->
-                                    <button type="submit" class="btn btn-outline-primary col-5 col-md-5 align-content-center">確認修改</button>
-                                </div>
-                            </div>
 
                             <!--帳號-->
                             <div class="form-group row d-flex justify-content-start">
@@ -87,7 +90,11 @@
                                                 &nbsp;帳號
                                             </div>
                                         </div>
-                                        <label class="form-control">@Model.UserAccount</label>
+                                        <label name="UserAccount" asp-for="UserAccount" class="form-control">@Model.UserAccount</label>
+                                        @*<input asp-for="UserAccount" class="form-control" disabled />*@
+                                        <div class="input-group-append">
+                                            <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +109,8 @@
                                                 &nbsp;信箱
                                             </div>
                                         </div>
-                                        <input asp-for="Email" class="form-control" disabled />
+                                        <label name="Email" asp-for="Email" class="form-control">@Model.Email</label>
+                                        @*<input asp-for="Email" class="form-control" disabled />*@
                                         <div class="input-group-append">
                                             <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
                                         </div>
@@ -177,6 +185,12 @@
                                 </div>
                             </div>
 
+                            <!--送出表單按鈕-->
+                            <div class="form-group row d-flex justify-content-start">
+                                <div class="row d-flex justify-content-start d-inline col-8 d-inline">
+                                    <button type="submit" class="btn btn-outline-primary col-5 col-md-5 align-content-center">確認修改</button>
+                                </div>
+                            </div>
 
                         </form>
                     </div>

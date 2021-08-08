@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Shared\EmployeeLayout - 複製.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\Auth\Index.cshtml" />
     <None Include="Views\Campreserve\GetJsonFromFile.cshtml" />
     <None Include="Views\Campreserve\Index.cshtml" />
