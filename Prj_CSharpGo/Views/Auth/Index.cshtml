@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="~/css/LoginRegister.css">
     <link rel="stylesheet" href="~/css/sb-admin-2.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <style>
         h1 {
@@ -87,7 +86,11 @@
                                                 &nbsp;帳號
                                             </div>
                                         </div>
-                                        <label class="form-control">@Model.UserAccount</label>
+                                        <label name="account" asp-for="@Model.UserAccount" class="form-control">@Model.UserAccount</label>
+                                        @*<input asp-for="UserAccount" class="form-control" disabled />*@
+                                        <div class="input-group-append">
+                                            <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +105,8 @@
                                                 &nbsp;信箱
                                             </div>
                                         </div>
-                                        <input asp-for="Email" class="form-control" disabled />
+                                        <label name="email" asp-for="@Model.Email" class="form-control">@Model.Email</label>
+                                        @*<input asp-for="Email" class="form-control" disabled />*@
                                         <div class="input-group-append">
                                             <span class="input-group-text text-success font-weight-bold">✓已驗證</span>
                                         </div>
