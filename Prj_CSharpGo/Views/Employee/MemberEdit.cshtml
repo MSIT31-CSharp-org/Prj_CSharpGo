@@ -49,6 +49,18 @@
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="UserPassword" data-valmsg-replace="true"></span>
             </div>
+            <div class="form-group row d-none">
+                <label class="col-sm-3 col-form-label" for="IsSuccess">IsSuccess</label>
+                <input class="form-control-plaintext col-sm-9" type="checkbox"  cam-variable-type="Boolean" id="IsSuccess" name="IsSuccess" readonly value="@Model.IsSuccess" />
+                <label class="col-sm-3 col-form-label"></label>
+                <span class="text-danger field-validation-valid" data-valmsg-for="IsSuccess" data-valmsg-replace="true"></span>
+            </div>
+            <div class="form-group row d-none">
+                <label class="col-sm-3 col-form-label" for="ConfirmPassword">ConfirmPassword</label>
+                <input class="form-control-plaintext col-sm-9" type="text" id="ConfirmPassword" name="ConfirmPassword" readonly value="@Model.ConfirmPassword" />
+                <label class="col-sm-3 col-form-label"></label>
+                <span class="text-danger field-validation-valid" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
+            </div>
 
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="UserName">名字</label>

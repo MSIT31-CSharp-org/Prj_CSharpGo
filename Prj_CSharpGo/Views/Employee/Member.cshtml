@@ -21,11 +21,22 @@
     <label> 帳號 或 Email 搜索 </label>
     <input id="search-input" type="text" placeholder="" />
     <style id="m-search"></style>
+
+    <div class="form-group d-inline">
+        <button id="nowGive1" type="button" class="btn btn-light border border-0">.</button>
+    </div>
+    <span>&emsp;</span>
+    <div class="form-group d-inline">
+        <button id="nowGive2" type="button" class="btn btn-light border border-0">.</button>
+    </div>
+
 </div>
+
+
 <script>
     var that = $(this);
     var mSearch = $("#m-search");
-    $("#search-input").bind("change paste keyup", function () {
+    $("#search-input").bind("change paste keyup focus", function () {
         var value = $(this).val();
         if (!value) {
             mSearch.html("");
@@ -61,51 +72,51 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr class="wrap" data-index="@item.UserAccount @item.Email">
-            <td>
-                @item.UserId
-            </td>
-            <td>
-                @item.UserAccount
-            </td>
-            <td>
-                @item.Email
-            </td>
-            <td>
-                @item.UserName
-            </td>
-            <td>
-                @item.Phone
-            </td>
-            @if (item.UserStatus == "NR")
-            {
+            <tr class="wrap" data-index="@item.UserAccount @item.Email">
                 <td>
-                    正常
+                    @item.UserId
                 </td>
-            }
-            else if (item.UserStatus == "SP")
-            {
                 <td>
-                    停權
+                    @item.UserAccount
                 </td>
-            }
-            else
-            {
                 <td>
-                    註銷
+                    @item.Email
                 </td>
-            }
+                <td>
+                    @item.UserName
+                </td>
+                <td>
+                    @item.Phone
+                </td>
+                @if (item.UserStatus == "NR")
+                {
+                    <td>
+                        正常
+                    </td>
+                }
+                else if (item.UserStatus == "SP")
+                {
+                    <td>
+                        停權
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        註銷
+                    </td>
+                }
 
-            <td class="text-xl-right">
-                <a href="/Employee/MemberEdit/@item.UserId" class="btn btn-info btn-icon-split">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-info-circle"></i>
-                    </span>
-                    <span class="text">詳細資料</span>
-                </a>
-            </td>
+                <td class="text-xl-right">
+                    <a href="/Employee/MemberEdit/@item.UserId" class="btn btn-info btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                        <span class="text">詳細資料</span>
+                    </a>
+                </td>
 
-        </tr>
+            </tr>
         }
     </tbody>
 </table>
@@ -160,3 +171,12 @@
     })
     </script>
 }
+
+<script>
+    $("#nowGive1").click(function (event) {
+        $("#search-input").val("Dorothy567");
+    });
+    $("#nowGive2").click(function (event) {
+        $("#search-input").val("Dorothy@gmail.com");
+    });
+</script>
