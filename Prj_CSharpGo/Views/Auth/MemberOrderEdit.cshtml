@@ -69,11 +69,10 @@
                 <div class="row">
                     <div class="col-md-10">
 
-                        @*<form action="/Auth/MemberOrderEdit/@Model._order.OrderId" method="post">*@
-                        <form action="/Auth/MemberOrderEdit/@Model._order.OrderId" method="post">
+                        <form action="/Auth/MemberOrderEdit" method="post">
 
                             <div class="form-group ">
-                                @if (Model._order.Approval == "NR" || Model._order.Approval == "SP")
+                                @if (Model._order.Approval == "SP")
                                 {
                                     <input type="submit" value="取消訂單" class="btn btn-danger" />
                                     <a href="/Auth/MemberOrder" class="btn btn-primary">回上一頁</a>
@@ -105,7 +104,13 @@
                                 <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.OrderDate" />
                             </div>
 
+                            <div class="form-group row d-none">
+                                <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.Address" />
+                            </div>
 
+                            <div class="form-group row d-none">
+                                <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.UserName" />
+                            </div>
 
 
                             <table class="table">
@@ -161,6 +166,7 @@
                             </table>
 
                         </form>
+
                     </div>
                 </div>
             </div>
