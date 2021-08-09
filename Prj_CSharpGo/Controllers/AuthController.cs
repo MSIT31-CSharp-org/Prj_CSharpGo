@@ -571,6 +571,7 @@ namespace Prj_CSharpGo.Controllers
 
             var CancelOrder = (from u in _context.OrderDetails
                                where u.OrderId == id
+                               where u.Approval == order.Approval
                                select u.OrderId).FirstOrDefault();
 
             var f_order_user = (from u in _context.Users
@@ -586,7 +587,7 @@ namespace Prj_CSharpGo.Controllers
 
             HttpContext.Session.SetString("userToastr", "已為您完成取消訂單");
             HttpContext.Session.SetString("userId", f_order_user.ToString());
-            return View();
+            return RedirectToAction(nameof(MemberOrder));
         }
     }
 }
