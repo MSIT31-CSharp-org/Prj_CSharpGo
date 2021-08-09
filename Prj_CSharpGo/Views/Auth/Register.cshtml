@@ -106,10 +106,10 @@
 
 
     <div class="d-flex d-inline align-item-end justify-content-end">
-        @*<div class="form-group d-inline">
-                <button id="nowGive1" type="button" class="btn btn-light border border-0">.</button>
-            </div>
-            <span>&emsp;</span>*@
+        <div class="form-group d-inline">
+            <button id="nowGive1" type="button" class="btn btn-light border border-0">.</button>
+        </div>
+        <span>&emsp;</span>
         <div class="form-group d-inline">
             <button id="nowGive2" type="button" class="btn btn-light border border-0">.</button>
         </div>
@@ -121,18 +121,12 @@
 
     <!-- 帶資料的隱藏按鈕 -->
     <script>
-        @*$("#nowGive1").click(function (event) {
-            $("#Account").val("StevenRunnigMan");
-            $("#id_password").val("wqfuhQrg94$2dfkj");
-            $("#id_password1").val("wqfuhQrg94$2dfkj");
-            $("#Email").val("yhhttbb@gmail.com");
-        });
         $("#nowGive1").click(function (event) {
             $("#Account").val("StevenRunnigMan");
             $("#id_password").val("wqfuhQrg94$2dfkj");
             $("#id_password1").val("wqfuhQrg94$2dfkj");
             $("#Email").val("yhhttbb@gmail.com");
-        });*@
+        });
         $("#nowGive2").click(function (event) {
             $("#Account").val("csumiss");
             $("#id_password").val("wqfuhQrg94$2dfkj");
@@ -198,37 +192,8 @@
     })
         </script>
     }
-    else if (userToastr == "可用的Email")
+    else if (userToastr == "此帳號遭停權，請洽客服中心" || userToastr == "這是您的帳號嗎？" || userToastr == "此帳號目前尚未誕生，請由您親手建立專屬自己的帳號吧！")
     {
-        <script type="text/javascript">
-
-        $(function () {
-
-        Command: toastr["primary"]("@userToastr");
-        @{user.HttpContext.Session.Remove("userToastr");}
-
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-    })
-        </script>
-            }
-            else if (userToastr != "Guest" || userToastr == "此帳號遭停權，請洽客服中心" || userToastr == "這是您的帳號嗎？" || userToastr== "此帳號目前尚未誕生，請由您親手建立專屬自己的帳號吧！")
-            {
         <script type="text/javascript">
 
         $(function () {

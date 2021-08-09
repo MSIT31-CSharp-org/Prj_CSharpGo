@@ -148,7 +148,7 @@
     </script>
 
 
-    @if (userToastr == "登入成功" || userToastr == "會員已開通完成")
+    @if (userToastr == "Guest" || userToastr == "登入成功" || userToastr == "會員已開通完成")
     {
         <script type="text/javascript">
 
@@ -206,7 +206,7 @@
     })
         </script>
     }
-    else if (userToastr == "已有其他人使用了這組帳號，請建立一組您自己的帳號吧！" || userToastr == "請輸入完整的帳號密碼")
+    else if (userToastr != "Guest" || userToastr == "已有其他人使用了這組帳號，請建立一組您自己的帳號吧！" || userToastr == "請輸入完整的帳號密碼")
     {
         <script type="text/javascript">
 

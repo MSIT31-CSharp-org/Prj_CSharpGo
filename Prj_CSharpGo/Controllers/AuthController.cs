@@ -417,7 +417,7 @@ namespace Prj_CSharpGo.Controllers
                                 $"<h3 class='font-weight-bold'><a href='{url}' class='btn btn-primary stretched-link' style='text-decoration:none;'>完成驗證</a></h3>");
 
                 HttpContext.Session.SetString("userToastr", $"請至您的電子郵件 {email} 開通會員資格認證信");
-                return View("Login");
+                return RedirectToAction(nameof(Login));
             }
             HttpContext.Session.SetString("userToastr", "幫幫我！把格子填完吧！");
             return View();
