@@ -469,7 +469,7 @@ namespace Prj_CSharpGo.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword(string password, string NewPassword, string confirmNewPassword)
         {
-            // 取得舊密碼
+            // 背景作業 ------ 取得舊密碼
             var f_userId = (from u in _context.Users
                             where u.UserPassword == password
                             select u.UserId).ToList();
@@ -549,7 +549,7 @@ namespace Prj_CSharpGo.Controllers
 
         // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++【 會員中心 => 訂單變更 】+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         [HttpPost]
-        public async Task<IActionResult> MemberOrderEdit(int id,[Bind("OrderId,UserId,OrderDate,PayMethod,TotalPrice,Approval,Address,UserName")] Order order)
+        public async Task<IActionResult> MemberOrderEdit(int id, [Bind("OrderId,UserId,OrderDate,PayMethod,TotalPrice,Approval,Address,UserName")] Order order)
         {
             //if (id != orderDetail.OrderId)
             //{
@@ -571,23 +571,41 @@ namespace Prj_CSharpGo.Controllers
 
             var CancelOrder = (from u in _context.OrderDetails
                                where u.OrderId == id
-                               where u.Approval == order.Approval
                                select u.OrderId).FirstOrDefault();
 
             var f_order_user = (from u in _context.Users
                                 where u.UserId == userID.UserId
                                 select u.UserId).ToList()[0];
 
-            // 設定該使用者之 UserId 用以變更
             var CancelOrderinfo = _context.Orders.Find(CancelOrder);
-            CancelOrderinfo.Approval = "WL";   // 將訂單狀態變更為"取消" = "WL"
+            order.OrderId = CancelOrderinfo.OrderId;
+            order.UserId = CancelOrderinfo.UserId;
+            order.TotalPrice = CancelOrderinfo.TotalPrice;
+            order.PayMethod = CancelOrderinfo.PayMethod;
+            order.OrderDate = CancelOrderinfo.OrderDate;
+            order.Approval = "WL";
+            order.Address = CancelOrderinfo.Address;
+            order.UserName = CancelOrderinfo.UserName;
 
             _context.Update(CancelOrderinfo);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
+
+            // 訂單狀態變更成功，等待0.5秒轉導至登入頁
+            CancellationTokenSource cts = new CancellationTokenSource();
+            try
+            {
+                await Task.Delay(500, cts.Token);
+            }
+            catch (TaskCanceledException ex)
+            {
+                string Status = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ==>") + ex.ToString();
+                HttpContext.Session.SetString("userToastr", "很抱歉！密碼未能變更成功");
+                return View();
+            }
 
             HttpContext.Session.SetString("userToastr", "已為您完成取消訂單");
             HttpContext.Session.SetString("userId", f_order_user.ToString());
-            return RedirectToAction(nameof(MemberOrder));
+            return View();
         }
     }
 }
