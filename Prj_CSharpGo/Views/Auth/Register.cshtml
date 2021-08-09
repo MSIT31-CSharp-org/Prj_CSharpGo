@@ -57,7 +57,7 @@
                             <i class="fas fa-lock col-1"></i>
                         </div>
                     </div>
-                    <input class="form-control" type="password" data-val="true" data-val-required="密碼不可空白" id="id_password" name="Password" value="" placeholder="請輸入密碼"/>
+                    <input class="form-control" type="password" data-val="true" data-val-required="密碼不可空白" id="id_password" name="Password" value="" placeholder="請輸入密碼" />
                     <i class="fas fa-eye form-control col-1" id="togglePassword" style="cursor: pointer; margin-left: -30px; z-index: 1000; justify-content: center; align-items: center; "></i>
                 </div>
             </div>
@@ -107,9 +107,9 @@
 
     <div class="d-flex d-inline align-item-end justify-content-end">
         @*<div class="form-group d-inline">
-            <button id="nowGive1" type="button" class="btn btn-light border border-0">.</button>
-        </div>
-        <span>&emsp;</span>*@
+                <button id="nowGive1" type="button" class="btn btn-light border border-0">.</button>
+            </div>
+            <span>&emsp;</span>*@
         <div class="form-group d-inline">
             <button id="nowGive2" type="button" class="btn btn-light border border-0">.</button>
         </div>
@@ -169,7 +169,7 @@
 
 
 
-    @if (userToastr == "Guest" )
+    @if (userToastr == "Guest")
     {
         <script type="text/javascript">
 
@@ -227,7 +227,7 @@
     })
         </script>
             }
-            else if (userToastr != "Guest" || userToastr == "此帳號遭停權，請洽客服中心" || userToastr == "這是您的帳號嗎？")
+            else if (userToastr != "Guest" || userToastr == "此帳號遭停權，請洽客服中心" || userToastr == "這是您的帳號嗎？" || userToastr== "此帳號目前尚未誕生，請由您親手建立專屬自己的帳號吧！")
             {
         <script type="text/javascript">
 
@@ -256,7 +256,7 @@
     })
         </script>
     }
-    else if (userToastr == "這組帳號有人使用囉！換一組帳號吧！" || userToastr == "Email 請填空" || userToastr == "換組 Email 吧！" || userToastr == "前後密碼不相符" ||　userToastr == "幫幫我！把格子填完吧！")
+    else if (userToastr == "這組帳號有人使用囉！換一組帳號吧！" || userToastr == "Email 請填空" || userToastr == "換組 Email 吧！" || userToastr == "前後密碼不相符" || userToastr == "幫幫我！把格子填完吧！")
     {
         <script type="text/javascript">
 
