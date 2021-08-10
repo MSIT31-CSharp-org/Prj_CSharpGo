@@ -56,9 +56,21 @@
                             ※ 每營位限4人使用，第5人起每人100元清潔費(可加2人，3歲以下免費)，最多6人。<br>
                             ※ 露宿車內，需依照營位費計算。<br>
                             ※ 價格<br>
-                            &emsp; &emsp;&ensp;A區草地平日價格:1000元 &ensp;假日價格:1100元<br>
-                            &emsp; &emsp;&ensp;B區棧板平日價格:1100元 &ensp;假日價格:1300元<br>
-                            &emsp; &emsp;&ensp;C區碎石平日價格: 900元 &ensp; 假日價格:1000元<br>
+                            &emsp; &emsp;&ensp;A區草地平日價格:
+                            @foreach (var item in Model.CampList.Where(o => o.CampId == 100))
+                            {<label> @item.WeekdayPrice.ToString() </label>}  元
+                            &ensp;假日價格:@foreach (var item in Model.CampList.Where(o => o.CampId == 100))
+                            {<label> @item.HolidayPrice.ToString() </label>}元<br>
+                            &emsp; &emsp;&ensp;B區棧板平日價格:
+                            @foreach (var item in Model.CampList.Where(o => o.CampId == 600))
+                            {<label> @item.WeekdayPrice.ToString() </label>}元 &ensp;假日價格:
+                            @foreach (var item in Model.CampList.Where(o => o.CampId == 600))
+                            {<label> @item.HolidayPrice.ToString() </label>}元<br>
+                            &emsp; &emsp;&ensp;C區碎石平日價格:
+                            @foreach (var item in Model.CampList.Where(o => o.CampId == 1100))
+                            {<label> @item.WeekdayPrice.ToString() </label>}元 &ensp; 假日價格:
+                            @foreach (var item in Model.CampList.Where(o => o.CampId == 1100))
+                            {<label> @item.HolidayPrice.ToString() </label>}元<br>
                         </div>
                         <br>
                         @using (Html.BeginForm("Index", "Campreserve", FormMethod.Post))

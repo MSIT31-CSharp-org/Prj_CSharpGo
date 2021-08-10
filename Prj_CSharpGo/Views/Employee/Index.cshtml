@@ -17,14 +17,16 @@
     Layout = "EmployeeLayout";
 }
 
-<h1>員工資料</h1>
+<link href="~/css/emplayout.css?v=0.1" rel="stylesheet" />
+
+<h1 class="title_font">員工資料</h1>
 <hr />
 @if (empStatus == "True")
 {
 
 <div>
     <a href="/Employee/Create" class="bi bi-file-earmark-plus"></a>
-    <a href="/Employee/Create" class="btn btn-outline-success">新增員工帳號</a>
+    <a href="/Employee/Create" class="btn btn-outline-success la_font ">新增員工帳號</a>
 </div>
     <br />
 
@@ -214,6 +216,6 @@
         $("#search-input").val("2003");
     });
     $("#nowGive2").click(function (event) {
-        $("#search-input").val("employee2003@mail.com");
+        $("#search-input").val("Jay@mail.com");
     });
 </script>

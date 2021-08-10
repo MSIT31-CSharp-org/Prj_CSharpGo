@@ -25,7 +25,8 @@
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    @* DIDI刪的 *@
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
 
     @* 位置改到最後面 *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -35,7 +36,7 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/toastr.min.js"></script>
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
-
+    <link href="~/css/emplayout.css?v=0.1" rel="stylesheet" />
 </head>
 
 <body id="page-top">
@@ -45,7 +46,6 @@
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
             @{
                 <!-- Sidebar - Brand -->
                 <!-- Divider -->
@@ -53,7 +53,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/Home/Index">
                         <i class="fas fa-fw"></i>
-                        <span>首頁</span>
+                        <span class="bar_font ">首頁</span>
                     </a>
                 </li>
 
@@ -64,7 +64,7 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/Employee/Login">
                             <i class="fas fa-fw"></i>
-                            <span>登入</span>
+                            <span  class="bar_font ">登入</span>
                         </a>
                     </li>
                 }
@@ -73,21 +73,21 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/Employee/Edit/@empId">
                             <i class="fas fa-fw"></i>
-                            <span>目前登入名字 : @empName</span>
+                            <p  class="bar_font " >目前登入名字 : <p class="bar_font " style="text-align:center">@empName</p></p>
                         </a>
                     </li>
 
                     <li class="nav-item active">
                         <a class="nav-link" href="/Employee/Edit/@empId">
                             <i class="fas fa-fw"></i>
-                            <span>目前登入帳號 : @empId</span>
+                            <p  class="bar_font ">目前登入帳號 :<p class="bar_font " style="text-align:center">@empId</p> </p>
                         </a>
                     </li>
 
                     <li class="nav-item active">
                         <a class="nav-link" href="/Employee/Logout">
                             <i class="fas fa-fw"></i>
-                            <span>登出</span>
+                            <span  class="bar_font ">登出</span>
                         </a>
                     </li>
 
@@ -98,12 +98,12 @@
                         <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo"
                            aria-expanded="true" aria-controls="collapseTwo">
                             <i class="fas fa-fw"></i>
-                            <span>員工管理</span>
+                            <span  class="bar_font ">員工管理</span>
                         </a>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" href="/Employee/Index">員工資料</a>
-                                <a class="collapse-item" href="/Employee/Index">員工紀錄</a>
+                                <a class="collapse-item bar_font" href="/Employee/Index">員工資料</a>
+                               @* <a class="collapse-item bar_font" href="/Employee/Index">員工紀錄</a>*@
                             </div>
                         </div>
                     </li>
@@ -113,13 +113,13 @@
                         <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseUtilities"
                            aria-expanded="true" aria-controls="collapseUtilities">
                             <i class="fas fa-fw"></i>
-                            <span>會員管理</span>
+                            <span class="bar_font">會員管理</span>
                         </a>
                         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                              data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" href="/Employee/Member">會員資料</a>
-                                <a class="collapse-item" href="/Employee/Order">訂單資料</a>
+                                <a class="collapse-item bar_font" href="/Employee/Member">會員資料</a>
+                                <a class="collapse-item bar_font" href="/Employee/Order">訂單資料</a>
                             </div>
                         </div>
                     </li>
@@ -128,7 +128,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/Employee/Product">
                             <i class="fas fa-fw"></i>
-                            <span>商品管理</span>
+                            <span class="bar_font">商品管理</span>
                         </a>
                     </li>
 
@@ -136,14 +136,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/Employee/Camp">
                             <i class="fas fa-fw"></i>
-                            <span>營地管理</span>
+                            <span class="bar_font">營地管理</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/Recipe">
                             <i class="fas fa-fw"></i>
-                            <span>食譜管理</span>
+                            <span class="bar_font">食譜管理</span>
                         </a>
                     </li>
 
@@ -154,7 +154,8 @@
 
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="col-10">
+        @*class="col-10"*@
+        <div id="content-wrapper">
 
             <div class="col-2">
 

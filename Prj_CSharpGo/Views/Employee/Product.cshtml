@@ -75,64 +75,66 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr class="wrap" data-index="@item.ProductId @item.ProductName">
+            <tr class="wrap" data-index="@item.ProductId @item.ProductName">
 
-            <td>
-                @item.ProductId
-            </td>
-            @{
-                switch (@item.CategoryId)
-                {
-                    case "A ":
-                        <td>帳篷</td>
-                        break;
-                    case "B ":
-                        <td>寢具</td>
-                        break;
-                    case "C ":
-                        <td>戶外家具</td>
-                        break;
-                    case "D ":
-                        <td>廚房用品</td>
-                        break;
-                    default:
-                        <td>食品</td>
-                        break;
+
+                <td>
+                    <a href="/CampProducts/ProductDetail?productid=@item.ProductId">@item.ProductId</a>
+                </td>
+
+                @{
+                    switch (@item.CategoryId)
+                    {
+                        case "A ":
+                            <td>帳篷</td>
+                            break;
+                        case "B ":
+                            <td>寢具</td>
+                            break;
+                        case "C ":
+                            <td>戶外家具</td>
+                            break;
+                        case "D ":
+                            <td>廚房用品</td>
+                            break;
+                        default:
+                            <td>食品</td>
+                            break;
+                    }
                 }
-            }
 
-            <td>
-                @item.ProductName
-            </td>
-            <td>
-                @item.UnitPrice
-            </td>
-            <td>
-                @item.UnitInStock
-            </td>
-            @if (@item.Status == "01")
-            {
                 <td>
-                    販賣中
+                    @item.ProductName
                 </td>
-            }
-            else
-            {
                 <td>
-                    停賣
+                    @item.UnitPrice
                 </td>
-            }
+                <td>
+                    @item.UnitInStock
+                </td>
+                @if (@item.Status == "01")
+                {
+                    <td>
+                        販賣中
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        停賣
+                    </td>
+                }
 
 
-            <td class="text-xl-right">
-                <a href="/Employee/ProductEdit/@item.ProductId" class="btn btn-info btn-icon-split">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-info-circle"></i>
-                    </span>
-                    <span class="text">編輯資料</span>
-                </a>
-            </td>
-        </tr>
+                <td class="text-xl-right">
+                    <a href="/Employee/ProductEdit/@item.ProductId" class="btn btn-info btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                        <span class="text">編輯資料</span>
+                    </a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -172,6 +174,6 @@
         $("#search-input").val("Cc20CS059");
     });
     $("#nowGive2").click(function (event) {
-        $("#search-input").val("民族風單人椅墊藍");
+        $("#search-input").val("桔楓印地安300帳");
     });
 </script>
