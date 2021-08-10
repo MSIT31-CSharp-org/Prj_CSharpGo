@@ -29,7 +29,8 @@ namespace Prj_CSharpGo.Models.ShopCartViewModels
         public int? TotalPrice { get; set; }
         public string PayMethod { get; set; }
         public DateTime? OrderDate { get; set; }
-
+        public string Address { get; set; }
+        public string UserName { get; set; }
 
         public double? Discount { get; set; }
         public string Commets { get; set; }

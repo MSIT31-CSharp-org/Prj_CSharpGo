@@ -26,6 +26,20 @@
     <!-- Slick -->
     <link rel="stylesheet" type="text/css" href="~/Aassets/css/slick.min.css">
     <link rel="stylesheet" type="text/css" href="~/Aassets/css/slick-theme.css">
+
+
+    <style>
+
+        h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1, li, .li, p, .p {
+            font-weight: 700;
+        }
+    </style>
+
+
+
+
+
+
 </head>
 
 <body>
@@ -153,14 +167,7 @@
                                     <input type="hidden" name="ProductName" value="@item.ProductName">
                                     <p class="h3 py-2">$ @item.UnitPrice</p>
                                     <input type="hidden" name="UnitPrice" value=" @item.UnitPrice">
-                                    @*<p class="py-2">
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
-                                    </p>*@
+
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
                                             <h6>庫存:</h6>
@@ -213,7 +220,7 @@
                                         @*<div class="col-auto">
                                             <ul class="list-inline pb-3">
                                                 <li class="list-inline-item text-right">
-                                                    Quantity
+                                                    數量
                                                     <input type="hidden" name="Quantity" id="product-quanity" value="1">
                                                 </li>
                                                 <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
@@ -223,10 +230,10 @@
                                     </div>
                                     <div class="row pb-3">
                                         <div class="col d-grid">
-                                            <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
+                                            <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy" style="font-weight: 700">購買</button>
                                         </div>
                                         <div class="col d-grid">
-                                            <a href="/CampProducts/ProductDetail?productid=@item.ProductId" type="submit" class="btn btn-success btn-lg" name="submit" id="addtocard" value="addtocard">Add To Cart</a>
+                                            <a href="/CampProducts/ProductDetail?productid=@item.ProductId" type="submit" class="btn btn-success btn-lg" name="submit" id="addtocard" value="addtocard" style="font-weight: 700">加入購物車</a>
                                         </div>
                                     </div>
                                 </div>
@@ -242,10 +249,10 @@
 
     <!-- Close Content -->
     <!-- Start Article -->
-    <section class="py-5">
+    <section class="py-5" style="margin-top:-50px">
         <div class="container">
             <div class="row text-left p-2 pb-3">
-                <h4>推薦商品</h4>
+                <h4>產品推薦</h4>
             </div>
 
             <!--Start Carousel Wrapper-->
@@ -277,15 +284,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
+
                             <p class="text-center mb-0">$16500</p>
                         </div>
                     </div>
@@ -317,15 +316,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
+
                             <p class="text-center mb-0">$1980</p>
                         </div>
                     </div>
@@ -356,15 +347,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                </li>
-                            </ul>
+
                             <p class="text-center mb-0">$460</p>
                         </div>
                     </div>
@@ -395,15 +378,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
+
                             <p class="text-center mb-0">$3150</p>
                         </div>
                     </div>
@@ -434,15 +409,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
+
                             <p class="text-center mb-0">$6500</p>
                         </div>
                     </div>
@@ -473,15 +440,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
+
                             <p class="text-center mb-0">$1200</p>
                         </div>
                     </div>
@@ -512,15 +471,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
+
                             <p class="text-center mb-0">$1600</p>
                         </div>
                     </div>
@@ -551,15 +502,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
+
                             <p class="text-center mb-0">$2560</p>
                         </div>
                     </div>
@@ -590,15 +533,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
+
                             <p class="text-center mb-0">$1900</p>
                         </div>
                     </div>
@@ -629,15 +564,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
+ 
                             <p class="text-center mb-0">$9080</p>
                         </div>
                     </div>
@@ -649,7 +576,7 @@
                             <img class="card-img rounded-0 img-fluid" src="~/img/ProductsImg/Aa43CS026.jpeg">
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
-                                    <@*li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
+                                    @*<li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>*@
                                     <li><a class="btn btn-success text-white mt-2" href="/CampProducts/ProductDetail?productid=Aa43CS026"><i class="far fa-eye"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                                 </ul>
@@ -668,15 +595,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
+
                             <p class="text-center mb-0">$2100</p>
                         </div>
                     </div>
@@ -707,15 +626,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
+
                             <p class="text-center mb-0">$6800</p>
                         </div>
                     </div>

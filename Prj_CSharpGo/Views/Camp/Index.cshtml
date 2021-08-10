@@ -3,6 +3,29 @@
         ViewData["Title"] = "露營場地";
     }
 
+<head>
+
+
+<style>
+
+
+    h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1, li, .li, p, .p {
+        font-weight: 700;
+    }
+
+    .paginate.pag1 ul a:hover {
+        background: #eee;
+        color: #555;
+    }
+
+
+
+</style>
+
+
+
+
+</head>
     <main id="main">
 
         <!-- ======= Intro Single ======= -->
@@ -11,7 +34,7 @@
                 <div class="row">
                     <div class="col-md-12 col-lg-8">
                         <div class="title-single-box">
-                            <h1 class="title-single">營區介紹</h1>
+                            <h1 class="title-single">露營場地介紹</h1>
                         </div>
                     </div>
 
@@ -23,18 +46,18 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3>營區配置圖</h3>
+                        <h3>場地配置圖</h3>
                         <div class="news-img-box">
                             <img src="~/img/camp1.jpg" alt="" class="img-fluid">
                         </div>
                     </div>
                     <div>
                         <br>
-                        <table class="table">
+                        <table class="table" style="font-size: 20px; font-weight: 700">
                             <thead>
                                 <tr>
-                                    <th scope="col">區域名稱</th>
-                                    <th scope="col">尺寸</th>
+                                    <th scope="col">場地名稱</th>
+                                    <th scope="col" style="width:450px">尺寸</th>
                                     <th scope="col">帳數</th>
                                     <th scope="col">平日</th>
                                     <th scope="col">假日</th>
@@ -50,27 +73,27 @@
                                         <td>@item.CampQuantity 帳</td>
                                         <td>@item.WeekdayPrice</td>
                                         <td>@item.HolidayPrice</td>
-                                        <td> <a href="/@item.Ahref" type="button" class="btn btn-success">查看更多</a></td>
+                                        <td> <a href="/@item.Ahref" type="button" class="btn btn-success"style="font-weight: 700;font-size:18px">查看更多</a></td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
                     </div>
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top:15px">
-                        <a href="/Campreserve/index" type="button" class="btn btn-success">點此預約</a>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 15px; margin-left: -25px">
+                        <a href="/Campreserve/index" type="button" class="btn btn-success" style="font-weight: 700;font-size:18px">點此預約</a>
                     </div>
                     
                     <div class="online margin-top-60">
-                        <div class="content"><h2>營區資訊介紹</h2></div>
+                        <div class="content"><h2>場地資訊介紹</h2></div>
                         <div class="classify">
-                            <div class="title">海拔</div>
+                            <div class="title" style="font-weight: 700">海拔</div>
                             <ul class="list-inline">
                                 <li>300m以下</li>
                             </ul>
                         </div>
                         <div class="classify">
-                            <div class="title">營區特色</div>
+                            <div class="title" style="font-weight: 700">營區特色</div>
                             <ul class="list-inline">
                                 <li>可停露營車</li>
                                 <li>有遊戲設施	</li>
@@ -79,14 +102,14 @@
                         </div>
 
                         <div class="classify">
-                            <div class="title">衛浴配置</div>
+                            <div class="title" style="font-weight: 700">衛浴配置</div>
                             <ul class="list-inline">
                                 <li>分區浴廁</li>
                             </ul>
                         </div>
 
                         <div class="classify">
-                            <div class="title">無線通訊</div>
+                            <div class="title" style="font-weight: 700">無線通訊</div>
                             <ul class="list-inline">
                                 <li>中華電信有訊號</li>
                                 <li>遠傳有訊號	</li>
@@ -95,7 +118,7 @@
                         </div>
 
                         <div class="classify">
-                            <div class="title">攜帶寵物</div>
+                            <div class="title" style="font-weight: 700">攜帶寵物</div>
                             <ul class="list-inline">
                                 <li>可攜帶寵物	</li>
                                 <li>需注意清潔  </li>
@@ -104,7 +127,7 @@
                         </div>
 
                         <div class="classify">
-                            <div class="title">附屬設施</div>
+                            <div class="title" style="font-weight: 700">附屬設施</div>
                             <ul class="list-inline">
                                 <li>戲水池</li>
                                 <li>玩沙池</li>
@@ -116,14 +139,14 @@
                         </div>
 
                         <div class="classify">
-                            <div class="title">附屬服務</div>
+                            <div class="title" style="font-weight: 700">附屬服務</div>
                             <ul class="list-inline">
                                 <li>週邊賞螢</li>
                             </ul>
                         </div>
 
                         <div class="classify">
-                            <div class="title">營業時間</div>
+                            <div class="title" style="font-weight: 700">營業時間</div>
                             <ul class="list-inline">
                                 <li>平日</li>
                                 <li>假日</li>
@@ -131,7 +154,7 @@
                         </div>
 
                         <div class="classify">
-                            <div class="title">停車方式</div>
+                            <div class="title" style="font-weight: 700">停車方式</div>
                             <ul class="list-inline">
                                 <li> 車停營位旁</li>
                             </ul>
@@ -140,7 +163,7 @@
 
 
                     <div class="margin-bottom-20 margin-top-20">
-                        <div class="content"><h2>營地須知</h2></div>
+                        <div class="content"><h2>場地須知</h2></div>
 
                         <article>
                             <h2 class="directions">

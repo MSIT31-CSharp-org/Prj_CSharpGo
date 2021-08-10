@@ -25,13 +25,13 @@
     <link rel="stylesheet" href="~/css/LoginRegister.css">
     <link rel="stylesheet" href="~/css/sb-admin-2.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
 </head>
 
 <body>
 
-
+    <br />
+    <br />
     <form action="/Auth/Register" method="post">
 
         <!--帳號-->
@@ -122,13 +122,13 @@
     <!-- 帶資料的隱藏按鈕 -->
     <script>
         $("#nowGive1").click(function (event) {
-            $("#Account").val("Steven_RunnigMan");
+            $("#Account").val("StevenRunnigMan");
             $("#id_password").val("wqfuhQrg94$2dfkj");
             $("#id_password1").val("wqfuhQrg94$2dfkj");
             $("#Email").val("yhhttbb@gmail.com");
         });
         $("#nowGive2").click(function (event) {
-            $("#Account").val("RunRunRun_Steven");
+            $("#Account").val("csumiss");
             $("#id_password").val("wqfuhQrg94$2dfkj");
             $("#id_password1").val("wqfuhQrg94$2dfkj");
             $("#Email").val("asd7333477@gmail.com");
@@ -192,36 +192,7 @@
     })
         </script>
     }
-    else if (userToastr == "可用的Email")
-    {
-        <script type="text/javascript">
-
-        $(function () {
-
-        Command: toastr["primary"]("@userToastr");
-        @{user.HttpContext.Session.Remove("userToastr");}
-
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-    })
-        </script>
-    }
-    else if (userToastr != "Guest" || userToastr == "此帳號不存在" || userToastr == "目前此帳號狀態已遭停權，如有任何帳號疑慮，敬請聯繫官方服務中心")
+    else if (userToastr == "此帳號遭停權，請洽客服中心" || userToastr == "這是您的帳號嗎？" || userToastr == "此帳號目前尚未誕生，請由您親手建立專屬自己的帳號吧！")
     {
         <script type="text/javascript">
 
@@ -250,8 +221,7 @@
     })
         </script>
     }
-    else if (userToastr == "此帳號已有人使用！" || userToastr == "您的帳號未開通" || userToastr == "密碼格式有誤" || userToastr == "前後密碼不相符" ||
-             userToastr == "帳號尚未開通，請至電子信箱確認" || userToastr == "輸入的Email格式有誤" || userToastr == "此Email已被使用")
+    else if (userToastr == "這組帳號有人使用囉！換一組帳號吧！" || userToastr == "Email 請填空" || userToastr == "換組 Email 吧！" || userToastr == "前後密碼不相符" || userToastr == "幫幫我！把格子填完吧！")
     {
         <script type="text/javascript">
 
