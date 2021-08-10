@@ -9,14 +9,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-    <div class="container" style="margin-top:20px;">
+    @*class="container"*@
+    <div style="margin-top:20px;">
         <div class="row">
             <div class="banner">
-                <div class="container" style="margin-left: 20px;margin-top: 20px;">
+                <div class="container" style="margin-top: 20px;">
                     <!-- container -->
-                    <div class="banner-info text-center">
-                        <img src="~/Didi/img/camping.png" alt=""
-                             style="max-width: 900px; max-height: 500px; display: block; margin: auto;" />
+                    <div class="banner-info text-center" style="text-align: center;margin-left:10px;">
+                        <img src="~/Didi/img/recipe_index1.jpg" alt=""
+                             style="max-width: 1300px; max-height: 800px; display: block; " />
                         <!-- max-width/max-height會照比例調整大小，不超過限制長度-->
                     </div>
                 </div>
@@ -25,12 +26,14 @@
             <br>
             <br>
             <!-- 食譜清單 -->
-            <section class="best-receipe-area" style="margin-top:50px;">
-                <div class="container">
+            @*class="best-receipe-area"*@
+            <section style="margin-top:50px;">
+                @*class="container"*@
+                <div class="best-receipe-area">
                     <div class="row">
-                        <div class="col-md-7 mb-3">
+                        <div class="col-md-12 mb-3">
                             @*<div class="section-heading">*@
-                            <a style="text-align: center; float: right; font-size: 30px;"><h3 class="re_font">食譜推薦</h3></a>
+                            <a style="text-align: center; font-size: 30px;"><h3 class="re_font">食譜推薦</h3></a>
                         </div>
                         @*<div class="col-md-6 mb-3">
                                 <a class="btn btn-success bi bi-plus" style="float:right" href="/Recipe/Create"></a>
@@ -41,7 +44,7 @@
                     @{
                         foreach (var item in Model)
                         {
-                            <div class="col-12 col-md-4 p-5 mt-3">
+                            <div class="col-12 col-md-3 p-5 mt-3">
                                 <div style="margin:auto; width:350px;height:250px">
                                     @if (item.Img == null)
                                     {
@@ -52,7 +55,7 @@
                                     {<img src="~/Didi/img/@item.Img"
                                           class="rounded-circle img-fluid border img_1">}
                                 </div>
-                                <div >
+                                <div>
                                     <h3 class="text-center mt-3 mb-3 re_fonts">@item.RecipeName</h3>
                                 </div>
                                 <div>

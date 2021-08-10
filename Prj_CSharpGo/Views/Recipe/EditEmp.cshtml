@@ -54,11 +54,11 @@
             @*上傳圖片*@
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
-                    <label for="inputname">RecipeName</label>
+                    <label for="inputname">食譜名稱RecipeName</label>
                     <input type="text" class="form-control mt-1" name="RecipeName" value="@Model.Recipe.RecipeName">
                 </div>
                 <div class="form-group col-md-6 mb-3">
-                    <label for="inputemail">CreateDate</label>
+                    <label for="inputemail">創建時間CreateDate</label>
                     <input type="text" class="form-control mt-1" name="CreateTime" value="@Model.Recipe.CreateTime">
                 </div>
             </div>
@@ -209,7 +209,15 @@
                 URL.revokeObjectURL(output.src) // free memory
             }
         };
-
+        $('#fast_input').on('click', function () {
+            $("input[name='RecipeName']").val('法式水果吐司2');
+            $("input[name='CreateTime']").val('2021/8/9 上午 12:00:00');
+            $("input[name='PreparationTime']").val('10');
+            $("input[name='CookingTime']").val('10');
+            $("input[name='Yield']").val('2');
+            $("textarea[name='Preparation']").text('厚片吐司2片(或一般吐司5片)。\n鮮奶250cc。 雞蛋3個。\n藍莓、桑葚或是自己喜歡的水果。\n 糖粉or砂糖適量or蜂蜜、糖漿。');
+            $("textarea[name='Step']").val('鮮奶和雞蛋混合拌勻。\n厚片吐司切9宮格，一般吐司斜角對切。\n放進鮮奶中浸泡約10分鐘。\n熱鍋中小火，放入奶油或是沙拉油皆可。\n將浸泡好的吐司，一個一個放入煎鍋煎熟，每一面皆金黃色。\n起鍋擺盤，再灑上糖粉或是淋上蜂蜜糖漿。\n簡單又吸睛的法式吐司完成。');
+        })
 
         // ASS_ADD
         $('#ass_add').on('click', function () {
