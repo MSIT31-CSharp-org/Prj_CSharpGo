@@ -85,32 +85,36 @@
 
 
                             <div class="form-group row d-none">
-                                <input class="form-control-plaintext col-sm-9" type="text" id="OrderId" name="OrderId" readonly value="@Model._order.OrderId" />
+                                <input class="form-control-plaintext col-sm-9" type="hidden" id="OrderId" name="OrderId" readonly value="@Model._order.OrderId" />
                             </div>
+                            @*
+        <div class="form-group row d-none">
+            <input class="form-control-plaintext col-sm-9" type="text" id="UserId" name="UserId" readonly value="@Model._order.UserId" />
+        </div>
 
-                            <div class="form-group row d-none">
-                                <input class="form-control-plaintext col-sm-9" type="text" id="UserId" name="UserId" readonly value="@Model._order.UserId" />
-                            </div>
+        <div class="form-group row d-none">
+            <input class="form-control-plaintext col-sm-9" type="text" id="TotalPrice" name="TotalPrice" readonly value="@Model._order.TotalPrice" />
+        </div>
 
-                            <div class="form-group row d-none">
-                                <input class="form-control-plaintext col-sm-9" type="text" id="TotalPrice" name="TotalPrice" readonly value="@Model._order.TotalPrice" />
-                            </div>
+        <div class="form-group row d-none">
+            <input class="form-control-plaintext col-sm-9" type="text" id="PayMethod" name="PayMethod" readonly value="@Model._order.PayMethod" />
+        </div>
 
-                            <div class="form-group row d-none">
-                                <input class="form-control-plaintext col-sm-9" type="text" id="PayMethod" name="PayMethod" readonly value="@Model._order.PayMethod" />
-                            </div>
+        <div class="form-group row d-none">
+            <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.OrderDate" />
+        </div>
 
-                            <div class="form-group row d-none">
-                                <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.OrderDate" />
-                            </div>
+        <div class="form-group row d-none">
+            <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.Address" />
+        </div>
 
-                            <div class="form-group row d-none">
-                                <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.Address" />
-                            </div>
+        <div class="form-group row d-none">
+            <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.UserName" />
+        </div>*@
 
-                            <div class="form-group row d-none">
-                                <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.UserName" />
-                            </div>
+                            @*<div class="form-group row d-none">
+            <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.Approval" />
+        </div>*@
 
 
                             <table class="table">
