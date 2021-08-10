@@ -466,7 +466,7 @@ namespace Prj_CSharpGo.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword(string password, string NewPassword, string confirmNewPassword)
         {
-            // 取得舊密碼
+            // 背景作業 ------ 取得舊密碼
             var f_userId = (from u in _context.Users
                             where u.UserPassword == password
                             select u.UserId).ToList();
@@ -546,7 +546,6 @@ namespace Prj_CSharpGo.Controllers
 
         // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++【 會員中心 => 訂單變更 】+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         [HttpPost]
-        //public async Task<IActionResult> MemberOrderEdit(int id,[Bind("OrderId,UserId,OrderDate,PayMethod,TotalPrice,Approval,Address,UserName")] Order order)
         public async Task<IActionResult> MemberOrderEdit(int OrderId)
         {
             string userId = HttpContext.Session.GetString("userId") ?? "Guest";
@@ -604,6 +603,8 @@ namespace Prj_CSharpGo.Controllers
             HttpContext.Session.SetString("userId", userId);
             return View(User_order);
         }
+
+
     }
 }
 
