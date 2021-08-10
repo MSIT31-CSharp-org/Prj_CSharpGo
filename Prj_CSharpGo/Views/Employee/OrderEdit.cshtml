@@ -16,6 +16,89 @@
 
     @Html.AntiForgeryToken()
 
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>
+                    產品編號
+                </th>
+                <th>
+                    商品名稱
+                </th>
+                <th>
+                    單價
+                </th>
+                <th>
+                    數量
+                </th>
+                <th>
+                    小計/總金額
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderDetails)
+            {
+                int? subtotal = item.UnitPrice * item.Quantity;
+                <tr>
+                    <td>
+                        @item.ProductId
+                    </td>
+                    <td>
+                        @Model.Products.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName
+                    </td>
+                    <td>
+                        @item.UnitPrice
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                    <td>
+                        @subtotal
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    @Model._order.TotalPrice
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label">收件者</label>
+        <input class="form-control-plaintext col-sm-9" type="text" id="UserName" name="UserName" readonly value="@Model._order.UserName" />
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label">郵務地址</label>
+        <input class="form-control-plaintext col-sm-9" type="text" id="Address" name="Address" readonly value="@Model._order.Address" />
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label">付款方式</label>
+        @if (Model._order.PayMethod == "01")
+        {<input class="form-control-plaintext col-sm-9 d-none" type="text" id="PayMethod" name="AddPayMethodress" readonly value="01" />
+            <label class="form-control-plaintext col-sm-9">ATM</label>}
+        else if (Model._order.PayMethod == "02")
+        {<input class="form-control-plaintext col-sm-9 d-none" type="text" id="PayMethod" name="PayMethod" readonly value="02" />
+            <label class="form-control-plaintext col-sm-9">信用卡</label>}
+        else if (Model._order.PayMethod == "03")
+        {<input class="form-control-plaintext col-sm-9 d-none" type="text" id="PayMethod" name="PayMethod" readonly value="03" />
+         <label class="form-control-plaintext col-sm-9">貨到付款</label>}
+    </div>
+
+
     <div class="form-group row">
         <label class="col-sm-3 col-form-label" for="Approval">訂單狀態</label>
         <div class="col-sm-9">
@@ -61,72 +144,12 @@
             <div class="form-group row d-none">
                 <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.OrderDate" />
             </div>
-            
+
         </div>
     </div>
 
 
 
-    <table class="table">
-
-        <thead>
-            <tr>
-                <th>
-                    產品編號
-                </th>
-                <th>
-                    商品名稱
-                </th>
-                <th>
-                    單價
-                </th>
-                <th>
-                    數量
-                </th>
-                <th>
-                    小計/總金額
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.OrderDetails)
-            {
-                int? subtotal = item.UnitPrice * item.Quantity;
-            <tr>
-                <td>
-                    @item.ProductId
-                </td>
-                <td>
-                    @Model.Products.FirstOrDefault(x => x.ProductId == item.ProductId).ProductName
-                </td>
-                <td>
-                    @item.UnitPrice
-                </td>
-                <td>
-                    @item.Quantity
-                </td>
-                <td>
-                     @subtotal
-                </td>
-            </tr>
-            }
-        <tr>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-                @Model._order.TotalPrice
-            </td>
-        </tr>
-
-
-        </tbody>
-    </table>
     <div class="form-group">
         <input type="submit" value="確定送出" class="btn btn-primary" />
         <a href="/Employee/Order" class="btn btn-danger">回到清單</a>

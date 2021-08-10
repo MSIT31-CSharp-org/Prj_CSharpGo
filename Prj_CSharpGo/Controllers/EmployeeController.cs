@@ -280,7 +280,7 @@ namespace Prj_CSharpGo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OrderEdit([Bind("OrderId,OrderDate,PayMethod,TotalPrice,UserId,Approval")] Order order)
+        public async Task<IActionResult> OrderEdit([Bind("OrderId,OrderDate,PayMethod,TotalPrice,UserId,Approval,UserName,Address")] Order order)
         {
             if (ModelState.IsValid)
             {
