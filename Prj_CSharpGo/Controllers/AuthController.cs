@@ -531,11 +531,11 @@ namespace Prj_CSharpGo.Controllers
                 return View();
             }
 
-            User member = new User()
-            {
-                UserPassword = NewPassword,
-                ConfirmPassword = NewPassword
-            };
+            //User member = new User()
+            //{
+            //    UserPassword = NewPassword,
+            //    ConfirmPassword = NewPassword
+            //};
 
             var changUserNewPwd = _context.Users.Find(f_userId);
             changUserNewPwd.UserPassword = NewPassword;

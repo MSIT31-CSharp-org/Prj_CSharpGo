@@ -105,6 +105,7 @@ namespace Prj_CSharpGo.Controllers
             _context.SaveChanges();
 
             return Redirect($"/Recipe/Detail/{@reForm.RecipeId}");
+            //return RedirectToAction("Detail");
         }
 
 
