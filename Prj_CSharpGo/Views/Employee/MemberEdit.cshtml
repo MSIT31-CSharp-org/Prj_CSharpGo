@@ -75,7 +75,8 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="Birthday">生日</label>
                 <div class="col-sm-9">
-                    <input class="form-control-plaintext" type="text" id="Birthday" name="Birthday" readonly value="@Model.Birthday" />
+                    <input class="form-control-plaintext" type="hidden" id="Birthday" name="Birthday" readonly value="@Model.Birthday" />
+                    <input class="form-control-plaintext"  id="" name="" readonly value="@Model.Birthday.ToString().Substring(0,10)" />
                 </div>
                 <label class="col-sm-3 col-form-label"></label>
                 <span class="text-danger field-validation-valid" data-valmsg-for="Birthday" data-valmsg-replace="true"></span>
