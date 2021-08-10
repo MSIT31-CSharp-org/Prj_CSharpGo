@@ -549,13 +549,8 @@ namespace Prj_CSharpGo.Controllers
 
         // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++【 會員中心 => 訂單變更 】+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         [HttpPost]
-        public async Task<IActionResult> MemberOrderEdit(int id, [Bind("OrderId,UserId,OrderDate,PayMethod,TotalPrice,Approval,Address,UserName")] Order order)
+        public async Task<IActionResult> MemberOrderEdit(int OrderId)
         {
-            //if (id != orderDetail.OrderId)
-            //{
-            //    return NotFound();
-            //}
-
             string userId = HttpContext.Session.GetString("userId") ?? "Guest";
 
             // 找出目前已登入的使用者 id
@@ -568,45 +563,51 @@ namespace Prj_CSharpGo.Controllers
                 return Redirect("/Auth/Login");
             }
 
+            //var f_order_user = (from u in _context.Users
+            //                    where u.UserId == userID.UserId
+            //                    select u.UserId).ToList()[0];
 
-            var CancelOrder = (from u in _context.OrderDetails
-                               where u.OrderId == id
-                               select u.OrderId).FirstOrDefault();
+            var CancelOrder = _context.Orders.Where(o => o.OrderId == OrderId).Select(o => o.OrderId).FirstOrDefault();
 
-            var f_order_user = (from u in _context.Users
-                                where u.UserId == userID.UserId
-                                select u.UserId).ToList()[0];
+            var fOrderId = _context.Orders.Find(CancelOrder);
+            fOrderId.OrderId = fOrderId.OrderId;
+            fOrderId.UserId = fOrderId.UserId;
+            fOrderId.TotalPrice = fOrderId.TotalPrice;
+            fOrderId.PayMethod = fOrderId.PayMethod;
+            fOrderId.OrderDate = fOrderId.OrderDate;
+            fOrderId.Approval = "WL";
+            fOrderId.Address = fOrderId.Address;
+            fOrderId.UserName = fOrderId.UserName;
 
-            var CancelOrderinfo = _context.Orders.Find(CancelOrder);
-            order.OrderId = CancelOrderinfo.OrderId;
-            order.UserId = CancelOrderinfo.UserId;
-            order.TotalPrice = CancelOrderinfo.TotalPrice;
-            order.PayMethod = CancelOrderinfo.PayMethod;
-            order.OrderDate = CancelOrderinfo.OrderDate;
-            order.Approval = "WL";
-            order.Address = CancelOrderinfo.Address;
-            order.UserName = CancelOrderinfo.UserName;
-
-            _context.Update(CancelOrderinfo);
+            _context.Update(fOrderId);
             _context.SaveChanges();
 
-            // 訂單狀態變更成功，等待0.5秒轉導至登入頁
+            // 因為View引用的是MemberViewModel類別，最後傳回View的也必須是MemberViewModel類別，否則會是Null  ==> 
+            MemberOrder User_order = new MemberOrder()
+            {
+                _order = _context.Orders.Find(fOrderId.OrderId),
+                OrderDetails = _context.OrderDetails.Where(o => o.OrderId == fOrderId.OrderId),
+                Products = _context.Products.ToList(),
+            };
+            // 訂單狀態變更成功，等待1.5秒轉導至登入頁 ==============================================================================
             CancellationTokenSource cts = new CancellationTokenSource();
             try
             {
-                await Task.Delay(500, cts.Token);
+                await Task.Delay(1500, cts.Token);
             }
             catch (TaskCanceledException ex)
             {
                 string Status = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ==>") + ex.ToString();
-                HttpContext.Session.SetString("userToastr", "很抱歉！密碼未能變更成功");
+                HttpContext.Session.SetString("userToastr", "很抱歉！您沒有權限變更此訂單");
                 return View();
             }
-
+            // ===================================================================================================================
             HttpContext.Session.SetString("userToastr", "已為您完成取消訂單");
-            HttpContext.Session.SetString("userId", f_order_user.ToString());
-            return View();
+            HttpContext.Session.SetString("userId", userId);
+            return View(User_order);
         }
+
+
     }
 }
 
