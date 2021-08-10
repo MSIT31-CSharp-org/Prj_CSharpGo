@@ -483,8 +483,14 @@ namespace Prj_CSharpGo.Controllers
             // ------------------- 判斷輸入舊密碼格式 ----------------------
             if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(confirmNewPassword))
             {
+                // 密碼空空如也
+                if (password == null || NewPassword == null || confirmNewPassword == null)
+                {
+                    HttpContext.Session.SetString("userToastr", "密碼空空如也");
+                    return View();
+                }
                 // 比對輸入的舊密碼 == 背景取得的現今密碼 
-                if (password != get_UserId.UserPassword)
+                else if (password != get_UserId.UserPassword)
                 {
                     HttpContext.Session.SetString("userToastr", "您輸入的舊密碼有誤");
                     return View();
@@ -499,12 +505,6 @@ namespace Prj_CSharpGo.Controllers
                 else if (password == NewPassword && password == confirmNewPassword)
                 {
                     HttpContext.Session.SetString("userToastr", "新密碼不可與舊密碼相同");
-                    return View();
-                }
-                // 密碼空空如也
-                else if (password == null || NewPassword == null || confirmNewPassword == null)
-                {
-                    HttpContext.Session.SetString("userToastr", "密碼空空如也");
                     return View();
                 }
                 // 密碼空空如也
@@ -582,9 +582,9 @@ namespace Prj_CSharpGo.Controllers
             // 因為View引用的是MemberViewModel類別，最後傳回View的也必須是MemberViewModel類別，否則會是Null  ==> 
             MemberOrder User_order = new MemberOrder()
             {
-                _order =  _context.Orders.Find(fOrderId.OrderId),
+                _order = _context.Orders.Find(fOrderId.OrderId),
                 OrderDetails = _context.OrderDetails.Where(o => o.OrderId == fOrderId.OrderId),
-                Products =  _context.Products.ToList(),
+                Products = _context.Products.ToList(),
             };
             // 訂單狀態變更成功，等待1.5秒轉導至登入頁 ==============================================================================
             CancellationTokenSource cts = new CancellationTokenSource();

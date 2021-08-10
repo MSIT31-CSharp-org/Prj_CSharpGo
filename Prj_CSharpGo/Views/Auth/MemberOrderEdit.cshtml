@@ -10,6 +10,7 @@
 @{
     string userId = user.HttpContext.Session.GetString("userId") ?? "Guest";
     string userToastr = user.HttpContext.Session.GetString("userToastr") ?? "Guest";
+    string shopcart = user.HttpContext.Session.GetString("shopcart") ?? "Guest";
 }
 
 
@@ -43,7 +44,7 @@
         <div class="row">
 
             <div class="col-12 col-md-12 col-lg-12 col-xl-12 align-content-center justify-content-start">
-                <h1 class="align-content-center justify-content-start">【修改訂單】</h1>
+                <h1 class="align-content-center justify-content-start">【訂單詳細資訊】</h1>
             </div>
             <div class="col-12 col-md-12">
                 <hr class="col-10 col-md-10  align-content-center justify-content-start" style="margin: 1vh auto; width: 100%; text-align: center; " />
@@ -168,7 +169,37 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="form-group row ">
+                                <label class="col-sm-3 col-form-label">訂單編號</label>
+                                <input class="form-control-plaintext col-sm-9" type="text" id="OrderId" name="OrderId" readonly value="@Model._order.OrderId" />
+                            </div>
 
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">收件者</label>
+                                <input class="form-control-plaintext col-sm-9" type="text" id="UserName" name="UserName" readonly value="@Model._order.UserName" />
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">郵務地址</label>
+                                <input class="form-control-plaintext col-sm-9" type="text" id="Address" name="Address" readonly value="@Model._order.Address" />
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">付款方式</label>
+                                @if (Model._order.PayMethod == "01")
+                                {<input class="form-control-plaintext col-sm-9 d-none" type="text" id="PayMethod" name="AddPayMethodress" readonly value="01" />
+                                    <label class="form-control-plaintext col-sm-9">ATM</label>}
+                                else if (Model._order.PayMethod == "02")
+                                {<input class="form-control-plaintext col-sm-9 d-none" type="text" id="PayMethod" name="PayMethod" readonly value="02" />
+                                    <label class="form-control-plaintext col-sm-9">信用卡</label>}
+                                else if (Model._order.PayMethod == "03")
+                                {<input class="form-control-plaintext col-sm-9 d-none" type="text" id="PayMethod" name="PayMethod" readonly value="03" />
+                                    <label class="form-control-plaintext col-sm-9">貨到付款</label>}
+                            </div>
+                            
+                            <div class="form-group row ">
+                                <label class="col-sm-3 col-form-label">訂單建立時間</label>
+                                <input class="form-control-plaintext col-sm-9" type="text" id="OrderDate" name="OrderDate" readonly value="@Model._order.OrderDate" />
+                            </div>
                         </form>
 
                     </div>
@@ -269,6 +300,35 @@
         </script>
     }
 
+    @if (shopcart == "訂單已產生")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["success"]("@shopcart");
+        @{user.HttpContext.Session.Remove("shopcart");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
 
 
     @section Scripts {

@@ -134,6 +134,7 @@ namespace Prj_CSharpGo.Controllers
             
             if (order.TotalPrice == 0)
             {
+                HttpContext.Session.SetString("shopcart", "購物車沒有東西");
                 return Redirect("/PShopCart/Index");
             }
             order.Approval = "SP";
@@ -163,7 +164,10 @@ namespace Prj_CSharpGo.Controllers
             }
             _context.SaveChanges();
 
-            return Redirect("/PShopCart/Index");
+            HttpContext.Session.SetString("shopcart", "訂單已產生");
+
+            return Redirect($"/Auth/MemberOrderEdit/{query.OrderId}");
+
         }
 
         //以下是購物車相關------------------------------------------------------------------------------------
