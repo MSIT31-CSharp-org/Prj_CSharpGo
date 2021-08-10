@@ -163,6 +163,8 @@ namespace Prj_CSharpGo.Controllers
             }
             _context.SaveChanges();
 
+            return Redirect($"/Auth/MemberOrderEdit/{query.OrderId}");
+            return View("MemberOrderEdit", query.OrderId);
             return Redirect("/PShopCart/Index");
         }
 
