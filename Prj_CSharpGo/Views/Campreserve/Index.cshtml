@@ -58,7 +58,7 @@
                         ※ 價格<br>
                         &emsp; &emsp;&ensp;A區草地平日價格:
                         @foreach (var item in Model.CampList.Where(o => o.CampId == 100))
-                        {<label> @item.WeekdayPrice.ToString() </label>}  元
+                        {<label> @item.WeekdayPrice.ToString() </label>}元
                         &ensp;假日價格:@foreach (var item in Model.CampList.Where(o => o.CampId == 100))
                         {<label> @item.HolidayPrice.ToString() </label>}元<br>
                         &emsp; &emsp;&ensp;B區棧板平日價格:
@@ -68,7 +68,7 @@
                         {<label> @item.HolidayPrice.ToString() </label>}元<br>
                         &emsp; &emsp;&ensp;C區碎石平日價格:
                         @foreach (var item in Model.CampList.Where(o => o.CampId == 1100))
-                        {<label> @item.WeekdayPrice.ToString() </label>}元 &ensp; 假日價格:
+                        {<label> &ensp;@item.WeekdayPrice.ToString() </label>}元 &ensp;假日價格:
                         @foreach (var item in Model.CampList.Where(o => o.CampId == 1100))
                         {<label> @item.HolidayPrice.ToString() </label>}元<br>
                     </div>
