@@ -211,7 +211,7 @@ namespace Prj_CSharpGo.Controllers
             var Camp = _context.Camps.Find(order).Img;
             ViewBag.Img = Camp;
 
-            ViewBag.messagea = "已完成預約!";
+
             return View(orderModel);
         }
 
@@ -221,7 +221,7 @@ namespace Prj_CSharpGo.Controllers
         {
             CampOrder campOrder = new CampOrder()
             {
-              
+                Approval = "SP",
                 UserId = orderModel.UserId,
                 CampId = orderModel.CampId,
                 OrderDay = DateTime.Now,
@@ -236,7 +236,9 @@ namespace Prj_CSharpGo.Controllers
             };
             _context.CampOrders.Add(campOrder);
             _context.SaveChanges();
-            return Redirect("/Campreserve/Index");
+
+            HttpContext.Session.SetString("campmessage", "已完成預約!");
+            return Redirect("/Campreserve/MemberOrder");
         }
 
         //取得例假日JSON資料
@@ -257,5 +259,124 @@ namespace Prj_CSharpGo.Controllers
 
 
 
+
+
+        // 預約查詢
+
+        public IActionResult MemberOrder()
+        {
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+
+            // 找出目前已登入的使用者 id
+            var userID = (from u in _context.Users
+                          where u.UserId.ToString() == userId
+                          select u.UserId).FirstOrDefault();
+
+            if (userId == "Guest" || userID.ToString() != userId || userId == null)
+            {
+                HttpContext.Session.SetString("userToastr", "目前您的身分為訪客，請重新登入");
+                return Redirect("/Auth/Login");
+            }
+
+            // 找出此會員的所有訂單
+            var f_UserID = _context.Users.Find(userID);
+
+            // ·························································································
+            // ························ 兩種方法 : 找到此 UserId 的所有訂單 ······························
+            // ····················· 10 ································· 10 ···························
+            var MemberOrderView = _context.CampOrders.Where(o => o.UserId == f_UserID.UserId).ToList();
+            // ····················· 20 ································· 20 ···························
+            //var MOrder = (from u in _context.Orders
+            //              where u.UserId == f_UserID.UserId
+            //              select u).ToList();
+            // ·························································································
+
+            if (MemberOrderView == null)
+            {
+                HttpContext.Session.SetString("userToastr", "已為您查詢訂單，但未能成功");
+                return View();
+            }
+            return View(MemberOrderView);
+        }
+
+        [HttpPost]
+        // 會員中心 => 預約變更
+        public IActionResult MemberOrder(int id)
+        {
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+
+            // 找出目前已登入的使用者 id
+            var userID = _context.Users.Where(u => u.UserId.ToString() == userId).FirstOrDefault();
+
+            // 判斷 Session 傳入的 userId 身分是否為訪客
+            if (userId == "Guest" || userID.UserId.ToString() != userId || userId == null)
+            {
+                HttpContext.Session.SetString("userToastr", "目前您的身分為訪客，請重新登入");
+                return Redirect("/Auth/Login");
+            }
+
+            var orderDetail = _context.CampOrders.Where(o => o.CampOrderId == id).ToList()[0];
+
+
+
+            // 藉由找出訂單ID 列出詳細訂單資訊
+            if (orderDetail == null)
+            {
+                HttpContext.Session.SetString("userToastr", " SoS！顯示異常");
+                return View();
+            }
+
+            orderDetail.Approval = "WL";
+            _context.Update(orderDetail);
+            _context.SaveChanges();
+
+            HttpContext.Session.SetString("campdel", "取消成功!");
+            //MemberOrder User_order = new MemberOrder()
+            //{
+            //    _order = await _context.Orders.FindAsync(id),
+            //    OrderDetails = _context.OrderDetails.Where(o => o.OrderId == id),
+            //    Products = await _context.Products.ToListAsync(),
+            //    //Users = _context.Users.Where(u => u.UserId == f_order_user)
+            //};
+
+            //if (User_order == null)
+            //{
+            //    return NotFound();
+            //}
+
+            string userId1 = HttpContext.Session.GetString("userId") ?? "Guest";
+
+            // 找出目前已登入的使用者 id
+            var userID1 = (from u in _context.Users
+                          where u.UserId.ToString() == userId1
+                          select u.UserId).FirstOrDefault();
+
+            if (userId1 == "Guest" || userID1.ToString() != userId1 || userId1 == null)
+            {
+                HttpContext.Session.SetString("userToastr", "目前您的身分為訪客，請重新登入");
+                return Redirect("/Auth/Login");
+            }
+
+            // 找出此會員的所有訂單
+            var f_UserID = _context.Users.Find(userID1);
+
+            // ·························································································
+            // ························ 兩種方法 : 找到此 UserId 的所有訂單 ······························
+            // ····················· 10 ································· 10 ···························
+            var MemberOrderView = _context.CampOrders.Where(o => o.UserId == f_UserID.UserId).ToList();
+            // ····················· 20 ································· 20 ···························
+            //var MOrder = (from u in _context.Orders
+            //              where u.UserId == f_UserID.UserId
+            //              select u).ToList();
+            // ·························································································
+
+            if (MemberOrderView == null)
+            {
+                HttpContext.Session.SetString("userToastr", "已為您查詢訂單，但未能成功");
+                return View();
+            }
+            return View(MemberOrderView);
+
+        }
     }
 }
