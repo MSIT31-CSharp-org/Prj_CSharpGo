@@ -75,80 +75,103 @@
                     <br>
                     @using (Html.BeginForm("Index", "Campreserve", FormMethod.Post))
                     {
-                        <div class="row">
+                <div class="row">
 
-                            <div class="col-md-12 mb-2" style="font-weight: 700;font-size:22px">
-                                <div class="form-group">
-                                    <label class="pb-2" for="Type">場地選擇</label>
+                
 
-                                    <select class="form-control form-select" id="CampName" name="CampName" style="font-weight: 700; font-size: 20px">
 
-                                        @foreach (var item in Model.CampList)
+                        <div class="col-md-6 mb-2" style="font-weight: 700; font-size: 22px; margin-left: 70px">
+                            <div class="form-group">
+                                <label class="pb-2" for="Type">場地選擇</label>
+
+                                <select class="form-control form-select" id="CampName" name="CampName" style="font-weight: 700; font-size: 20px ; width:300px">
+
+                                    @foreach (var item in Model.CampList)
+                                    {
+                                        if (Model.userFilterModel != null && Model.userFilterModel.CampId == item.CampId)
                                         {
-                                            if (Model.userFilterModel != null && Model.userFilterModel.CampId == item.CampId)
+                                            <option value="@item.CampId" selected>@item.CampName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.CampId">@item.CampName</option>
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="col-md-6 mb-2" style="margin-left: 480px; margin-top: -110px; font-weight: 700; font-size: 22px ">
+                            <div class="form-group"style="margin-top:-2px">
+
+                                <label class="pb-2" for="Type" style="margin-left:-25px">圖片</label>
+                                <div class="about-img-box margin-top-20">
+                                    <img src="~/img/grass.PNG" alt="" class="img-fluid" id="imgpicture" style="width: 400px; height: auto; margin-left: -100px">
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12 mb-2" style="font-weight: 700; font-size: 22px; width: 300px; margin-top: -170px">
+                            <div class="form-group mt-3" style="width: 300px; margin-left: 70px">
+                                <label class="pb-2" for="bedrooms">帳數</label>
+                                <select class="form-control form-select form-control-a" id="CampQuantity" name="CampQuantity" style="font-weight: 700; font-size: 20px; width: 300px">
+                                    @if (Model.CampList.Count != 0)
+                                    {
+                                        for (int i = 1; i <= Model.CampList[0].CampQuantity; i++)
+                                        {
+                                            if (Model.userFilterModel != null && Model.userFilterModel.CampQuantity == i)
                                             {
-                                                <option value="@item.CampId" selected>@item.CampName</option>
+                                                <option value="@i" selected>@i</option>
                                             }
                                             else
                                             {
-                                                <option value="@item.CampId">@item.CampName</option>
+                                                <option value="@i">@i</option>
                                             }
+
                                         }
-
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-2" style="font-weight: 700; font-size: 22px">
-                                <div class="form-group mt-3">
-                                    <label class="pb-2" for="Type">租借日期</label>
-                                    <input type="date" class="form-control" id="StartDay" name="StartDay" style="font-weight: 700; font-size: 20px" value="@(Model.userFilterModel==null?"":Model.userFilterModel.StartDate)" min="@ViewBag.startDateMin" max="@ViewBag.startDateMax">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-2" style="font-weight: 700; font-size: 22px">
-                                <div class="form-group mt-3">
-                                    <label class="pb-2" for="city">退訂日期</label>
-                                    <input type="date" class="form-control" id="EndDay" name="EndDay" style="font-weight: 700; font-size: 20px" value="@(Model.userFilterModel==null?"":Model.userFilterModel.EndDate)" min="@ViewBag.EndDateMin" max="@ViewBag.EndDateMax">
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-md-6 mb-2" style="font-weight: 700; font-size: 22px">
-                                <div class="form-group mt-3">
-                                    <label class="pb-2" for="bedrooms">帳數</label>
-                                    <select class="form-control form-select form-control-a" id="CampQuantity" name="CampQuantity" style="font-weight: 700; font-size: 20px">
-                                        @if (Model.CampList.Count != 0)
-                                        {
-                                            for (int i = 1; i <= Model.CampList[0].CampQuantity; i++)
-                                            {
-                                                if (Model.userFilterModel != null && Model.userFilterModel.CampQuantity == i)
-                                                {
-                                                    <option value="@i" selected>@i</option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="@i">@i</option>
-                                                }
-
-                                            }
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-left: -100px; ">
-                                <button id="getButton" type="submit" class="btn btn-success" style="font-weight: 700; font-size: 18px">點此預約</button>
-                                @*<button type="button" class="btn btn-b">查看</button>*@
+                                    }
+                                </select>
                             </div>
                         </div>
 
-                        <h4 id="campnamea" style="font-weight: 700;">A區草地</h4>
-                        <div class="about-img-box margin-top-20">
-                            <img src="~/img/grass.PNG" alt="" class="img-fluid" id="imgpicture">
+
+
+
+                        <div class="col-md-4 mb-2" style="font-weight: 700; font-size: 22px; margin-left: 70px; margin-top: -15px">
+                            <div class="form-group mt-3">
+                                <label class="pb-2" for="Type">租借日期</label>
+                                <input type="date" class="form-control" id="StartDay" name="StartDay" style="font-weight: 700; font-size: 20px; width: 300px" value="@(Model.userFilterModel==null?"":Model.userFilterModel.StartDate)" min="@ViewBag.startDateMin" max="@ViewBag.startDateMax">
+                            </div>
                         </div>
+
+                        <div class="col-md-3 mb-2" style="font-weight: 700; font-size: 22px; padding-right: 100px; margin-top: -15px">
+                            <div class="form-group mt-3">
+                                <label class="pb-2" for="city">退訂日期</label>
+                                <input type="date" class="form-control" id="EndDay" name="EndDay" style="font-weight: 700; font-size: 20px; width: 300px" value="@(Model.userFilterModel==null?"":Model.userFilterModel.EndDate)" min="@ViewBag.EndDateMin" max="@ViewBag.EndDateMax">
+                            </div>
+                        </div>
+
+
+
+
+               
+
+
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style=" ">
+                        <button id="getButton" type="submit" class="btn btn-success" style="font-weight: 700; font-size: 18px; margin-right: 250px;">點此預約</button>
+                        @*<button type="button" class="btn btn-b">查看</button>*@
+                    </div>
+
+
+                </div>
 
 
                     }

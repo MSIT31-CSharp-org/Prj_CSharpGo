@@ -63,16 +63,16 @@
 
                     <tbody>
                         <tr>
-                            <th><img src="~/img/@ViewBag.Img" width="100"></th>
-                            <th scope="row">@Model.CampName</th>
-                            <td>@Model.StartDay.ToString("yyyy-MM-dd")</td>
-                            <td>@Model.EndDay.ToString("yyyy-MM-dd")</td>
-                            <td>
+                            <th style="width:200px"><img src="~/img/@ViewBag.Img" width="150"></th>
+                            <th style="width:150px" scope="row">@Model.CampName</th>
+                            <td style="width:160px">@Model.StartDay.ToString("yyyy-MM-dd")</td>
+                            <td style="width:160px">@Model.EndDay.ToString("yyyy-MM-dd")</td>
+                            <td style="width:130px">
                                 @Model.TotalPricesmall 元 <br />
                                 ( @Model.Daycount 晚)
                             </td>
-                            <td>@Model.CampQuantity</td>
-                            <td>
+                            <td style="width:110px">@Model.CampQuantity</td>
+                            <td style="width:180px">
                                 <select class="$form-select-bg-position" name="PlusPrice" id="PlusPrice" style="font-weight: 700;font-size:20px">
                                     <option value="0">  0</option>
                                     <option value="1">1</option>
@@ -81,7 +81,7 @@
                                 <div><div id="pricevalue1"></div></div>
 
                             </td>
-                            <td id="total_price">
+                            <td style="width:130px" id="total_price">
                                 @Model.TotalPricebig 元
                             </td>
                         </tr>
