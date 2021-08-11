@@ -255,10 +255,17 @@ namespace Prj_CSharpGo.Controllers
                 }
 
                 // 將帳號和密碼對應到資料庫一模一樣的帳號密碼，以取得該 UserId
-                var ac_pwd = (from u in _context.Users
+                var ac_pwd1 = (from u in _context.Users
                               where u.UserAccount == UserAccount
                               where u.UserPassword == UserPassword
-                              select u.UserId).ToList()[0];
+                              select u.UserId).ToList();
+
+                if (ac_pwd1.Count == 0)
+                {
+                    HttpContext.Session.SetString("userToastr", "帳號或密碼錯誤");
+                    return View();
+                }
+                var ac_pwd = ac_pwd1[0];
 
                 // 取得 UserId 的登入判斷依據
                 var get_UserId = _context.Users.Find(ac_pwd);
