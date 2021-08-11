@@ -161,6 +161,11 @@
                         <a href="/CampProducts" type="button" class="btn btn-secondary">再逛逛</a>
                     </div>
                     @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <button id="nowGive1" type="button" class="btn btn-dark">同會員資料</button>
+                    </div>
+
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="UserName">收件人名稱</label>
                         <input class="form-control col-sm-9" type="text" data-val="true" data-val-required="不可空白" id="UserName" name="UserName" />
@@ -186,9 +191,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group d-inline">
-                        <button id="nowGive1" type="button" class="btn btn-light border border-0">同會員資料</button>
-                    </div>
+
 
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
