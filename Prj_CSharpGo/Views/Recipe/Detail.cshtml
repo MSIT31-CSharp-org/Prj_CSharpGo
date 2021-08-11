@@ -78,7 +78,7 @@
 </div>
 
 <!-- Receipe Content Area -->
-<div class="receipe-content-area" >
+<div class="receipe-content-area">
     <div class="container">
         <div class="row" style="margin-top:50px;">
             <div class="col-12 col-md-10 " style="padding-left: 170px">
@@ -102,18 +102,18 @@
                         <a href="#" class="btn delicious-btn">For Begginers</a>
                     </div>
                 </div>*@
-            <div class="col-12 col-md-2" >
+            <div class="col-12 col-md-2">
                 @* 修改&刪除 *@
-                    <a class="btn btn-success bi bi-pencil-square" href="/Recipe/Edit/@Model.RecipeId" style="font-size:35px"></a>
-                    @Html.ActionLink("", "delete", new { id = Model.RecipeId }, new { @class = "btn btn-success bi bi-trash btnc", @style = "font-size:35px;margin-left:10px;background-color:red;" })
+                <a class="btn btn-success bi bi-pencil-square" href="/Recipe/Edit/@Model.RecipeId" style="font-size:35px"></a>
+                @Html.ActionLink("", "delete", new { id = Model.RecipeId }, new { @class = "btn btn-success bi bi-trash btnc", @style = "font-size:35px;margin-left:10px;background-color:red;", @onclick = "return Confirm_Form()" })
             </div>
         </div>
         <div class="single-preparation-step" style="padding-left: 160px; ">
             <div class="row">
                 <div class="col-md-8">
                     @*<p>
-                        <h3 class="re_font">需準備食材:</h3>
-                    </p>*@
+                            <h3 class="re_font">需準備食材:</h3>
+                        </p>*@
                     <p>
                         <h3 class="re_font">01.備料</h3>
                     </p>
@@ -159,3 +159,11 @@
     </div>
 </div>
 
+@section Scripts{
+    <script>
+        function Confirm_Form() {
+            if (!confirm("您確定要刪除嗎?"))
+                return false;
+        }
+    </script>
+}
