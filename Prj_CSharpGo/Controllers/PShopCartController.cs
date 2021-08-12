@@ -79,7 +79,7 @@ namespace Prj_CSharpGo.Controllers
                 return NotFound();
             }
 
-            if (_dash.Quantity <= _context.Products.Find(ProductId).UnitInStock)
+            if (_dash.Quantity < _context.Products.Find(ProductId).UnitInStock)
             {
                 _dash.Quantity += 1;
                 _context.SaveChanges();
@@ -134,6 +134,7 @@ namespace Prj_CSharpGo.Controllers
             
             if (order.TotalPrice == 0)
             {
+                HttpContext.Session.SetString("shopcart", "購物車沒有東西");
                 return Redirect("/PShopCart/Index");
             }
             order.Approval = "SP";
@@ -163,21 +164,26 @@ namespace Prj_CSharpGo.Controllers
             }
             _context.SaveChanges();
 
+            HttpContext.Session.SetString("shopcart", "訂單已產生");
+
             return Redirect($"/Auth/MemberOrderEdit/{query.OrderId}");
-            return View("MemberOrderEdit", query.OrderId);
-            return Redirect("/PShopCart/Index");
+
         }
 
         //以下是購物車相關------------------------------------------------------------------------------------
         [HttpPost]
-        public IActionResult AddCart(ShoppingCart ShoppingCarts)//檢視：無-接收商品頁面的資料 要傳進購物車資料庫PShopCartViewMolds中的ShoppingCarts的動作
+        public IActionResult AddCart(ShoppingCart ShoppingCarts,string notgocart)//檢視：無-接收商品頁面的資料 要傳進購物車資料庫PShopCartViewMolds中的ShoppingCarts的動作
         {
             if (_context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId) != null)
             {
                 _context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).Quantity += ShoppingCarts.Quantity;
+                if (_context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).Quantity > _context.Products.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).UnitInStock)
+                { _context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).Quantity = _context.Products.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).UnitInStock; }
             }
             else
             {
+                if(ShoppingCarts.Quantity > _context.Products.FirstOrDefault(x=>x.ProductId== ShoppingCarts.ProductId).UnitInStock) 
+                { ShoppingCarts.Quantity = _context.Products.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).UnitInStock; }
                 ShoppingCart PTOSCOrder = new ShoppingCart()
                 {
                     UserId = ShoppingCarts.UserId,
@@ -190,6 +196,10 @@ namespace Prj_CSharpGo.Controllers
                 _context.ShoppingCarts.Add(PTOSCOrder);
             }
             _context.SaveChanges();
+            if (notgocart== "notgocart") {
+                HttpContext.Session.SetString("notgocart", "已加入購物車!");
+                return Redirect($"/CampProducts/ProductDetail?productid={ShoppingCarts.ProductId}"); 
+            }
             return Redirect("/PShopCart/Index");//接收的直要呈現在VIEW的檢視頁面/PShopCart/Index
         }
         public IActionResult Index()//檢視：購物車訂單頁面-一開始推進去購物車資料的動作  從購物車資料庫裡抓資料                                

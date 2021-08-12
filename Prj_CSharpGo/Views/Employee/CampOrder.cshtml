@@ -1,0 +1,205 @@
+﻿@using Microsoft.AspNetCore.Http
+@model IEnumerable<Prj_CSharpGo.Models.CampOrder>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor emp
+@{
+    ViewData["Title"] = "預約資料";
+    Layout = "~/Views/Shared/EmployeeLayout.cshtml";
+    string campdel = emp.HttpContext.Session.GetString("campdel") ?? "Guest";
+}
+
+<h1 class="title_font">預約資料</h1>
+
+<hr />
+
+
+<div class="search-form">
+    <label> 預約 或 會員 編號搜索 </label>
+    <input id="search-input" type="text" placeholder="" />
+    <style id="m-search"></style>
+
+</div>
+
+
+<script>
+    var that = $(this);
+    var mSearch = $("#m-search");
+    $("#search-input").bind("change paste keyup focus", function () {
+        var value = $(this).val();
+        if (!value) {
+            mSearch.html("");
+            return;
+        };
+        mSearch.html('.wrap:not([data-index*="' + value + '"]) {display: none;}');
+    });
+</script>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                預約編號
+            </th>
+            <th>
+                預約會員
+            </th>
+            <th>
+                區域名稱
+            </th>
+            <th>
+                帳數
+            </th>
+            <th>
+                增加人數
+            </th>
+            <th>
+                起始日期
+            </th>
+            <th>
+                結束日期
+            </th>
+            <th>
+                訂單建立時間
+            </th>
+            <th>
+                總額
+            </th>
+            <th>
+                訂單狀態
+            </th>
+            <th>
+                訂單變更
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="wrap" data-index="@item.CampOrderId @item.UserId">
+
+
+                <td>
+                    @item.CampOrderId
+                </td>
+                <td>
+                    @item.UserId
+                </td>
+                @if (item.CampId == 100)
+                {
+
+                    <td>
+                        A區草地
+                    </td>
+                }
+                else if (item.CampId == 600)
+                {
+
+
+
+                    <td>
+                        B區木棧板(景觀露臺)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        C區碎石
+                    </td>
+                }
+                <td>
+                    @item.CampQuantity
+                </td>
+                <td>
+                    @item.Peoplenumber
+                </td>
+                <td>
+                    @item.StartDay.ToString().Substring(0, 10)
+                </td>
+                <td>
+                    @item.EndDay.ToString().Substring(0, 10)
+                </td>
+                <td>
+                    @item.OrderDay
+                </td>
+                <td>
+                    @item.TotalPrice
+                </td>
+
+
+                @if (@item.Approval == "NR")
+                {
+                    <td>
+                        已完成
+                    </td>
+                }
+                else if (@item.Approval == "SP")
+                {
+                    <td>
+                        預約中
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        取消
+                    </td>
+                }
+
+
+                <td class=" col-3 col-md-3 justify-content-center align-content-center">
+                    <form action="/Employee/CampOrder/@item.CampOrderId" method="post">
+                        <div class="form-group row">
+                            @if (item.Approval == "SP")
+                            {
+                                <select name="Approval" class="cols-sm-5">
+                                    <option value="NR" selected>完成</option>
+                                    <option value="WL">取消</option>
+                                </select>
+                                <input type="submit" value="更新訂單" class="btn btn-danger btn-icon-split" />
+                            }
+                            else if (item.Approval == "NR")
+                            {
+
+                                <input type="button" value="已完成" class="btn btn-info btn-icon-split" />
+                            }
+                            else
+                            {
+                                <input type="button" value="已取消" class="btn btn-info btn-icon-split" />
+                            }
+                        </div>
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (campdel != "Guest")
+{
+    <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["success"]("@campdel");
+        @{emp.HttpContext.Session.Remove("campdel");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+    </script>
+}

@@ -7,14 +7,13 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
 @{
     string f_userId = user.HttpContext.Session.GetString("userId") ?? "1001";
+    string shopcart = user.HttpContext.Session.GetString("shopcart");
 }
 
 @{
     ViewData["Title"] = "購物車";
-
-
-    Dictionary<Product, short?> openWith = new Dictionary<Product, short?>();
 }
+
 
 <main id="main">
 
@@ -154,7 +153,7 @@
                         </tr>
 
                     </tbody>
-                     
+
                 </table>
 
                 <form action="/PShopCart/Bill" method="post">
@@ -162,6 +161,11 @@
                         <a href="/CampProducts" type="button" class="btn btn-secondary">再逛逛</a>
                     </div>
                     @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <button id="nowGive1" type="button" class="btn btn-dark">同會員資料</button>
+                    </div>
+
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="UserName">收件人名稱</label>
                         <input class="form-control col-sm-9" type="text" data-val="true" data-val-required="不可空白" id="UserName" name="UserName" />
@@ -187,13 +191,11 @@
                         </select>
                     </div>
 
-                    <div class="form-group d-inline">
-                        <button id="nowGive1" type="button" class="btn btn-light border border-0">同會員資料</button>
-                    </div>
+
 
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <input type="submit" id="shopend"class="btn btn-success" value="確定">
+                        <input type="submit" id="shopend" class="btn btn-success" value="確定">
                     </div>
 
 
@@ -224,6 +226,54 @@
 
 }
 
+<link href="~/css/emplayout.css?v=0.1" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/LoginRegister.css">
+    <link rel="stylesheet" href="~/css/sb-admin-2.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/toastr.min.js"></script>
+
+@if (shopcart == "購物車沒有東西")
+{
+    <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["error"]("@shopcart");
+        @{user.HttpContext.Session.Remove("shopcart");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+    </script>
+}
+
 <script>
 
     $("#nowGive1").click(function (event) {
@@ -233,13 +283,5 @@
         $("#Address").val($("#Address1").val());
 
     });
-
-
-    $("#shopend").click(function (event) {
-        alert("訂單已完成")
-
-    });
-
-
 
 </script>

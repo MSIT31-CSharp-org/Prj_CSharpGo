@@ -1,7 +1,11 @@
-﻿@model Prj_CSharpGo.Models.ViewModels.ProductHome
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor user
+
+@model Prj_CSharpGo.Models.ViewModels.ProductHome
 
 @{
     ViewData["Title"] = "商品";
+    string notgocart = user.HttpContext.Session.GetString("notgocart") ?? "Guest";
 }
 
 <!DOCTYPE html>
@@ -68,7 +72,7 @@
     <!-- Open Content -->
 
     <section>
-        <form action="/PShopCart/AddCart" method="post">
+        <form action="/PShopCart/AddCart" name="cart" method="post">
             <div class="container pb-5">
                 <div class="row">
 
@@ -205,7 +209,7 @@
                                     <input type="hidden" name="product-title" value="Activewear">
                                     <div class="row">
 
-                                        <div class="col-auto">
+                                        @*<div class="col-auto">
                                                 <ul class="list-inline pb-3">
                                                     <li class="list-inline-item text-right">
                                                         購買數量
@@ -215,25 +219,50 @@
                                                     <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
                                                     <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
                                                 </ul>
-                                            </div>
+                                            </div>*@
 
-                                        @*<div class="col-auto">
+                                        <div class="col-auto">
                                             <ul class="list-inline pb-3">
                                                 <li class="list-inline-item text-right">
-                                                    數量
-                                                    <input type="hidden" name="Quantity" id="product-quanity" value="1">
+                                                    購買數量
+                                                    <div class="col-sm-9">
+                                                        <select name="Quantity" class="form-control">
+
+
+                                                    @for (var i = 1; i <= item.UnitInStock; i++)
+                                                    {
+                                                        <option value="@i">@i</option>
+                                                    }
+
+                                                        </select>
+                                                    </div>
+
                                                 </li>
-                                                <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
                                             </ul>
-                                        </div>*@
+                                        </div>
+
+                                        @*<div class="col-auto">
+                                                <ul class="list-inline pb-3">
+                                                    <li class="list-inline-item text-right">
+                                                        數量
+                                                        <input type="hidden" name="Quantity" id="product-quanity" value="1">
+                                                    </li>
+                                                    <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
+                                                </ul>
+                                            </div>*@
 
                                     </div>
                                     <div class="row pb-3">
                                         <div class="col d-grid">
-                                            <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy" style="font-weight: 700">購買</button>
+                                            <input type="hidden" name="notgocart" id="notgocart" value="notgocart" />
+                                            <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy" style="font-weight: 700" id="gocart1">購買</button>
+                                            
+                                            @*<input type="submit" name="add" value="購買" onclick="toAdd()" />*@
+                                        
                                         </div>
                                         <div class="col d-grid">
-                                            <a href="/CampProducts/ProductDetail?productid=@item.ProductId" type="submit" class="btn btn-success btn-lg" name="submit" id="addtocard" value="addtocard" style="font-weight: 700">加入購物車</a>
+
+                                            <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy" style="font-weight: 700">加入購物車</button>
                                         </div>
                                     </div>
                                 </div>
@@ -564,7 +593,7 @@
                                     <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                 </li>
                             </ul>
- 
+
                             <p class="text-center mb-0">$9080</p>
                         </div>
                     </div>
@@ -678,13 +707,50 @@
             ]
         });
 
+        $("#gocart1").click(function (event) {
 
-        $('#addtocard').click(function () {
 
-            alert("已加入購物車");
+            $("#notgocart").val("gocart");
 
-        })
+
+         });
+
+
     </script>
+
+    <script src="~/js/toastr.min.js"></script>
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    @if (notgocart == "已加入購物車!")
+    {
+        <script type="text/javascript">
+
+        $(function () {
+
+        Command: toastr["success"]("@notgocart");
+        @{user.HttpContext.Session.Remove("notgocart");}
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    })
+        </script>
+    }
+
     <!-- End Slider Script -->
 
 </body>

@@ -140,15 +140,15 @@
 
             $("#pricevalue1").append("(共  "  +  s  +  "  元)");
             $("#pricevalue2").append("(共  "  +  s  +  "  元)");
-            $('#total_price').text(origin_price + parseInt(s));
+            $('#total_price').text(origin_price + parseInt(s)+"元");
             $("#Peoplenumber").val(s/100)
 
 
         });
 
-        $("#comform").click(function () {
+        @*$("#comform").click(function () {
             alert('@Html.Raw(ViewBag.messagea)');
-         });
+         });*@
 
 </script>
 
