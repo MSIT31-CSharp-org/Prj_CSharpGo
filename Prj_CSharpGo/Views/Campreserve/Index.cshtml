@@ -23,188 +23,206 @@
 
 </head>
 
-    <main id="main">
+<main id="main">
 
-        <!-- ======= Intro Single ======= -->
-        <section class="intro-single" style="margin-top:-120px">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-lg-8">
-                        <div class="title-single-box">
-                            <h1 class="title-single">露營場地預約</h1>
-                        </div>
+    <!-- ======= Intro Single ======= -->
+    <section class="intro-single" style="margin-top:-120px">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-8">
+                    <div class="title-single-box">
+                        <h1 class="title-single">露營場地預約</h1>
                     </div>
-                   
                 </div>
+
             </div>
-        </section><!-- End Intro Single-->
-        <!-- ======= Blog Single ======= -->
-        <section class="news-single nav-arrow-b">
-            <div class="container">
-                <div class="row">
-                    <div>
-                        <!-- <div class="title-box-d">
-        <h3 class="title-d">Search Property</h3>
-    </div> -->
-                        <div class="col-sm-12">
-                            <h3>露營場地預約注意事項</h3>
+        </div>
+    </section><!-- End Intro Single-->
+    <!-- ======= Blog Single ======= -->
+    <section class="news-single nav-arrow-b">
+        <div class="container">
+            <div class="row">
+                <div>
+                    <!-- <div class="title-box-d">
+                        <h3 class="title-d">Search Property</h3>
+                    </div> -->
+                    <div class="col-sm-12">
+                        <h3>露營場地預約注意事項</h3>
+                    </div>
+                    <div id="article" style="margin-left:20px;font-size:18px">
+                        ※ 星期二公休，不接受當天預約<br>
+                        ※ 一般營位僅提供場地使用。<br>
+                        ※ 每營位限搭1睡帳、1客廳帳，附1停車位 (無法加車，如需加車請另外加訂營位)。<br>
+                        ※ 每營位限4人使用，第5人起每人100元清潔費(可加2人，3歲以下免費)，最多6人。<br>
+                        ※ 露宿車內，需依照營位費計算。<br>
+                        ※ 價格<br>
+                        &emsp; &emsp;&ensp;A區草地平日價格:
+                        @foreach (var item in Model.CampList.Where(o => o.CampId == 100))
+                        {<label> @item.WeekdayPrice.ToString() </label>}  元
+                        &ensp;假日價格:@foreach (var item in Model.CampList.Where(o => o.CampId == 100))
+                        {<label> @item.HolidayPrice.ToString() </label>}元<br>
+                        &emsp; &emsp;&ensp;B區棧板平日價格:
+                        @foreach (var item in Model.CampList.Where(o => o.CampId == 600))
+                        {<label> @item.WeekdayPrice.ToString() </label>}元 &ensp;假日價格:
+                        @foreach (var item in Model.CampList.Where(o => o.CampId == 600))
+                        {<label> @item.HolidayPrice.ToString() </label>}元<br>
+                        &emsp; &emsp;&ensp;C區碎石平日價格:
+                        @foreach (var item in Model.CampList.Where(o => o.CampId == 1100))
+                        {<label> @item.WeekdayPrice.ToString() </label>}元 &ensp; 假日價格:
+                        @foreach (var item in Model.CampList.Where(o => o.CampId == 1100))
+                        {<label> @item.HolidayPrice.ToString() </label>}元<br>
+                    </div>
+                    <br>
+                    @using (Html.BeginForm("Index", "Campreserve", FormMethod.Post))
+                    {
+                        <div class="row">
+
+                            <div class="col-md-12 mb-2" style="font-weight: 700;font-size:22px">
+                                <div class="form-group">
+                                    <label class="pb-2" for="Type">場地選擇</label>
+
+                                    <select class="form-control form-select" id="CampName" name="CampName" style="font-weight: 700; font-size: 20px">
+
+                                        @foreach (var item in Model.CampList)
+                                        {
+                                            if (Model.userFilterModel != null && Model.userFilterModel.CampId == item.CampId)
+                                            {
+                                                <option value="@item.CampId" selected>@item.CampName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.CampId">@item.CampName</option>
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-2" style="font-weight: 700; font-size: 22px">
+                                <div class="form-group mt-3">
+                                    <label class="pb-2" for="Type">租借日期</label>
+                                    <input type="date" class="form-control" id="StartDay" name="StartDay" style="font-weight: 700; font-size: 20px" value="@(Model.userFilterModel==null?"":Model.userFilterModel.StartDate)" min="@ViewBag.startDateMin" max="@ViewBag.startDateMax">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-2" style="font-weight: 700; font-size: 22px">
+                                <div class="form-group mt-3">
+                                    <label class="pb-2" for="city">退訂日期</label>
+                                    <input type="date" class="form-control" id="EndDay" name="EndDay" style="font-weight: 700; font-size: 20px" value="@(Model.userFilterModel==null?"":Model.userFilterModel.EndDate)" min="@ViewBag.EndDateMin" max="@ViewBag.EndDateMax">
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-6 mb-2" style="font-weight: 700; font-size: 22px">
+                                <div class="form-group mt-3">
+                                    <label class="pb-2" for="bedrooms">帳數</label>
+                                    <select class="form-control form-select form-control-a" id="CampQuantity" name="CampQuantity" style="font-weight: 700; font-size: 20px">
+                                        @if (Model.CampList.Count != 0)
+                                        {
+                                            for (int i = 1; i <= Model.CampList[0].CampQuantity; i++)
+                                            {
+                                                if (Model.userFilterModel != null && Model.userFilterModel.CampQuantity == i)
+                                                {
+                                                    <option value="@i" selected>@i</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-left: -100px; ">
+                                <button id="getButton" type="submit" class="btn btn-success" style="font-weight: 700; font-size: 18px">點此預約</button>
+                                @*<button type="button" class="btn btn-b">查看</button>*@
+                            </div>
                         </div>
-                        <div id="article" style="margin-left:20px;font-size:18px">
-                            ※ 星期二公休，不接受當天預約<br>
+
+                        <h4 id="campnamea" style="font-weight: 700;">A區草地</h4>
+                        <div class="about-img-box margin-top-20">
+                            <img src="~/img/grass.PNG" alt="" class="img-fluid" id="imgpicture">
+                        </div>
+
+
+                    }
+                </div>
+
+
+                <div class="margin-bottom-20 margin-top-20">
+                    <div class="content"><h2>場地須知</h2></div>
+
+                    <article>
+                        <h2 class="directions">
+                            ※ 因配合園區休園至2021年7月底止，無法訂位請見諒。<br>
+                            ※ 平台僅開放部份區域可訂位，如需全區包場請洽營主，謝謝。<br>
+                            <br>
+                            入拔營時間　：<br>
+                            入營13:00  拔營 隔日12:00<br>
+                            <br>
+                            平假日定義　：<br>
+                            平日：星期五 (訂金30%)<br>
+                            假日：星期六、連假、年假 (訂金30%)<br>
+                            休園：星期二<br>
+                            <br>
                             ※ 一般營位僅提供場地使用。<br>
                             ※ 每營位限搭1睡帳、1客廳帳，附1停車位 (無法加車，如需加車請另外加訂營位)。<br>
                             ※ 每營位限4人使用，第5人起每人100元清潔費(可加2人，3歲以下免費)，最多6人。<br>
                             ※ 露宿車內，需依照營位費計算。<br>
-                            ※ 價格<br>
-                            &emsp; &emsp;&ensp;A區草地平日價格:
-                            @foreach (var item in Model.CampList.Where(o => o.CampId == 100))
-                            {<label> @item.WeekdayPrice.ToString() </label>}  元
-                            &ensp;假日價格:@foreach (var item in Model.CampList.Where(o => o.CampId == 100))
-                            {<label> @item.HolidayPrice.ToString() </label>}元<br>
-                            &emsp; &emsp;&ensp;B區棧板平日價格:
-                            @foreach (var item in Model.CampList.Where(o => o.CampId == 600))
-                            {<label> @item.WeekdayPrice.ToString() </label>}元 &ensp;假日價格:
-                            @foreach (var item in Model.CampList.Where(o => o.CampId == 600))
-                            {<label> @item.HolidayPrice.ToString() </label>}元<br>
-                            &emsp; &emsp;&ensp;C區碎石平日價格:
-                            @foreach (var item in Model.CampList.Where(o => o.CampId == 1100))
-                            {<label> @item.WeekdayPrice.ToString() </label>}元 &ensp; 假日價格:
-                            @foreach (var item in Model.CampList.Where(o => o.CampId == 1100))
-                            {<label> @item.HolidayPrice.ToString() </label>}元<br>
-                        </div>
-                        <br>
-                        @using (Html.BeginForm("Index", "Campreserve", FormMethod.Post))
-                        {
-                            <div class="row">
-
-                                <div class="col-md-12 mb-2" style="font-weight: 700;font-size:22px">
-                                    <div class="form-group">
-                                        <label class="pb-2" for="Type">場地選擇</label>
-
-                                        <select class="form-control form-select" id="CampName" name="CampName" style="font-weight: 700; font-size: 20px">
-
-                                            @foreach (var item in Model.CampList)
-                                            {
-                                                if (Model.userFilterModel != null && Model.userFilterModel.CampId == item.CampId)
-                                                {
-                                                    <option value="@item.CampId" selected>@item.CampName</option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="@item.CampId">@item.CampName</option>
-                                                }
-                                            }
-
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 mb-2" style="font-weight: 700; font-size: 22px">
-                                    <div class="form-group mt-3">
-                                        <label class="pb-2" for="Type">租借日期</label>
-                                        <input type="date" class="form-control" id="StartDay" name="StartDay" style="font-weight: 700; font-size: 20px" value="@(Model.userFilterModel==null?"":Model.userFilterModel.StartDate)" min="@ViewBag.startDateMin" max="@ViewBag.startDateMax">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 mb-2" style="font-weight: 700; font-size: 22px">
-                                    <div class="form-group mt-3">
-                                        <label class="pb-2" for="city">退訂日期</label>
-                                        <input type="date" class="form-control" id="EndDay" name="EndDay" style="font-weight: 700; font-size: 20px" value="@(Model.userFilterModel==null?"":Model.userFilterModel.EndDate)" min="@ViewBag.EndDateMin" max="@ViewBag.EndDateMax">
-                                    </div>
-                                </div>
-
-
-
-                                <div class="col-md-6 mb-2" style="font-weight: 700; font-size: 22px">
-                                    <div class="form-group mt-3">
-                                        <label class="pb-2" for="bedrooms">帳數</label>
-                                        <select class="form-control form-select form-control-a" id="CampQuantity" name="CampQuantity" style="font-weight: 700; font-size: 20px">
-                                            @if (Model.CampList.Count != 0)
-                                            {
-                                                for (int i = 1; i <= Model.CampList[0].CampQuantity; i++)
-                                                {
-                                                    if (Model.userFilterModel != null && Model.userFilterModel.CampQuantity == i)
-                                                    {
-                                                        <option value="@i" selected>@i</option>
-                                                    }
-                                                    else
-                                                    {
-                                                        <option value="@i">@i</option>
-                                                    }
-
-                                                }
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end"style="margin-left: -100px; ">
-                                    <button id="getButton" type="submit" class="btn btn-success" style="font-weight: 700; font-size: 18px" >點此預約</button>
-                                    @*<button type="button" class="btn btn-b">查看</button>*@
-                                </div>
-                            </div>
-
-                            <h4 id="campnamea" style="font-weight: 700;">A區草地</h4>
-                            <div class="about-img-box margin-top-20">
-                                <img src="~/img/grass.PNG" alt="" class="img-fluid" id="imgpicture">
-                            </div>
-
-
-                        }
-                    </div>
-
-
-                    <div class="margin-bottom-20 margin-top-20">
-                        <div class="content"><h2>場地須知</h2></div>
-
-                        <article>
-                            <h2 class="directions">
-                                ※ 因配合園區休園至2021年7月底止，無法訂位請見諒。<br>
-                                ※ 平台僅開放部份區域可訂位，如需全區包場請洽營主，謝謝。<br>
-                                <br>
-                                入拔營時間　：<br>
-                                入營13:00  拔營 隔日12:00<br>
-                                <br>
-                                平假日定義　：<br>
-                                平日：星期五 (訂金30%)<br>
-                                假日：星期六、連假、年假 (訂金30%)<br>
-                                休園：星期二<br>
-                                <br>
-                                ※ 一般營位僅提供場地使用。<br>
-                                ※ 每營位限搭1睡帳、1客廳帳，附1停車位 (無法加車，如需加車請另外加訂營位)。<br>
-                                ※ 每營位限4人使用，第5人起每人100元清潔費(可加2人，3歲以下免費)，最多6人。<br>
-                                ※ 露宿車內，需依照營位費計算。<br>
-                                ※ A1草地、VIP景觀區 於4/1起開放訂位<br>
-                                ※ 營帳為特殊大型帳或5 x 8大天幕，有超過原本營位空間者，請訂2個營位，謝謝。<br>
-                                ※ 部份區域可接車露(露營車/車頂/邊帳)，營位費用以每帳計算。<br>
-                                <br>
-                                ※ 訪客：不需收費，車需停放營區外，不負保管責任。（不可過夜，需要在晚上10點前離開)<br>
-                                <br>
-                                熱水供應時間：24小時供應<br>
-                                電力供應時間：24小時供應
-                            </h2>
-                        </article>
-                    </div>
-
-
-
-
+                            ※ A1草地、VIP景觀區 於4/1起開放訂位<br>
+                            ※ 營帳為特殊大型帳或5 x 8大天幕，有超過原本營位空間者，請訂2個營位，謝謝。<br>
+                            ※ 部份區域可接車露(露營車/車頂/邊帳)，營位費用以每帳計算。<br>
+                            <br>
+                            ※ 訪客：不需收費，車需停放營區外，不負保管責任。（不可過夜，需要在晚上10點前離開)<br>
+                            <br>
+                            熱水供應時間：24小時供應<br>
+                            電力供應時間：24小時供應
+                        </h2>
+                    </article>
                 </div>
+
+
+
+
             </div>
-        </section><!-- End Blog Single-->
+        </div>
+    </section><!-- End Blog Single-->
 
-    </main><!-- End #main -->
-   
+</main><!-- End #main -->
+<!-- Template Main JS File -->
+@*<script src="~/js/main.js"></script>*@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+<link href="~/css/emplayout.css?v=0.1" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-    <!-- Template Main JS File -->
-    @*<script src="~/js/main.js"></script>*@
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"></script>
+<link rel="stylesheet" href="~/css/LoginRegister.css">
+<link rel="stylesheet" href="~/css/sb-admin-2.min.css">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/js/toastr.min.js"></script>
+
+<script>
 
 
-    <script>
+
+
 
         var temp = [];
 
@@ -215,7 +233,27 @@
             });
 
             if ('@ViewBag.message' != '') {
-                alert('@Html.Raw(ViewBag.message)');
+ 
+
+                        Command: toastr["error"]("@ViewBag.message");
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
             }
 
         });
@@ -225,14 +263,14 @@
 
                 if (v.campId == $("#CampName").val()) {
                     $("#CampQuantity option").remove();
-                   
+
 
                     for (i = 1; i <= v.campQuantity; i++) {
                         $("#CampQuantity").append($("<option></option>").attr("value", i).text(i));
                     }
                     $("#campnamea").text(v.campName);
                     $("#imgpicture").attr("src", "/img/"+v.img);
-                         
+
                       return;
                 }
             });
@@ -243,4 +281,4 @@
 
 
 
-    </script>
+</script>

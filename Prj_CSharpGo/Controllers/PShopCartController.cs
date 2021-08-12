@@ -172,7 +172,7 @@ namespace Prj_CSharpGo.Controllers
 
         //以下是購物車相關------------------------------------------------------------------------------------
         [HttpPost]
-        public IActionResult AddCart(ShoppingCart ShoppingCarts)//檢視：無-接收商品頁面的資料 要傳進購物車資料庫PShopCartViewMolds中的ShoppingCarts的動作
+        public IActionResult AddCart(ShoppingCart ShoppingCarts,string notgocart)//檢視：無-接收商品頁面的資料 要傳進購物車資料庫PShopCartViewMolds中的ShoppingCarts的動作
         {
             if (_context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId) != null)
             {
@@ -192,6 +192,10 @@ namespace Prj_CSharpGo.Controllers
                 _context.ShoppingCarts.Add(PTOSCOrder);
             }
             _context.SaveChanges();
+            if (notgocart== "notgocart") {
+                HttpContext.Session.SetString("notgocart", "已加入購物車!");
+                return Redirect($"/CampProducts/ProductDetail?productid={ShoppingCarts.ProductId}"); 
+            }
             return Redirect("/PShopCart/Index");//接收的直要呈現在VIEW的檢視頁面/PShopCart/Index
         }
         public IActionResult Index()//檢視：購物車訂單頁面-一開始推進去購物車資料的動作  從購物車資料庫裡抓資料                                
