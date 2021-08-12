@@ -79,7 +79,7 @@ namespace Prj_CSharpGo.Controllers
                 return NotFound();
             }
 
-            if (_dash.Quantity <= _context.Products.Find(ProductId).UnitInStock)
+            if (_dash.Quantity < _context.Products.Find(ProductId).UnitInStock)
             {
                 _dash.Quantity += 1;
                 _context.SaveChanges();
@@ -177,9 +177,13 @@ namespace Prj_CSharpGo.Controllers
             if (_context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId) != null)
             {
                 _context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).Quantity += ShoppingCarts.Quantity;
+                if (_context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).Quantity > _context.Products.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).UnitInStock)
+                { _context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).Quantity = _context.Products.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).UnitInStock; }
             }
             else
             {
+                if(ShoppingCarts.Quantity > _context.Products.FirstOrDefault(x=>x.ProductId== ShoppingCarts.ProductId).UnitInStock) 
+                { ShoppingCarts.Quantity = _context.Products.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).UnitInStock; }
                 ShoppingCart PTOSCOrder = new ShoppingCart()
                 {
                     UserId = ShoppingCarts.UserId,
