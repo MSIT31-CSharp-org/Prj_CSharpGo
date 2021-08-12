@@ -556,15 +556,14 @@ namespace Prj_CSharpGo.Controllers
             // 藉由找出訂單ID 列出詳細訂單資訊
             if (orderDetail1 == null)
             {
-                HttpContext.Session.SetString("userToastr", " SoS！顯示異常");
+                HttpContext.Session.SetString("campdel", " SoS！顯示異常");
                 return View();
             }
             var orderDetail = orderDetail1[0];
             orderDetail.Approval = Approval;
             _context.Update(orderDetail);
             _context.SaveChanges();
-
-            HttpContext.Session.SetString("campdel", "取消成功!");
+            HttpContext.Session.SetString("campdel", "變更成功!");
 
 
             return View(_context.CampOrders.ToList());
