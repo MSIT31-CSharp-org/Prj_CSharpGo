@@ -319,7 +319,7 @@ namespace Prj_CSharpGo.Controllers
             ViewData["Img"] = from o in _context.ProductImgs
                               where o.ProductId == id
                               select o;
- 
+
             var member = await _context.Products.FindAsync(id);
             var upimg = new UpImg
             {
@@ -495,7 +495,7 @@ namespace Prj_CSharpGo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CampEdit(IFormFile ImgName,[Bind("CampId,CampName,CampSize,CampQuantity,WeekdayPrice,HolidayPrice,LimitPeople,Description,Approval,PlusPrice,Ahref,Img")] Camp camp)
+        public async Task<IActionResult> CampEdit(IFormFile ImgName, [Bind("CampId,CampName,CampSize,CampQuantity,WeekdayPrice,HolidayPrice,LimitPeople,Description,Approval,PlusPrice,Ahref,Img")] Camp camp)
         {
 
             if (ModelState.IsValid)
@@ -524,6 +524,51 @@ namespace Prj_CSharpGo.Controllers
                 return Redirect("/Employee/Camp");
             }
             return View(camp);
+        }
+
+
+        //預約
+        public async Task<IActionResult> CampOrder()
+        {
+            string empSession = HttpContext.Session.GetString("employeeId") ?? "Guest";
+            if (empSession == "Guest")
+            {
+                return Redirect("/Employee/Login");
+            }
+
+            return View(await _context.CampOrders.ToListAsync());
+        }
+
+        [HttpPost]
+        // 會員中心 => 預約變更
+        public IActionResult CampOrder(int id,string Approval)
+        {
+            string empSession = HttpContext.Session.GetString("employeeId") ?? "Guest";
+            if (empSession == "Guest")
+            {
+                return Redirect("/Employee/Login");
+            }
+
+
+            var orderDetail1 = _context.CampOrders.Where(o => o.CampOrderId == id).ToList();
+
+
+            // 藉由找出訂單ID 列出詳細訂單資訊
+            if (orderDetail1 == null)
+            {
+                HttpContext.Session.SetString("userToastr", " SoS！顯示異常");
+                return View();
+            }
+            var orderDetail = orderDetail1[0];
+            orderDetail.Approval = Approval;
+            _context.Update(orderDetail);
+            _context.SaveChanges();
+
+            HttpContext.Session.SetString("campdel", "取消成功!");
+
+
+            return View(_context.CampOrders.ToList());
+
         }
     }
 }
