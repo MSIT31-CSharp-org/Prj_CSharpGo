@@ -521,26 +521,57 @@ namespace Prj_CSharpGo.Controllers
         {
             string userId = HttpContext.Session.GetString("userId") ?? "Guest";
 
+            if(userId == null)
+            {
+                HttpContext.Session.SetString("userToastr", "很抱歉！請重新申請忘記密碼");
+                return RedirectToAction(nameof(Login));
+            }
+
+            // ***************************************** 取得主密碼 *******************************************************************************
+            var exPwd = _context.Users.Where(o => o.UserPassword == exPassword).Select(o => o.UserPassword).FirstOrDefault();
+            // ***************************************** 取得第二道驗證密碼 ************************************************************************
+            var exconfirmPwd = _context.Users.Where(o => o.ConfirmPassword == exconfirmPassword).Select(o => o.ConfirmPassword).FirstOrDefault();
+            // ***************************************** 取得 UserId ******************************************************************************
+            var ResetSession = _context.Users.Where(o => o.UserId.ToString() == userId).Select(o => o.UserId).FirstOrDefault();
+
             // 判斷 輸入的新密碼 和 輸入的新驗證密碼 是否有空白？
             if (!(string.IsNullOrEmpty(exPassword) || string.IsNullOrEmpty(exconfirmPassword)))
             {
-                // ***************************************** 取得主密碼 *******************************************************************************
-                var exPwd = _context.Users.Where(o => o.UserPassword == exPassword).Select(o => o.UserPassword).FirstOrDefault();
-                // ***************************************** 取得第二道驗證密碼 ************************************************************************
-                var exconfirmPwd = _context.Users.Where(o => o.ConfirmPassword == exconfirmPassword).Select(o => o.ConfirmPassword).FirstOrDefault();
-                // ***************************************** 取得 UserId ******************************************************************************
-                var ResetSession = _context.Users.Where(o => o.UserId.ToString() == userId).Select(o=>o.UserId).FirstOrDefault();
+                if (!(exPassword == exconfirmPassword))
+                {
+                    if (exPassword == null || exconfirmPassword == null)
+                    {
+                        HttpContext.Session.SetString("userToastr", "密碼空空如也");
+                        return View();
+                    }
+                    HttpContext.Session.SetString("userToastr", "新密碼與第二道驗證密碼不相符");
+                    return View();
+                }
+
+
 
                 var ResetUserNewPwd = _context.Users.Find(ResetSession);
                 ResetUserNewPwd.UserPassword = exPassword;
                 ResetUserNewPwd.ConfirmPassword = exconfirmPassword;
-
                 _context.Update(ResetUserNewPwd);
                 await _context.SaveChangesAsync();
 
+                // 變更新密碼成功，等待0.3秒轉導至登入頁
+                CancellationTokenSource cts = new CancellationTokenSource();
+                try
+                {
+                    await Task.Delay(300, cts.Token);
+                }
+                catch (TaskCanceledException ex)
+                {
+                    string Status = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ==>") + ex.ToString();
+                    HttpContext.Session.SetString("userToastr", "很抱歉！密碼未能變更成功");
+                    return View();
+                }
                 HttpContext.Session.SetString("userToastr", "恭喜您完成密碼重置，現在您可以使用這組新密碼登入");
                 return RedirectToAction(nameof(Login));
             }
+            HttpContext.Session.SetString("userToastr", "密碼空空如也");
             return View();
         }
 

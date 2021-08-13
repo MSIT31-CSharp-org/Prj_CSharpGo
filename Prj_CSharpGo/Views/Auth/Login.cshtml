@@ -112,6 +112,10 @@
         <div class="form-group d-inline">
             <button id="nowGive2" type="button" class="btn btn-light border border-0">.</button>
         </div>
+        <span>&emsp;</span>
+        <div class="form-group d-inline">
+            <button id="nowGive3" type="button" class="btn btn-light border border-0">.</button>
+        </div>
     </div>
 
 
@@ -129,7 +133,11 @@
             $("#UserPassword").val("csumis");
         });
         $("#nowGive2").click(function (event) {
-            $("#UserAccount").val("RunRunRunSteven");
+            $("#UserAccount").val("csumis");
+            $("#UserPassword").val("wqfuhQrg234324$2dfkj");
+        });
+        $("#nowGive3").click(function (event) {
+            $("#UserAccount").val("csumiss");
             $("#UserPassword").val("wqfuhQrg94$2dfkj");
         });
     </script>
@@ -177,9 +185,9 @@
         }
     })
         </script>
-    }
-    else if (userToastr == "此帳號暫時無法使用，請聯繫客服" || userToastr == "無效帳號" || userToastr == "唉呀！出了點狀況···" || userToastr == "請重新登入" || userToastr == "帳號或密碼輸入有誤")
-    {
+            }
+            else if (userToastr == "此帳號暫時無法使用，請聯繫客服" || userToastr == "無效帳號" || userToastr == "唉呀！出了點狀況···" || userToastr == "請重新登入" || userToastr == "帳號或密碼輸入有誤")
+            {
         <script type="text/javascript">
 
         $(function () {
@@ -207,7 +215,7 @@
     })
         </script>
     }
-    else if (userToastr != "Guest" || userToastr == "已有其他人使用了這組帳號，請建立一組您自己的帳號吧！" || userToastr == "請輸入完整的帳號密碼")
+    else if (userToastr != "Guest" || userToastr == "已有其他人使用了這組帳號，請建立一組您自己的帳號吧！" || userToastr == "請輸入完整的帳號密碼" || userToastr == "很抱歉！請重新申請忘記密碼")
     {
         <script type="text/javascript">
 
