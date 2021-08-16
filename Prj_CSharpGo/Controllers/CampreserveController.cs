@@ -104,7 +104,7 @@ namespace Prj_CSharpGo.Controllers
                 {
                     if ((int)dateTime.DayOfWeek == 2)
                     {
-                        errorMsg = "星期二為公休日請重新選擇！";
+                        errorMsg = "星期二為公休日，請重新選擇日期！";
                         break;
                     }
                     else if (endday <= startday)
@@ -126,24 +126,24 @@ namespace Prj_CSharpGo.Controllers
 
                         if ((findCamp.CampQuantity - quantityCount) == 1)
                         {
-                            errorMsg = "剩餘1帳可預約!";
+                            errorMsg = "剩餘1個帳數可預約!";
                             break;
 
                         }
                         if ((findCamp.CampQuantity - quantityCount) == 2)
                         {
-                            errorMsg = "剩餘2帳可預約!";
+                            errorMsg = "剩餘2個帳數可預約!";
                             break;
 
                         }
                         if ((findCamp.CampQuantity - quantityCount) == 3)
                         {
-                            errorMsg = "剩餘3帳可預約!";
+                            errorMsg = "剩餘3個帳數可預約!";
                             break;
                         }
                         if ((findCamp.CampQuantity - quantityCount) == 4)
                         {
-                            errorMsg = "剩餘4帳可預約!";
+                            errorMsg = "剩餘4個帳數可預約!";
                             break;
                         }
                         else if (quantityCount >= findCamp.CampQuantity)
