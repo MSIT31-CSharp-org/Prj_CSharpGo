@@ -60,6 +60,12 @@ namespace Prj_CSharpGo.Controllers
         [HttpPost]
         public IActionResult Index(IFormCollection post)
         {
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+            if (userId == "Guest")
+            {
+                return Redirect("/Auth/Login");
+            }
+
             ViewBag.startDateMin = DateTime.Now.ToString("yyyy-MM-dd");
             ViewBag.startDateMax = DateTime.Now.AddMonths(3).ToString("yyyy-MM-dd");
             ViewBag.EndDateMin = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
@@ -178,11 +184,12 @@ namespace Prj_CSharpGo.Controllers
                     dateTime = dateTime.AddDays(1);
                 }
 
+
                 if (errorMsg + "" == "")
                 {
                     CampreserveOrderModel orderModel = new CampreserveOrderModel()
                     {
-                        UserId = 1001,
+                        UserId = Convert.ToInt32(userId),
                         CampId = findCamp.CampId,
                         CampName = findCamp.CampName,
                         CampQuantity = Quantity,

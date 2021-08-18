@@ -33,7 +33,13 @@ namespace Prj_CSharpGo.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ShoppingCart>>> myCart()
         {
-            var shopcart = _context.ShoppingCarts.Where(x => x.UserId == 1001);
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+            if (userId == "Guest")
+            {
+                return Redirect("/Auth/Login");
+            }
+
+            var shopcart = _context.ShoppingCarts.Where(x => x.UserId.ToString() == userId);
             return await shopcart.ToListAsync();
         }
 
@@ -41,7 +47,11 @@ namespace Prj_CSharpGo.Controllers
         [HttpPost]
         public IActionResult dash(string ProductId)
         {
-            string userId = HttpContext.Session.GetString("userId") ?? "1001";
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+            if (userId == "Guest")
+            {
+                return Redirect("/Auth/Login");
+            }
 
             var dash0 = _context.ShoppingCarts.Where(x => x.UserId.ToString() == userId);
 
@@ -66,7 +76,11 @@ namespace Prj_CSharpGo.Controllers
         [HttpPost]
         public IActionResult plus(string ProductId)
         {
-            string userId = HttpContext.Session.GetString("userId") ?? "1001";
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+            if (userId == "Guest")
+            {
+                return Redirect("/Auth/Login");
+            }
             var dash0 = _context.ShoppingCarts.Where(x => x.UserId.ToString() == userId);
 
             var _dash = dash0.Where(x => x.ProductId == ProductId).ToList()[0];
@@ -92,7 +106,11 @@ namespace Prj_CSharpGo.Controllers
         [HttpPost]
         public IActionResult delete(string ProductId)
         {
-            string userId = HttpContext.Session.GetString("userId") ?? "1001";
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+            if (userId == "Guest")
+            {
+                return Redirect("/Auth/Login");
+            }
             var dash0 = _context.ShoppingCarts.Where(x => x.UserId.ToString() == userId);
 
             var _dash = dash0.Where(x => x.ProductId == ProductId).ToList()[0];
@@ -113,7 +131,11 @@ namespace Prj_CSharpGo.Controllers
         [HttpPost]
         public IActionResult Bill([Bind("OrderID,UserID,TotalPrice,PayMethod,OrderDate,Approval,Address,UserName")] Order order)
         {
-            string userId = HttpContext.Session.GetString("userId") ?? "1001";
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+            if (userId == "Guest")
+            {
+                return Redirect("/Auth/Login");
+            }
             var dash0 = _context.ShoppingCarts.Where(x => x.UserId.ToString() == userId).ToList();
 
 
@@ -174,6 +196,12 @@ namespace Prj_CSharpGo.Controllers
         [HttpPost]
         public IActionResult AddCart(ShoppingCart ShoppingCarts,string notgocart)//檢視：無-接收商品頁面的資料 要傳進購物車資料庫PShopCartViewMolds中的ShoppingCarts的動作
         {
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+            if (userId == "Guest")
+            {
+                return Redirect("/Auth/Login");
+            }
+
             if (_context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId) != null)
             {
                 _context.ShoppingCarts.FirstOrDefault(x => x.ProductId == ShoppingCarts.ProductId).Quantity += ShoppingCarts.Quantity;
@@ -205,7 +233,11 @@ namespace Prj_CSharpGo.Controllers
         public IActionResult Index()//檢視：購物車訂單頁面-一開始推進去購物車資料的動作  從購物車資料庫裡抓資料                                
         {
 
-            string userId = HttpContext.Session.GetString("userId") ?? "1001";
+            string userId = HttpContext.Session.GetString("userId") ?? "Guest";
+            if (userId == "Guest")
+            {
+                return Redirect("/Auth/Login");
+            }
 
             CartView returnshCartIndexVM = new CartView()
             {
